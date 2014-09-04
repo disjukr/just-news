@@ -41,7 +41,7 @@ reporter = {
 ## todo
 
 * [x] KBS
-* [ ] KBS World
+* [x] KBS World
 * [ ] MBC
 * [ ] MBN
 * [ ] OSEN

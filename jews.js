@@ -3,6 +3,7 @@
 // @namespace http://0xABCDEF.com/jews
 // @description just news
 // @include http://news.kbs.co.kr/news/NewsView.do*
+// @include http://world.kbs.co.kr/*/news/news_*_detail.htm*
 // @copyright 2014 JongChan Choi
 // @grant none
 // ==/UserScript==
@@ -12,18 +13,28 @@ function JEWS_INIT() {
     var where = (function () {
         switch (window.location.hostname) {
         case 'news.kbs.co.kr': return 'KBS';
+        case 'world.kbs.co.kr': return 'KBS World';
         default: throw new Error('jews don\'t support this site');
         }
     })();
     jews.title = (function () {
         switch (where) {
         case 'KBS': return $('#GoContent .news_title .tit').text();
+        case 'KBS World': return document.getElementById('content_area').getElementsByClassName('title')[0].getElementsByTagName('h2')[0].textContent;
         default: return undefined;
         }
     })();
     jews.content = (function () {
         switch (where) {
         case 'KBS': return $(clearStyles($('#content')[0].cloneNode(true))).prop('innerHTML');
+        case 'KBS World':
+            return (function () {
+                var photo = document.getElementById('container').getElementsByClassName('photo')[0];
+                var content = document.getElementById('content').cloneNode(true);
+                if (photo !== undefined)
+                    content.insertBefore(photo.getElementsByTagName('img')[0], content.firstChild);
+                return clearStyles(content).innerHTML;
+            })();
         default: return undefined;
         }
     })();
@@ -43,13 +54,21 @@ function JEWS_INIT() {
                 return {
                     created: parseTime(parsedData.eq(1).text()),
                     lastModified: parseTime(parsedData.eq(3).text())
-                }
+                };
+            })();
+        case 'KBS World':
+            return (function () {
+                var parsedData = document.getElementById('content_area').getElementsByClassName('title')[0].getElementsByTagName('em');
+                return {
+                    created: new Date(parsedData[0].textContent),
+                    lastModified: new Date(parsedData[1].textContent)
+                };
             })();
         default:
             return {
                 created: undefined,
-                lastModified: undefined,
-            }
+                lastModified: undefined
+            };
         }
     })();
     jews.reporters = (function () {
@@ -66,18 +85,28 @@ function JEWS_INIT() {
                     };
                 });
             })();
-        default:
-            return [];
+        case 'KBS World': return [];
+        default: return [];
         }
     })();
     function clearStyles(element) {
-        $('*[style]', element).removeAttr('style');
-        $('img', element).removeAttr('width').removeAttr('height');
+        Array.prototype.forEach.call(element.querySelectorAll('*[style]'), function (child) {
+            child.removeAttribute('style');
+        });
+        Array.prototype.forEach.call(element.querySelectorAll('img'), function (image) {
+            image.removeAttribute('width');
+            image.removeAttribute('height');
+            image.removeAttribute('border');
+        });
         return element;
     }
 };
 window.addEventListener('load', function (e) {
     JEWS_INIT();
+    (function () {
+        var id = window.setTimeout('0', 0);
+        while (id--) window.clearTimeout(id);
+    })();
     document.write([
         '<!DOCTYPE html><html>',
         '<head>',
@@ -116,7 +145,9 @@ window.addEventListener('load', function (e) {
                 'text-align: justify;',
             '}',
             '#content img {',
+                'margin: 15px 0;',
                 'width: 100%;',
+                'height: auto;',
             '}',
             '</style>',
             '<meta charset="utf-8">',
