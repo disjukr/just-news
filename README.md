@@ -7,6 +7,7 @@
 
 * 파이어폭스 사용자: [Greasemonkey](https://addons.mozilla.org/ko/firefox/addon/greasemonkey/) 플러그인을 설치합니다.
 * 크롬 사용자: [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) 플러그인을 설치합니다.
+* 사파리 사용자: [NinjaKit](https://github.com/os0x/NinjaKit) 플러그인을 설치합니다.
 
 [스크립트 설치](https://raw.githubusercontent.com/disjukr/jews/master/jews.js)
 
@@ -67,7 +68,7 @@ reporter = {
 * [ ] 마이데일리
 * [ ] 매일경제
 * [ ] 머니투데이
-* [ ] 미디어오늘
+* [x] 미디어오늘
 * [ ] 블로터닷넷
 * [ ] 서울경제
 * [ ] 서울신문

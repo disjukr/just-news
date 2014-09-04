@@ -5,6 +5,7 @@
 // @include http://news.kbs.co.kr/news/NewsView.do*
 // @include http://world.kbs.co.kr/*/news/news_*_detail.htm*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
+// @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
 // @copyright 2014 JongChan Choi
 // @grant none
@@ -17,6 +18,7 @@ function JEWS_INIT() {
         case 'news.kbs.co.kr': return 'KBS';
         case 'world.kbs.co.kr': return 'KBS World';
         case 'news.khan.co.kr': return '경향신문';
+        case 'www.mediatoday.co.kr': return '미디어오늘';
         case 'www.zdnet.co.kr': return '지디넷코리아';
         default: throw new Error('jews don\'t support this site');
         }
@@ -26,6 +28,7 @@ function JEWS_INIT() {
         case 'KBS': return $('#GoContent .news_title .tit').text();
         case 'KBS World': return document.getElementById('content_area').getElementsByClassName('title')[0].getElementsByTagName('h2')[0].textContent;
         case '경향신문': return $('#container .title_group .CR dt').text();
+        case '미디어오늘': return $('#font_title').text().trim();
         case '지디넷코리아': return $('#wrap_container_new .sub_tit_area h2').text();
         default: return undefined;
         }
@@ -50,6 +53,7 @@ function JEWS_INIT() {
                 $('#article_bottom_ad, #divBox', content).remove();
                 return clearStyles(content).innerHTML;
             })();
+        case '미디어오늘': return clearStyles($('#media_body')[0].cloneNode(true)).innerHTML;
         case '지디넷코리아': return clearStyles($('#content')[0].cloneNode(true)).innerHTML;
         default: return undefined;
         }
@@ -87,6 +91,17 @@ function JEWS_INIT() {
                     created: new Date(parsedData.eq(0).text()),
                     lastModified: new Date(parsedData.eq(2).text())
                 };
+            })();
+        case '미디어오늘':
+            return (function () {
+                var data = {};
+                $('#font_email').closest('td[class!="SmN"]').closest('table').find('td[align="left"] table td').text().split(/(입력|노출)\s*:([\d\-\.\s:]+)/).forEach(function (v, i, arr) {
+                    if (v === '입력')
+                        data.created = new Date(arr[i + 1].trim().replace(/\s+/g, ' ').replace(/\./g, '-') + '+0900');
+                    else if (v === '노출')
+                        data.lastModified = new Date(arr[i + 1].trim().replace(/\s+/g, ' ').replace(/\./g, '-') + '+0900');
+                });
+                return data;
             })();
         case '지디넷코리아':
             return (function () {
@@ -131,6 +146,14 @@ function JEWS_INIT() {
                 return [{
                     name: parsedData[0],
                     mail: parsedData[2] || undefined
+                }];
+            })();
+        case '미디어오늘':
+            return (function () {
+                var parsedData = $('#font_email').text().split('|')
+                return [{
+                    name: parsedData[0].trim(),
+                    mail: parsedData[1].trim()
                 }];
             })();
         case '지디넷코리아':
