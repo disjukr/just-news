@@ -4,6 +4,7 @@
 // @description just news
 // @include http://news.kbs.co.kr/news/NewsView.do*
 // @include http://world.kbs.co.kr/*/news/news_*_detail.htm*
+// @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @copyright 2014 JongChan Choi
 // @grant none
 // ==/UserScript==
@@ -14,6 +15,7 @@ function JEWS_INIT() {
         switch (window.location.hostname) {
         case 'news.kbs.co.kr': return 'KBS';
         case 'world.kbs.co.kr': return 'KBS World';
+        case 'news.khan.co.kr': return '경향신문';
         default: throw new Error('jews don\'t support this site');
         }
     })();
@@ -21,6 +23,7 @@ function JEWS_INIT() {
         switch (where) {
         case 'KBS': return $('#GoContent .news_title .tit').text();
         case 'KBS World': return document.getElementById('content_area').getElementsByClassName('title')[0].getElementsByTagName('h2')[0].textContent;
+        case '경향신문': return $('#container .title_group .CR dt').text();
         default: return undefined;
         }
     })();
@@ -33,6 +36,15 @@ function JEWS_INIT() {
                 var content = document.getElementById('content').cloneNode(true);
                 if (photo !== undefined)
                     content.insertBefore(photo.getElementsByTagName('img')[0], content.firstChild);
+                return clearStyles(content).innerHTML;
+            })();
+        case '경향신문':
+            return (function () {
+                var content = $('#sub_cntTopTxt')[0].cloneNode(true);
+                $('a', content).each(function (_, anchor) {
+                    $(anchor).replaceWith($(anchor).contents());
+                });
+                $('#article_bottom_ad, #divBox', content).remove();
                 return clearStyles(content).innerHTML;
             })();
         default: return undefined;
@@ -64,6 +76,14 @@ function JEWS_INIT() {
                     lastModified: new Date(parsedData[1].textContent)
                 };
             })();
+        case '경향신문':
+            return (function () {
+                var parsedData = $('#container .article_date').contents();
+                return {
+                    created: new Date(parsedData.eq(0).text()),
+                    lastModified: new Date(parsedData.eq(2).text())
+                };
+            })();
         default:
             return {
                 created: undefined,
@@ -86,6 +106,14 @@ function JEWS_INIT() {
                 });
             })();
         case 'KBS World': return [];
+        case '경향신문':
+            return (function () {
+                var parsedData = $('#container .title_group .CR dd').text().trim().split(/\s+/);
+                return [{
+                    name: parsedData[0],
+                    mail: parsedData[2] || undefined
+                }];
+            })();
         default: return [];
         }
     })();
