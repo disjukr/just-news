@@ -65,7 +65,7 @@ function JEWS_INIT() {
                 var parsedData = $('#GoContent .news_title .time li').contents();
                 function parseTime(time) {
                     time = time.split('(');
-                    var date = new Date(time[0]);
+                    var date = new Date(time[0].replace(/\./, '/'));
                     time = time[1].split(':');
                     date.setHours(parseInt(time[0]));
                     date.setMinutes(parseInt(time[1]));
@@ -80,16 +80,16 @@ function JEWS_INIT() {
             return (function () {
                 var parsedData = document.getElementById('content_area').getElementsByClassName('title')[0].getElementsByTagName('em');
                 return {
-                    created: new Date(parsedData[0].textContent),
-                    lastModified: new Date(parsedData[1].textContent)
+                    created: new Date(parsedData[0].textContent.replace(/-/g, '/')),
+                    lastModified: new Date(parsedData[1].textContent.replace(/-/g, '/'))
                 };
             })();
         case '경향신문':
             return (function () {
                 var parsedData = $('#container .article_date').contents();
                 return {
-                    created: new Date(parsedData.eq(0).text()),
-                    lastModified: new Date(parsedData.eq(2).text())
+                    created: new Date(parsedData.eq(0).text().replace(/-/g, '/')),
+                    lastModified: new Date(parsedData.eq(2).text().replace(/-/g, '/'))
                 };
             })();
         case '미디어오늘':
@@ -97,16 +97,16 @@ function JEWS_INIT() {
                 var data = {};
                 $('#font_email').closest('td[class!="SmN"]').closest('table').find('td[align="left"] table td').text().split(/(입력|노출)\s*:([\d\-\.\s:]+)/).forEach(function (v, i, arr) {
                     if (v === '입력')
-                        data.created = new Date(arr[i + 1].trim().replace(/\s+/g, ' ').replace(/\./g, '-') + '+0900');
+                        data.created = new Date(arr[i + 1].trim().replace(/\s+/g, ' ').replace(/[-\.]/g, '/') + '+0900');
                     else if (v === '노출')
-                        data.lastModified = new Date(arr[i + 1].trim().replace(/\s+/g, ' ').replace(/\./g, '-') + '+0900');
+                        data.lastModified = new Date(arr[i + 1].trim().replace(/\s+/g, ' ').replace(/[-\.]/g, '/') + '+0900');
                 });
                 return data;
             })();
         case '지디넷코리아':
             return (function () {
                 var time = $('#wrap_container_new .sub_tit_area .sub_data').text().split('/');
-                var date = new Date(time[0]);
+                var date = new Date(time[0].replace(/\./g, '/'));
                 time = /([AP]M)\s*(\d\d):(\d\d)/i.exec(time[1]);
                 var hh = time[2] | 0;
                 var mm = time[3] | 0;
