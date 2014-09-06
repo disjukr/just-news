@@ -10,6 +10,7 @@
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://kr.wsj.com/posts/*
+// @include http://biz.chosun.com/site/data/html_dir/*.html
 // @include http://www.zdnet.co.kr/news/news_view.asp*
 // @copyright 2014 JongChan Choi
 // @grant none
