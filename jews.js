@@ -10,6 +10,7 @@
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
+// @include http://kr.wsj.com/posts/*
 // @copyright 2014 JongChan Choi
 // @grant none
 // ==/UserScript==
@@ -25,6 +26,7 @@ function JEWS_INIT() {
         case 'news.khan.co.kr': return '경향신문';
         case 'www.mediatoday.co.kr': return '미디어오늘';
         case 'www.zdnet.co.kr': return '지디넷코리아';
+        case 'kr.wsj.com': return '월스트리트저널';
         default: throw new Error('jews don\'t support this site');
         }
     })();
@@ -36,6 +38,7 @@ function JEWS_INIT() {
         case 'MBN': return $('#article_title .title_n').contents().eq(0).text().trim();
         case '경향신문': return $('#container .title_group .CR dt').text();
         case '미디어오늘': return $('#font_title').text().trim();
+        case '월스트리트저널': return $$('.articleHeadlineBox h1')[0].innerText;
         case '지디넷코리아': return $('#wrap_container_new .sub_tit_area h2').text();
         default: return undefined;
         }
@@ -68,6 +71,22 @@ function JEWS_INIT() {
                 return clearStyles(content).innerHTML;
             })();
         case '미디어오늘': return clearStyles($('#media_body')[0].cloneNode(true)).innerHTML;
+        case '월스트리트저널': return (function () {
+            function remove (e) {
+                e.parentNode.removeChild(e);
+            }
+            var article = document.createElement('div');
+            article.innerHTML = $$('.articlePage')[0].innerHTML.split(/\s*<!--\s*article\s*[a-z]+\s*-->\s*/i)[1];
+            Array.prototype.forEach.call(article.querySelectorAll('.socialByline, .insetCol3wide'), function (v) {v.remove()});
+            var article_p = article.getElementsByTagName('p');
+            Array.prototype.forEach.call(article.getElementsByTagName('p'), function (v, i, arr) {
+                if (/기사 번역 관련 문의: [A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+/i.exec(v.innerText))
+                    while(arr[i] != null)
+                        remove(arr[i]);
+            })
+            remove(article.querySelectorAll('img[src*="//cp.news.search.daum.net"]')[0]);
+            return clearStyles(article).innerHTML;
+        })();
         case '지디넷코리아': return clearStyles($('#content')[0].cloneNode(true)).innerHTML;
         default: return undefined;
         }
@@ -127,6 +146,11 @@ function JEWS_INIT() {
                 });
                 return data;
             })();
+        case '월스트리트저널':
+            return ({
+                created: new Date($$('.articleHeadlineBox .dateStamp')[0].innerText.replace(/\s*KST\s*$/, ' +0900').replace(/(\d+)\.?\s+([a-z]{3})[a-z]+\s+(\d+)\s*,\s*/i, '$1 $2 $3 ')), /* RFC 2822 */
+                lastModified: undefined
+            });
         case '지디넷코리아':
             return (function () {
                 var time = $('#wrap_container_new .sub_tit_area .sub_data').text().split('/');
@@ -186,6 +210,11 @@ function JEWS_INIT() {
                     mail: parsedData[1].trim()
                 }];
             })();
+        case '월스트리트저널':
+            return [{
+                name: $$('.socialByline .byline')[0].innerText.trim().replace(/^by\s+/i, ''),
+                mail: undefined
+            }];
         case '지디넷코리아':
             return (function () {
                 var reporterInfoString = $('#wrap_container_new .sub_tit_area').children().eq(2).text().trim();
