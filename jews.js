@@ -9,8 +9,8 @@
 // @include http://www.mbn.co.kr/pages/news/newsView.php*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
-// @include http://www.zdnet.co.kr/news/news_view.asp*
 // @include http://kr.wsj.com/posts/*
+// @include http://www.zdnet.co.kr/news/news_view.asp*
 // @copyright 2014 JongChan Choi
 // @grant none
 // ==/UserScript==
@@ -25,8 +25,8 @@ function JEWS_INIT() {
         case 'mbn.mk.co.kr': case 'www.mbn.co.kr': return 'MBN';
         case 'news.khan.co.kr': return '경향신문';
         case 'www.mediatoday.co.kr': return '미디어오늘';
-        case 'www.zdnet.co.kr': return '지디넷코리아';
         case 'kr.wsj.com': return '월스트리트저널';
+        case 'www.zdnet.co.kr': return '지디넷코리아';
         default: throw new Error('jews don\'t support this site');
         }
     })();
