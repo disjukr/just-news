@@ -4,10 +4,12 @@
 // @description just news
 // @include http://news.kbs.co.kr/news/NewsView.do*
 // @include http://world.kbs.co.kr/*/news/news_*_detail.htm*
+// @include http://imnews.imbc.com/*
+// @include http://mbn.mk.co.kr/pages/news/newsView.php*
+// @include http://www.mbn.co.kr/pages/news/newsView.php*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
-// @include http://imnews.imbc.com/*
 // @copyright 2014 JongChan Choi
 // @grant none
 // ==/UserScript==
@@ -19,6 +21,7 @@ function JEWS_INIT() {
         case 'news.kbs.co.kr': return 'KBS';
         case 'world.kbs.co.kr': return 'KBS World';
         case 'imnews.imbc.com': return 'MBC';
+        case 'mbn.mk.co.kr': case 'www.mbn.co.kr': return 'MBN';
         case 'news.khan.co.kr': return '경향신문';
         case 'www.mediatoday.co.kr': return '미디어오늘';
         case 'www.zdnet.co.kr': return '지디넷코리아';
@@ -30,6 +33,7 @@ function JEWS_INIT() {
         case 'KBS': return $('#GoContent .news_title .tit').text();
         case 'KBS World': return document.getElementById('content_area').getElementsByClassName('title')[0].getElementsByTagName('h2')[0].textContent;
         case 'MBC': return $('#content .view-title').text();
+        case 'MBN': return $('#article_title .title_n').contents().eq(0).text().trim();
         case '경향신문': return $('#container .title_group .CR dt').text();
         case '미디어오늘': return $('#font_title').text().trim();
         case '지디넷코리아': return $('#wrap_container_new .sub_tit_area h2').text();
@@ -48,6 +52,12 @@ function JEWS_INIT() {
                 return clearStyles(content).innerHTML;
             })();
         case 'MBC': return clearStyles($('#DivPrint .view-con')[0].cloneNode(true)).innerHTML;
+        case 'MBN':
+            return (function () {
+                var content = $('#newsViewArea')[0].cloneNode(true);
+                $('*[id*=google]', content).remove();
+                return clearStyles(content).innerHTML;
+            })();
         case '경향신문':
             return (function () {
                 var content = $('#sub_cntTopTxt')[0].cloneNode(true);
@@ -91,6 +101,11 @@ function JEWS_INIT() {
         case 'MBC':
             return {
                 created: new Date($('#DivPrint .article-time-date').text()),
+                lastModified: undefined
+            };
+        case 'MBN':
+            return {
+                created: new Date($('#article_title .reg_dt').text().replace('기사입력', '')),
                 lastModified: undefined
             };
         case '경향신문':
@@ -154,6 +169,7 @@ function JEWS_INIT() {
                 name: $('#DivPrint .reporter').text().trim().split(/\s+/)[0],
                 mail: undefined
             }];
+        case 'MBN': return [];
         case '경향신문':
             return (function () {
                 var parsedData = $('#container .title_group .CR dd').text().trim().split(/\s+/);
