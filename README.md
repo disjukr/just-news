@@ -53,7 +53,7 @@ reporter = {
 * [x] KBS World
 * [x] MBC
 * [x] MBN
-* [ ] OSEN
+* [x] OSEN
 * [ ] SBS
 * [ ] YTN
 * [x] 경향신문
