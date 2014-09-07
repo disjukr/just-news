@@ -10,7 +10,7 @@
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://kr.wsj.com/posts/*
-// @include http://biz.chosun.com/site/data/html_dir/*.html
+// @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
 // @copyright 2014 JongChan Choi
 // @grant none
@@ -90,7 +90,13 @@ function JEWS_INIT() {
             remove(article.querySelectorAll('img[src*="//cp.news.search.daum.net"]')[0]);
             return clearStyles(article).innerHTML;
         })();
-        case '조선비즈': return clearStyles($('.article')[0].cloneNode(true)).innerHTML;
+        case '조선비즈':
+            return (function () {
+                var content = $('.article')[0].cloneNode(true);
+                $('.promotion', content).remove();
+                $('div[class*=date_]', content).remove();
+                return clearStyles(content).innerHTML;
+            })();
         case '지디넷코리아': return clearStyles($('#content')[0].cloneNode(true)).innerHTML;
         default: return undefined;
         }
@@ -240,7 +246,7 @@ function JEWS_INIT() {
         case '조선비즈':
             return [{
                 name: $('#j1').text().trim().split(' ')[0],
-                mail: $('a', '.j_con_li')[0].href || undefined
+                mail: $('.j_con_li a').text() || undefined
             }];
         case '지디넷코리아':
             return (function () {
