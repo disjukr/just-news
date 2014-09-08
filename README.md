@@ -50,53 +50,53 @@ reporter = {
 
 ## todo
 
-* [x] KBS
-* [x] KBS World
-* [x] MBC
-* [x] MBN
-* [x] OSEN
-* [ ] SBS
-* [ ] YTN
-* [x] 경향신문
-* [ ] 국민일보
-* [ ] 노컷뉴스
-* [ ] 뉴데일리
-* [ ] 뉴시스
-* [ ] 데일리안
-* [ ] 동아일보
-* [ ] 디지털타임스
-* [ ] 로이터
-* [ ] 마이데일리
-* [ ] 매일경제
-* [ ] 머니투데이
-* [x] 미디어오늘
-* [ ] 블로터닷넷
-* [ ] 서울경제
-* [ ] 서울신문
-* [ ] 석간 문화일보
-* [ ] 세계일보
-* [ ] 스포츠동아
-* [ ] 스포츠조선
-* [ ] 스포탈코리아
-* [ ] 아시아경제
-* [ ] 아이뉴스24
-* [ ] 오마이뉴스
-* [x] 월스트리트저널
-* [ ] 이데일리
-* [ ] 일간스포츠
-* [ ] 전자신문
-* [x] 조선비즈
-* [ ] 조선일보
-* [ ] 중앙데일리
-* [ ] 중앙일보
-* [x] 지디넷코리아
-* [ ] 지지통신
-* [ ] 코리아타임스
-* [ ] 코리아헤럴드
-* [ ] 파이낸셜뉴스
-* [ ] 프레시안
-* [ ] 한겨레
-* [ ] 한국경제
-* [ ] 한국경제TV
-* [ ] 한국일보
-* [ ] 헤럴드경제
+* [x] [KBS](http://news.kbs.co.kr)
+* [x] [KBS World](http://world.kbs.co.kr)
+* [x] [MBC](http://imnews.imbc.com)
+* [x] [MBN](http://mbn.mk.co.kr)
+* [x] [OSEN](http://osen.mt.co.kr)
+* [ ] [SBS](http://news.sbs.co.kr)
+* [ ] [YTN](http://www.ytn.co.kr)
+* [x] [경향신문](http://www.khan.co.kr)
+* [ ] [국민일보](http://www.kmib.co.kr)
+* [ ] [노컷뉴스](http://www.nocutnews.co.kr)
+* [ ] [뉴데일리](http://www.newdaily.co.kr)
+* [ ] [뉴시스](http://www.newsis.com)
+* [ ] [데일리안](http://www.dailian.co.kr)
+* [ ] [동아일보](http://www.donga.com)
+* [ ] [디지털타임스](http://www.dt.co.kr)
+* [ ] [로이터](http://www.reuters.com)
+* [ ] [마이데일리](http://www.mydaily.co.kr)
+* [ ] [매일경제](http://www.mk.co.kr)
+* [ ] [머니투데이](http://www.mt.co.kr)
+* [x] [미디어오늘](http://www.mediatoday.co.kr)
+* [ ] [블로터닷넷](http://www.bloter.net)
+* [ ] [서울경제](http://economy.hankooki.com)
+* [ ] [서울신문](http://www.seoul.co.kr)
+* [ ] [석간 문화일보](http://www.munhwa.com)
+* [ ] [세계일보](http://www.segye.com)
+* [ ] [스포츠동아](http://sports.donga.com)
+* [ ] [스포츠조선](http://sports.chosun.com)
+* [ ] [스포탈코리아](http://www.sportalkorea.com)
+* [ ] [아시아경제](http://www.asiae.co.kr)
+* [ ] [아이뉴스24](http://www.inews24.com)
+* [ ] [오마이뉴스](http://www.ohmynews.com)
+* [x] [월스트리트저널](http://kr.wsj.com)
+* [ ] [이데일리](http://www.edaily.co.kr)
+* [ ] [일간스포츠](http://isplus.joins.com)
+* [ ] [전자신문](http://www.etnews.com)
+* [x] [조선비즈](http://biz.chosun.com)
+* [ ] [조선일보](http://www.chosun.com)
+* [ ] [중앙데일리](http://koreajoongangdaily.joins.com)
+* [ ] [중앙일보](http://joongang.joins.com)
+* [x] [지디넷코리아](http://www.zdnet.co.kr)
+* [ ] [지지통신](http://www.jiji.com)
+* [ ] [코리아타임스](http://www.koreatimes.co.kr)
+* [ ] [코리아헤럴드](http://www.koreaherald.com)
+* [ ] [파이낸셜뉴스](http://www.fnnews.com)
+* [ ] [프레시안](http://www.pressian.com)
+* [ ] [한겨레](http://www.hani.co.kr)
+* [ ] [한국경제](http://www.hankyung.com)
+* [ ] [한국경제TV](http://www.wownet.co.kr)
+* [ ] [한국일보](http://www.hankookilbo.com)
+* [ ] [헤럴드경제](http://biz.heraldcorp.com)
