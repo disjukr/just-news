@@ -305,8 +305,7 @@ window.addEventListener('load', function (e) {
         var id = window.setTimeout('0', 0);
         while (id--) window.clearTimeout(id);
     })();
-    document.write([
-        '<!DOCTYPE html><html>',
+    document.body.parentElement.innerHTML = [
         '<head>',
             '<title>', jews.title || 'jews', '</title>',
             '<style>',
@@ -386,6 +385,6 @@ window.addEventListener('load', function (e) {
                 '</ul>',
             '</div><br>',
             '<div id="content">', jews.content || 'empty', '</div>',
-        '</body></html>'
-    ].join(''));
+        '</body>'
+    ].join('');
 }, true);
