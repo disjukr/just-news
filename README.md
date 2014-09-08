@@ -8,6 +8,7 @@
 * 파이어폭스 사용자: [Greasemonkey](https://addons.mozilla.org/ko/firefox/addon/greasemonkey/) 플러그인을 설치합니다.
 * 크롬 사용자: [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) 플러그인을 설치합니다.
 * 사파리 사용자: [NinjaKit](https://github.com/os0x/NinjaKit) 플러그인을 설치합니다.
+* IE 사용자: [TrixIE](http://sourceforge.net/projects/trixiewpf45/) 플러그인을 설치합니다.
 
 [스크립트 설치](https://raw.githubusercontent.com/disjukr/jews/master/jews.js)
 
