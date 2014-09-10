@@ -2,7 +2,7 @@
 // @name jews
 // @namespace http://0xABCDEF.com/jews
 // @description just news
-// @version 0.1.0
+// @version 0.1.1
 // @updateURL https://raw.githubusercontent.com/disjukr/jews/release/jews.js
 // @downloadURL https://raw.githubusercontent.com/disjukr/jews/release/jews.js
 // @include http://news.kbs.co.kr/news/NewsView.do*
