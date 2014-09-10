@@ -15,6 +15,7 @@
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://kr.wsj.com/posts/*
+// @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
 // @copyright 2014 JongChan Choi
@@ -38,6 +39,7 @@ var where = (function () {
     case 'news.khan.co.kr': return '경향신문';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'kr.wsj.com': return '월스트리트저널';
+    case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
     case 'www.zdnet.co.kr': return '지디넷코리아';
     default: throw new Error('jews don\'t support this site');
@@ -235,6 +237,19 @@ parse['월스트리트저널'] = function (jews) {
     jews.reporters = [{
         name: $$('.socialByline .byline')[0].innerText.trim().replace(/^by\s+/i, ''),
         mail: undefined
+    }];
+};
+parse['전자신문'] = function (jews) {
+    jews.title = $('.hgroup h1').text() || undefined;
+    jews.content = clearStyles($('.article_body p')[0]).innerHTML;
+
+    jews.timestamp = {
+        created: new Date($('.a_date').text().split(' ')[1]),
+        modefied: undefined
+    };
+    jews.reporters = [{
+        name: $('.art_reporter strong').text(),
+        mail: $('.art_reporter .mail').text() 
     }];
 };
 parse['조선비즈'] = function (jews) {
