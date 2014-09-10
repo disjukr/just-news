@@ -241,8 +241,11 @@ parse['월스트리트저널'] = function (jews) {
 };
 parse['전자신문'] = function (jews) {
     jews.title = $('.hgroup h1').text() || undefined;
-    jews.content = clearStyles($('.article_body p')[0]).innerHTML;
-
+    jews.content = (function () {
+        var content = $('.article_body')[0].cloneNode(true);
+        $('#openLine, .art_reporter, .sns_area2, *[src^="http://adv"]', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
     jews.timestamp = {
         created: new Date($('.a_date').text().split(' ')[1]),
         modefied: undefined
