@@ -102,7 +102,7 @@ parse['MBC'] = function (jews) {
     jews.title = $('#content .view-title').text();
     jews.content = clearStyles($('#DivPrint .view-con')[0].cloneNode(true)).innerHTML;
     jews.timestamp = {
-        created: new Date($('#DivPrint .article-time-date').text()),
+        created: new Date($('#DivPrint .article-time-date').text().replace(/-/g, '/')),
         lastModified: undefined
     };
     jews.reporters = [{
@@ -118,7 +118,7 @@ parse['MBN'] = function (jews) {
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date($('#article_title .reg_dt').text().replace('기사입력', '')),
+        created: new Date($('#article_title .reg_dt').text().replace(/-/g, '/')),
         lastModified: undefined
     };
     jews.reporters = [];
@@ -134,7 +134,7 @@ parse['OSEN'] = function (jews) {
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date(/\d{4}.\d\d.\d\d\s+\d\d:\d\d/.exec($('#container .writer').text())),
+        created: new Date(/\d{4}.\d\d.\d\d\s+\d\d:\d\d/.exec($('#container .writer').text())[0].replace(/\./g, '/')),
         lastModified: undefined
     };
     jews.reporters = (function () {
@@ -200,7 +200,7 @@ parse['데일리시큐'] = function (jews) {
     var infos = document.querySelector('.new_write').textContent.split(',');
 
     jews.timestamp = {
-        created: new Date(infos[0]),
+        created: new Date(infos[0].replace(/-/g, '/')),
         lastModified: undefined
     };
     jews.repoters = [{
@@ -264,7 +264,7 @@ parse['전자신문'] = function (jews) {
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date($('.a_date').text().split(' ')[1]),
+        created: new Date($('.a_date').text().replace(/\./g, '/')),
         modefied: undefined
     };
     jews.reporters = [{
@@ -285,12 +285,12 @@ parse['조선비즈'] = function (jews) {
         var created;
         var cTime = timeStr.match(/입력 : ([^\|]+)/);
         if (cTime !== null) {
-            created = new Date(cTime[1].trim());
+            created = new Date(cTime[1].trim().replace(/\./g, '/'));
         }
         var lastModified;
         var mTime = timeStr.match(/수정 : (.+)/);
         if (mTime !== null) {
-            lastModified = new Date(mTime[1].trim());
+            lastModified = new Date(mTime[1].trim().replace(/\./g, '/'));
         }
         return {
             created: created,
