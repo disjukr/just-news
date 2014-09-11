@@ -195,9 +195,7 @@ parse['경향신문'] = function (jews) {
 };
 parse['데일리시큐'] = function (jews) {
     jews.title = document.querySelector('.new_title').textContent.trim();
-    jews.content = (
-        document.querySelector('.news_mtitle').outerHTML +
-        document.querySelector('.news_text').outerHTML);
+    jews.content = clearStyles(document.querySelector('.news_text')).innerHTML;
 
     var infos = document.querySelector('.new_write').textContent.split(',');
 
