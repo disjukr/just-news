@@ -5,7 +5,6 @@
 // @version 0.2.0
 // @updateURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
 // @downloadURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
-// @include http://dailysecu.com/news_view.php*
 // @include http://news.kbs.co.kr/news/NewsView.do*
 // @include http://world.kbs.co.kr/*/news/news_*_detail.htm*
 // @include http://imnews.imbc.com/*
@@ -14,6 +13,7 @@
 // @include http://osen.mt.co.kr/article/*
 // @include http://news.sbs.co.kr/news/endPage.do*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
+// @include http://dailysecu.com/news_view.php*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://kr.wsj.com/posts/*
 // @include http://www.etnews.com/*
@@ -31,7 +31,6 @@ var jews = {
 };
 var where = (function () {
     switch (window.location.hostname) {
-    case 'dailysecu.com': return '데일리시큐';
     case 'news.kbs.co.kr': return 'KBS';
     case 'world.kbs.co.kr': return 'KBS World';
     case 'imnews.imbc.com': return 'MBC';
@@ -39,6 +38,7 @@ var where = (function () {
     case 'osen.mt.co.kr': return 'OSEN';
     case 'news.sbs.co.kr': return 'SBS';
     case 'news.khan.co.kr': return '경향신문';
+    case 'dailysecu.com': return '데일리시큐';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'kr.wsj.com': return '월스트리트저널';
     case 'www.etnews.com': return '전자신문';
