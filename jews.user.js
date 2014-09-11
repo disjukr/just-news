@@ -147,18 +147,18 @@ parse['OSEN'] = function (jews) {
 };
 parse['SBS'] = function (jews) {
     jews.title = $('#container .smdend_content_w .sep_cont_w .sed_articel_head .seda_title').text();
-    jews.content = (function() {
+    jews.content = (function () {
         var content = $('#container .smdend_content_w .sep_cont_w .sed_article_w .sed_article')[0].cloneNode(true);
         return clearStyles(content).innerHTML;
     })();
-    jews.timestamp = (function() {
+    jews.timestamp = (function () {
         var parsedData = $('#container .smdend_content_w .sep_cont_w .sed_atcinfo_sec_w .sed_write_time').contents();
         return {
           created: new Date(parsedData.eq(0).text().replace(/\./g, '/')),
           lastModified: new Date(parsedData.eq(2).text().replace(/\./g, '/'))
         };
     })();
-    jews.reporters = (function() {
+    jews.reporters = (function () {
         var parsedData = $('#container .smdend_content_w .sep_cont_w .sed_atcinfo_sec_w .seda_author').children();
         return [{
             name: parsedData.eq(0).text(),
@@ -215,7 +215,7 @@ parse['미디어오늘'] = function (jews) {
 parse['월스트리트저널'] = function (jews) {
     jews.title = $$('.articleHeadlineBox h1')[0].innerText;
     jews.content = (function () {
-        function remove (e) {
+        function remove(e) {
             e.parentNode.removeChild(e);
         }
         var article = document.createElement('div');
@@ -224,7 +224,7 @@ parse['월스트리트저널'] = function (jews) {
         var article_p = article.getElementsByTagName('p');
         Array.prototype.forEach.call(article.getElementsByTagName('p'), function (v, i, arr) {
             if (/기사 번역 관련 문의: [A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+/i.exec(v.innerText))
-                while(arr[i])
+                while (arr[i])
                     remove(arr[i]);
         });
         remove(article.querySelectorAll('img[src*="//cp.news.search.daum.net"]')[0]);
