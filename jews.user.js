@@ -31,7 +31,7 @@ var jews = {
 };
 var where = (function () {
     switch (window.location.hostname) {
-    case 'dailysecu.com': return 'dailysecu';
+    case 'dailysecu.com': return '데일리시큐';
     case 'news.kbs.co.kr': return 'KBS';
     case 'world.kbs.co.kr': return 'KBS World';
     case 'imnews.imbc.com': return 'MBC';
@@ -50,23 +50,6 @@ var where = (function () {
 function parse(jews) {
     parse[where] && parse[where](jews);
 }
-parse['dailysecu'] = function (jews) {
-    jews.title = document.querySelector('.new_title').textContent.trim();
-    jews.content = (
-        document.querySelector('.news_mtitle').outerHTML +
-        document.querySelector('.news_text').outerHTML);
-
-    var infos = document.querySelector('.new_write').textContent.split(',');
-
-    jews.timestamp = {
-        created: new Date(infos[0]),
-        lastModified: undefined,
-    };
-    jews.repoters = [{
-        name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
-        mail: infos[2].trim(),
-    }];
-};
 parse['KBS'] = function (jews) {
     jews.title = $('#GoContent .news_title .tit').text();
     jews.content = clearStyles($('#content')[0].cloneNode(true)).innerHTML;
@@ -209,6 +192,23 @@ parse['경향신문'] = function (jews) {
             mail: parsedData[2] || undefined
         }];
     })();
+};
+parse['데일리시큐'] = function (jews) {
+    jews.title = document.querySelector('.new_title').textContent.trim();
+    jews.content = (
+        document.querySelector('.news_mtitle').outerHTML +
+        document.querySelector('.news_text').outerHTML);
+
+    var infos = document.querySelector('.new_write').textContent.split(',');
+
+    jews.timestamp = {
+        created: new Date(infos[0]),
+        lastModified: undefined,
+    };
+    jews.repoters = [{
+        name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
+        mail: infos[2].trim(),
+    }];
 };
 parse['미디어오늘'] = function (jews) {
     jews.title = $('#font_title').text().trim();
