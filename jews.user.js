@@ -224,7 +224,7 @@ parse['월스트리트저널'] = function (jews) {
         var article_p = article.getElementsByTagName('p');
         Array.prototype.forEach.call(article.getElementsByTagName('p'), function (v, i, arr) {
             if (/기사 번역 관련 문의: [A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+/i.exec(v.innerText))
-                while(arr[i] != null)
+                while(arr[i] !== null)
                     remove(arr[i]);
         });
         remove(article.querySelectorAll('img[src*="//cp.news.search.daum.net"]')[0]);
@@ -307,7 +307,7 @@ parse['지디넷코리아'] = function (jews) {
         var mail = /[.a-zA-Z0-9]+@[.a-zA-Z0-9]+/.exec(reporterInfoString);
         return [{
             name: reporterInfoString.split(/\s+/)[0],
-            mail: mail != null ? mail[0] : undefined
+            mail: mail !== null ? mail[0] : undefined
         }];
     })();
 };
