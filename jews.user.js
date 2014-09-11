@@ -5,6 +5,7 @@
 // @version 0.2.0
 // @updateURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
 // @downloadURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
+// @include http://dailysecu.com/news_view.php*
 // @include http://news.kbs.co.kr/news/NewsView.do*
 // @include http://world.kbs.co.kr/*/news/news_*_detail.htm*
 // @include http://imnews.imbc.com/*
@@ -30,6 +31,7 @@ var jews = {
 };
 var where = (function () {
     switch (window.location.hostname) {
+    case 'dailysecu.com': return 'dailysecu';
     case 'news.kbs.co.kr': return 'KBS';
     case 'world.kbs.co.kr': return 'KBS World';
     case 'imnews.imbc.com': return 'MBC';
@@ -48,6 +50,23 @@ var where = (function () {
 function parse(jews) {
     parse[where] && parse[where](jews);
 }
+parse['dailysecu'] = function (jews) {
+    jews.title = document.querySelector('.new_title').textContent.trim();
+    jews.content = (
+        document.querySelector('.news_mtitle').outerHTML +
+        document.querySelector('.news_text').outerHTML);
+
+    var infos = document.querySelector('.new_write').textContent.split(',');
+
+    jews.timestamp = {
+        created: new Date(infos[0]),
+        lastModified: undefined,
+    };
+    jews.repoters = [{
+        name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
+        mail: infos[2].trim(),
+    }];
+};
 parse['KBS'] = function (jews) {
     jews.title = $('#GoContent .news_title .tit').text();
     jews.content = clearStyles($('#content')[0].cloneNode(true)).innerHTML;

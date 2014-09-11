@@ -50,6 +50,7 @@ reporter = {
 
 ## todo
 
+* [x] [dailysecu](http://dailysecu.com)
 * [x] [KBS](http://news.kbs.co.kr)
 * [x] [KBS World](http://world.kbs.co.kr)
 * [x] [MBC](http://imnews.imbc.com)
