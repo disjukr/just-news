@@ -224,7 +224,7 @@ parse['월스트리트저널'] = function (jews) {
         var article_p = article.getElementsByTagName('p');
         Array.prototype.forEach.call(article.getElementsByTagName('p'), function (v, i, arr) {
             if (/기사 번역 관련 문의: [A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+/i.exec(v.innerText))
-                while(arr[i] !== null)
+                while(arr[i])
                     remove(arr[i]);
         });
         remove(article.querySelectorAll('img[src*="//cp.news.search.daum.net"]')[0]);
