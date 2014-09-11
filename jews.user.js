@@ -19,6 +19,7 @@
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
+// @include http://www.hani.co.kr/arti/*
 // @copyright 2014 JongChan Choi
 // @grant none
 // ==/UserScript==
@@ -44,6 +45,7 @@ var where = (function () {
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
     case 'www.zdnet.co.kr': return '지디넷코리아';
+    case 'www.hani.co.kr': return '한겨레';
     default: throw new Error('jews don\'t support this site');
     }
 })();
@@ -328,6 +330,70 @@ parse['지디넷코리아'] = function (jews) {
         }];
     })();
 };
+parse['한겨레'] = function (jews) {
+    jews.title = $('.article-category-title td:eq(1)').text().trim();
+    jews.content = (function () {
+        var content = document.createElement('div');
+        $('.article-contents').contents().each(function () {
+            if (this instanceof Comment) return;
+            else if (this instanceof Text) {
+                if (this.data.trim() === '') return;
+                else {
+                    var p = document.createElement('p');
+                    this.data = this.data.trim();
+                    p.appendChild(this.cloneNode());
+                    content.appendChild(p);
+                }
+            }
+            else if (this instanceof HTMLParagraphElement && this.innerHTML.trim() === "") return;
+            else if (this instanceof HTMLDivElement && !$(this).hasClass('article-alignC')) return;
+            else content.appendChild(this.cloneNode(true));
+        })
+        var i = content.childNodes.length, mail, name;
+        while (i-- > 0){
+            var e = content.childNodes[i];
+            if (e instanceof HTMLBRElement && i - 1 == content.length) e.remove();
+            else if (e instanceof HTMLAnchorElement && e.href.match(/^mailto:/)) {
+                mail = e.href.replace(/^mailto:/, '');
+                e.remove();
+            } else if (e instanceof HTMLParagraphElement){
+                var tmp = e.innerText.trim();
+                if (tmp.match(/ (?:선임기자|기자|특파원)$/)) {
+                    name = tmp.replace(/(?:글.사진|사진.글)\s+/, '');
+                    e.remove();
+                    break;
+                } else if (tmp.match(/온라인뉴스팀|연합뉴스/)){
+                    name = tmp
+                    e.remove();
+                    break;
+                } else if (tmp = tmp.match(/^(.+ (?:선임기자|기자|특파원))\s+([A-Z0-9._%+-]+@hani\.co\.kr)$/i)) {
+                    name = tmp[1].replace(/(?:글.사진|사진.글)\s+/, '');
+                    mail = tmp[2];
+                    e.remove();
+                    break;
+                }
+            }
+        }
+        jews.reporters = [{
+            name: name, mail: mail
+        }];
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var data = {
+            created: undefined,
+            lastModified: undefined
+        };
+        $('.article-control-menu .date span').each(function () {
+            var match = this.innerText.match(/(등록|수정)\s*:\s+(\d{4}\.\d{2}\.\d{2}\s+\d{1,2}:\d{1,2})/);
+            if (match == null) return;
+            var time = new Date(match[2].replace(/\./g, '-').replace(/\s+/, 'T') + ':00+09:00'); // ISO 8601
+            if (match[1] === '등록') data.created = time;
+            else if (match[1] === '수정') data.lastModified = time;
+        });
+        return data;
+    })();
+}
 
 function clearStyles(element) {
     Array.prototype.forEach.call(element.querySelectorAll('*[style]'), function (child) {
