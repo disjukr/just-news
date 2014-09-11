@@ -24,6 +24,34 @@
 // @grant none
 // ==/UserScript==
 
+var $ = window.$ || function (selector, context) {
+    context = context || document;
+    var nodelist = context.querySelectorAll(selector);
+    return {
+        children: function () {
+            return nodelist[0].children;
+        },
+        contents: function () {
+            return nodelist[0].childNodes;
+        },
+        remove: function () {
+            for (var i = 0; i < nodelist.length; i++) {
+                var node = nodelist[i];
+                node.parentNode.removeChild(node);
+            }
+        },
+        text: function () {
+            return nodelist[0].textContent;
+        },
+        toArray: function () {
+            var array = [];
+            for (var i = 0; i < nodelist.length; i++) {
+                array[i] = nodelist[i];
+            }
+            return array;
+        }
+    };
+};
 var jews = {
     title: undefined,
     content: undefined,
