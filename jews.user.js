@@ -119,7 +119,7 @@ parse['MBN'] = function (jews) {
     })();
     jews.timestamp = {
         created: new Date($('#article_title .reg_dt').text().replace(/-/g, '/')),
-        lastModified: undefined
+        lastModified: new Date($('#article_title .upd_dt').text().replace(/-/g, '/'))
     };
     jews.reporters = [];
 };
