@@ -269,7 +269,7 @@ parse['조선비즈'] = function (jews) {
         var cTime = timeStr.match(/입력 : ([^\|]+)/);
         if (cTime !== null) {
             created = new Date(cTime[1].trim());
-        };
+        }
         var lastModified;
         var mTime = timeStr.match(/수정 : (.+)/);
         if (mTime !== null) {
