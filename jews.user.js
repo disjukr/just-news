@@ -28,17 +28,46 @@ var $ = window.$ || function (selector, context) {
     context = context || document;
     var nodelist = context.querySelectorAll(selector);
     return {
+        attr: function (attributeName) {
+            return nodelist[0].getAttribute(attributeName);
+        },
         children: function () {
             return nodelist[0].children;
         },
+        closest: function (selector) {
+            var matches = function (el, selector) {
+                return (el.matches || el.matchesSelector ||
+                        el.msMatchesSelector || el.mozMatchesSelector ||
+                        el.webkitMatchesSelector || el.oMatchesSelector)
+                    .call(el, selector);
+            };
+            var node = nodelist[0];
+            while (node) {
+                if (matches(node, selector)) {
+                    return node;
+                }
+                node = node.parentNode;
+            }
+        },
         contents: function () {
             return nodelist[0].childNodes;
+        },
+        each: function (fn) {
+            Array.prototype.forEach.call(nodelist, function (el, i) {
+                fn(i, el);
+            });
+        },
+        length: function () {
+            return nodelist.length;
         },
         remove: function () {
             for (var i = 0; i < nodelist.length; i++) {
                 var node = nodelist[i];
                 node.parentNode.removeChild(node);
             }
+        },
+        replaceWith: function (string) {
+            nodelist[0].outerHTML = string;
         },
         text: function () {
             return nodelist[0].textContent;
