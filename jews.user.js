@@ -252,7 +252,7 @@ parse['전자신문'] = function (jews) {
     };
     jews.reporters = [{
         name: $('.art_reporter strong').text(),
-        mail: $('.art_reporter .mail').text() 
+        mail: $('.art_reporter .mail').text()
     }];
 };
 parse['조선비즈'] = function (jews) {
