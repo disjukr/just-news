@@ -265,12 +265,12 @@ parse['조선비즈'] = function (jews) {
     })();
     jews.timestamp = (function () {
         var timeStr = $('#date_text')[0].innerText;
-        var created = undefined;
+        var created;
         var cTime = timeStr.match(/입력 : ([^\|]+)/);
         if (cTime !== null) {
             created = new Date(cTime[1].trim());
         };
-        var lastModified = undefined;
+        var lastModified;
         var mTime = timeStr.match(/수정 : (.+)/);
         if (mTime !== null) {
             lastModified = new Date(mTime[1].trim());
