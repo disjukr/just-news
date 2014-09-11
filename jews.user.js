@@ -201,11 +201,11 @@ parse['데일리시큐'] = function (jews) {
 
     jews.timestamp = {
         created: new Date(infos[0]),
-        lastModified: undefined,
+        lastModified: undefined
     };
     jews.repoters = [{
         name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
-        mail: infos[2].trim(),
+        mail: infos[2].trim()
     }];
 };
 parse['미디어오늘'] = function (jews) {
