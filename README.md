@@ -50,7 +50,6 @@ reporter = {
 
 ## todo
 
-* [x] [dailysecu](http://dailysecu.com)
 * [x] [KBS](http://news.kbs.co.kr)
 * [x] [KBS World](http://world.kbs.co.kr)
 * [x] [MBC](http://imnews.imbc.com)
@@ -63,6 +62,7 @@ reporter = {
 * [ ] [노컷뉴스](http://www.nocutnews.co.kr)
 * [ ] [뉴데일리](http://www.newdaily.co.kr)
 * [ ] [뉴시스](http://www.newsis.com)
+* [x] [데일리시큐](http://dailysecu.com)
 * [ ] [데일리안](http://www.dailian.co.kr)
 * [ ] [동아일보](http://www.donga.com)
 * [ ] [디지털타임스](http://www.dt.co.kr)
