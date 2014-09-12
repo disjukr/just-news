@@ -106,14 +106,14 @@ parse['KBS World'] = function (jews) {
     jews.reporters = [];
 };
 parse['MBC'] = function (jews) {
-    jews.title = $('#content .view-title').text();
-    jews.content = clearStyles($('#DivPrint .view-con')[0].cloneNode(true)).innerHTML;
+    jews.title = document.querySelector('#content .view-title').textContent;
+    jews.content = clearStyles(document.querySelector('#DivPrint .view-con').cloneNode(true)).innerHTML;
     jews.timestamp = {
-        created: new Date($('#DivPrint .article-time-date').text().replace(/-/g, '/')),
+        created: new Date(document.querySelector('#DivPrint .article-time-date').textContent.replace(/-/g, '/')),
         lastModified: undefined
     };
     jews.reporters = [{
-        name: $('#DivPrint .reporter').text().trim().split(/\s+/)[0],
+        name: document.querySelector('#DivPrint .reporter').textContent.trim().split(/\s+/)[0],
         mail: undefined
     }];
 };
