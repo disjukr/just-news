@@ -348,7 +348,7 @@ parse['한겨레'] = function (jews) {
             else if (this instanceof HTMLParagraphElement && this.innerHTML.trim() === "") return;
             else if (this instanceof HTMLDivElement && !$(this).hasClass('article-alignC')) return;
             else content.appendChild(this.cloneNode(true));
-        })
+        });
         var i = content.childNodes.length, mail, name;
         while (i-- > 0){
             var e = content.childNodes[i];
@@ -363,7 +363,7 @@ parse['한겨레'] = function (jews) {
                     e.remove();
                     break;
                 } else if (tmp.match(/온라인뉴스팀|연합뉴스/)){
-                    name = tmp
+                    name = tmp;
                     e.remove();
                     break;
                 } else if (tmp = tmp.match(/^(.+ (?:선임기자|기자|특파원))\s+([A-Z0-9._%+-]+@hani\.co\.kr)$/i)) {
@@ -393,7 +393,7 @@ parse['한겨레'] = function (jews) {
         });
         return data;
     })();
-}
+};
 
 function clearStyles(element) {
     Array.prototype.forEach.call(element.querySelectorAll('*[style]'), function (child) {
