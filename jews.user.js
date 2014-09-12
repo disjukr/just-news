@@ -53,10 +53,10 @@ function parse(jews) {
     parse[where] && parse[where](jews);
 }
 parse['KBS'] = function (jews) {
-    jews.title = $('#GoContent .news_title .tit').text();
-    jews.content = clearStyles($('#content')[0].cloneNode(true)).innerHTML;
+    jews.title = document.querySelector('#GoContent .news_title .tit').textContent;
+    jews.content = clearStyles(document.querySelector('#content').cloneNode(true)).innerHTML;
     jews.timestamp = (function () {
-        var parsedData = $('#GoContent .news_title .time li').contents();
+        var parsedData = document.querySelectorAll('#GoContent .news_title .time li');
         function parseTime(time) {
             time = time.split('(');
             var date = new Date(time[0].replace(/\./, '/'));
@@ -66,17 +66,22 @@ parse['KBS'] = function (jews) {
             return date;
         }
         return {
-            created: parseTime(parsedData.eq(1).text()),
-            lastModified: parseTime(parsedData.eq(3).text())
+            created: parseTime(parsedData[0].textContent),
+            lastModified: parseTime(parsedData[1].textContent)
         };
     })();
     jews.reporters = (function () {
-        return $('#ulReporterList .reporterArea').toArray().map(function (reporterArea) {
-            var mail = $('.reporter_mail img[alt=이메일]', reporterArea).closest('a').attr('href');
+        return [].slice.call(document.querySelectorAll('#ulReporterList .reporterArea'))
+            .map(function (reporterArea) {
+            var mail = reporterArea.querySelector('.reporter_mail a').href;
+            var nameArea = reporterArea.querySelector('.reporter_name');
+
             if (mail !== undefined)
                 mail = /'.*','(.*)'/.exec(mail)[1];
+
+            nameArea.removeChild(nameArea.children[0]);
             return {
-                name: $('.reporter_name', reporterArea).contents().eq(0).text().trim(),
+                name: nameArea.textContent.trim(),
                 mail: mail
             };
         });
@@ -101,27 +106,27 @@ parse['KBS World'] = function (jews) {
     jews.reporters = [];
 };
 parse['MBC'] = function (jews) {
-    jews.title = $('#content .view-title').text();
-    jews.content = clearStyles($('#DivPrint .view-con')[0].cloneNode(true)).innerHTML;
+    jews.title = document.querySelector('#content .view-title').textContent;
+    jews.content = clearStyles(document.querySelector('#DivPrint .view-con').cloneNode(true)).innerHTML;
     jews.timestamp = {
-        created: new Date($('#DivPrint .article-time-date').text().replace(/-/g, '/')),
+        created: new Date(document.querySelector('#DivPrint .article-time-date').textContent.replace(/-/g, '/')),
         lastModified: undefined
     };
     jews.reporters = [{
-        name: $('#DivPrint .reporter').text().trim().split(/\s+/)[0],
+        name: document.querySelector('#DivPrint .reporter').textContent.trim().split(/\s+/)[0],
         mail: undefined
     }];
 };
 parse['MBN'] = function (jews) {
-    jews.title = $('#article_title .title_n').contents().eq(0).text().trim();
+    jews.title = document.querySelector('#article_title .title_n').textContent.trim();
     jews.content = (function () {
-        var content = $('#newsViewArea')[0].cloneNode(true);
-        $('*[id*=google]', content).remove();
+        var content = document.querySelector('#newsViewArea').cloneNode(true);
+        content.querySelector('*[id*=google]').remove();
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date($('#article_title .reg_dt').text().replace(/-/g, '/')),
-        lastModified: new Date($('#article_title .upd_dt').text().replace(/-/g, '/'))
+        created: new Date(document.querySelector('#article_title .reg_dt').textContent.replace(/-/g, '/')),
+        lastModified: new Date(document.querySelector('#article_title .upd_dt').textContent.replace(/-/g, '/'))
     };
     jews.reporters = [];
 };
@@ -305,10 +310,10 @@ parse['조선비즈'] = function (jews) {
     }];
 };
 parse['지디넷코리아'] = function (jews) {
-    jews.title = $('#wrap_container_new .sub_tit_area h2').text();
-    jews.content = clearStyles($('#content')[0].cloneNode(true)).innerHTML;
+    jews.title = document.querySelector('#wrap_container_new .sub_tit_area h2').textContent;
+    jews.content = clearStyles(document.querySelector('#content').cloneNode(true)).innerHTML;
     jews.timestamp = (function () {
-        var time = $('#wrap_container_new .sub_tit_area .sub_data').text().split('/');
+        var time = document.querySelector('#wrap_container_new .sub_tit_area .sub_data').textContent.split('/');
         var date = new Date(time[0].replace(/\./g, '/'));
         time = /([AP]M)\s*(\d\d):(\d\d)/i.exec(time[1]);
         var hh = time[2] | 0;
@@ -322,7 +327,7 @@ parse['지디넷코리아'] = function (jews) {
         };
     })();
     jews.reporters = (function () {
-        var reporterInfoString = $('#wrap_container_new .sub_tit_area').children().eq(2).text().trim();
+        var reporterInfoString = document.querySelector('#wrap_container_new .sub_tit_area').children[2].textContent.trim();
         var mail = /[.a-zA-Z0-9]+@[.a-zA-Z0-9]+/.exec(reporterInfoString);
         return [{
             name: reporterInfoString.split(/\s+/)[0],
@@ -463,8 +468,8 @@ window.addEventListener('load', function (e) {
                 '<div id="timestamp">',
                 (function () {
                     var result = '';
-                    var created = jews.timestamp.created;
-                    var lastModified = jews.timestamp.lastModified;
+                    var created = jews.timestamp ? jews.timestamp.created : undefined;
+                    var lastModified = jews.timestamp ? jews.timestamp.lastModified : undefined;
                     if (created !== undefined) {
                         created = created.toLocaleString !== undefined ?
                                   created.toLocaleString() :
