@@ -118,15 +118,15 @@ parse['MBC'] = function (jews) {
     }];
 };
 parse['MBN'] = function (jews) {
-    jews.title = $('#article_title .title_n').contents().eq(0).text().trim();
+    jews.title = document.querySelector('#article_title .title_n').textContent.trim();
     jews.content = (function () {
-        var content = $('#newsViewArea')[0].cloneNode(true);
-        $('*[id*=google]', content).remove();
+        var content = document.querySelector('#newsViewArea').cloneNode(true);
+        content.querySelector('*[id*=google]').remove();
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date($('#article_title .reg_dt').text().replace(/-/g, '/')),
-        lastModified: new Date($('#article_title .upd_dt').text().replace(/-/g, '/'))
+        created: new Date(document.querySelector('#article_title .reg_dt').textContent.replace(/-/g, '/')),
+        lastModified: new Date(document.querySelector('#article_title .upd_dt').textContent.replace(/-/g, '/'))
     };
     jews.reporters = [];
 };
