@@ -429,6 +429,14 @@ function $(selector, context) {
                 fn(i, el);
             });
         },
+        hasClass: function (className) {
+            var node = nodelist[0];
+            if (node.classList) {
+                return node.classList.contains(className);
+            } else {
+                return new RegExp('(^| )' + className + '( |$)', 'gi').test(node.className);
+            }
+        },
         length: function () {
             return nodelist.length;
         },
