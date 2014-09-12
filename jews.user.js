@@ -207,7 +207,7 @@ parse['데일리시큐'] = function (jews) {
         created: new Date(infos[0].replace(/-/g, '/')),
         lastModified: undefined
     };
-    jews.repoters = [{
+    jews.reporters = [{
         name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
         mail: infos[2].trim()
     }];
