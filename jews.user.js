@@ -15,6 +15,7 @@
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
+// @include http://www.bloter.net/archives/*
 // @include http://kr.wsj.com/posts/*
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
@@ -41,6 +42,7 @@ var where = (function () {
     case 'news.khan.co.kr': return '경향신문';
     case 'dailysecu.com': return '데일리시큐';
     case 'www.mediatoday.co.kr': return '미디어오늘';
+    case 'www.bloter.net': return '블로터닷넷';
     case 'kr.wsj.com': return '월스트리트저널';
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
@@ -205,7 +207,7 @@ parse['데일리시큐'] = function (jews) {
         created: new Date(infos[0].replace(/-/g, '/')),
         lastModified: undefined
     };
-    jews.repoters = [{
+    jews.reporters = [{
         name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
         mail: infos[2].trim()
     }];
@@ -231,6 +233,20 @@ parse['미디어오늘'] = function (jews) {
         }];
     })();
 };
+parse['블로터닷넷'] = function (jews) {
+    jews.title = document.title;
+    var author = document.getElementsByClassName('press-context-author')[0];
+    jews.reporters = [{
+        name: author.getElementsByTagName('cite')[0].innerText,
+        mail: author.getElementsByTagName('a')[0].href.match(/bloter\.net\/archives\/author\/([^\/\?\s]+)/)[1]+'@bloter.net'
+    }];
+    jews.timestamp = {
+        created: new Date(document.querySelector('meta[property="article:published_time"]').content),
+        lastModified: new Date(document.querySelector('meta[property="article:modified_time"]').content)
+    },
+    jews.content = clearStyles(document.getElementsByClassName('press-context-news')[0].cloneNode(true)).innerHTML;
+
+}
 parse['월스트리트저널'] = function (jews) {
     jews.title = $$('.articleHeadlineBox h1')[0].innerText;
     jews.content = (function () {
