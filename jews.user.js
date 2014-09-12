@@ -406,15 +406,9 @@ function $(selector, context) {
             return nodelist[0].children;
         },
         closest: function (selector) {
-            var matches = function (el, selector) {
-                return (el.matches || el.matchesSelector ||
-                        el.msMatchesSelector || el.mozMatchesSelector ||
-                        el.webkitMatchesSelector || el.oMatchesSelector)
-                    .call(el, selector);
-            };
             var node = nodelist[0];
             while (node) {
-                if (matches(node, selector)) {
+                if ($.matches(node, selector)) {
                     return node;
                 }
                 node = node.parentNode;
@@ -452,6 +446,21 @@ function $(selector, context) {
         }
     };
 }
+$.matches = function (el, selector) {
+    return (el.matches || el.matchesSelector ||
+            el.msMatchesSelector || el.mozMatchesSelector ||
+            el.webkitMatchesSelector || el.oMatchesSelector)
+        .call(el, selector);
+};
+$.closest = function (selector, context) {
+    var node = context;
+    while (node) {
+        if ($.matches(node, selector)) {
+            return node;
+        }
+        node = node.parentNode;
+    }
+};
 
 function clearStyles(element) {
     Array.prototype.forEach.call(element.querySelectorAll('*[style]'), function (child) {
