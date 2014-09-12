@@ -305,10 +305,10 @@ parse['조선비즈'] = function (jews) {
     }];
 };
 parse['지디넷코리아'] = function (jews) {
-    jews.title = $('#wrap_container_new .sub_tit_area h2').text();
-    jews.content = clearStyles($('#content')[0].cloneNode(true)).innerHTML;
+    jews.title = document.querySelector('#wrap_container_new .sub_tit_area h2').textContent;
+    jews.content = clearStyles(document.querySelector('#content').cloneNode(true)).innerHTML;
     jews.timestamp = (function () {
-        var time = $('#wrap_container_new .sub_tit_area .sub_data').text().split('/');
+        var time = document.querySelector('#wrap_container_new .sub_tit_area .sub_data').textContent.split('/');
         var date = new Date(time[0].replace(/\./g, '/'));
         time = /([AP]M)\s*(\d\d):(\d\d)/i.exec(time[1]);
         var hh = time[2] | 0;
@@ -322,7 +322,7 @@ parse['지디넷코리아'] = function (jews) {
         };
     })();
     jews.reporters = (function () {
-        var reporterInfoString = $('#wrap_container_new .sub_tit_area').children().eq(2).text().trim();
+        var reporterInfoString = document.querySelector('#wrap_container_new .sub_tit_area').children[2].textContent.trim();
         var mail = /[.a-zA-Z0-9]+@[.a-zA-Z0-9]+/.exec(reporterInfoString);
         return [{
             name: reporterInfoString.split(/\s+/)[0],
@@ -463,8 +463,8 @@ window.addEventListener('load', function (e) {
                 '<div id="timestamp">',
                 (function () {
                     var result = '';
-                    var created = jews.timestamp.created;
-                    var lastModified = jews.timestamp.lastModified;
+                    var created = jews.timestamp ? jews.timestamp.created : undefined;
+                    var lastModified = jews.timestamp ? jews.timestamp.lastModified : undefined;
                     if (created !== undefined) {
                         created = created.toLocaleString !== undefined ?
                                   created.toLocaleString() :
