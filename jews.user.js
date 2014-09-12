@@ -397,7 +397,14 @@ parse['한겨레'] = function (jews) {
 
 function $(selector, context) {
     context = context || document;
-    var nodelist = context.querySelectorAll(selector);
+    var nodelist;
+    if (selector instanceof Node) {
+        nodelist = [selector];
+    } else if (selector instanceof NodeList) {
+        nodelist = selector;
+    } else {
+        nodelist = context.querySelectorAll(selector);
+    }
     return {
         attr: function (attributeName) {
             return nodelist[0].getAttribute(attributeName);
@@ -409,7 +416,7 @@ function $(selector, context) {
             var node = nodelist[0];
             while (node) {
                 if ($.matches(node, selector)) {
-                    return node;
+                    return $(node);
                 }
                 node = node.parentNode;
             }
@@ -451,15 +458,6 @@ $.matches = function (el, selector) {
             el.msMatchesSelector || el.mozMatchesSelector ||
             el.webkitMatchesSelector || el.oMatchesSelector)
         .call(el, selector);
-};
-$.closest = function (selector, context) {
-    var node = context;
-    while (node) {
-        if ($.matches(node, selector)) {
-            return node;
-        }
-        node = node.parentNode;
-    }
 };
 
 function clearStyles(element) {
