@@ -395,7 +395,7 @@ parse['한겨레'] = function (jews) {
     })();
 }
 
-var $ = window.$ || function (selector, context) {
+function $(selector, context) {
     context = context || document;
     var nodelist = context.querySelectorAll(selector);
     return {
@@ -451,7 +451,7 @@ var $ = window.$ || function (selector, context) {
             return array;
         }
     };
-};
+}
 
 function clearStyles(element) {
     Array.prototype.forEach.call(element.querySelectorAll('*[style]'), function (child) {
