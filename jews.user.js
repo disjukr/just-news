@@ -218,7 +218,7 @@ parse['머니투데이'] = function (jews) {
     jews.title = $('#article h1').text();
     jews.content = clearStyles($('#textBody')[0].cloneNode(true)).innerHTML;
     jews.timestamp = {
-        created: new Date($('.infobox1 .num').text().replace(": ", "")), // ": 2014.06.20 06:31"형태로 들어있음
+        created: new Date($('.infobox1 .num').text().replace(": ", "").replace(/\./g, '/')), // ": 2014.06.20 06:31"형태로 들어있음
         lastModified: undefined
     };
     jews.reporters = (function () {
