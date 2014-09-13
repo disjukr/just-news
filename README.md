@@ -69,7 +69,7 @@ reporter = {
 * [ ] [로이터](http://www.reuters.com)
 * [ ] [마이데일리](http://www.mydaily.co.kr)
 * [ ] [매일경제](http://www.mk.co.kr)
-* [ ] [머니투데이](http://www.mt.co.kr)
+* [x] [머니투데이](http://www.mt.co.kr)
 * [ ] [문화일보](http://www.munhwa.com)
 * [x] [미디어오늘](http://www.mediatoday.co.kr)
 * [x] [블로터닷넷](http://www.bloter.net)
