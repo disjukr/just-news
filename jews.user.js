@@ -364,7 +364,7 @@ parse['한겨레'] = function (jews) {
             else if (this instanceof HTMLParagraphElement && this.innerHTML.trim() === "") return;
             else if (this instanceof HTMLDivElement && !$(this).hasClass('article-alignC')) return;
             else content.appendChild(this.cloneNode(true));
-        })
+        });
         var i = content.childNodes.length, mail, name;
         while (i-- > 0){
             var e = content.childNodes[i];
@@ -379,7 +379,7 @@ parse['한겨레'] = function (jews) {
                     e.remove();
                     break;
                 } else if (tmp.match(/온라인뉴스팀|연합뉴스/)){
-                    name = tmp
+                    name = tmp;
                     e.remove();
                     break;
                 } else if (tmp = tmp.match(/^(.+ (?:선임기자|기자|특파원))\s+([A-Z0-9._%+-]+@hani\.co\.kr)$/i)) {
@@ -402,14 +402,14 @@ parse['한겨레'] = function (jews) {
         };
         $('.article-control-menu .date span').each(function () {
             var match = this.innerText.match(/(등록|수정)\s*:\s+(\d{4}\.\d{2}\.\d{2}\s+\d{1,2}:\d{1,2})/);
-            if (match == null) return;
+            if (match === null) return;
             var time = new Date(match[2].replace(/\./g, '-').replace(/\s+/, 'T') + ':00+09:00'); // ISO 8601
             if (match[1] === '등록') data.created = time;
             else if (match[1] === '수정') data.lastModified = time;
         });
         return data;
     })();
-}
+};
 
 function clearStyles(element) {
     Array.prototype.forEach.call(element.querySelectorAll('*[style]'), function (child) {
