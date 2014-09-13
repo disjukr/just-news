@@ -42,7 +42,7 @@ var where = (function () {
     case 'news.sbs.co.kr': return 'SBS';
     case 'news.khan.co.kr': return '경향신문';
     case 'dailysecu.com': return '데일리시큐';
-    case 'news.mt.co.kr': return '머니투데이'
+    case 'news.mt.co.kr': return '머니투데이';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.bloter.net': return '블로터닷넷';
     case 'kr.wsj.com': return '월스트리트저널';
@@ -54,7 +54,7 @@ var where = (function () {
     }
 })();
 function parse(jews) {
-    parse[where] && parse[where](jews);
+    if (typeof parse[where] === 'function') parse[where](jews);
 }
 parse['KBS'] = function (jews) {
     jews.title = $('#GoContent .news_title .tit').text();
@@ -65,8 +65,8 @@ parse['KBS'] = function (jews) {
             time = time.split('(');
             var date = new Date(time[0].replace(/\./, '/'));
             time = time[1].split(':');
-            date.setHours(parseInt(time[0]));
-            date.setMinutes(parseInt(time[1]));
+            date.setHours(parseInt(time[0], 10));
+            date.setMinutes(parseInt(time[1], 10));
             return date;
         }
         return {
