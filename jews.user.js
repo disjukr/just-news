@@ -417,8 +417,8 @@ function $(selector, context) {
 $.fn = {};
 $.fn.init = function (selector, context) {
     if (typeof context == 'string' || context instanceof String) {
+        selector = context + ' ' + selector;
         context = undefined;
-        selector = context + selector;
     }
     context = context || document;
     if (selector instanceof Node)
