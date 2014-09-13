@@ -268,10 +268,20 @@ parse['월스트리트저널'] = function (jews) {
         created: new Date($('.articleHeadlineBox .dateStamp')[0].innerText.replace(/\s*KST\s*$/, ' +0900').replace(/(\d+)\.?\s+([a-z]{3})[a-z]+\s+(\d+)\s*,\s*/i, '$1 $2 $3 ')), /* RFC 2822 */
         lastModified: undefined
     });
-    jews.reporters = [{
-        name: $('.socialByline .byline')[0].innerText.trim().replace(/^by\s+/i, ''),
-        mail: undefined
-    }];
+    jews.reporters = (function () {
+        var byline = $('.socialByline .byline')[0];
+        if (byline) {
+            return [{
+                name: byline.innerText.trim().replace(/^by\s+/i, ''),
+                mail: undefined
+            }];
+        } else {
+            return [{
+                name: $('.socialByline .popTrigger').text(),
+                mail: $('.socialByline .socialTools .email').text()
+            }];
+        }
+    })();
 };
 parse['전자신문'] = function (jews) {
     jews.title = $('.hgroup h1').text() || undefined;
