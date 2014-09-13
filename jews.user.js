@@ -475,7 +475,11 @@ $.fn.init.prototype.replaceWith = function (string) {
     this[0].outerHTML = string;
 };
 $.fn.init.prototype.text = function () {
-    return this[0].textContent;
+    if (this[0]) {
+        return this[0].textContent;
+    } else {
+        return '';
+    }
 };
 $.fn.init.prototype.toArray = function () {
     var array = [];
