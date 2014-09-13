@@ -420,6 +420,9 @@ $.fn.init = function (selector, context) {
         context = undefined;
     }
     context = context || document;
+    if (!(context instanceof Node)) {
+        context = context[0];
+    }
     this.length = 0;
     if (selector instanceof Node)
         this.push(selector);
