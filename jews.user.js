@@ -14,6 +14,7 @@
 // @include http://news.sbs.co.kr/news/endPage.do*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://dailysecu.com/news_view.php*
+// @include http://news.mt.co.kr/mtview.php*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.bloter.net/archives/*
 // @include http://kr.wsj.com/posts/*
@@ -41,6 +42,7 @@ var where = (function () {
     case 'news.sbs.co.kr': return 'SBS';
     case 'news.khan.co.kr': return '경향신문';
     case 'dailysecu.com': return '데일리시큐';
+    case 'news.mt.co.kr': return '머니투데이'
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.bloter.net': return '블로터닷넷';
     case 'kr.wsj.com': return '월스트리트저널';
@@ -211,6 +213,32 @@ parse['데일리시큐'] = function (jews) {
         name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
         mail: infos[2].trim()
     }];
+};
+parse['머니투데이'] = function (jews) {
+    jews.title = $('#article h1').text();
+    jews.content = clearStyles($('#textBody')[0].cloneNode(true)).innerHTML;
+    jews.timestamp = {
+        created: new Date($('.infobox1 .num').text().replace(": ", "")), // ": 2014.06.20 06:31"형태로 들어있음
+        lastModified: undefined
+    };
+    jews.reporters = (function() {
+        var ret = [];
+        $('.infobox1 a').each(function(){
+            var reporter = {
+                name: $(this).text().replace(/ 기자$/,''),
+                mail: undefined
+            };
+            ret.push(reporter);
+        });
+        var main_reporter_name = $('.conbox strong').text();
+        var main_reporter_mail = $('.conbox .mail').text();
+        for(var i = 0; i < ret.length; i++) {
+            if (ret[i].name == main_reporter_name) {
+                ret[i].mail = main_reporter_mail;
+            }
+        }
+        return ret;
+    })();
 };
 parse['미디어오늘'] = function (jews) {
     jews.title = $('#font_title').text().trim();
