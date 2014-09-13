@@ -230,11 +230,13 @@ parse['머니투데이'] = function (jews) {
             };
             ret.push(reporter);
         });
-        var main_reporter_name = $('.conbox strong').text();
-        var main_reporter_mail = $('.conbox .mail').text();
-        for (var i = 0; i < ret.length; i++) {
-            if (ret[i].name == main_reporter_name) {
-                ret[i].mail = main_reporter_mail;
+        if ($('.conbox').length > 0) {
+            var main_reporter_name = $('.conbox strong').text();
+            var main_reporter_mail = $('.conbox .mail').text();
+            for (var i = 0; i < ret.length; i++) {
+                if (ret[i].name == main_reporter_name) {
+                    ret[i].mail = main_reporter_mail;
+                }
             }
         }
         return ret;
