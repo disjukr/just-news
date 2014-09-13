@@ -221,9 +221,9 @@ parse['머니투데이'] = function (jews) {
         created: new Date($('.infobox1 .num').text().replace(": ", "")), // ": 2014.06.20 06:31"형태로 들어있음
         lastModified: undefined
     };
-    jews.reporters = (function() {
+    jews.reporters = (function () {
         var ret = [];
-        $('.infobox1 a').each(function(){
+        $('.infobox1 a').each(function () {
             var reporter = {
                 name: $(this).text().replace(/ 기자$/,''),
                 mail: undefined
@@ -232,7 +232,7 @@ parse['머니투데이'] = function (jews) {
         });
         var main_reporter_name = $('.conbox strong').text();
         var main_reporter_mail = $('.conbox .mail').text();
-        for(var i = 0; i < ret.length; i++) {
+        for (var i = 0; i < ret.length; i++) {
             if (ret[i].name == main_reporter_name) {
                 ret[i].mail = main_reporter_mail;
             }
