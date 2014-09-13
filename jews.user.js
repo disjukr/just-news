@@ -217,7 +217,7 @@ parse['미디어오늘'] = function (jews) {
     jews.content = clearStyles($('#media_body')[0].cloneNode(true)).innerHTML;
     jews.timestamp = (function () {
         var data = {};
-        $('td[align="left"] table td', $('#font_email').closest('td[class!="SmN"]').closest('table')).text().split(/(입력|노출)\s*:([\d\-\.\s:]+)/).forEach(function (v, i, arr) {
+        $('td[align="left"] table td', $('#font_email').closest('table').closest('td').closest('table')).text().split(/(입력|노출)\s*:([\d\-\.\s:]+)/).forEach(function (v, i, arr) {
             if (v === '입력')
                 data.created = new Date(arr[i + 1].trim().replace(/\s+/g, ' ').replace(/[-\.]/g, '/') + '+0900');
             else if (v === '노출')
