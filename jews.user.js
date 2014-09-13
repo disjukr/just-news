@@ -346,7 +346,7 @@ parse['지디넷코리아'] = function (jews) {
     })();
 };
 parse['한겨레'] = function (jews) {
-    jews.title = $('.article-category-title td:eq(1)').text().trim();
+    jews.title = $('.article-category-title td').eq(1).text().trim();
     jews.content = (function () {
         var content = document.createElement('div');
         $('.article-contents').contents().forEach(function (el, i) {
