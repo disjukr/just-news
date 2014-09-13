@@ -456,6 +456,11 @@ $.fn.init.prototype.eq = function (index) {
     }
     return $(this[index]);
 };
+$.fn.init.prototype.forEach = function (fn) {
+    for (var i = 0; i < this.length; i++) {
+        fn.call(this, this[i], i);
+    }
+};
 $.fn.init.prototype.hasClass = function (className) {
     var node = this[0];
     if (node.classList) {
