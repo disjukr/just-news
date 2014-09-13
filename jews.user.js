@@ -15,6 +15,7 @@
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
+// @include http://www.bloter.net/archives/*
 // @include http://kr.wsj.com/posts/*
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
@@ -41,6 +42,7 @@ var where = (function () {
     case 'news.khan.co.kr': return '경향신문';
     case 'dailysecu.com': return '데일리시큐';
     case 'www.mediatoday.co.kr': return '미디어오늘';
+    case 'www.bloter.net': return '블로터닷넷';
     case 'kr.wsj.com': return '월스트리트저널';
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
@@ -205,7 +207,7 @@ parse['데일리시큐'] = function (jews) {
         created: new Date(infos[0].replace(/-/g, '/')),
         lastModified: undefined
     };
-    jews.repoters = [{
+    jews.reporters = [{
         name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
         mail: infos[2].trim()
     }];
@@ -231,6 +233,19 @@ parse['미디어오늘'] = function (jews) {
             mail: parsedData[1].trim()
         }];
     })();
+};
+parse['블로터닷넷'] = function (jews) {
+    jews.title = document.title;
+    var author = document.getElementsByClassName('press-context-author')[0];
+    jews.reporters = [{
+        name: author.getElementsByTagName('cite')[0].innerText,
+        mail: author.getElementsByTagName('a')[0].href.match(/bloter\.net\/archives\/author\/([^\/\?\s]+)/)[1]+'@bloter.net'
+    }];
+    jews.timestamp = {
+        created: new Date(document.querySelector('meta[property="article:published_time"]').content),
+        lastModified: new Date(document.querySelector('meta[property="article:modified_time"]').content)
+    },
+    jews.content = clearStyles(document.getElementsByClassName('press-context-news')[0].cloneNode(true)).innerHTML;
 };
 parse['월스트리트저널'] = function (jews) {
     jews.title = $('.articleHeadlineBox h1')[0].innerText;
@@ -349,7 +364,7 @@ parse['한겨레'] = function (jews) {
             else if (el instanceof HTMLParagraphElement && el.innerHTML.trim() === "") return;
             else if (el instanceof HTMLDivElement && !$(el).hasClass('article-alignC')) return;
             else content.appendChild(el.cloneNode(true));
-        })
+        });
         var i = content.childNodes.length, mail, name;
         while (i-- > 0){
             var e = content.childNodes[i];
@@ -364,7 +379,7 @@ parse['한겨레'] = function (jews) {
                     e.remove();
                     break;
                 } else if (tmp.match(/온라인뉴스팀|연합뉴스/)){
-                    name = tmp
+                    name = tmp;
                     e.remove();
                     break;
                 } else if (tmp = tmp.match(/^(.+ (?:선임기자|기자|특파원))\s+([A-Z0-9._%+-]+@hani\.co\.kr)$/i)) {
@@ -387,81 +402,97 @@ parse['한겨레'] = function (jews) {
         };
         $('.article-control-menu .date span').forEach(function (el, i) {
             var match = el.innerText.match(/(등록|수정)\s*:\s+(\d{4}\.\d{2}\.\d{2}\s+\d{1,2}:\d{1,2})/);
-            if (match == null) return;
+            if (match === null) return;
             var time = new Date(match[2].replace(/\./g, '-').replace(/\s+/, 'T') + ':00+09:00'); // ISO 8601
             if (match[1] === '등록') data.created = time;
             else if (match[1] === '수정') data.lastModified = time;
         });
         return data;
     })();
-}
+};
 
 function $(selector, context) {
-    context = context || document;
-    var nodelist;
-    if (selector instanceof Node) {
-        nodelist = [selector];
-    } else if (selector instanceof NodeList) {
-        nodelist = selector;
-    } else {
-        nodelist = context.querySelectorAll(selector);
-    }
-    return {
-        attr: function (attributeName) {
-            return nodelist[0].getAttribute(attributeName);
-        },
-        children: function () {
-            return nodelist[0].children;
-        },
-        closest: function (selector) {
-            var node = nodelist[0];
-            while (node) {
-                if ($.matches(node, selector)) {
-                    return $(node);
-                }
-                node = node.parentNode;
-            }
-        },
-        contents: function () {
-            return nodelist[0].childNodes;
-        },
-        each: function (fn) {
-            Array.prototype.forEach.call(nodelist, function (el, i) {
-                fn(i, el);
-            });
-        },
-        hasClass: function (className) {
-            var node = nodelist[0];
-            if (node.classList) {
-                return node.classList.contains(className);
-            } else {
-                return new RegExp('(^| )' + className + '( |$)', 'gi').test(node.className);
-            }
-        },
-        length: function () {
-            return nodelist.length;
-        },
-        remove: function () {
-            for (var i = 0; i < nodelist.length; i++) {
-                var node = nodelist[i];
-                node.parentNode.removeChild(node);
-            }
-        },
-        replaceWith: function (string) {
-            nodelist[0].outerHTML = string;
-        },
-        text: function () {
-            return nodelist[0].textContent;
-        },
-        toArray: function () {
-            var array = [];
-            for (var i = 0; i < nodelist.length; i++) {
-                array[i] = nodelist[i];
-            }
-            return array;
-        }
-    };
+    return new $.fn.init(selector, context);
 }
+$.fn = {};
+$.fn.init = function (selector, context) {
+    if (typeof context == 'string' || context instanceof String) {
+        selector = context + ' ' + selector;
+        context = undefined;
+    }
+    context = context || document;
+    if (selector instanceof Node)
+        this.push(selector);
+    else if (typeof selector == 'string' || selector instanceof String)
+        $.merge(this, context.querySelectorAll(selector));
+    else if (selector && selector.length)
+        $.merge(this, selector);
+    else
+        this.length = 0;
+};
+$.fn.init.prototype.attr = function (attributeName) {
+    return this[0].getAttribute(attributeName);
+};
+$.fn.init.prototype.children = function () {
+    return $(this[0].children);
+};
+$.fn.init.prototype.closest = function (selector) {
+    var node = this[0];
+    while (node) {
+        if ($.matches(node, selector)) {
+            return $(node);
+        }
+        node = node.parentNode;
+    }
+};
+$.fn.init.prototype.contents = function () {
+    return $(this[0].childNodes);
+};
+$.fn.init.prototype.each = function (fn) {
+    for (var i = 0; i < this.length; ++i)
+        fn.call(this, i, this[i]);
+};
+$.fn.init.prototype.hasClass = function (className) {
+    var node = this[0];
+    if (node.classList) {
+        return node.classList.contains(className);
+    } else {
+        return new RegExp('(^| )' + className + '( |$)', 'gi').test(node.className);
+    }
+};
+$.fn.init.prototype.push = function (item) {
+    var length = this.length | 0;
+    this[length++] = item;
+    this.length = length;
+    return length;
+};
+$.fn.init.prototype.remove = function () {
+    for (var i = 0; i < this.length; i++) {
+        var node = this[i];
+        node.parentNode.removeChild(node);
+    }
+};
+$.fn.init.prototype.replaceWith = function (string) {
+    this[0].outerHTML = string;
+};
+$.fn.init.prototype.text = function () {
+    return this[0].textContent;
+};
+$.fn.init.prototype.toArray = function () {
+    var array = [];
+    for (var i = 0; i < this.length; i++) {
+        array[i] = this[i];
+    }
+    return array;
+};
+$.merge = function (first, second) {
+    var length = first.length | 0;
+    for (var i = 0; i < (second.length | 0); ++i) {
+        first[length] = second[i];
+        first.length = ++length;
+    }
+    return first;
+};
 $.matches = function (el, selector) {
     return (el.matches || el.matchesSelector ||
             el.msMatchesSelector || el.mozMatchesSelector ||
