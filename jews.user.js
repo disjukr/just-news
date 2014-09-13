@@ -375,19 +375,19 @@ parse['한겨레'] = function (jews) {
             else content.appendChild(el.cloneNode(true));
         });
         var i = content.childNodes.length, mail, name;
-        while (i-- > 0){
+        while (i-- > 0) {
             var e = content.childNodes[i];
             if (e instanceof HTMLBRElement && i - 1 == content.length) e.remove();
             else if (e instanceof HTMLAnchorElement && e.href.match(/^mailto:/)) {
                 mail = e.href.replace(/^mailto:/, '');
                 e.remove();
-            } else if (e instanceof HTMLParagraphElement){
+            } else if (e instanceof HTMLParagraphElement) {
                 var tmp = e.innerText.trim();
                 if (tmp.match(/ (?:선임기자|기자|특파원)$/)) {
                     name = tmp.replace(/(?:글.사진|사진.글)\s+/, '');
                     e.remove();
                     break;
-                } else if (tmp.match(/온라인뉴스팀|연합뉴스/)){
+                } else if (tmp.match(/온라인뉴스팀|연합뉴스/)) {
                     name = tmp;
                     e.remove();
                     break;
