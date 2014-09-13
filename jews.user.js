@@ -420,14 +420,13 @@ $.fn.init = function (selector, context) {
         context = undefined;
     }
     context = context || document;
+    this.length = 0;
     if (selector instanceof Node)
         this.push(selector);
     else if (typeof selector == 'string' || selector instanceof String)
         $.merge(this, context.querySelectorAll(selector));
     else if (selector && selector.length)
         $.merge(this, selector);
-    else
-        this.length = 0;
 };
 $.fn.init.prototype.attr = function (attributeName) {
     return this[0].getAttribute(attributeName);
@@ -460,7 +459,7 @@ $.fn.init.prototype.hasClass = function (className) {
     }
 };
 $.fn.init.prototype.push = function (item) {
-    var length = this.length | 0;
+    var length = this.length;
     this[length++] = item;
     this.length = length;
     return length;
@@ -489,7 +488,7 @@ $.fn.init.prototype.toArray = function () {
     return array;
 };
 $.merge = function (first, second) {
-    var length = first.length | 0;
+    var length = first.length;
     for (var i = 0; i < (second.length | 0); ++i) {
         first[length] = second[i];
         first.length = ++length;
