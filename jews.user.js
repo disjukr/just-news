@@ -460,7 +460,11 @@ $.fn.init.prototype.closest = function (selector) {
     }
 };
 $.fn.init.prototype.contents = function () {
-    return $(this[0].childNodes);
+    var result = $(this[0].childNodes);
+    for (var i = 1; i < this.length; ++i) {
+        $.merge(result, $(this[i].childNodes));
+    }
+    return result;
 };
 $.fn.init.prototype.each = function (fn) {
     for (var i = 0; i < this.length; ++i)
