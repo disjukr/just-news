@@ -52,7 +52,7 @@ reporter = {
 * [x] [KBS](http://news.kbs.co.kr)
 * [x] [KBS World](http://world.kbs.co.kr)
 * [x] [MBC](http://imnews.imbc.com)
-* [x] [MBN](http://mbn.mk.co.kr)
+* [x] [MBN](http://mbn.mk.co.kr/pages/news/index.html)
 * [x] [OSEN](http://osen.mt.co.kr)
 * [x] [SBS](http://news.sbs.co.kr)
 * [ ] [YTN](http://www.ytn.co.kr)
