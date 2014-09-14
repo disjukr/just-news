@@ -58,6 +58,7 @@ function parse(jews) {
 }
 parse['KBS'] = function (jews) {
     jews.title = $('#GoContent .news_title .tit').text();
+    jews.subtitle = undefined;
     jews.content = clearStyles($('#content')[0].cloneNode(true)).innerHTML;
     jews.timestamp = (function () {
         var parsedData = $('#GoContent .news_title .time li').contents();
@@ -88,6 +89,7 @@ parse['KBS'] = function (jews) {
 };
 parse['KBS World'] = function (jews) {
     jews.title = document.getElementById('content_area').getElementsByClassName('title')[0].getElementsByTagName('h2')[0].textContent;
+    jews.subtitle = undefined;
     jews.content = (function () {
         var photo = document.getElementById('container').getElementsByClassName('photo')[0];
         var content = document.getElementById('content').cloneNode(true);
@@ -106,6 +108,7 @@ parse['KBS World'] = function (jews) {
 };
 parse['MBC'] = function (jews) {
     jews.title = $('#content .view-title').text();
+    jews.subtitle = undefined;
     jews.content = clearStyles($('#DivPrint .view-con')[0].cloneNode(true)).innerHTML;
     jews.timestamp = {
         created: new Date($('#DivPrint .article-time-date').text().replace(/-/g, '/')),
@@ -118,6 +121,7 @@ parse['MBC'] = function (jews) {
 };
 parse['MBN'] = function (jews) {
     jews.title = $('#article_title .title_n').contents().eq(0).text().trim();
+    jews.subtitle = undefined;
     jews.content = (function () {
         var content = $('#newsViewArea')[0].cloneNode(true);
         $('*[id*=google]', content).remove();
@@ -131,6 +135,7 @@ parse['MBN'] = function (jews) {
 };
 parse['OSEN'] = function (jews) {
     jews.title = $('#container .detailTitle .obj').text().trim();
+    jews.subtitle = undefined;
     jews.content = (function () {
         var content = $('#_article')[0].cloneNode(true);
         $('iframe, #divBox, #scrollDiv, div[class^=tabArea], .mask_div, .articleList', content).remove();
@@ -155,6 +160,7 @@ parse['OSEN'] = function (jews) {
 };
 parse['SBS'] = function (jews) {
     jews.title = $('#container .smdend_content_w .sep_cont_w .sed_articel_head .seda_title').text();
+    jews.subtitle = $('#container .smdend_content_w .sep_cont_w .sed_article_w .sed_sub_title').text();
     jews.content = (function () {
         var content = $('#container .smdend_content_w .sep_cont_w .sed_article_w .sed_article')[0].cloneNode(true);
         return clearStyles(content).innerHTML;
@@ -176,6 +182,7 @@ parse['SBS'] = function (jews) {
 };
 parse['경향신문'] = function (jews) {
     jews.title = $('#container .title_group .CR dt').text();
+    jews.subtitle = undefined;
     jews.content = (function () {
         var content = $('#sub_cntTopTxt')[0].cloneNode(true);
         $('a', content).each(function (_, anchor) {
@@ -201,6 +208,7 @@ parse['경향신문'] = function (jews) {
 };
 parse['데일리시큐'] = function (jews) {
     jews.title = document.querySelector('.new_title').textContent.trim();
+    jews.subtitle = document.querySelector('.news_mtitle').textContent.trim();
     jews.content = clearStyles(document.querySelector('.news_text')).innerHTML;
 
     var infos = document.querySelector('.new_write').textContent.split(',');
@@ -216,6 +224,7 @@ parse['데일리시큐'] = function (jews) {
 };
 parse['머니투데이'] = function (jews) {
     jews.title = $('#article h1').text();
+    jews.subtitle = $('#article h2').text();
     jews.content = clearStyles($('#textBody')[0].cloneNode(true)).innerHTML;
     jews.timestamp = {
         created: new Date($('.infobox1 .num').text().replace(": ", "").replace(/\./g, '/')), // ": 2014.06.20 06:31"형태로 들어있음
@@ -242,6 +251,7 @@ parse['머니투데이'] = function (jews) {
 };
 parse['미디어오늘'] = function (jews) {
     jews.title = $('#font_title').text().trim();
+    jews.subtitle = $('#font_subtitle').text();
     jews.content = clearStyles($('#media_body')[0].cloneNode(true)).innerHTML;
     jews.timestamp = (function () {
         var data = {};
@@ -263,6 +273,7 @@ parse['미디어오늘'] = function (jews) {
 };
 parse['블로터닷넷'] = function (jews) {
     jews.title = document.title;
+    jews.subtitle = undefined;
     var author = document.getElementsByClassName('press-context-author')[0];
     jews.reporters = [{
         name: author.getElementsByTagName('cite')[0].innerText,
@@ -276,6 +287,7 @@ parse['블로터닷넷'] = function (jews) {
 };
 parse['월스트리트저널'] = function (jews) {
     jews.title = $('.articleHeadlineBox h1')[0].innerText;
+    jews.subtitle = undefined;
     jews.content = (function () {
         function remove(e) {
             e.parentNode.removeChild(e);
@@ -313,6 +325,7 @@ parse['월스트리트저널'] = function (jews) {
 };
 parse['전자신문'] = function (jews) {
     jews.title = $('.hgroup h1').text() || undefined;
+    jews.subtitle = $('.hgroup h3').text();
     jews.content = (function () {
         var content = $('.article_body')[0].cloneNode(true);
         $('#openLine, .art_reporter, .article_ad, .sns_area2, *[src^="http://adv"]', content).remove();
@@ -332,6 +345,7 @@ parse['전자신문'] = function (jews) {
 };
 parse['조선비즈'] = function (jews) {
     jews.title = $('#title_text').text();
+    jews.subtitle = $('.article h3').text();
     jews.content = (function () {
         var content = $('.article')[0].cloneNode(true);
         $('.promotion', content).remove();
@@ -362,6 +376,7 @@ parse['조선비즈'] = function (jews) {
 };
 parse['지디넷코리아'] = function (jews) {
     jews.title = $('#wrap_container_new .sub_tit_area h2').text();
+    jews.subtitle = $('#wrap_container_new .sub_tit_area h3').text();
     jews.content = clearStyles($('#content')[0].cloneNode(true)).innerHTML;
     jews.timestamp = (function () {
         var time = $('#wrap_container_new .sub_tit_area .sub_data').text().split('/');
@@ -388,10 +403,12 @@ parse['지디넷코리아'] = function (jews) {
 };
 parse['한겨레'] = function (jews) {
     jews.title = $('.article-category-title td').eq(1).text().trim();
+    jews.subtitle = $('.article-contents h4')[0].innerHTML.trim();
     jews.content = (function () {
         var content = document.createElement('div');
         $('.article-contents').contents().forEach(function (el, i) {
-            if (el instanceof Comment) return;
+            if (el instanceof HTMLHeadingElement) return;
+            else if (el instanceof Comment) return;
             else if (el instanceof Text) {
                 if (el.data.trim() === '') return;
                 else {
@@ -625,6 +642,13 @@ window.addEventListener('load', function (e) {
         '</head>',
         '<body>',
             '<h1>', jews.title || 'no title', '</h1>',
+            (function () {
+                if (jews.subtitle && jews.subtitle !== '') {
+                    return '<h2>' + jews.subtitle + '</h2>';
+                } else {
+                    return '';
+                }
+            })(),
             '<div id="meta">',
                 '<div id="timestamp">',
                 (function () {

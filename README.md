@@ -34,6 +34,7 @@
 
 ```
 jews.title: string
+jews.subtitle: string
 jews.content: string // html fragment
 jews.timestamp: {
     created: Date
