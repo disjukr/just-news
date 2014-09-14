@@ -61,7 +61,7 @@ parse['KBS'] = function (jews) {
         var parsedData = $('#GoContent .news_title .time li').contents();
         function parseTime(time) {
             time = time.split('(');
-            var date = new Date(time[0].replace(/\./, '/'));
+            var date = new Date(time[0].replace(/\./g, '/'));
             time = time[1].split(':');
             date.setHours(parseInt(time[0]));
             date.setMinutes(parseInt(time[1]));
