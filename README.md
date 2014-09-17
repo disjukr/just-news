@@ -21,7 +21,7 @@
 2. jews.js에 구현합니다.
     1. 상단의 UserScript 주석에 뉴스 페이지 주소를 추가합니다.
     2. `where` 변수에 뉴스사를 구분할 수 있는 문자열을 대입합니다.
-    3. `jews.title`, `jews.content`, `jews.timestamp`, `jews.reporters`를 각각 구현합니다.
+    3. `jews.title`, `jews.subtitle`, `jews.content`, `jews.timestamp`, `jews.reporters`를 각각 구현합니다.
 3. todo 목록에 구현한 항목을 체크하고 Pull Request를 보냅니다.
 
 ### 유의사항
@@ -100,4 +100,4 @@ reporter = {
 * [ ] [한국경제](http://www.hankyung.com)
 * [ ] [한국경제TV](http://www.wownet.co.kr)
 * [ ] [한국일보](http://www.hankookilbo.com)
-* [ ] [헤럴드경제](http://biz.heraldcorp.com)
+* [x] [헤럴드경제](http://biz.heraldcorp.com)

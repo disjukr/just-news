@@ -22,6 +22,7 @@
 // @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
 // @include http://www.hani.co.kr/arti/*
+// @include http://biz.heraldcorp.com/view.php?*
 // @copyright 2014 JongChan Choi
 // @grant none
 // ==/UserScript==
@@ -50,6 +51,7 @@ var where = (function () {
     case 'biz.chosun.com': return '조선비즈';
     case 'www.zdnet.co.kr': return '지디넷코리아';
     case 'www.hani.co.kr': return '한겨레';
+    case 'biz.heraldcorp.com': return '헤럴드경제';
     default: throw new Error('jews don\'t support this site');
     }
 })();
@@ -467,6 +469,29 @@ parse['한겨레'] = function (jews) {
         return data;
     })();
 };
+parse['헤럴드경제'] = function (jews) {
+    var $content = $($('#articleText')[0].cloneNode(true));
+    $('.mask_div', $content).remove();
+    jews.title = $('.article_text span').text();
+    jews.subtitle = undefined;
+    jews.content = clearStyles($content[0]).innerHTML;
+    jews.timestamp = {
+        created: new Date($('.new_time').text().replace('기사입력', '')),
+        lastModified: undefined
+    };
+    jews.reporters = (function () {
+        var contentText = $content.text().trim();
+        var name = /^(?:［|\[)헤럴드경제=(.+?)\s+기자(?:\]|］)/.exec(contentText);
+        var mail = $content.contents().filter(function () {
+            return this.nodeType === 3 && this.textContent.indexOf('@heraldcorp.com') > -1;
+        });
+        mail = (mail.length > 0) ? (mail[0].textContent) : undefined;
+        return [{
+            name: name ? name[1] : undefined,
+            mail: mail || $('[href^=mailto]').text() || undefined
+        }];
+    })();
+};
 
 function $(selector, context) {
     return new $.fn.init(selector, context);
@@ -520,6 +545,22 @@ $.fn.init.prototype.eq = function (index) {
         index += this.length;
     }
     return $(this[index]);
+};
+$.fn.init.prototype.filter = function (selector) {
+    var result = $();
+    var i;
+    if (typeof selector == 'string' || selector instanceof String) {
+        for (i = 0; i < this.length; ++i) {
+            if ($.matches(this[i], selector))
+                result.push(this[i]);
+        }
+    } else if (typeof selector == 'function') {
+        for (i = 0; i < this.length; ++i) {
+            if (selector.call(this[i], i, this[i]))
+                result.push(this[i]);
+        }
+    }
+    return result;
 };
 $.fn.init.prototype.forEach = function (fn) {
     for (var i = 0; i < this.length; i++) {
