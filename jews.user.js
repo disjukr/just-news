@@ -22,6 +22,8 @@
 // @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
 // @include http://www.hani.co.kr/arti/*
+// @include http://www.hankyung.com/news/app/newsview.php*
+// @include http://ent.hankyung.com/news/app/newsview.php*
 // @include http://biz.heraldcorp.com/view.php?*
 // @copyright 2014 JongChan Choi
 // @grant none
@@ -51,6 +53,7 @@ var where = (function () {
     case 'biz.chosun.com': return '조선비즈';
     case 'www.zdnet.co.kr': return '지디넷코리아';
     case 'www.hani.co.kr': return '한겨레';
+    case 'www.hankyung.com': case 'ent.hankyung.com': return '한국경제';
     case 'biz.heraldcorp.com': return '헤럴드경제';
     default: throw new Error('jews don\'t support this site');
     }
@@ -467,6 +470,29 @@ parse['한겨레'] = function (jews) {
             else if (match[1] === '수정') data.lastModified = time;
         });
         return data;
+    })();
+};
+parse['한국경제'] = function (jews) {
+    jews.title = $('.news_sbj_h').text();
+    jews.subtitle = $('.article_stit').text().trim();
+    var content = $($('#newsView')[0].cloneNode(true));
+    $('.article_stit, .article_aside_group', content).remove();
+    jews.content = clearStyles(content[0]).innerHTML;
+    jews.timestamp = (function () {
+        var parsedData = $('.news_info').children();
+        return {
+            created: new Date(parsedData.eq(0).text().replace(/-/g, '/')),
+            lastModified: new Date(parsedData.eq(1).text().replace(/-/g, '/'))
+        };
+    })();
+    jews.reporters = (function () {
+        var line = />([^>]*기자\s*?(?:<a[^>]*>)?\S*?@[^\s<]*)/.exec(content[0].innerHTML)[1].replace(/<a[^>]*>/, '').replace(/^글\. /, '');
+        var words = line.split(' ');
+        var mail = words.pop();
+        return [{
+            name: words.join(' '),
+            mail: mail
+        }];
     })();
 };
 parse['헤럴드경제'] = function (jews) {
