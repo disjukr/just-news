@@ -24,6 +24,9 @@
 // @include http://www.hani.co.kr/arti/*
 // @include http://www.hankyung.com/news/app/newsview.php*
 // @include http://ent.hankyung.com/news/app/newsview.php*
+// @include http://golf.hankyung.com/news/app/newsview.php*
+// @include http://land.hankyung.com/news/app/newsview.php*
+// @include http://stock.hankyung.com/news/app/newsview.php*
 // @include http://biz.heraldcorp.com/view.php?*
 // @copyright 2014 JongChan Choi
 // @grant none
@@ -53,7 +56,7 @@ var where = (function () {
     case 'biz.chosun.com': return '조선비즈';
     case 'www.zdnet.co.kr': return '지디넷코리아';
     case 'www.hani.co.kr': return '한겨레';
-    case 'www.hankyung.com': case 'ent.hankyung.com': return '한국경제';
+    case 'www.hankyung.com': case 'ent.hankyung.com': case 'golf.hankyung.com': case 'land.hankyung.com': case 'stock.hankyung.com': return '한국경제';
     case 'biz.heraldcorp.com': return '헤럴드경제';
     default: throw new Error('jews don\'t support this site');
     }
