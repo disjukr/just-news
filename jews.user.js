@@ -476,7 +476,7 @@ parse['한국경제'] = function (jews) {
     jews.title = $('.news_sbj_h').text();
     jews.subtitle = $('.article_stit').text().trim();
     var content = $($('#newsView')[0].cloneNode(true));
-    $('.article_stit, .article_aside_group', content).remove();
+    $('.article_stit, .article_aside_group, .ico_imgMore', content).remove();
     jews.content = clearStyles(content[0]).innerHTML;
     jews.timestamp = (function () {
         var parsedData = $('.news_info').children();
@@ -486,7 +486,9 @@ parse['한국경제'] = function (jews) {
         };
     })();
     jews.reporters = (function () {
-        var line = />([^>]*기자\s*?(?:<a[^>]*>)?\S*?@[^\s<]*)/.exec(content[0].innerHTML)[1].replace(/<a[^>]*>/, '').replace(/^글\. /, '');
+        var articleContent = $(content[0].cloneNode(true));
+        $('.articleImg', articleContent).remove();
+        var line = />([^>]*기자\s*?(?:<a[^>]*>)?\S*?@[^\s<]*)/.exec(articleContent[0].innerHTML)[1].replace(/<a[^>]*>/, '').replace(/^글\. /, '');
         var words = line.split(' ');
         var mail = words.pop();
         return [{
