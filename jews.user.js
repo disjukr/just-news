@@ -476,7 +476,7 @@ parse['헤럴드경제'] = function (jews) {
     jews.subtitle = undefined;
     jews.content = clearStyles($content[0]).innerHTML;
     jews.timestamp = {
-        created: new Date($('.new_time').text().replace('기사입력', '')),
+        created: new Date($('.new_time').text().replace('기사입력', '').replace(/-/g, '/')),
         lastModified: undefined
     };
     jews.reporters = (function () {
