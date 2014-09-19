@@ -24,6 +24,9 @@
 // @include http://www.hani.co.kr/arti/*
 // @include http://www.hankyung.com/news/app/newsview.php*
 // @include http://ent.hankyung.com/news/app/newsview.php*
+// @include http://golf.hankyung.com/news/app/newsview.php*
+// @include http://land.hankyung.com/news/app/newsview.php*
+// @include http://stock.hankyung.com/news/app/newsview.php*
 // @include http://biz.heraldcorp.com/view.php?*
 // @copyright 2014 JongChan Choi
 // @grant none
@@ -53,7 +56,7 @@ var where = (function () {
     case 'biz.chosun.com': return '조선비즈';
     case 'www.zdnet.co.kr': return '지디넷코리아';
     case 'www.hani.co.kr': return '한겨레';
-    case 'www.hankyung.com': case 'ent.hankyung.com': return '한국경제';
+    case 'www.hankyung.com': case 'ent.hankyung.com': case 'golf.hankyung.com': case 'land.hankyung.com': case 'stock.hankyung.com': return '한국경제';
     case 'biz.heraldcorp.com': return '헤럴드경제';
     default: throw new Error('jews don\'t support this site');
     }
@@ -476,7 +479,7 @@ parse['한국경제'] = function (jews) {
     jews.title = $('.news_sbj_h').text();
     jews.subtitle = $('.article_stit').text().trim();
     var content = $($('#newsView')[0].cloneNode(true));
-    $('.article_stit, .article_aside_group', content).remove();
+    $('.article_stit, .article_aside_group, .ico_imgMore', content).remove();
     jews.content = clearStyles(content[0]).innerHTML;
     jews.timestamp = (function () {
         var parsedData = $('.news_info').children();
@@ -486,7 +489,9 @@ parse['한국경제'] = function (jews) {
         };
     })();
     jews.reporters = (function () {
-        var line = />([^>]*기자\s*?(?:<a[^>]*>)?\S*?@[^\s<]*)/.exec(content[0].innerHTML)[1].replace(/<a[^>]*>/, '').replace(/^글\. /, '');
+        var articleContent = $(content[0].cloneNode(true));
+        $('.articleImg', articleContent).remove();
+        var line = />([^>]*기자\s*?(?:<a[^>]*>)?\S*?@[^\s<]*)/.exec(articleContent[0].innerHTML)[1].replace(/<a[^>]*>/, '').replace(/^글\. /, '');
         var words = line.split(' ');
         var mail = words.pop();
         return [{
