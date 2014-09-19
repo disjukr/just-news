@@ -98,6 +98,6 @@ reporter = {
 * [ ] [프레시안](http://www.pressian.com)
 * [x] [한겨레](http://www.hani.co.kr)
 * [x] [한국경제](http://www.hankyung.com)
-* [ ] [한국경제TV](http://www.wowtv.co.kr)
+* [x] [한국경제TV](http://www.wowtv.co.kr)
 * [ ] [한국일보](http://www.hankookilbo.com)
 * [x] [헤럴드경제](http://biz.heraldcorp.com)
