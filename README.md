@@ -99,5 +99,5 @@ reporter = {
 * [x] [한겨레](http://www.hani.co.kr)
 * [x] [한국경제](http://www.hankyung.com)
 * [x] [한국경제TV](http://www.wowtv.co.kr)
-* [ ] [한국일보](http://www.hankookilbo.com)
+* [x] [한국일보](http://www.hankookilbo.com)
 * [x] [헤럴드경제](http://biz.heraldcorp.com)
