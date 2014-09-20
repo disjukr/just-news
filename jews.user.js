@@ -21,6 +21,7 @@
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
+// @include http://www.koreaherald.com/view.php*
 // @include http://www.fnnews.com/news/*
 // @include http://www.pressian.com/news/article.html*
 // @include http://www.hani.co.kr/arti/*
@@ -59,6 +60,7 @@ var where = (function () {
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
     case 'www.zdnet.co.kr': return '지디넷코리아';
+    case 'www.koreaherald.com': return '코리아헤럴드';
     case 'www.fnnews.com': return '파이낸셜뉴스';
     case 'www.pressian.com': return '프레시안';
     case 'www.hani.co.kr': return '한겨레';
@@ -415,6 +417,32 @@ parse['지디넷코리아'] = function (jews) {
             name: reporterInfoString.split(/\s+/)[0],
             mail: mail !== null ? mail[0] : undefined
         }];
+    })();
+};
+parse['코리아헤럴드'] = function (jews) {
+    jews.title = $('.nview .title_sec').text();
+    jews.subtitle = $('.nview .stitle_sec').text() || undefined;
+    jews.content = clearStyles($('#articleText')[0].cloneNode(true)).innerHTML;
+    jews.timestamp = (function () {
+        var parsedData = $('.nview .writedata .date').contents();
+        return {
+            created: new Date(parsedData.eq(0).text().trim().replace('Published : ', '').replace(/-/g, '/')),
+            lastModified: new Date(parsedData.eq(2).text().trim().replace('Updated : ', '').replace(/-/g, '/'))
+        };
+    })();
+    jews.reporters = (function () {
+        var matches = /By\s+([^(]+)\(([^)]+)\)/.exec($('#articleText').contents().eq(-1).text());
+        if (matches !== null) {
+            return [{
+                name: matches[1].trim(),
+                mail: matches[2]
+            }];
+        } else {
+            return [{
+                name: undefined,
+                mail: undefined
+            }];
+        }
     })();
 };
 parse['파이낸셜뉴스'] = function (jews) {

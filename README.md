@@ -93,7 +93,7 @@ reporter = {
 * [x] [지디넷코리아](http://www.zdnet.co.kr)
 * [ ] [지지통신](http://www.jiji.com)
 * [ ] [코리아타임스](http://www.koreatimes.co.kr)
-* [ ] [코리아헤럴드](http://www.koreaherald.com)
+* [x] [코리아헤럴드](http://www.koreaherald.com)
 * [x] [파이낸셜뉴스](http://www.fnnews.com)
 * [x] [프레시안](http://www.pressian.com)
 * [x] [한겨레](http://www.hani.co.kr)
