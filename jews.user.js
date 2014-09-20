@@ -21,6 +21,7 @@
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
+// @include http://www.fnnews.com/news/*
 // @include http://www.pressian.com/news/article.html*
 // @include http://www.hani.co.kr/arti/*
 // @include http://www.hankyung.com/news/app/newsview.php*
@@ -58,6 +59,7 @@ var where = (function () {
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
     case 'www.zdnet.co.kr': return '지디넷코리아';
+    case 'www.fnnews.com': return '파이낸셜뉴스';
     case 'www.pressian.com': return '프레시안';
     case 'www.hani.co.kr': return '한겨레';
     case 'www.hankyung.com': case 'ent.hankyung.com': case 'golf.hankyung.com': case 'land.hankyung.com': case 'stock.hankyung.com': return '한국경제';
@@ -414,6 +416,26 @@ parse['지디넷코리아'] = function (jews) {
             mail: mail !== null ? mail[0] : undefined
         }];
     })();
+};
+parse['파이낸셜뉴스'] = function (jews) {
+    jews.title = $('.tit_news .tit_sect .txt_tit strong').text();
+    jews.subtitle = $('.tit_news .tit_sect .desc')[0].innerHTML;
+    jews.content = (function () {
+        var content = $($('#article_body')[0].cloneNode(true));
+        $('#ad_body', content).remove();
+        return clearStyles(content[0]).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var parsedData = $('.sub_news_data .news_data .list_02').text().split('|');
+        return {
+            created: new Date(parsedData[0].replace('입력 : ', '').replace(/\./g, '/')),
+            lastModified: new Date(parsedData[1].replace(' 수정 : ', '').replace(/\./g, '/'))
+        };
+    })();
+    jews.reporters = [{
+        name: $('.sub_news_data .news_data .list_01 a').eq(0).text().trim(),
+        mail: $('.sub_news_data .news_data .list_01 .reporter_layer dd span a').text() || undefined
+    }];
 };
 parse['프레시안'] = function (jews) {
     jews.title = $('.arvtitle .hbox h2').text();
