@@ -438,10 +438,7 @@ parse['코리아헤럴드'] = function (jews) {
                 mail: matches[2]
             }];
         } else {
-            return [{
-                name: undefined,
-                mail: undefined
-            }];
+            return [];
         }
     })();
 };
@@ -585,10 +582,7 @@ parse['한국경제TV'] = function (jews) {
     jews.reporters = (function () {
         var parsedData = $('.journalist_mail').contents();
         if (parsedData.length < 1) {
-            return [{
-                name: undefined,
-                mail: undefined
-            }];
+            return [];
         } else {
             return [{
                 name: parsedData.eq(0).text().trim(),
@@ -607,18 +601,22 @@ parse['한국일보'] = function (jews) {
         created: new Date($('#date-registered').text().replace('등록: ', '').replace(/\./g, '/')),
         lastModified: new Date($('#date-edited').text().replace('수정: ', '').replace(/\./g, '/'))
     };
-    var name = $('#article-info .author .author a').text();
-    var mail;
-    if (name !== '') {
-        var parsedData = /\S+@\S+/.exec($('#article-body').contents().eq(-1).text().trim());
-        if (parsedData !== null) {
-            mail = parsedData[0];
+    jews.reporters = (function () {
+        var name = $('#article-info .author .author a').text();
+        var mail;
+        if (name !== '') {
+            var parsedData = /\S+@\S+/.exec($('#article-body').contents().eq(-1).text().trim());
+            if (parsedData !== null) {
+                mail = parsedData[0];
+            }
+            return [{
+                name: name,
+                mail: mail
+            }];
+        } else {
+            return [];
         }
-    }
-    jews.reporters = [{
-        name: name,
-        mail: mail
-    }];
+    })();
 };
 parse['헤럴드경제'] = function (jews) {
     var $content = $($('#articleText')[0].cloneNode(true));
