@@ -21,6 +21,7 @@
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
+// @include http://www.pressian.com/news/article.html*
 // @include http://www.hani.co.kr/arti/*
 // @include http://www.hankyung.com/news/app/newsview.php*
 // @include http://ent.hankyung.com/news/app/newsview.php*
@@ -57,6 +58,7 @@ var where = (function () {
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
     case 'www.zdnet.co.kr': return '지디넷코리아';
+    case 'www.pressian.com': return '프레시안';
     case 'www.hani.co.kr': return '한겨레';
     case 'www.hankyung.com': case 'ent.hankyung.com': case 'golf.hankyung.com': case 'land.hankyung.com': case 'stock.hankyung.com': return '한국경제';
     case 'www.wowtv.co.kr': return '한국경제TV';
@@ -410,6 +412,22 @@ parse['지디넷코리아'] = function (jews) {
         return [{
             name: reporterInfoString.split(/\s+/)[0],
             mail: mail !== null ? mail[0] : undefined
+        }];
+    })();
+};
+parse['프레시안'] = function (jews) {
+    jews.title = $('.arvtitle .hbox h2').text();
+    jews.subtitle = $('.arvtitle .hbox h3').text();
+    jews.content = clearStyles($('#news_body_area')[0].cloneNode(true)).innerHTML;
+    jews.timestamp = {
+        created: $('.arvdate').contents().eq(1).text(),
+        lastModified: undefined
+    };
+    jews.reporters = (function () {
+        var parsedData = $('.news_body_area>div[style="float:right;"]').children();
+        return [{
+            name: parsedData.eq(0).text(),
+            mail: parsedData.eq(1).attr('href').replace('mailto:', '')
         }];
     })();
 };
