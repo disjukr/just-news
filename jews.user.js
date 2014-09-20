@@ -28,6 +28,7 @@
 // @include http://land.hankyung.com/news/app/newsview.php*
 // @include http://stock.hankyung.com/news/app/newsview.php*
 // @include http://www.wowtv.co.kr/newscenter/news/view.asp*
+// @include http://www.hankookilbo.com/v/*
 // @include http://biz.heraldcorp.com/view.php?*
 // @copyright 2014 JongChan Choi
 // @grant none
@@ -59,6 +60,7 @@ var where = (function () {
     case 'www.hani.co.kr': return '한겨레';
     case 'www.hankyung.com': case 'ent.hankyung.com': case 'golf.hankyung.com': case 'land.hankyung.com': case 'stock.hankyung.com': return '한국경제';
     case 'www.wowtv.co.kr': return '한국경제TV';
+    case 'www.hankookilbo.com': return '한국일보';
     case 'biz.heraldcorp.com': return '헤럴드경제';
     default: throw new Error('jews don\'t support this site');
     }
@@ -526,6 +528,29 @@ parse['한국경제TV'] = function (jews) {
             }];
         }
     })();
+};
+parse['한국일보'] = function (jews) {
+    jews.title = $('#article-title').text();
+    jews.subtitle = $('#article-subtitle').text();
+    var content = $($('#article-body')[0].cloneNode(true));
+    $('.article-ad-align-left', content).remove();
+    jews.content = clearStyles(content[0]).innerHTML;
+    jews.timestamp = {
+        created: new Date($('#date-registered').text().replace('등록: ', '').replace(/\./g, '/')),
+        lastModified: new Date($('#date-edited').text().replace('수정: ', '').replace(/\./g, '/'))
+    };
+    var name = $('#article-info .author .author a').text();
+    var mail;
+    if (name !== '') {
+        var parsedData = /\S+@\S+/.exec($('#article-body').contents().eq(-1).text().trim());
+        if (parsedData !== null) {
+            mail = parsedData[0];
+        }
+    }
+    jews.reporters = [{
+        name: name,
+        mail: mail
+    }];
 };
 parse['헤럴드경제'] = function (jews) {
     var $content = $($('#articleText')[0].cloneNode(true));
