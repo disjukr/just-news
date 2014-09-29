@@ -245,7 +245,11 @@ parse['데일리시큐'] = function (jews) {
 parse['머니투데이'] = function (jews) {
     jews.title = $('#article h1').text();
     jews.subtitle = $('#article h2').text();
-    jews.content = clearStyles($('#textBody')[0].cloneNode(true)).innerHTML;
+    jews.content = (function () {
+        var content = $('#textBody')[0].cloneNode(true);
+        $('#now-sence', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
     jews.timestamp = {
         created: new Date($('.infobox1 .num').text().replace(": ", "").replace(/\./g, '/')), // ": 2014.06.20 06:31"형태로 들어있음
         lastModified: undefined
@@ -275,7 +279,13 @@ parse['머니투데이'] = function (jews) {
 parse['미디어오늘'] = function (jews) {
     jews.title = $('#font_title').text().trim();
     jews.subtitle = $('#font_subtitle').text();
-    jews.content = clearStyles($('#media_body')[0].cloneNode(true)).innerHTML;
+    jews.content = (function () {
+        var content = $('#media_body')[0].cloneNode(true);
+        $('.ad_lumieyes_area', content).each(function (i, el) {
+            $(el).closest('tr').remove();
+        });
+        return clearStyles(content).innerHTML;
+    })();
     jews.timestamp = (function () {
         var data = {};
         $('td[align="left"] table td', $('#font_email').closest('table').closest('td').closest('table')).text().split(/(입력|노출)\s*:([\d\-\.\s:]+)/).forEach(function (v, i, arr) {
