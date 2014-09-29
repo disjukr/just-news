@@ -45,7 +45,17 @@ reporter = {
     name: string
     mail: string // email address
 }
+pesticide: function
+spraying_cycle: number
 ```
+
+### 살충제 뿌리기
+
+몇몇 뉴스 사이트들은 사이트 재구성 뒤에도 광고가 남아있을 수 있습니다.
+재구성을 했는데도 남는 광고들은 `jews.pesticide`를 사용하여 방제하도록 합시다.
+
+`jews.pesticide` 함수는 사이트 재구성이 일어난 뒤, 매 `jews.spraying_cycle`(밀리초 단위)마다 호출됩니다.
+`jews.spraying_cycle`가 정의되어있지 않다면 1초 주기로 호출됩니다.
 
 
 ## todo

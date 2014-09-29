@@ -41,7 +41,9 @@ var jews = {
     title: undefined,
     content: undefined,
     timestamp: undefined,
-    reporters: undefined
+    reporters: undefined,
+    pesticide: undefined,
+    spraying_cycle: undefined
 };
 var where = (function () {
     switch (window.location.hostname) {
@@ -266,6 +268,9 @@ parse['머니투데이'] = function (jews) {
         }
         return ret;
     })();
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['미디어오늘'] = function (jews) {
     jews.title = $('#font_title').text().trim();
@@ -288,6 +293,9 @@ parse['미디어오늘'] = function (jews) {
             mail: parsedData[1].trim()
         }];
     })();
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['블로터닷넷'] = function (jews) {
     jews.title = document.title;
@@ -477,6 +485,9 @@ parse['프레시안'] = function (jews) {
             mail: parsedData.eq(1).attr('href').replace('mailto:', '')
         }];
     })();
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['한겨레'] = function (jews) {
     jews.title = $('.article-category-title td').eq(1).text().trim();
@@ -543,6 +554,9 @@ parse['한겨레'] = function (jews) {
         });
         return data;
     })();
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['한국경제'] = function (jews) {
     jews.title = $('.news_sbj_h').text();
@@ -640,6 +654,10 @@ parse['헤럴드경제'] = function (jews) {
             mail: mail || $('[href^=mailto]').text() || undefined
         }];
     })();
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+        $('#tbFadeIn').remove();
+    };
 };
 
 function $(selector, context) {
@@ -875,4 +893,6 @@ window.addEventListener('load', function (e) {
             '<div id="content">', jews.content || 'empty', '</div>',
         '</body>'
     ].join('');
+    if (typeof jews.pesticide === 'function')
+        window.setInterval(jews.pesticide, jews.spraying_cycle || 1000);
 }, true);
