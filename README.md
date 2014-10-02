@@ -76,7 +76,7 @@ spraying_cycle: number
 * [ ] [데일리안](http://www.dailian.co.kr)
 * [ ] [동아일보](http://www.donga.com)
 * [ ] [디지털타임스](http://www.dt.co.kr)
-* [ ] [로이터](http://www.reuters.com)
+* [x] [로이터](http://www.reuters.com)
 * [ ] [마이데일리](http://www.mydaily.co.kr)
 * [ ] [매일경제](http://www.mk.co.kr)
 * [x] [머니투데이](http://www.mt.co.kr)
