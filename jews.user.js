@@ -14,6 +14,7 @@
 // @include http://news.sbs.co.kr/news/endPage.do*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://dailysecu.com/news_view.php*
+// @include http://www.reuters.com/article/*
 // @include http://news.mt.co.kr/mtview.php*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.bloter.net/archives/*
@@ -55,6 +56,7 @@ var where = (function () {
     case 'news.sbs.co.kr': return 'SBS';
     case 'news.khan.co.kr': return '경향신문';
     case 'dailysecu.com': return '데일리시큐';
+    case 'www.reuters.com': return '로이터';
     case 'news.mt.co.kr': return '머니투데이';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.bloter.net': return '블로터닷넷';
@@ -241,6 +243,56 @@ parse['데일리시큐'] = function (jews) {
         name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
         mail: infos[2].trim()
     }];
+};
+parse['로이터'] = function (jews) {
+    jews.title = $('#content > .main-content > .sectionContent h1').text();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var header = '';
+        var articleImage = $('#articleImage')[0];
+        if (articleImage) {
+            header += clearStyles(articleImage.cloneNode(true)).innerHTML;
+        }
+        return header + clearStyles($('#articleText')[0].cloneNode(true)).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var rawDate = $('#articleInfo .timestamp').text().split(' ');
+        var time = rawDate[rawDate.length - 2].match(/(\d+):(\d{2})(p?)/);
+        time = parseInt(time[1], 10) + (time[3] ? 12 : 0) + ':' + time[2];
+        rawDate[rawDate.length - 2] = time;
+        return {
+            created: new Date(rawDate.join(' ')),
+            lastModified: undefined
+        };
+    })();
+    jews.reporters = (function () {
+        var result = [];
+        var rawReporters = $('#articleInfo .byline').text().replace(/By /, '');
+        if (rawReporters !== "") {
+            // Reporters exist.
+            rawReporters = rawReporters.split(' and ');
+            if (rawReporters.length > 1) {
+                // There are more than one reporter.
+                rawReporters[0].split(',').forEach(function (v) {
+                    result.push({
+                        name: v.trim(),
+                        mail: undefined
+                    });
+                });
+                result.push({
+                    name: rawReporters[1].trim(),
+                    mail: undefined
+                });
+            } else {
+                // There is only one reporter.
+                result.push({
+                    name: rawReporters[0].trim(),
+                    mail: undefined
+                });
+            }
+        }
+        return result;
+    })();
 };
 parse['머니투데이'] = function (jews) {
     jews.title = $('#article h1').text();
