@@ -216,8 +216,8 @@ parse['경향신문'] = function (jews) {
     jews.timestamp = (function () {
         var parsedData = $('#container .article_date').contents();
         return {
-            created: new Date(parsedData.eq(0).text().replace(/-/g, '/')),
-            lastModified: new Date(parsedData.eq(2).text().replace(/-/g, '/'))
+            created: new Date(parsedData.eq(0).text().replace(/입력\s*:/, '').replace(/-/g, '/')),
+            lastModified: new Date(parsedData.eq(2).text().replace(/수정\s*:/, '').replace(/-/g, '/'))
         };
     })();
     jews.reporters = (function () {
