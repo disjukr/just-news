@@ -22,6 +22,7 @@
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
+// @include http://www.koreatimes.co.kr/www/news/*
 // @include http://www.koreaherald.com/view.php*
 // @include http://www.fnnews.com/news/*
 // @include http://www.pressian.com/news/article.html*
@@ -64,6 +65,7 @@ var where = (function () {
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
     case 'www.zdnet.co.kr': return '지디넷코리아';
+    case 'www.koreatimes.co.kr': return '코리아타임스';
     case 'www.koreaherald.com': return '코리아헤럴드';
     case 'www.fnnews.com': return '파이낸셜뉴스';
     case 'www.pressian.com': return '프레시안';
@@ -486,6 +488,34 @@ parse['지디넷코리아'] = function (jews) {
         return [{
             name: reporterInfoString.split(/\s+/)[0],
             mail: mail !== null ? mail[0] : undefined
+        }];
+    })();
+};
+parse['코리아타임스'] = function (jews) {
+    jews.title = $('.view_page_news .view_page_news_header_wrapper h1').text().trim();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var content = $('#p')[0].cloneNode(true);
+        $('#webtalks_btn_listenDiv', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var parsedData = $('.view_page_news .view_page_news_header_wrapper span');
+        var nbsp = String.fromCharCode(0xA0);
+        return {
+            created: new Date(parsedData.eq(0).text().replace(nbsp, ' ').replace('Posted : ', '').replace(/-/g, '/')),
+            lastModified: new Date(parsedData.eq(1).text().replace(nbsp, ' ').replace('Updated : ', '').replace(/-/g, '/'))
+        };
+    })();
+    jews.reporters = (function () {
+        var name = $('#p > span').eq(0).contents().filter(function (i, v) {
+            return v.nodeType === 3 && v.textContent.match(/^By (.+)$/);
+        });
+        name = (name.length > 0) ? name[0].textContent.match(/^By (.+)$/)[1] : undefined;
+        var mail = $('.view_page_translation_email a').attr('href');
+        return [{
+            name: name,
+            mail: mail ? mail.replace('mailto:', '') : undefined
         }];
     })();
 };
