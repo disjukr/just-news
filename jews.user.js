@@ -218,7 +218,7 @@ parse['YTN'] = function (jews) {
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date($('#d_date').text().trim()),
+        created: new Date($('#d_date').text().trim().replace(/-/g, '/')),
         lastModified: undefined
     };
     jews.reporters = [];
@@ -263,7 +263,7 @@ parse['노컷뉴스'] = function (jews) {
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date($('.reporter_info ul li:first-child span').text()),
+        created: new Date($('.reporter_info ul li:first-child span').text().replace(/-/g, '/')),
         lastModified: undefined
     };
     jews.reporters = [{
