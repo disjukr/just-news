@@ -14,6 +14,7 @@
 // @include http://news.sbs.co.kr/news/endPage.do*
 // @include http://www.ytn.co.kr/_ln/*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
+// @include http://www.nocutnews.co.kr/news/*
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.reuters.com/article/*
 // @include http://news.mt.co.kr/mtview.php*
@@ -58,6 +59,7 @@ var where = (function () {
     case 'news.sbs.co.kr': return 'SBS';
     case 'www.ytn.co.kr': return 'YTN';
     case 'news.khan.co.kr': return '경향신문';
+    case 'www.nocutnews.co.kr': return '노컷뉴스';
     case 'dailysecu.com': return '데일리시큐';
     case 'www.reuters.com': return '로이터';
     case 'news.mt.co.kr': return '머니투데이';
@@ -213,7 +215,7 @@ parse['YTN'] = function (jews) {
         var content = $('#newsContent')[0].cloneNode(true);
         $('.articleAd_new, .hns_mask_div', content).remove();
         $('.playbt, .vState, .vodinfoButton', content).remove();
-        return content.innerHTML;
+        return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
         created: new Date($('#d_date').text().trim()),
@@ -251,6 +253,26 @@ parse['경향신문'] = function (jews) {
             mail: parsedData[2] || undefined
         }];
     })();
+};
+parse['노컷뉴스'] = function (jews) {
+    jews.title = $('.reporter_info h2').text();
+    jews.subtitle = $('.viewbox h3').text();
+    jews.content = (function () {
+        var content = $('#pnlContent')[0].cloneNode(true);
+        $('.relatednews', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('.reporter_info ul li:first-child span').text()),
+        lastModified: undefined
+    };
+    jews.reporters = [{
+        name: $('.reporter_info .email span').text(),
+        mail: $('.reporter_info .email a').attr('title')
+    }];
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['데일리시큐'] = function (jews) {
     jews.title = document.querySelector('.new_title').textContent.trim();
@@ -955,8 +977,9 @@ window.addEventListener('load', function (e) {
                 'text-align: justify;',
             '}',
             '#content img {',
-                'margin: 15px 0;',
-                'width: 100%;',
+                'display: block;',
+                'margin: 15px auto;',
+                'max-width: 100%;',
                 'height: auto;',
             '}',
             '</style>',
