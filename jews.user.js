@@ -12,6 +12,7 @@
 // @include http://www.mbn.co.kr/pages/news/newsView.php*
 // @include http://osen.mt.co.kr/article/*
 // @include http://news.sbs.co.kr/news/endPage.do*
+// @include http://www.ytn.co.kr/_ln/*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.reuters.com/article/*
@@ -55,6 +56,7 @@ var where = (function () {
     case 'mbn.mk.co.kr': case 'www.mbn.co.kr': return 'MBN';
     case 'osen.mt.co.kr': return 'OSEN';
     case 'news.sbs.co.kr': return 'SBS';
+    case 'www.ytn.co.kr': return 'YTN';
     case 'news.khan.co.kr': return '경향신문';
     case 'dailysecu.com': return '데일리시큐';
     case 'www.reuters.com': return '로이터';
@@ -203,6 +205,26 @@ parse['SBS'] = function (jews) {
             mail: /(?:mailto:)?(.*)/.exec(parsedData.eq(1).attr('href'))[1]
         }];
     })();
+};
+parse['YTN'] = function (jews) {
+    jews.title = $('.article_headline').text();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var content = $('#newsContent')[0].cloneNode(true);
+        $('.articleAd_new, .hns_mask_div', content).remove();
+        $('.playbt, .vState, .vodinfoButton', content).remove();
+        return content.innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('#d_date').text().trim()),
+        lastModified: undefined
+    };
+    jews.reporters = [];
+    jews.pesticide = function () {
+        $('.dklink', content).each(function (_, link) {
+            $(link).replaceWith($(link).text());
+        });
+    };
 };
 parse['경향신문'] = function (jews) {
     jews.title = $('#container .title_group .CR dt').text();

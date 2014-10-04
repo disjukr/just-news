@@ -66,7 +66,7 @@ spraying_cycle: number
 * [x] [MBN](http://mbn.mk.co.kr/pages/news/index.html)
 * [x] [OSEN](http://osen.mt.co.kr)
 * [x] [SBS](http://news.sbs.co.kr)
-* [ ] [YTN](http://www.ytn.co.kr)
+* [x] [YTN](http://www.ytn.co.kr)
 * [x] [경향신문](http://www.khan.co.kr)
 * [ ] [국민일보](http://www.kmib.co.kr)
 * [ ] [노컷뉴스](http://www.nocutnews.co.kr)
