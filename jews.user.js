@@ -605,6 +605,9 @@ parse['파이낸셜뉴스'] = function (jews) {
         name: $('.sub_news_data .news_data .list_01 a').eq(0).text().trim(),
         mail: $('.sub_news_data .news_data .list_01 .reporter_layer dd span a').text() || undefined
     }];
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['프레시안'] = function (jews) {
     jews.title = $('.arvtitle .hbox h2').text();
