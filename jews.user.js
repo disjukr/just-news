@@ -49,8 +49,8 @@ var jews = {
     pesticide: undefined,
     spraying_cycle: undefined
 };
-var where = (function () {
-    switch (window.location.hostname) {
+var where = function (hostname) {
+    switch (hostname) {
     case 'news.kbs.co.kr': return 'KBS';
     case 'world.kbs.co.kr': return 'KBS World';
     case 'imnews.imbc.com': return 'MBC';
@@ -80,8 +80,8 @@ var where = (function () {
     case 'biz.heraldcorp.com': return '헤럴드경제';
     default: throw new Error('jews don\'t support this site');
     }
-})();
-function parse(jews) {
+};
+function parse(where, jews) {
     if (typeof parse[where] === 'function') parse[where](jews);
 }
 parse['KBS'] = function (jews) {
@@ -937,102 +937,106 @@ function clearStyles(element) {
     return element;
 }
 
-window.addEventListener('load', function (e) {
-    parse(jews);
-    (function () {
-        var id = window.setTimeout('0', 0);
-        while (id--) window.clearTimeout(id);
-    })();
-    document.body.parentElement.innerHTML = [
-        '<head>',
-            '<title>', jews.title || 'jews', '</title>',
-            '<style>',
-            '@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);',
-            'body {',
-                'margin-top: 50px;',
-                'margin-bottom: 500px;',
-                'text-align: center;',
-            '}',
-            '#meta {',
-                'display: inline-block;',
-                'width: 640px;',
-            '}',
-            '#timestamp {',
-                'color: #888;',
-                'font-size: 10pt;',
-                'text-align: left;',
-            '}',
-            '#timestamp p {',
-                'margin: 0;',
-            '}',
-            '#reporters {',
-                'list-style-type: none;',
-                'text-align: right;',
-            '}',
-            '#reporters .mail {',
-                'margin-left: 8px;',
-            '}',
-            '#content {',
-                'display: inline-block;',
-                'width: 640px;',
-                'font-family: \'Nanum Myeongjo\', serif;',
-                'font-size: 11pt;',
-                'text-align: justify;',
-            '}',
-            '#content img {',
-                'display: block;',
-                'margin: 15px auto;',
-                'max-width: 100%;',
-                'height: auto;',
-            '}',
-            '</style>',
-            '<meta charset="utf-8">',
-        '</head>',
-        '<body>',
-            '<h1>', jews.title || 'no title', '</h1>',
-            (function () {
-                if (jews.subtitle && jews.subtitle !== '') {
-                    return '<h2>' + jews.subtitle + '</h2>';
-                } else {
-                    return '';
-                }
-            })(),
-            '<div id="meta">',
-                '<div id="timestamp">',
+if ('undefined' === typeof window) {
+    module.exports = parse;
+} else {
+    window.addEventListener('load', function (e) {
+        parse(where(window.location.hostname), jews);
+        (function () {
+            var id = window.setTimeout('0', 0);
+            while (id--) window.clearTimeout(id);
+        })();
+        document.body.parentElement.innerHTML = [
+            '<head>',
+                '<title>', jews.title || 'jews', '</title>',
+                '<style>',
+                '@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);',
+                'body {',
+                    'margin-top: 50px;',
+                    'margin-bottom: 500px;',
+                    'text-align: center;',
+                '}',
+                '#meta {',
+                    'display: inline-block;',
+                    'width: 640px;',
+                '}',
+                '#timestamp {',
+                    'color: #888;',
+                    'font-size: 10pt;',
+                    'text-align: left;',
+                '}',
+                '#timestamp p {',
+                    'margin: 0;',
+                '}',
+                '#reporters {',
+                    'list-style-type: none;',
+                    'text-align: right;',
+                '}',
+                '#reporters .mail {',
+                    'margin-left: 8px;',
+                '}',
+                '#content {',
+                    'display: inline-block;',
+                    'width: 640px;',
+                    'font-family: \'Nanum Myeongjo\', serif;',
+                    'font-size: 11pt;',
+                    'text-align: justify;',
+                '}',
+                '#content img {',
+                    'display: block;',
+                    'margin: 15px auto;',
+                    'max-width: 100%;',
+                    'height: auto;',
+                '}',
+                '</style>',
+                '<meta charset="utf-8">',
+            '</head>',
+            '<body>',
+                '<h1>', jews.title || 'no title', '</h1>',
                 (function () {
-                    var result = '';
-                    var created = jews.timestamp.created;
-                    var lastModified = jews.timestamp.lastModified;
-                    if (created !== undefined) {
-                        created = created.toLocaleString !== undefined ?
-                                  created.toLocaleString() :
-                                  created.toDateString();
-                        result += '<p>작성일: <span class="created">' + created + '</span></p>';
+                    if (jews.subtitle && jews.subtitle !== '') {
+                        return '<h2>' + jews.subtitle + '</h2>';
+                    } else {
+                        return '';
                     }
-                    if (lastModified !== undefined) {
-                        lastModified = lastModified.toLocaleString !== undefined ?
-                                       lastModified.toLocaleString() :
-                                       lastModified.toDateString();
-                        result += '<p>마지막 수정일: <span class="last-modified">' + lastModified + '</span></p>';
-                    }
-                    return result;
                 })(),
-                '</div>',
-                '<ul id="reporters">',
-                jews.reporters && jews.reporters.map(function (reporter) {
-                    var result = ['<li>'];
-                    if (reporter.name !== undefined)
-                        result.push('<span class="name">' + reporter.name + '</span>');
-                    if (reporter.mail !== undefined)
-                        result.push('<span class="mail">' + reporter.mail + '</span>');
-                    result.push('</li>');
-                    return result.join('');
-                }).join('') || '',
-                '</ul>',
-            '</div><br>',
-            '<div id="content">', jews.content || 'empty', '</div>',
-        '</body>'
-    ].join('');
-    if (typeof jews.pesticide === 'function')
-        window.setInterval(jews.pesticide, jews.spraying_cycle || 1000);
-}, true);
+                '<div id="meta">',
+                    '<div id="timestamp">',
+                    (function () {
+                        var result = '';
+                        var created = jews.timestamp.created;
+                        var lastModified = jews.timestamp.lastModified;
+                        if (created !== undefined) {
+                            created = created.toLocaleString !== undefined ?
+                                      created.toLocaleString() :
+                                      created.toDateString();
+                            result += '<p>작성일: <span class="created">' + created + '</span></p>';
+                        }
+                        if (lastModified !== undefined) {
+                            lastModified = lastModified.toLocaleString !== undefined ?
+                                           lastModified.toLocaleString() :
+                                           lastModified.toDateString();
+                            result += '<p>마지막 수정일: <span class="last-modified">' + lastModified + '</span></p>';
+                        }
+                        return result;
+                    })(),
+                    '</div>',
+                    '<ul id="reporters">',
+                    jews.reporters && jews.reporters.map(function (reporter) {
+                        var result = ['<li>'];
+                        if (reporter.name !== undefined)
+                            result.push('<span class="name">' + reporter.name + '</span>');
+                        if (reporter.mail !== undefined)
+                            result.push('<span class="mail">' + reporter.mail + '</span>');
+                        result.push('</li>');
+                        return result.join('');
+                    }).join('') || '',
+                    '</ul>',
+                '</div><br>',
+                '<div id="content">', jews.content || 'empty', '</div>',
+            '</body>'
+        ].join('');
+        if (typeof jews.pesticide === 'function')
+            window.setInterval(jews.pesticide, jews.spraying_cycle || 1000);
+    }, true);
+}
