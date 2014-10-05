@@ -49,8 +49,8 @@ var jews = {
     pesticide: undefined,
     spraying_cycle: undefined
 };
-var where = (function () {
-    switch (window.location.hostname) {
+var where = function (hostname) {
+    switch (hostname) {
     case 'news.kbs.co.kr': return 'KBS';
     case 'world.kbs.co.kr': return 'KBS World';
     case 'imnews.imbc.com': return 'MBC';
@@ -80,8 +80,8 @@ var where = (function () {
     case 'biz.heraldcorp.com': return '헤럴드경제';
     default: throw new Error('jews don\'t support this site');
     }
-})();
-function parse(jews) {
+};
+function parse(where, jews) {
     if (typeof parse[where] === 'function') parse[where](jews);
 }
 parse['KBS'] = function (jews) {
@@ -938,7 +938,7 @@ function clearStyles(element) {
 }
 
 window.addEventListener('load', function (e) {
-    parse(jews);
+    parse(where(window.location.hostname), jews);
     (function () {
         var id = window.setTimeout('0', 0);
         while (id--) window.clearTimeout(id);
