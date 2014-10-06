@@ -17,6 +17,7 @@
 // @include http://news.kmib.co.kr/article/view.asp*
 // @include http://www.nocutnews.co.kr/news/*
 // @include http://www.newdaily.co.kr/news/article.html?no=*
+// @include http://biz.newdaily.co.kr/news/article.html?no=*
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.reuters.com/article/*
 // @include http://news.mt.co.kr/mtview.php*
@@ -64,6 +65,7 @@ var where = function (hostname) {
     case 'news.kmib.co.kr': return '국민일보';
     case 'www.nocutnews.co.kr': return '노컷뉴스';
     case 'www.newdaily.co.kr': return '뉴데일리';
+    case 'biz.newdaily.co.kr': return '뉴데일리경제';
     case 'dailysecu.com': return '데일리시큐';
     case 'www.reuters.com': return '로이터';
     case 'news.mt.co.kr': return '머니투데이';
@@ -315,13 +317,28 @@ parse['뉴데일리'] = function (jews) {
                         .replace(/(?:style|width|height)=(?:"[^"]+?"|'[^']+?')/g, '').replace(/<p><br><\/p>/g,'');
     jews.timestamp = {
         'created': undefined,
-        'lastModified': new Date(b[0].getElementsByTagName('span')[0].innerText.trim().replace(/\./g,'-').replace(' ','T')+'+09:00') // ISO 8601
+        'lastModified': new Date(b[0].getElementsByTagName('span')[0].innerText.trim().replace(/\./g,'-').replace(' ','T') + '+09:00') // ISO 8601
     };
     jews.reporters = [{
         'name': j,
         'mail': b[4].getElementsByTagName('a')[0].innerText.trim().split(' ',1)[0]
     }];
 };
+parse['뉴데일리경제'] = function (jews) {
+    var $ = function (b) {return document.querySelector(b)},
+        a = [].slice.call($('.arvdate').childNodes).filter(function (v) {return v.nodeType === 3})[0].textContent.trim()
+    jews.title = $('.hbox>h2').innerText.trim()
+    jews.subtitle = $('.hbox>h3').innerText.trim()
+    jews.reporters = [{
+        'name': $('.arvdate>a').innerText.replace('뉴데일리경제','').trim(),
+        'mail': a.match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)[0]
+    }]
+    jews.timestamp = {
+        'created': new Date(a.match(/\d{4}\.\d{2}.\d{2}\s+\d{2}:\d{2}:\d{2}/)[0].replace(/\./g, '-').replace(/\s+/, 'T') + '+09:00'), // ISO 8601
+        'lastModified': undefined
+    }
+    jews.content = clearStyles(document.getElementById('news_body_area')).innerHTML
+}
 parse['데일리시큐'] = function (jews) {
     jews.title = document.querySelector('.new_title').textContent.trim();
     jews.subtitle = document.querySelector('.news_mtitle').textContent.trim();
