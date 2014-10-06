@@ -313,7 +313,7 @@ parse['뉴데일리'] = function (jews) {
     jews.title = a.getElementsByTagName('h1')[0].innerText;
     jews.subtitle = a.getElementsByTagName('h2')[0].innerText;
     jews.content = document.getElementById('ndArtBody').innerHTML
-                        .split(/<!--.+?기사본문\s*상단.+?-->/)[1].split(/<!--.+?기사본문\s*하단/)[0].trim()
+                        .split(/<!--.+?기사본문\s*하단.+?-->/)[0].trim()
                         .replace(/(?:style|width|height)=(?:"[^"]+?"|'[^']+?')/g, '').replace(/<p><br><\/p>/g,'');
     jews.timestamp = {
         'created': undefined,
