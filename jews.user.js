@@ -526,20 +526,51 @@ parse['중앙일보'] = function (jews) {
     })();
     jews.timestamp = (function () {
         var text = $('.artical_date .date').text().split('/');
-        var created = new Date(text[0].replace(/입력 (\d{4}).(\d{2}).(\d{2}) (\d{2}):(\d{2})/, '$1-$2-$3T$4:$5:00+09:00'));
-        var lastModified;
+
+        var match = text[0].match(/입력 (\d{4}).(\d{2}).(\d{2}) (\d{2}):(\d{2})/);
+        var created_date = new Date();
+        created_date.setYear(parseInt(match[1], 10));
+        created_date.setMonth(parseInt(match[2], 10) - 1);
+        created_date.setDate(parseInt(match[3], 10));
+        created_date.setHours(parseInt(match[4], 10));
+        created_date.setMinutes(parseInt(match[5], 10));
+        created_date.setSeconds(0);
+
+        var lastModified_date;
         if (text.length > 1) {
-            lastModified = new Date(text[1].replace(/수정 (\d{4}).(\d{2}).(\d{2}) (\d{2}):(\d{2})/, '$1-$2-$3T$4:$5:00+09:00'));
+            match = text[1].match(/수정 (\d{4}).(\d{2}).(\d{2}) (\d{2}):(\d{2})/);
+            lastModified_date = new Date();
+            lastModified_date.setYear(parseInt(match[1], 10));
+            lastModified_date.setMonth(parseInt(match[2], 10) - 1);
+            lastModified_date.setDate(parseInt(match[3], 10));
+            lastModified_date.setHours(parseInt(match[4], 10));
+            lastModified_date.setMinutes(parseInt(match[5], 10));
+            lastModified_date.setSeconds(0);
         }
         return {
-            created: created,
-            lastModified: lastModified
+            created: created_date,
+            lastModified: lastModified_date
         };
     })();
-    jews.reporters = [{
-        name: $('#journalist_info').text().trim().match(/(.*?) 기자/)[1],
-        mail: undefined
-    }];
+    jews.reporters = (function() {
+        var reporters = $('#journalist_info li');
+        var list = [];
+
+        for (var idx in reporters) {
+            var el = reporters[idx];
+            console.log($(el).text().trim());
+            var name = $(el).text().trim().match(/(.*?) 기자/)[1];
+            var mail, mail_el = $('.email a', el);
+            if(mail_el !== null) mail = mail_el.text();
+
+            list.push({
+                name: name,
+                mail: mail
+            });
+        }
+
+        return list;
+    })();
 };
 parse['지디넷코리아'] = function (jews) {
     jews.title = $('#wrap_container_new .sub_tit_area h2').text();
