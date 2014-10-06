@@ -526,10 +526,10 @@ parse['중앙일보'] = function (jews) {
     })();
     jews.timestamp = (function () {
         var text = $('.artical_date .date').text().split('/');
-        var created = new Date(text[0].replace(/입력 (\d{4}).(\d{2}).(\d{2}) (\d{2}):(\d{2})/, '$1-$2-$3T $4:$5:00+09:00'));
+        var created = new Date(text[0].replace(/입력 (\d{4}).(\d{2}).(\d{2}) (\d{2}):(\d{2})/, '$1-$2-$3T$4:$5:00+09:00'));
         var lastModified;
         if (text.length > 1) {
-            lastModified = new Date(text[1].replace(/수정 (\d{4}).(\d{2}).(\d{2}) (\d{2}):(\d{2})/, '$1-$2-$3T $4:$5:00+09:00'));
+            lastModified = new Date(text[1].replace(/수정 (\d{4}).(\d{2}).(\d{2}) (\d{2}):(\d{2})/, '$1-$2-$3T$4:$5:00+09:00'));
         }
         return {
             created: created,
