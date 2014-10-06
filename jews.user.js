@@ -847,7 +847,9 @@ $.fn.init = function (selector, context) {
         $.merge(this, selector);
 };
 $.fn.init.prototype.attr = function (attributeName) {
-    return this[0].getAttribute(attributeName);
+    if (this[0] && this[0].getAttribute)
+        return this[0].getAttribute(attributeName);
+    return undefined;
 };
 $.fn.init.prototype.children = function () {
     return $(this[0].children);
@@ -860,6 +862,7 @@ $.fn.init.prototype.closest = function (selector) {
         }
         node = node.parentNode;
     }
+    return $();
 };
 $.fn.init.prototype.contents = function () {
     var result = $(this[0].childNodes);
