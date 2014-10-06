@@ -262,13 +262,9 @@ parse['국민일보'] = function (jews) {
     jews.content = clearStyles($('#articleBody')[0].cloneNode(true)).innerHTML;
     jews.timestamp = (function () {
         var parsedData = $('.NwsCon .nwsti .date .t11');
-        var lastModified = undefined;
-        if (parsedData.length > 1) {
-            lastModified = new Date(parsedData.eq(1).text().replace(/-/g, '/'))
-        }
         return {
             created: new Date(parsedData.eq(0).text().replace(/-/g, '/')),
-            lastModified: lastModified
+            lastModified: parsedData.length > 1 ? new Date(parsedData.eq(1).text().replace(/-/g, '/')) : lastModified
         };
     })();
     jews.reporters = (function () {
