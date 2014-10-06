@@ -279,6 +279,9 @@ parse['국민일보'] = function (jews) {
             mail: (match !== null) ? match[1] : undefined
         }];
     })();
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['노컷뉴스'] = function (jews) {
     jews.title = $('.reporter_info h2').text();
