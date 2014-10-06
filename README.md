@@ -71,6 +71,7 @@ spraying_cycle: number
 * [x] [국민일보](http://www.kmib.co.kr)
 * [x] [노컷뉴스](http://www.nocutnews.co.kr)
 * [x] [뉴데일리](http://www.newdaily.co.kr)
+* [x] [뉴데일리경제](http://biz.newdaily.co.kr)
 * [ ] [뉴시스](http://www.newsis.com)
 * [x] [데일리시큐](http://dailysecu.com)
 * [ ] [데일리안](http://www.dailian.co.kr)
