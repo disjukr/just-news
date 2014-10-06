@@ -517,6 +517,39 @@ parse['조선일보'] = function (jews) {
         var content = $('.article')[0].cloneNode(true);
         $('.promotion', content).remove();
         $('div[class*=date_]', content).remove();
+        $('#pop_videobox', content).remove();
+
+        // Should I do this??
+        if (typeof video_tags === 'undefined') {
+            eval($(".article script")[0].text);
+        }
+
+        var image_box = $('.center_img_2011', content);
+        image_box.forEach(function (el, idx) {
+            idx++;
+
+            var player = $('#player' + idx);
+
+            // Image without link
+            if ($('dl > dd > div > img', player).length !== 0) {
+                $(el).replaceWith($('dl > dd > div > img', player)[0].outerHTML);
+                return;
+            }
+
+            var link = $("dl > dd > div > a", el).attr('onclick');
+
+            // Image with link
+            if (link === null) {
+                $(el).replaceWith($('dl > dd > div > a > img', player)[0].outerHTML);
+                return;
+            }
+            // Video
+            else {
+                var video_id = parseInt(link.match(/\d/), 10);
+                $(el).replaceWith(video_tags[video_id]);
+            }
+        });
+
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = (function () {
