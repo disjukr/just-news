@@ -16,17 +16,17 @@
 ## 기여하는 법
 
 1. 구현하고 싶은 뉴스 사이트를 정합니다.
-    1. 뉴스 사이트가 하단의 todo 목록에 체크되어있지 않은지 확인합니다.
+    1. 뉴스 사이트가 하단의 지원 사이트 목록에 체크되어있지 않은지 확인합니다.
     2. 목록에 사이트가 없으면 추가합니다.
-2. jews.js에 구현합니다.
+2. jews.user.js에 구현합니다.
     1. 상단의 UserScript 주석에 뉴스 페이지 주소를 추가합니다.
-    2. `where` 변수에 뉴스사를 구분할 수 있는 문자열을 대입합니다.
+    2. `where` 함수에 뉴스사를 구분할 수 있는 문자열을 추가합니다.
     3. `jews.title`, `jews.subtitle`, `jews.content`, `jews.timestamp`, `jews.reporters`를 각각 구현합니다.
-3. todo 목록에 구현한 항목을 체크하고 Pull Request를 보냅니다.
+3. 지원 사이트 목록에 구현한 항목을 체크하고 Pull Request를 보냅니다.
 
 ### 유의사항
 
-* todo 목록은 알파벳, 가나다순 정렬을 유지하도록 합니다.
+* 지원 사이트 목록은 알파벳, 가나다순 정렬을 유지하도록 합니다.
 * `jews` 객체 구현 시에 아래에 정의된 타입을 따르도록 합니다.
 * 뉴스 페이지에서 해당하는 정보가 없을 경우 `undefined`값을 채워 넣습니다.
 
@@ -58,7 +58,7 @@ spraying_cycle: number
 `jews.spraying_cycle`가 정의되어있지 않다면 1초 주기로 호출됩니다.
 
 
-## todo
+## 지원 사이트
 
 * [x] [KBS](http://news.kbs.co.kr)
 * [x] [KBS World](http://world.kbs.co.kr)
