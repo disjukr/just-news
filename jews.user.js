@@ -14,6 +14,7 @@
 // @include http://news.sbs.co.kr/news/endPage.do*
 // @include http://www.ytn.co.kr/_ln/*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
+// @include http://news.kmib.co.kr/article/view.asp*
 // @include http://www.nocutnews.co.kr/news/*
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.reuters.com/article/*
@@ -59,6 +60,7 @@ var where = function (hostname) {
     case 'news.sbs.co.kr': return 'SBS';
     case 'www.ytn.co.kr': return 'YTN';
     case 'news.khan.co.kr': return '경향신문';
+    case 'news.kmib.co.kr': return '국민일보';
     case 'www.nocutnews.co.kr': return '노컷뉴스';
     case 'dailysecu.com': return '데일리시큐';
     case 'www.reuters.com': return '로이터';
@@ -251,6 +253,30 @@ parse['경향신문'] = function (jews) {
         return [{
             name: parsedData[0],
             mail: parsedData[2] || undefined
+        }];
+    })();
+};
+parse['국민일보'] = function (jews) {
+    jews.title = $('.NwsCon .nwsti h2').text();
+    jews.subtitle = undefined;
+    jews.content = clearStyles($('#articleBody')[0].cloneNode(true)).innerHTML;
+    jews.timestamp = (function () {
+        var parsedData = $('.NwsCon .nwsti .date .t11');
+        var lastModified = undefined;
+        if (parsedData.length > 1) {
+            lastModified = new Date(parsedData.eq(1).text().replace(/-/g, '/'))
+        }
+        return {
+            created: new Date(parsedData.eq(0).text().replace(/-/g, '/')),
+            lastModified: lastModified
+        };
+    })();
+    jews.reporters = (function () {
+        var name = $('.NwsCon .nwsti .nm').text().trim();
+        var match = $('#articleBody').text().match(new RegExp(name + '\\s+([^\\s]+@[^\\s]+)'));
+        return [{
+            name: name,
+            mail: (match !== null) ? match[1] : undefined
         }];
     })();
 };

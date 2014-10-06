@@ -68,7 +68,7 @@ spraying_cycle: number
 * [x] [SBS](http://news.sbs.co.kr)
 * [x] [YTN](http://www.ytn.co.kr)
 * [x] [경향신문](http://www.khan.co.kr)
-* [ ] [국민일보](http://www.kmib.co.kr)
+* [x] [국민일보](http://www.kmib.co.kr)
 * [x] [노컷뉴스](http://www.nocutnews.co.kr)
 * [ ] [뉴데일리](http://www.newdaily.co.kr)
 * [ ] [뉴시스](http://www.newsis.com)
