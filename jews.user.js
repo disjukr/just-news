@@ -16,6 +16,7 @@
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://news.kmib.co.kr/article/view.asp*
 // @include http://www.nocutnews.co.kr/news/*
+// @include http://www.newdaily.co.kr/news/article.html?no=*
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.reuters.com/article/*
 // @include http://news.mt.co.kr/mtview.php*
@@ -62,6 +63,7 @@ var where = function (hostname) {
     case 'news.khan.co.kr': return '경향신문';
     case 'news.kmib.co.kr': return '국민일보';
     case 'www.nocutnews.co.kr': return '노컷뉴스';
+    case 'www.newdaily.co.kr': return '뉴데일리';
     case 'dailysecu.com': return '데일리시큐';
     case 'www.reuters.com': return '로이터';
     case 'news.mt.co.kr': return '머니투데이';
@@ -298,6 +300,27 @@ parse['노컷뉴스'] = function (jews) {
     jews.pesticide = function () {
         $('#scrollDiv').remove();
     };
+};
+parse['뉴데일리'] = function (jews) {
+    var a = document.getElementById('ndArtTit'),
+        b = a.querySelectorAll('#ndArtOption>li'),
+        c = b[2].childNodes,
+        i = -1, j;
+    while (j = c[++i]) if (j.nodeType===3) break;
+    j = j.textContent;
+    jews.title = a.getElementsByTagName('h1')[0].innerText;
+    jews.subtitle = a.getElementsByTagName('h2')[0].innerText;
+    jews.content = document.getElementById('ndArtBody').innerHTML
+                        .split(/<!--.+?기사본문\s*상단.+?-->/)[1].split(/<!--.+?기사본문\s*하단/)[0].trim()
+                        .replace(/(?:style|width|height)=(?:"[^"]+?"|'[^']+?')/g, '').replace(/<p><br><\/p>/g,'');
+    jews.timestamp = {
+        'created': undefined,
+        'lastModified': new Date(b[0].getElementsByTagName('span')[0].innerText.trim().replace(/\./g,'-').replace(' ','T')+'+09:00') // ISO 8601
+    };
+    jews.reporters = [{
+        'name': j,
+        'mail': b[4].getElementsByTagName('a')[0].innerText.trim().split(' ',1)[0]
+    }];
 };
 parse['데일리시큐'] = function (jews) {
     jews.title = document.querySelector('.new_title').textContent.trim();
