@@ -519,18 +519,18 @@ parse['조선일보'] = function (jews) {
         $('div[class*=date_]', content).remove();
         $('#pop_videobox', content).remove();
 
-        // Should I do this??
-        if (typeof video_tags === 'undefined') {
-            eval($(".article script")[0].text);
-        }
-
         var image_box = $('.center_img_2011', content);
-        image_box.forEach(function (el, idx) {
-            idx++;
-
+        image_box.forEach(function (el) {
+            var idx = parseInt($(el).attr('id').match(/\d+/), 10);
             var player = $('#player' + idx);
 
-            // Image without link
+            // Image Type 1 (Simple)
+            if ($('dl > dd', player).length === 0) {
+                $(el).replaceWith($('dl > div > img', player)[0].outerHTML);
+                return;
+            }
+
+            // Image Type 2 (Without link)
             if ($('dl > dd > div > img', player).length !== 0) {
                 $(el).replaceWith($('dl > dd > div > img', player)[0].outerHTML);
                 return;
@@ -538,16 +538,20 @@ parse['조선일보'] = function (jews) {
 
             var link = $("dl > dd > div > a", el).attr('onclick');
 
-            // Image with link
+            // Image Type 3 (With link)
             if (link === null) {
                 $(el).replaceWith($('dl > dd > div > a > img', player)[0].outerHTML);
                 return;
             }
-            // Video
-            else {
-                var video_id = parseInt(link.match(/\d/), 10);
-                $(el).replaceWith(video_tags[video_id]);
+
+            // Should I do this??
+            if (typeof video_tags === 'undefined') {
+                eval($(".article script")[0].text);
             }
+
+            // Video
+            var video_id = parseInt(link.match(/\d+/), 10);
+            $(el).replaceWith(video_tags[video_id]);
         });
 
         return clearStyles(content).innerHTML;
