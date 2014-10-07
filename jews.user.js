@@ -26,6 +26,7 @@
 // @include http://kr.wsj.com/posts/*
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
+// @include http://joongang.joins.com/article/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
 // @include http://www.koreatimes.co.kr/www/news/*
 // @include http://www.koreaherald.com/view.php*
@@ -74,6 +75,7 @@ var where = function (hostname) {
     case 'kr.wsj.com': return '월스트리트저널';
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
+    case 'joongang.joins.com': return '중앙일보';
     case 'www.zdnet.co.kr': return '지디넷코리아';
     case 'www.koreatimes.co.kr': return '코리아타임스';
     case 'www.koreaherald.com': return '코리아헤럴드';
@@ -572,6 +574,66 @@ parse['조선비즈'] = function (jews) {
         name: $('#j1').text().trim().split(' ')[0],
         mail: $('.j_con_li a').text() || undefined
     }];
+};
+parse['중앙일보'] = function (jews) {
+    jews.title = $('#articletitle .title h3').text();
+    jews.subtitle = (function () {
+        var el = document.querySelector('#articletitle .title h4');
+        if (el === null) return undefined;
+        return el.innerHTML;
+    })();
+    jews.content = (function () {
+        var content = $('#article_content')[0].cloneNode(true);
+        $('#__inline_ms_da_ad__', content).remove();
+        $('#relation_news', content).remove();
+        $('span', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var text = $('.artical_date .date').text().split('/');
+
+        var match = text[0].match(/입력 (\d{4}).(\d{2}).(\d{2}) (\d{2}):(\d{2})/);
+        var created_date = new Date();
+        created_date.setYear(parseInt(match[1], 10));
+        created_date.setMonth(parseInt(match[2], 10) - 1);
+        created_date.setDate(parseInt(match[3], 10));
+        created_date.setHours(parseInt(match[4], 10));
+        created_date.setMinutes(parseInt(match[5], 10));
+        created_date.setSeconds(0);
+
+        var lastModified_date;
+        if (text.length > 1) {
+            match = text[1].match(/수정 (\d{4}).(\d{2}).(\d{2}) (\d{2}):(\d{2})/);
+            lastModified_date = new Date();
+            lastModified_date.setYear(parseInt(match[1], 10));
+            lastModified_date.setMonth(parseInt(match[2], 10) - 1);
+            lastModified_date.setDate(parseInt(match[3], 10));
+            lastModified_date.setHours(parseInt(match[4], 10));
+            lastModified_date.setMinutes(parseInt(match[5], 10));
+            lastModified_date.setSeconds(0);
+        }
+        return {
+            created: created_date,
+            lastModified: lastModified_date
+        };
+    })();
+    jews.reporters = (function() {
+        var reporters = $('#journalist_info li');
+        var list = [];
+
+        reporters.forEach(function (el) {
+            var name = $(el).text().trim().match(/(.*?) 기자/)[1];
+            var mail, mail_el = $('.email a', el);
+            if(mail_el !== null) mail = mail_el.text();
+
+            list.push({
+                name: name,
+                mail: mail
+            });
+        });
+
+        return list;
+    })();
 };
 parse['지디넷코리아'] = function (jews) {
     jews.title = $('#wrap_container_new .sub_tit_area h2').text();
