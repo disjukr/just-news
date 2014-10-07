@@ -26,6 +26,7 @@
 // @include http://kr.wsj.com/posts/*
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
+// @include http://news.chosun.com/site/data/html_dir/*
 // @include http://joongang.joins.com/article/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
 // @include http://www.koreatimes.co.kr/www/news/*
@@ -75,6 +76,7 @@ var where = function (hostname) {
     case 'kr.wsj.com': return '월스트리트저널';
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
+    case 'news.chosun.com': return '조선일보';
     case 'joongang.joins.com': return '중앙일보';
     case 'www.zdnet.co.kr': return '지디넷코리아';
     case 'www.koreatimes.co.kr': return '코리아타임스';
@@ -551,6 +553,74 @@ parse['조선비즈'] = function (jews) {
         var content = $('.article')[0].cloneNode(true);
         $('.promotion', content).remove();
         $('div[class*=date_]', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var timeStr = $('#date_text')[0].innerText;
+        var created;
+        var cTime = timeStr.match(/입력 : ([^\|]+)/);
+        if (cTime !== null) {
+            created = new Date(cTime[1].trim().replace(/\./g, '/'));
+        }
+        var lastModified;
+        var mTime = timeStr.match(/수정 : (.+)/);
+        if (mTime !== null) {
+            lastModified = new Date(mTime[1].trim().replace(/\./g, '/'));
+        }
+        return {
+            created: created,
+            lastModified: lastModified
+        };
+    })();
+    jews.reporters = [{
+        name: $('#j1').text().trim().split(' ')[0],
+        mail: $('.j_con_li a').text() || undefined
+    }];
+};
+parse['조선일보'] = function (jews) {
+    jews.title = $('#title_text').text();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var content = $('.article')[0].cloneNode(true);
+        $('.promotion', content).remove();
+        $('div[class*=date_]', content).remove();
+        $('#pop_videobox', content).remove();
+
+        var image_box = $('.center_img_2011', content);
+        image_box.forEach(function (el) {
+            var idx = parseInt($(el).attr('id').match(/\d+/), 10);
+            var player = $('#player' + idx);
+
+            // Image Type 1 (Simple)
+            if ($('dl > dd', player).length === 0) {
+                $(el).replaceWith($('dl > div > img', player)[0].outerHTML);
+                return;
+            }
+
+            // Image Type 2 (Without link)
+            if ($('dl > dd > div > img', player).length !== 0) {
+                $(el).replaceWith($('dl > dd > div > img', player)[0].outerHTML);
+                return;
+            }
+
+            var link = $("dl > dd > div > a", el).attr('onclick');
+
+            // Image Type 3 (With link)
+            if (link === null) {
+                $(el).replaceWith($('dl > dd > div > a > img', player)[0].outerHTML);
+                return;
+            }
+
+            // Should I do this??
+            if (typeof video_tags === 'undefined') {
+                eval($(".article script")[0].text);
+            }
+
+            // Video
+            var video_id = parseInt(link.match(/\d+/), 10);
+            $(el).replaceWith(video_tags[video_id]);
+        });
+
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = (function () {
