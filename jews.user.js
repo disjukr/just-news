@@ -556,9 +556,7 @@ parse['중앙일보'] = function (jews) {
         var reporters = $('#journalist_info li');
         var list = [];
 
-        for (var idx in reporters) {
-            var el = reporters[idx];
-            console.log($(el).text().trim());
+        reporters.forEach(function (el) {
             var name = $(el).text().trim().match(/(.*?) 기자/)[1];
             var mail, mail_el = $('.email a', el);
             if(mail_el !== null) mail = mail_el.text();
@@ -567,7 +565,7 @@ parse['중앙일보'] = function (jews) {
                 name: name,
                 mail: mail
             });
-        }
+        });
 
         return list;
     })();
