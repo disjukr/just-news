@@ -267,7 +267,14 @@ parse['경향신문'] = function (jews) {
 parse['국민일보'] = function (jews) {
     jews.title = $('.NwsCon .nwsti h2').text();
     jews.subtitle = undefined;
-    jews.content = clearStyles($('#articleBody')[0].cloneNode(true)).innerHTML;
+    jews.content = (function () {
+        var content = clearStyles($('#articleBody')[0].cloneNode(true));
+        var fbPost = $('#articleBody .fb-post');
+        if (fbPost.length > 0) {
+            $('.fb-post', content).replaceWith(fbPost[0].outerHTML);
+        }
+        return content.innerHTML;
+    })();
     jews.timestamp = (function () {
         var parsedData = $('.NwsCon .nwsti .date .t11');
         return {
