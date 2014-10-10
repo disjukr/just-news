@@ -23,6 +23,7 @@
 // @include http://news.mt.co.kr/mtview.php*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.bloter.net/archives/*
+// @include http://www.ohmynews.com/NWS_Web/View/at_pg.aspx*
 // @include http://kr.wsj.com/posts/*
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
@@ -73,6 +74,7 @@ var where = function (hostname) {
     case 'news.mt.co.kr': return '머니투데이';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.bloter.net': return '블로터닷넷';
+    case 'www.ohmynews.com': return '오마이뉴스';
     case 'kr.wsj.com': return '월스트리트저널';
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
@@ -487,6 +489,23 @@ parse['블로터닷넷'] = function (jews) {
         lastModified: new Date(document.querySelector('meta[property="article:modified_time"]').content)
     },
     jews.content = clearStyles(document.getElementsByClassName('press-context-news')[0].cloneNode(true)).innerHTML;
+};
+parse['오마이뉴스'] = function (jews) {
+    jews.title = $('.newstitle .tit_subject a').text();
+    jews.subtitle = $('.newstitle .tit_subtit a').text();
+    jews.content = (function () {
+        var content = $('.at_contents')[0].cloneNode(true);
+        $('.atc_btn', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date(),
+        lastModified: undefined
+    };
+    jews.reporters = [{
+        name: $('.newstitle .info_data div a').eq(0).text(),
+        mail: undefined
+    }];
 };
 parse['월스트리트저널'] = function (jews) {
     jews.title = $('.articleHeadlineBox h1')[0].innerText;

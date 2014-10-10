@@ -92,7 +92,7 @@ spraying_cycle: number
 * [ ] [스포탈코리아](http://www.sportalkorea.com)
 * [ ] [아시아경제](http://www.asiae.co.kr)
 * [ ] [아이뉴스24](http://www.inews24.com)
-* [ ] [오마이뉴스](http://www.ohmynews.com)
+* [x] [오마이뉴스](http://www.ohmynews.com)
 * [x] [월스트리트저널](http://kr.wsj.com)
 * [ ] [이데일리](http://www.edaily.co.kr)
 * [ ] [일간스포츠](http://isplus.joins.com)
