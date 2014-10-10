@@ -19,6 +19,7 @@
 // @include http://www.newdaily.co.kr/news/article.html?no=*
 // @include http://biz.newdaily.co.kr/news/article.html?no=*
 // @include http://dailysecu.com/news_view.php*
+// @include http://www.dt.co.kr/contents.html*
 // @include http://www.reuters.com/article/*
 // @include http://news.mt.co.kr/mtview.php*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
@@ -55,7 +56,7 @@ var jews = {
     pesticide: undefined,
     spraying_cycle: undefined
 };
-var where = function (hostname) {
+var where = function (hostname) { // window.location.hostname
     switch (hostname) {
     case 'news.kbs.co.kr': return 'KBS';
     case 'world.kbs.co.kr': return 'KBS World';
@@ -70,6 +71,7 @@ var where = function (hostname) {
     case 'www.newdaily.co.kr': return '뉴데일리';
     case 'biz.newdaily.co.kr': return '뉴데일리경제';
     case 'dailysecu.com': return '데일리시큐';
+    case 'www.dt.co.kr': return '디지털타임스';
     case 'www.reuters.com': return '로이터';
     case 'news.mt.co.kr': return '머니투데이';
     case 'www.mediatoday.co.kr': return '미디어오늘';
@@ -367,6 +369,32 @@ parse['데일리시큐'] = function (jews) {
         name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
         mail: infos[2].trim()
     }];
+};
+parse['디지털타임스'] = function (jews) {
+    jews.title = $('#news_names h1').text();
+    jews.subtitle = $('#news_names h3').text();
+    jews.content = (function () {
+        var content = $('#NewsAdContent')[0].cloneNode(true);
+        $('a', content).each(function (_, anchor) {
+            $(anchor).replaceWith($(anchor)[0].innerHTML);
+        });
+        $('[alt="DT Main"]', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var parsedData = /입력: (....-..-.. ..:..)/.exec($('#news_names p').text());
+        return {
+            created: (parsedData === null) ? undefined : new Date(parsedData[1].replace(/-/g, '/')),
+            lastModified: undefined
+        };
+    })();
+    jews.reporters = [{
+        name: $('#news_names p')[0].childNodes[0].textContent.trim(),
+        mail: $('#news_names p [href^=mailto]').text()
+    }];
+    jews.pesticide = function () {
+        $('#soeaLayerLoc_fi').remove();
+    };
 };
 parse['로이터'] = function (jews) {
     jews.title = $('#content > .main-content > .sectionContent h1').text();
