@@ -498,10 +498,17 @@ parse['오마이뉴스'] = function (jews) {
         $('.atc_btn', content).remove();
         return clearStyles(content).innerHTML;
     })();
-    jews.timestamp = {
-        created: new Date(),
-        lastModified: undefined
-    };
+    jews.timestamp = (function () {
+        var lastModified = $('.newstitle .info_data div').eq(0).text().split(/최종 업데이트 |l/)[2];
+        if (lastModified)
+            lastModified = new Date('20' + lastModified.replace(/\./g, '/'));
+        else
+            lastModified = undefined;
+        return {
+            created: new Date('20' + $('.newstitle .info_data div')[0].childNodes[0].textContent.replace(/\./g, '/')),
+            lastModified: lastModified
+        };
+    })();
     jews.reporters = [{
         name: $('.newstitle .info_data div a').eq(0).text(),
         mail: undefined
