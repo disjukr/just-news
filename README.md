@@ -111,5 +111,5 @@ spraying_cycle: number
 * [x] [한국경제](http://www.hankyung.com)
 * [x] [한국경제TV](http://www.wowtv.co.kr)
 * [x] [한국일보](http://www.hankookilbo.com)
-* [ ] [허핑턴포스트](http://www.huffingtonpost.kr)
+* [x] [허핑턴포스트](http://www.huffingtonpost.kr)
 * [x] [헤럴드경제](http://biz.heraldcorp.com)
