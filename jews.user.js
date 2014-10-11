@@ -43,6 +43,7 @@
 // @include http://stock.hankyung.com/news/app/newsview.php*
 // @include http://www.wowtv.co.kr/newscenter/news/view.asp*
 // @include http://www.hankookilbo.com/v/*
+// @include http://www.huffingtonpost.kr/*
 // @include http://biz.heraldcorp.com/view.php?*
 // @copyright 2014 JongChan Choi
 // @grant none
@@ -91,6 +92,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.hankyung.com': case 'ent.hankyung.com': case 'golf.hankyung.com': case 'land.hankyung.com': case 'stock.hankyung.com': return '한국경제';
     case 'www.wowtv.co.kr': return '한국경제TV';
     case 'www.hankookilbo.com': return '한국일보';
+    case 'www.huffingtonpost.kr': return '허핑턴포스트';
     case 'biz.heraldcorp.com': return '헤럴드경제';
     default: throw new Error('jews don\'t support this site');
     }
@@ -1029,6 +1031,34 @@ parse['한국일보'] = function (jews) {
         }
     })();
 };
+parse['허핑턴포스트'] = function (jews) {
+    var mainImageContent = (function () {
+        var $mainImage = $('.main-visual img[data-img-path]');
+        if($mainImage.length) {
+            return '<img alt="' + $mainImage.attr('alt') + '" src="' + $mainImage.attr('data-img-path') + '" /><br />'
+        } else {
+            return '';
+        }
+    })();
+    jews.title = $('h1.title').text();
+    jews.subtitle = undefined;
+    jews.content = mainImageContent + clearStyles($('#mainentrycontent')[0]).innerHTML;
+    jews.timestamp = {
+        created: new Date($('.posted time[datetime]').attr('datetime')),
+        lastModified: new Date($('.updated time[datetime]').attr('datetime'))
+    };
+    jews.reporters = (function () {
+        var reporter = /\ ([가-힣]{2,4})(\ 기자)?/.exec($('.name.fn').text().trim());
+        return [{
+            name: reporter ? reporter[1] : $('a[rel="author"]').text(),
+            mail: undefined
+        }];
+    })();
+    jews.pesticide = function () {
+        $('.pinitshareimage').remove();
+        $('.ad_wrapper').remove();
+    };
+}
 parse['헤럴드경제'] = function (jews) {
     var $content = $($('#articleText')[0].cloneNode(true));
     $('.mask_div', $content).remove();
