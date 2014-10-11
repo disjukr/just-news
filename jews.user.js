@@ -92,8 +92,8 @@ var where = function (hostname) { // window.location.hostname
     case 'www.hankyung.com': case 'ent.hankyung.com': case 'golf.hankyung.com': case 'land.hankyung.com': case 'stock.hankyung.com': return '한국경제';
     case 'www.wowtv.co.kr': return '한국경제TV';
     case 'www.hankookilbo.com': return '한국일보';
-    case 'biz.heraldcorp.com': return '헤럴드경제';
     case 'www.huffingtonpost.kr': return '허핑턴포스트';
+    case 'biz.heraldcorp.com': return '헤럴드경제';
     default: throw new Error('jews don\'t support this site');
     }
 };
