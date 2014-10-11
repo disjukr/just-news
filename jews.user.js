@@ -43,8 +43,8 @@
 // @include http://stock.hankyung.com/news/app/newsview.php*
 // @include http://www.wowtv.co.kr/newscenter/news/view.asp*
 // @include http://www.hankookilbo.com/v/*
-// @include http://biz.heraldcorp.com/view.php?*
 // @include http://www.huffingtonpost.kr/*
+// @include http://biz.heraldcorp.com/view.php?*
 // @copyright 2014 JongChan Choi
 // @grant none
 // ==/UserScript==
@@ -1031,33 +1031,6 @@ parse['한국일보'] = function (jews) {
         }
     })();
 };
-parse['헤럴드경제'] = function (jews) {
-    var $content = $($('#articleText')[0].cloneNode(true));
-    $('.mask_div', $content).remove();
-    jews.title = $('.article_text span').text();
-    jews.subtitle = undefined;
-    jews.content = clearStyles($content[0]).innerHTML;
-    jews.timestamp = {
-        created: new Date($('.new_time').text().replace('기사입력', '').replace(/-/g, '/')),
-        lastModified: undefined
-    };
-    jews.reporters = (function () {
-        var contentText = $content.text().trim();
-        var name = /^(?:［|\[)헤럴드경제=(.+?)\s+기자(?:\]|］)/.exec(contentText);
-        var mail = $content.contents().filter(function () {
-            return this.nodeType === 3 && this.textContent.indexOf('@heraldcorp.com') > -1;
-        });
-        mail = (mail.length > 0) ? (mail[0].textContent) : undefined;
-        return [{
-            name: name ? name[1] : undefined,
-            mail: mail || $('[href^=mailto]').text() || undefined
-        }];
-    })();
-    jews.pesticide = function () {
-        $('#scrollDiv').remove();
-        $('#tbFadeIn').remove();
-    };
-};
 parse['허핑턴포스트'] = function (jews) {
     var mainImageContent = (function () {
         var $mainImage = $('.main-visual img[data-img-path]');
@@ -1086,6 +1059,33 @@ parse['허핑턴포스트'] = function (jews) {
         $('.ad_wrapper').remove();
     };
 }
+parse['헤럴드경제'] = function (jews) {
+    var $content = $($('#articleText')[0].cloneNode(true));
+    $('.mask_div', $content).remove();
+    jews.title = $('.article_text span').text();
+    jews.subtitle = undefined;
+    jews.content = clearStyles($content[0]).innerHTML;
+    jews.timestamp = {
+        created: new Date($('.new_time').text().replace('기사입력', '').replace(/-/g, '/')),
+        lastModified: undefined
+    };
+    jews.reporters = (function () {
+        var contentText = $content.text().trim();
+        var name = /^(?:［|\[)헤럴드경제=(.+?)\s+기자(?:\]|］)/.exec(contentText);
+        var mail = $content.contents().filter(function () {
+            return this.nodeType === 3 && this.textContent.indexOf('@heraldcorp.com') > -1;
+        });
+        mail = (mail.length > 0) ? (mail[0].textContent) : undefined;
+        return [{
+            name: name ? name[1] : undefined,
+            mail: mail || $('[href^=mailto]').text() || undefined
+        }];
+    })();
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+        $('#tbFadeIn').remove();
+    };
+};
 
 function $(selector, context) {
     return new $.fn.init(selector, context);
