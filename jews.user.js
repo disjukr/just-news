@@ -1037,15 +1037,23 @@ parse['한국일보'] = function (jews) {
 parse['허핑턴포스트'] = function (jews) {
     var mainImageContent = (function () {
         var $mainImage = $('.main-visual img[data-img-path]');
-        if($mainImage.length) {
+        if ($mainImage.length) {
             return '<img alt="' + $mainImage.attr('alt') + '" src="' + $mainImage.attr('data-img-path') + '" /><br />'
+        } else {
+            return '';
+        }
+    })();
+    var mainVideoContent = (function () {
+        var $mainVideo = $('.main-visual iframe');
+        if ($mainVideo.length) {
+            return $mainVideo[0].outerHTML + '<br />';
         } else {
             return '';
         }
     })();
     jews.title = $('h1.title').text();
     jews.subtitle = undefined;
-    jews.content = mainImageContent + clearStyles($('#mainentrycontent')[0]).innerHTML;
+    jews.content = mainImageContent + mainVideoContent + clearStyles($('#mainentrycontent')[0]).innerHTML;
     jews.timestamp = {
         created: new Date($('.posted time[datetime]').attr('datetime')),
         lastModified: new Date($('.updated time[datetime]').attr('datetime'))
@@ -1058,8 +1066,13 @@ parse['허핑턴포스트'] = function (jews) {
         }];
     })();
     jews.pesticide = function () {
+        var $share = $('a[href*="mailto"]');
+        if ($share.length) {
+            $($share[0].parentNode).remove();
+        }
         $('.pinitshareimage').remove();
         $('.ad_wrapper').remove();
+        $('.hp-slideshow-wrapper').remove();
     };
 }
 parse['헤럴드경제'] = function (jews) {
