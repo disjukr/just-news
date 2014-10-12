@@ -447,6 +447,9 @@ parse['로이터'] = function (jews) {
         }
         return result;
     })();
+    jews.pesticide = function () {
+        $('#trackbar, iframe').remove();
+    };
 };
 parse['머니투데이'] = function (jews) {
     jews.title = $('#article h1').text();
