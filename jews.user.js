@@ -18,6 +18,7 @@
 // @include http://www.nocutnews.co.kr/news/*
 // @include http://www.newdaily.co.kr/news/article.html?no=*
 // @include http://biz.newdaily.co.kr/news/article.html?no=*
+// @include http://www.newsis.com/ar_detail/view.html*
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.dt.co.kr/contents.html*
 // @include http://www.reuters.com/article/*
@@ -71,6 +72,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.nocutnews.co.kr': return '노컷뉴스';
     case 'www.newdaily.co.kr': return '뉴데일리';
     case 'biz.newdaily.co.kr': return '뉴데일리경제';
+    case 'www.newsis.com': return '뉴시스';
     case 'dailysecu.com': return '데일리시큐';
     case 'www.dt.co.kr': return '디지털타임스';
     case 'www.reuters.com': return '로이터';
@@ -342,20 +344,38 @@ parse['뉴데일리'] = function (jews) {
     }];
 };
 parse['뉴데일리경제'] = function (jews) {
-    var $ = function (b) {return document.querySelector(b)},
-        a = [].slice.call($('.arvdate').childNodes).filter(function (v) {return v.nodeType === 3})[0].textContent.trim();
+    var $ = function (b) {return document.querySelector(b);},
+        a = [].slice.call($('.arvdate').childNodes).filter(function (v) {return v.nodeType === 3;})[0].textContent.trim();
     jews.title = $('.hbox>h2').innerText.trim();
     jews.subtitle = $('.hbox>h3').innerText.trim();
     jews.reporters = [{
         'name': $('.arvdate>a').innerText.replace('뉴데일리경제','').trim(),
         'mail': a.match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)[0]
-    }]
+    }];
     jews.timestamp = {
         'created': new Date(a.match(/\d{4}\.\d{2}.\d{2}\s+\d{2}:\d{2}:\d{2}/)[0].replace(/\./g, '-').replace(/\s+/, 'T') + '+09:00'), // ISO 8601
         'lastModified': undefined
-    }
+    };
     jews.content = clearStyles(document.getElementById('news_body_area')).innerHTML;
-}
+};
+parse['뉴시스'] = function (jews) {
+    jews.title = $('.viewnewstitle').text();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var content = $('#articleBody')[0].cloneNode(true);
+        var centerImage = $('.center_img')[0].cloneNode(true);
+        // $('.relatednews', content).remove();
+        return clearStyles(centerImage).innerHTML + clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var $time = $('font', $('.viewnewstitle').closest('tbody'));
+        return {
+            created: new Date($time.eq(0).text().replace(/\[|\]/g, '').replace(/-/g, '/')),
+            lastModified: $time.eq(1).text() ? new Date($time.eq(1).text().replace(/\[|\]/g, '').replace(/-/g, '/')) : undefined
+        };
+    })();
+    jews.reporters = [];
+};
 parse['데일리시큐'] = function (jews) {
     jews.title = document.querySelector('.new_title').textContent.trim();
     jews.subtitle = document.querySelector('.news_mtitle').textContent.trim();
