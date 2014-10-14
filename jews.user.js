@@ -329,29 +329,29 @@ parse['뉴데일리'] = function (jews) {
         b = a.querySelectorAll('#ndArtOption>li'),
         c = b[2].childNodes,
         i = -1, j;
-    while (j = c[++i]) if (j.nodeType===3) break;
+    while (j = c[++i]) if (j.nodeType === 3) break;
     j = j.textContent;
     jews.title = a.getElementsByTagName('h1')[0].innerText;
     jews.subtitle = a.getElementsByTagName('h2')[0].innerText;
     jews.content = document.getElementById('ndArtBody').innerHTML
                         .split(/<!--.+?기사본문\s*하단.+?-->/)[0].trim()
-                        .replace(/(?:style|width|height)=(?:"[^"]+?"|'[^']+?')/g, '').replace(/<p><br><\/p>/g,'');
+                        .replace(/(?:style|width|height)=(?:"[^"]+?"|'[^']+?')/g, '').replace(/<p><br><\/p>/g, '');
     jews.timestamp = {
         'created': undefined,
-        'lastModified': new Date(b[0].getElementsByTagName('span')[0].innerText.trim().replace(/\./g,'-').replace(' ','T') + '+09:00') // ISO 8601
+        'lastModified': new Date(b[0].getElementsByTagName('span')[0].innerText.trim().replace(/\./g, '-').replace(' ', 'T') + '+09:00') // ISO 8601
     };
     jews.reporters = [{
         'name': j,
-        'mail': b[4].getElementsByTagName('a')[0].innerText.trim().split(' ',1)[0]
+        'mail': b[4].getElementsByTagName('a')[0].innerText.trim().split(' ', 1)[0]
     }];
 };
 parse['뉴데일리경제'] = function (jews) {
-    var $ = function (b) {return document.querySelector(b);},
-        a = [].slice.call($('.arvdate').childNodes).filter(function (v) {return v.nodeType === 3;})[0].textContent.trim();
+    var $ = function (b) { return document.querySelector(b); },
+        a = [].slice.call($('.arvdate').childNodes).filter(function (v) { return v.nodeType === 3; })[0].textContent.trim();
     jews.title = $('.hbox>h2').innerText.trim();
     jews.subtitle = $('.hbox>h3').innerText.trim();
     jews.reporters = [{
-        'name': $('.arvdate>a').innerText.replace('뉴데일리경제','').trim(),
+        'name': $('.arvdate>a').innerText.replace('뉴데일리경제', '').trim(),
         'mail': a.match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)[0]
     }];
     jews.timestamp = {
@@ -515,7 +515,7 @@ parse['머니투데이'] = function (jews) {
         var ret = [];
         $('.infobox1 a').each(function () {
             var reporter = {
-                name: $(this).text().replace(/ 기자$/,''),
+                name: $(this).text().replace(/ 기자$/, ''),
                 mail: undefined
             };
             ret.push(reporter);
