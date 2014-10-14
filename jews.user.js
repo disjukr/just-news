@@ -20,6 +20,7 @@
 // @include http://biz.newdaily.co.kr/news/article.html?no=*
 // @include http://www.newsis.com/ar_detail/view.html*
 // @include http://dailysecu.com/news_view.php*
+// @include http://www.dailian.co.kr/news/view/*
 // @include http://www.dt.co.kr/contents.html*
 // @include http://www.reuters.com/article/*
 // @include http://news.mt.co.kr/mtview.php*
@@ -74,6 +75,7 @@ var where = function (hostname) { // window.location.hostname
     case 'biz.newdaily.co.kr': return '뉴데일리경제';
     case 'www.newsis.com': return '뉴시스';
     case 'dailysecu.com': return '데일리시큐';
+    case 'www.dailian.co.kr': return '데일리안';
     case 'www.dt.co.kr': return '디지털타임스';
     case 'www.reuters.com': return '로이터';
     case 'news.mt.co.kr': return '머니투데이';
@@ -391,6 +393,32 @@ parse['데일리시큐'] = function (jews) {
         name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
         mail: infos[2].trim()
     }];
+};
+parse['데일리안'] = function (jews) {
+    jews.title = $('#view_titlebox .view_titlebox_r1').text();
+    jews.subtitle = $('#view_titlebox .view_subtitle')[0].innerHTML.trim();
+    jews.content = (function () {
+        var content = $($('#view_con')[0].cloneNode(true));
+        $('a.dklink', content).each(function (i, el) {
+            $(el).replaceWith(el.textContent);
+        });
+        $('.contents_img', content).each(function (i, el) {
+            el.removeAttribute('width');
+        });
+        return clearStyles(content[0]).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('#view_titlebox2_3 span').text().replace('등록 : ', '').replace(/-/g, '/')),
+        lastModified: undefined
+    };
+    jews.reporters = (function () {
+        var parsedData = $('#view_page .view_title_sub').eq(0).contents()[0].textContent.trim();
+        var matches = parsedData.match(/(.*)\((.*)\)/);
+        return [{
+            name: matches[1],
+            mail: matches[2]
+        }];
+    })();
 };
 parse['디지털타임스'] = function (jews) {
     jews.title = $('#news_names h1').text();
