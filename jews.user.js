@@ -1156,7 +1156,7 @@ function $(selector, context) {
 }
 $.fn = {};
 $.fn.init = function (selector, context) {
-    if (typeof context == 'string' || context instanceof String) {
+    if (typeof context === 'string' || context instanceof String) {
         selector = context + ' ' + selector;
         context = undefined;
     }
@@ -1167,7 +1167,7 @@ $.fn.init = function (selector, context) {
     this.length = 0;
     if (selector instanceof Node)
         this.push(selector);
-    else if (typeof selector == 'string' || selector instanceof String)
+    else if (typeof selector === 'string' || selector instanceof String)
         $.merge(this, context.querySelectorAll(selector));
     else if (selector && selector.length)
         $.merge(this, selector);
@@ -1210,12 +1210,12 @@ $.fn.init.prototype.eq = function (index) {
 $.fn.init.prototype.filter = function (selector) {
     var result = $();
     var i;
-    if (typeof selector == 'string' || selector instanceof String) {
+    if (typeof selector === 'string' || selector instanceof String) {
         for (i = 0; i < this.length; ++i) {
             if ($.matches(this[i], selector))
                 result.push(this[i]);
         }
-    } else if (typeof selector == 'function') {
+    } else if (typeof selector === 'function') {
         for (i = 0; i < this.length; ++i) {
             if (selector.call(this[i], i, this[i]))
                 result.push(this[i]);
