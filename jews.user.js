@@ -21,6 +21,15 @@
 // @include http://www.newsis.com/ar_detail/view.html*
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.dailian.co.kr/news/view/*
+// @include http://news.donga.com/Main/*
+// @include http://news.donga.com/List/*
+// @include http://news.donga.com/Politics/*
+// @include http://news.donga.com/Economy/*
+// @include http://news.donga.com/Inter/*
+// @include http://news.donga.com/Society/*
+// @include http://news.donga.com/Culture/*
+// @include http://news.donga.com/It/*
+// @include http://news.donga.com/People/*
 // @include http://www.dt.co.kr/contents.html*
 // @include http://www.reuters.com/article/*
 // @include http://news.mt.co.kr/mtview.php*
@@ -76,6 +85,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.newsis.com': return '뉴시스';
     case 'dailysecu.com': return '데일리시큐';
     case 'www.dailian.co.kr': return '데일리안';
+    case 'news.donga.com': return '동아일보';
     case 'www.dt.co.kr': return '디지털타임스';
     case 'www.reuters.com': return '로이터';
     case 'news.mt.co.kr': return '머니투데이';
@@ -419,6 +429,30 @@ parse['데일리안'] = function (jews) {
             mail: matches[2]
         }];
     })();
+};
+parse['동아일보'] = function (jews) {
+    jews.title = $('.article_title h1').text();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var content = $('.article_txt')[0].cloneNode(true);
+        $('.title_foot', content).remove();
+        $('.txt_ad, [class^=sub_cont_AD]', content).remove();
+        $('.article_relation', content).remove();
+        $('.t_sns', content).remove();
+        $('[alt="기자의 다른기사 더보기"]', content).parent().remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('.title_foot .date').text().replace(/-/g, '/')),
+        lastModified: new Date($('.title_foot .date2').text().replace(/-/g, '/'))
+    };
+    jews.reporters = [{
+        name: $('.repoter').text(),
+        mail: undefined
+    }];
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['디지털타임스'] = function (jews) {
     jews.title = $('#news_names h1').text();
@@ -1235,6 +1269,9 @@ $.fn.init.prototype.hasClass = function (className) {
     } else {
         return new RegExp('(^| )' + className + '( |$)', 'gi').test(node.className);
     }
+};
+$.fn.init.prototype.parent = function (item) {
+    return this[0] ? $(this[0].parentElement) : $();
 };
 $.fn.init.prototype.push = function (item) {
     var length = this.length;
