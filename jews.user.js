@@ -33,6 +33,7 @@
 // @include http://www.dt.co.kr/contents.html*
 // @include http://www.reuters.com/article/*
 // @include http://www.mydaily.co.kr/new_yk/html/read.php*
+// @include http://news.mk.co.kr/newsRead.php*
 // @include http://news.mt.co.kr/mtview.php*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.bloter.net/archives/*
@@ -90,6 +91,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.dt.co.kr': return '디지털타임스';
     case 'www.reuters.com': return '로이터';
     case 'www.mydaily.co.kr': return '마이데일리';
+    case 'news.mk.co.kr': return '매일경제';
     case 'news.mt.co.kr': return '머니투데이';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.bloter.net': return '블로터닷넷';
@@ -554,6 +556,22 @@ parse['마이데일리'] = function (jews) {
             mail: match[2]
         }];
     })();
+};
+parse['매일경제'] = function (jews) {
+    jews.title = $('.head_tit').text();
+    jews.subtitle = $('.sub_tit').text();
+    jews.content = (function () {
+        var content = $('#artText')[0].cloneNode(true);
+        return $('.read_txt, .center_image', content).toArray().map(function (el) {
+            $('[id^=google_dfp]', el).remove();
+            return $(clearStyles(el)).html();
+        }).join('');
+    })();
+    jews.timestamp = {
+        created: new Date($('#view_tit .sm_num').eq(0).text().replace(/\./g, '/')),
+        lastModified: new Date($('#view_tit .sm_num').eq(1).text().replace(/\./g, '/'))
+    };
+    jews.reporters = [];
 };
 parse['머니투데이'] = function (jews) {
     jews.title = $('#article h1').text();
@@ -1290,6 +1308,13 @@ $.fn.init.prototype.hasClass = function (className) {
         return node.classList.contains(className);
     } else {
         return new RegExp('(^| )' + className + '( |$)', 'gi').test(node.className);
+    }
+};
+$.fn.init.prototype.html = function () {
+    if (this[0]) {
+        return this[0].innerHTML;
+    } else {
+        return null;
     }
 };
 $.fn.init.prototype.parent = function (item) {
