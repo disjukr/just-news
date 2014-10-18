@@ -493,6 +493,53 @@ parse['로이터'] = function (jews) {
         if (articleImage) {
             header += clearStyles(articleImage.cloneNode(true)).innerHTML;
         }
+        if ($('#slideshowInlineLarge+script')[0]) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', $('#slideshowInlineLarge+script')[0].innerText.split(/'sJSON'|"sJSON"/g).pop().match(/\/assets\/[^']+/), true);
+            xhr.onreadystatechange = function () {
+                if (this.readyState === (this.DONE || 4)) {
+                    var r = this.responseText;
+                    var imgJSON = new Function(
+                        'return ' + r.substring(r.indexOf('{'), r.lastIndexOf('}') + 1)
+                    )();
+                    imgJSON = imgJSON && imgJSON.slideshow && imgJSON.slideshow.slides; // Bro, do you even javascript?
+                    if (!imgJSON) return;
+                    var slides = document.createElement('div');
+                    slides.className = 'slideshow';
+                    slides.style.width = '100%';
+                    slides.style.whiteSpace = 'nowrap';
+                    slides.style['overflow-x'] = 'scroll';
+                    var style = document.createElement('style');
+                    style.innerText = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
+                    slides.appendChild(style);
+                    imgJSON.forEach(function (v) {
+                        /*
+                        * <figure>
+                        *     <img src="/sample.jpg">
+                        *     <figcaption>caption message</figcaption>
+                        * </figure>
+                        */
+                        var fig = document.createElement('figure'),
+                            el = document.createElement('img'),
+                            caption = document.createTextNode(v.caption);
+                        el.src = v.image;
+                        fig.appendChild(el);
+                        el = document.createElement('figcaption');
+                        el.appendChild(caption);
+                        fig.appendChild(el);
+                        slides.appendChild(fig);
+                    });
+                    var runLittleLater = (function (slides) {
+                        return function () {
+                            var jewsContent = document.getElementById('content');
+                            jewsContent.insertBefore(slides, jewsContent.firstChild);
+                        }
+                    })(slides)
+                    window.setTimeout(runLittleLater, 500);
+                }
+            }
+            xhr.send();
+        }
         return header + clearStyles($('#articleText')[0].cloneNode(true)).innerHTML;
     })();
     jews.timestamp = (function () {
