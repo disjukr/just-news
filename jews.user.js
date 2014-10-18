@@ -32,6 +32,7 @@
 // @include http://news.donga.com/People/*
 // @include http://www.dt.co.kr/contents.html*
 // @include http://www.reuters.com/article/*
+// @include http://www.mydaily.co.kr/new_yk/html/read.php*
 // @include http://news.mt.co.kr/mtview.php*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.bloter.net/archives/*
@@ -88,6 +89,7 @@ var where = function (hostname) { // window.location.hostname
     case 'news.donga.com': return '동아일보';
     case 'www.dt.co.kr': return '디지털타임스';
     case 'www.reuters.com': return '로이터';
+    case 'www.mydaily.co.kr': return '마이데일리';
     case 'news.mt.co.kr': return '머니투데이';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.bloter.net': return '블로터닷넷';
@@ -532,6 +534,26 @@ parse['로이터'] = function (jews) {
     jews.pesticide = function () {
         $('#trackbar, iframe').remove();
     };
+};
+parse['마이데일리'] = function (jews) {
+    jews.title = $('#Read_Part h1').text();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var content = $('#article')[0].cloneNode(true);
+        $('div.mask_div, div[align="center"][style="margin-left:14px"], div[style="float:right; width:200px; height:200px; margin:0 !important; padding:0 !important; background:#fff; border:1px solid #ccc;"]', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('#Read_Part h2').contents().eq(0).text().trim().replace(/(\d{2})-(\d{2})-(\d{2})(.*)/, "20$1/$2/$3$4")),
+        lastModified: undefined
+    };
+    jews.reporters = (function () {
+        var match = $('#article > b').eq(-1).text().match(/(.*)\s(.*@.*)/);
+        return [{
+            name: match[1],
+            mail: match[2]
+        }];
+    })();
 };
 parse['머니투데이'] = function (jews) {
     jews.title = $('#article h1').text();
