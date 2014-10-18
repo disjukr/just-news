@@ -1142,7 +1142,7 @@ parse['허핑턴포스트'] = function (jews) {
     var mainImageContent = (function () {
         var $mainImage = $('.main-visual img[data-img-path]');
         if ($mainImage.length) {
-            return '<img alt="' + $mainImage.attr('alt') + '" src="' + $mainImage.attr('data-img-path') + '" /><br />'
+            return '<img alt="' + $mainImage.attr('alt') + '" src="' + $mainImage.attr('data-img-path') + '" /><br />';
         } else {
             return '';
         }
@@ -1178,7 +1178,7 @@ parse['허핑턴포스트'] = function (jews) {
         $('.ad_wrapper').remove();
         $('.hp-slideshow-wrapper').remove();
     };
-}
+};
 parse['헤럴드경제'] = function (jews) {
     var $content = $($('#articleText')[0].cloneNode(true));
     $('.mask_div', $content).remove();
