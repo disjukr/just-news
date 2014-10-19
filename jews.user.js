@@ -535,11 +535,11 @@ parse['로이터'] = function (jews) {
                         return function () {
                             var jewsContent = document.getElementById('content');
                             jewsContent.insertBefore(slides, jewsContent.firstChild);
-                        }
-                    })(slides)
+                        };
+                    })(slides);
                     window.setTimeout(runLittleLater, 500);
                 }
-            }
+            };
             xhr.send();
         }
         return header + clearStyles($('#articleText')[0].cloneNode(true)).innerHTML;
@@ -698,7 +698,7 @@ parse['블로터닷넷'] = function (jews) {
     jews.timestamp = {
         created: new Date(document.querySelector('meta[property="article:published_time"]').content),
         lastModified: new Date(document.querySelector('meta[property="article:modified_time"]').content)
-    },
+    };
     jews.content = clearStyles(document.getElementsByClassName('press-context-news')[0].cloneNode(true)).innerHTML;
 };
 parse['서울신문'] = function (jews) {
