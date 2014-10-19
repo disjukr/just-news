@@ -690,16 +690,16 @@ parse['미디어오늘'] = function (jews) {
 parse['블로터닷넷'] = function (jews) {
     jews.title = document.title;
     jews.subtitle = undefined;
+    jews.content = clearStyles(document.getElementsByClassName('press-context-news')[0].cloneNode(true)).innerHTML;
+    jews.timestamp = {
+        created: new Date(document.querySelector('meta[property="article:published_time"]').content),
+        lastModified: new Date(document.querySelector('meta[property="article:modified_time"]').content)
+    };
     var author = document.getElementsByClassName('press-context-author')[0];
     jews.reporters = [{
         name: author.getElementsByTagName('cite')[0].innerText,
         mail: author.getElementsByTagName('a')[0].href.match(/bloter\.net\/archives\/author\/([^\/\?\s]+)/)[1]+'@bloter.net'
     }];
-    jews.timestamp = {
-        created: new Date(document.querySelector('meta[property="article:published_time"]').content),
-        lastModified: new Date(document.querySelector('meta[property="article:modified_time"]').content)
-    };
-    jews.content = clearStyles(document.getElementsByClassName('press-context-news')[0].cloneNode(true)).innerHTML;
 };
 parse['서울신문'] = function (jews) {
     jews.title = $('.title_main').contents().eq(0).text().trim();
