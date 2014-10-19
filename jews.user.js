@@ -37,6 +37,7 @@
 // @include http://news.mt.co.kr/mtview.php*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.bloter.net/archives/*
+// @include http://www.seoul.co.kr/news/newsView.php*
 // @include http://www.ohmynews.com/NWS_Web/View/at_pg.aspx*
 // @include http://kr.wsj.com/posts/*
 // @include http://www.etnews.com/*
@@ -95,6 +96,7 @@ var where = function (hostname) { // window.location.hostname
     case 'news.mt.co.kr': return '머니투데이';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.bloter.net': return '블로터닷넷';
+    case 'www.seoul.co.kr': return '서울신문';
     case 'www.ohmynews.com': return '오마이뉴스';
     case 'kr.wsj.com': return '월스트리트저널';
     case 'www.etnews.com': return '전자신문';
@@ -698,6 +700,36 @@ parse['블로터닷넷'] = function (jews) {
         lastModified: new Date(document.querySelector('meta[property="article:modified_time"]').content)
     },
     jews.content = clearStyles(document.getElementsByClassName('press-context-news')[0].cloneNode(true)).innerHTML;
+};
+parse['서울신문'] = function (jews) {
+    jews.title = $('.title_main').contents().eq(0).text().trim();
+    jews.subtitle = $('.title_sub').text() || undefined;
+    jews.content = (function () {
+        var content = $('#atic_txt1')[0].cloneNode(true);
+        $('#hnsIframe, #ifrm_photolink, #googleAdTable', content).remove();
+        $('.dklink', content).each(function (i, v) {
+            $(v).replaceWith(v.innerHTML);
+        });
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('.VCdate').text().trim().split(' ')[0]),
+        lastModified: undefined
+    };
+    jews.reporters = (function () {
+        var parsedData = $('#atic_txt1').contents().filter(function (i, v) {
+            return v.nodeType === 3 && v.textContent.match(/@seoul\.co\.kr/);
+        });
+        var reporters = [];
+        parsedData.each(function (i, v) {
+            var match = v.textContent.trim().match(/(.*)\s+(.*@.*)/);
+            reporters.push({
+                name: match[1],
+                mail: match[2]
+            });
+        });
+        return reporters;
+    })();
 };
 parse['오마이뉴스'] = function (jews) {
     jews.title = $('.newstitle .tit_subject a').text();
