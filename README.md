@@ -99,7 +99,7 @@ spraying_cycle: number
 * [x] [전자신문](http://www.etnews.com)
 * [x] [조선비즈](http://biz.chosun.com)
 * [x] [조선일보](http://www.chosun.com)
-* [ ] [중앙데일리](http://koreajoongangdaily.joins.com)
+* [x] [중앙데일리](http://koreajoongangdaily.joins.com)
 * [x] [중앙일보](http://joongang.joins.com)
 * [x] [지디넷코리아](http://www.zdnet.co.kr)
 * [ ] [지지통신](http://www.jiji.com)

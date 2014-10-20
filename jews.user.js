@@ -43,6 +43,7 @@
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://news.chosun.com/site/data/html_dir/*
+// @include http://koreajoongangdaily.joins.com/news/article/article.aspx*
 // @include http://joongang.joins.com/article/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
 // @include http://www.koreatimes.co.kr/www/news/*
@@ -102,6 +103,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
     case 'news.chosun.com': return '조선일보';
+    case 'koreajoongangdaily.joins.com': return '중앙데일리';
     case 'joongang.joins.com': return '중앙일보';
     case 'www.zdnet.co.kr': return '지디넷코리아';
     case 'www.koreatimes.co.kr': return '코리아타임스';
@@ -911,6 +913,36 @@ parse['조선일보'] = function (jews) {
         name: $('#j1').text().trim().split(' ')[0],
         mail: $('.j_con_li a').text() || undefined
     }];
+};
+parse['중앙데일리'] = function (jews) {
+    jews.title = $('#sTitle_a').text();
+    jews.subtitle = $('#articletitle .title h4').text().trim() || undefined;
+    jews.content = (function () {
+        var content = $('#articlebody')[0].cloneNode(true);
+        $('.article_middle_ad, .article_ad250', content).remove();
+        $('table', content).each(function (i, v) {
+            v.removeAttribute('width');
+        });
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('.date').text()),
+        lastModified: undefined
+    };
+    jews.reporters = (function () {
+        var parsedData = $('#articlebody').contents().filter(function (i, v) {
+            return v.nodeType === 3 && v.textContent.match(/@joongang\.co\.kr/);
+        });
+        var reporters = [];
+        parsedData.each(function (i, v) {
+            var match = v.textContent.trim().match(/BY\s+(.*)\s+\[(.*@.*)\]/);
+            reporters.push({
+                name: match[1],
+                mail: match[2]
+            });
+        });
+        return reporters;
+    })();
 };
 parse['중앙일보'] = function (jews) {
     jews.title = $('#articletitle .title h3').text();
