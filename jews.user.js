@@ -35,6 +35,7 @@
 // @include http://www.mydaily.co.kr/new_yk/html/read.php*
 // @include http://news.mk.co.kr/newsRead.php*
 // @include http://news.mt.co.kr/mtview.php*
+// @include http://www.munhwa.com/news/view.html*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.bloter.net/archives/*
 // @include http://www.seoul.co.kr/news/newsView.php*
@@ -95,6 +96,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.mydaily.co.kr': return '마이데일리';
     case 'news.mk.co.kr': return '매일경제';
     case 'news.mt.co.kr': return '머니투데이';
+    case 'www.munhwa.com': return '문화일보';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.bloter.net': return '블로터닷넷';
     case 'www.seoul.co.kr': return '서울신문';
@@ -657,6 +659,29 @@ parse['머니투데이'] = function (jews) {
     jews.pesticide = function () {
         $('#scrollDiv').remove();
     };
+};
+parse['문화일보'] = function (jews) {
+    jews.title = $('.title').text();
+    jews.subtitle = $('.sub_title').eq(0).text();
+    jews.content = (function () {
+        var content = $('#NewsAdContent')[0].cloneNode(true);
+        $('.article_msn_ad', content).remove();
+        var figure = $('table[align=center]', $('#view_body').prev())[0];
+        if (figure) {
+            figure = figure.cloneNode(true);
+            figure = clearStyles(figure).innerHTML;
+        } else {
+            figure = '';
+        }
+        return figure + clearStyles(content).innerHTML;
+    })();
+    var created = /게재 일자 :(.+?)년(.+?)월(.+?)일/.exec($('td', $('.title').closest('table').prev().prev()).eq(1).text());
+    created.shift();
+    jews.timestamp = {
+        created: new Date(created.map(function (d) { return +d; }).join('/')),
+        lastModified: undefined
+    };
+    jews.reporters = [];
 };
 parse['미디어오늘'] = function (jews) {
     jews.title = $('#font_title').text().trim();
@@ -1430,6 +1455,9 @@ $.fn.init.prototype.html = function () {
 };
 $.fn.init.prototype.parent = function (item) {
     return this[0] ? $(this[0].parentElement) : $();
+};
+$.fn.init.prototype.prev = function (item) {
+    return this[0] ? $(this[0].previousElementSibling) : $();
 };
 $.fn.init.prototype.push = function (item) {
     var length = this.length;
