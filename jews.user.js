@@ -61,6 +61,7 @@
 // @include http://www.hankookilbo.com/v/*
 // @include http://www.huffingtonpost.kr/*
 // @include http://biz.heraldcorp.com/view.php?*
+// @include http://news.heraldcorp.com/view.php?*
 // @copyright 2014 JongChan Choi
 // @grant none
 // ==/UserScript==
@@ -117,7 +118,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.wowtv.co.kr': return '한국경제TV';
     case 'www.hankookilbo.com': return '한국일보';
     case 'www.huffingtonpost.kr': return '허핑턴포스트';
-    case 'biz.heraldcorp.com': return '헤럴드경제';
+    case 'biz.heraldcorp.com': case 'news.heraldcorp.com': return '헤럴드경제';
     default: throw new Error('jews don\'t support this site');
     }
 };
