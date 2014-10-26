@@ -39,6 +39,8 @@
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.bloter.net/archives/*
 // @include http://www.seoul.co.kr/news/newsView.php*
+// @include http://news.inews24.com/php/news_view.php*
+// @include http://joynews.inews24.com/php/news_view.php*
 // @include http://www.ohmynews.com/NWS_Web/View/at_pg.aspx*
 // @include http://kr.wsj.com/posts/*
 // @include http://www.etnews.com/*
@@ -101,6 +103,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.bloter.net': return '블로터닷넷';
     case 'www.seoul.co.kr': return '서울신문';
+    case 'news.inews24.com': case 'joynews.inews24.com': return '아이뉴스24';
     case 'www.ohmynews.com': return '오마이뉴스';
     case 'kr.wsj.com': return '월스트리트저널';
     case 'www.etnews.com': return '전자신문';
@@ -757,6 +760,27 @@ parse['서울신문'] = function (jews) {
             });
         });
         return reporters;
+    })();
+};
+parse['아이뉴스24'] = function (jews) {
+    jews.title = $('.head_txt').text().trim();
+    jews.subtitle = $('.shead_txt').text();
+    jews.content = (function () {
+        var content = $('#newContent4Img')[0].cloneNode(true);
+        $('a[href="javascript:search_gija();"]', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('.location_txt').eq(0).text()
+                         .replace(/(\d{4})\.(\d{2})\.(\d{2})\. . (\d{2}):(\d{2}).*/, '$1/$2/$3 $4:$5')),
+        lastModified: undefined
+    };
+    jews.reporters = (function () {
+        var match = $('#newContent4Img').contents().eq(0).text().match(/^\[([^[]+)\]/);
+        return [{
+            name: match ? match[1] : undefined,
+            mail: $('#newContent4Img a[href^="mailto:"]').text() || undefined
+        }];
     })();
 };
 parse['오마이뉴스'] = function (jews) {
