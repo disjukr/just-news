@@ -88,7 +88,7 @@ spraying_cycle: number
 * [x] [서울신문](http://www.seoul.co.kr)
 * [ ] [세계일보](http://www.segye.com)
 * [ ] [스포츠동아](http://sports.donga.com)
-* [ ] [스포츠조선](http://sports.chosun.com)
+* [x] [스포츠조선](http://sports.chosun.com)
 * [ ] [스포탈코리아](http://www.sportalkorea.com)
 * [ ] [아시아경제](http://www.asiae.co.kr)
 * [x] [아이뉴스24](http://www.inews24.com)
