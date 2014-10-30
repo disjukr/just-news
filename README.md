@@ -60,6 +60,7 @@ spraying_cycle: number
 
 ## 지원 사이트
 
+* [x] [JTBC](http://news.jtbc.joins.com)
 * [x] [KBS](http://news.kbs.co.kr)
 * [x] [KBS World](http://world.kbs.co.kr)
 * [x] [MBC](http://imnews.imbc.com)
