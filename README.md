@@ -3,14 +3,20 @@
 뉴스 사이트 기사 페이지에 접속하면 뉴스 본문외의 정보를 전부 제거한 뒤 페이지를 재구성하는 스크립트입니다.
 
 
-## 사용하기
+## 설치하기
 
-* 파이어폭스 사용자: [Greasemonkey](https://addons.mozilla.org/ko/firefox/addon/greasemonkey/) 플러그인을 설치합니다.
-* 크롬 사용자: [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) 플러그인을 설치합니다.
-* 사파리 사용자: [NinjaKit](https://github.com/os0x/NinjaKit) 플러그인을 설치합니다.
-* IE 사용자: [TrixIE](http://sourceforge.net/projects/trixiewpf45/) 플러그인을 설치합니다.
+jews는 뉴스 기사 페이지에서 작동되는 스크립트이며, 자동으로 실행되기 위해서는 UserScript 플러그인의 도움이 필요합니다.
 
-[스크립트 설치](https://github.com/disjukr/jews/raw/release/jews.user.js)
+필요한 UserScript 플러그인은 사용중인 브라우저마다 다르며, 각각의 플러그인은 다음의 링크로 들어가 설치하실 수 있습니다:
+
+* [파이어폭스 사용자 - Greasemonkey](https://addons.mozilla.org/ko/firefox/addon/greasemonkey/)
+* [크롬 사용자 - Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
+* [사파리 사용자 - NinjaKit](https://github.com/os0x/NinjaKit)
+* [IE 사용자 - TrixIE](http://sourceforge.net/projects/trixiewpf45/)
+
+UserScript 플러그인이 설치됐다면 다음의 링크를 클릭하여 스크립트 설치 다이얼로그를 띄웁니다:
+
+**[>>>>> 스크립트 설치 <<<<<](https://github.com/disjukr/jews/raw/release/jews.user.js)**
 
 
 ## 기여하는 법
