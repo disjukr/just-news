@@ -39,6 +39,7 @@
 // @include http://www.munhwa.com/news/view.html*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.bloter.net/archives/*
+// @include http://economy.hankooki.com/lpage*
 // @include http://www.seoul.co.kr/news/newsView.php*
 // @include http://sports.chosun.com/news/utype.htm*
 // @include http://news.inews24.com/php/news_view.php*
@@ -105,6 +106,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.munhwa.com': return '문화일보';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.bloter.net': return '블로터닷넷';
+    case 'economy.hankooki.com': return '서울경제';
     case 'www.seoul.co.kr': return '서울신문';
     case 'sports.chosun.com': return '스포츠조선';
     case 'news.inews24.com': case 'joynews.inews24.com': return '아이뉴스24';
@@ -770,6 +772,44 @@ parse['블로터닷넷'] = function (jews) {
         name: author.getElementsByTagName('cite')[0].innerText,
         mail: author.getElementsByTagName('a')[0].href.match(/bloter\.net\/archives\/author\/([^\/\?\s]+)/)[1]+'@bloter.net'
     }];
+};
+parse['서울경제'] = function (jews) {
+    jews.title = $('#GS_Title').text();
+    jews.subtitle = $('#GS_SubTitle').text();
+    jews.content = (function () {
+        var content = $('#GS_Content')[0].cloneNode(true);
+        $('#frm_AD_GISA_PHOTO_LINE', content).remove();
+        $('a', content).each(function (_, anchor) {
+            $(anchor).replaceWith($(anchor)[0].innerHTML);
+        });
+        var photo = $('#GS_RelPhoto')[0];
+        var photoDiv = document.createElement('div');
+        var imgs = '';
+        if (photo) {
+            photo = photo.cloneNode(true);
+            if ($('.RelPhoto2', photo)[0])
+                $('.RelPhoto1', photo).remove();
+            $('li > *', photo).toArray().forEach(function (item) {
+                photoDiv.appendChild(clearStyles(item));
+            });
+            return clearStyles(photoDiv).innerHTML + clearStyles(content).innerHTML;
+        }
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('#input_time dd').eq(0).text().replace('입력시간 :', '').trim()),
+        lastModified: new Date($('#modify_gisa').eq(0).text().replace('수정시간 :', '').trim())
+    };
+    jews.reporters = $('#GS_Reporter ul li').toArray().map(function (li) {
+        li = li.cloneNode(true);
+        var mail = $('a', li).text();
+        $('a', li).remove();
+        var name = $(li).text();
+        return { name: name, mail: mail };
+    });
+    jews.pesticide = function () {
+        $('#frm_photoLink').remove();
+    };
 };
 parse['서울신문'] = function (jews) {
     jews.title = $('.title_main').contents().eq(0).text().trim();

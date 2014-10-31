@@ -91,7 +91,7 @@ spraying_cycle: number
 * [x] [문화일보](http://www.munhwa.com)
 * [x] [미디어오늘](http://www.mediatoday.co.kr)
 * [x] [블로터닷넷](http://www.bloter.net)
-* [ ] [서울경제](http://economy.hankooki.com)
+* [x] [서울경제](http://economy.hankooki.com)
 * [x] [서울신문](http://www.seoul.co.kr)
 * [ ] [세계일보](http://www.segye.com)
 * [ ] [스포츠동아](http://sports.donga.com)
