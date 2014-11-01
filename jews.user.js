@@ -1656,7 +1656,7 @@ function clearStyles(element) {
 if ('undefined' === typeof window) {
     module.exports = parse;
 } else {
-    window.addEventListener('load', function (e) {
+    var run = function (e) {
         parse(where(window.location.hostname), jews);
         (function () {
             var id = window.setTimeout('0', 0);
@@ -1754,5 +1754,7 @@ if ('undefined' === typeof window) {
         ].join('');
         if (typeof jews.pesticide === 'function')
             window.setInterval(jews.pesticide, jews.spraying_cycle || 1000);
-    }, true);
+    };
+    if (document.readyState === 'interactive' || document.readyState === 'complete') run();
+    else window.addEventListener('DOMContentLoaded', run, true);
 }
