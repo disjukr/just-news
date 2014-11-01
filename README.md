@@ -93,7 +93,7 @@ spraying_cycle: number
 * [x] [블로터닷넷](http://www.bloter.net)
 * [x] [서울경제](http://economy.hankooki.com)
 * [x] [서울신문](http://www.seoul.co.kr)
-* [ ] [세계일보](http://www.segye.com)
+* [x] [세계일보](http://www.segye.com)
 * [ ] [스포츠동아](http://sports.donga.com)
 * [x] [스포츠조선](http://sports.chosun.com)
 * [ ] [스포탈코리아](http://www.sportalkorea.com)

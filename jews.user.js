@@ -41,6 +41,7 @@
 // @include http://www.bloter.net/archives/*
 // @include http://economy.hankooki.com/lpage*
 // @include http://www.seoul.co.kr/news/newsView.php*
+// @include http://www.segye.com/content/html/*
 // @include http://sports.chosun.com/news/utype.htm*
 // @include http://news.inews24.com/php/news_view.php*
 // @include http://joynews.inews24.com/php/news_view.php*
@@ -109,6 +110,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.bloter.net': return '블로터닷넷';
     case 'economy.hankooki.com': return '서울경제';
     case 'www.seoul.co.kr': return '서울신문';
+    case 'www.segye.com': return '세계일보';
     case 'sports.chosun.com': return '스포츠조선';
     case 'news.inews24.com': case 'joynews.inews24.com': return '아이뉴스24';
     case 'www.ohmynews.com': return '오마이뉴스';
@@ -842,6 +844,27 @@ parse['서울신문'] = function (jews) {
         });
         return reporters;
     })();
+};
+parse['세계일보'] = function (jews) {
+    jews.title = document.querySelector('.container>.content>.titleh1>h1').childNodes[0].textContent;
+    jews.subtitle = document.querySelector('.container>.content>.titleh2>h2').innerText;
+    jews.content = clearStyles(document.getElementById('article_txt')).innerHTML;
+    jews.timestamp = {created: undefined, lastModified: undefined};
+    document.getElementById('SG_ArticleDateLine').innerText
+        .replace(/(입력|수정)\s*(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2}:\d{2})/g, function(_, p1, p2, p3){
+            var ts = p2 + 'T' + p3 + '+09:00'; // ISO 8601
+            if (p1 === '입력') jews.timestamp.created = new Date(ts);
+            else if (p1 === '수정') jews.timestamp.lastModified = new Date(ts);
+        });
+    var r = ('\n'+document.getElementById('article_txt').innerText+'\n').match(/\n([^\n@]+)\s기자\s([^가-힣\s\n]+@segye.com)\n/);
+    jews.reporters = [];
+    if (r) jews.reporters.push({
+        name: r[1],
+        mail: r[2]
+    });
+    jews.pesticide = function () {
+        $('#scrollDiv, #realclick_view, script, iframe, .mask_div').remove();
+    };
 };
 parse['스포츠조선'] = function (jews) {
     jews.title = $('.acle_c h1').text();
