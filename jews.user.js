@@ -52,6 +52,7 @@
 // @include http://koreajoongangdaily.joins.com/news/article/article.aspx*
 // @include http://joongang.joins.com/article/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
+// @include http://www.jiji.com/jc/c?g=*
 // @include http://www.koreatimes.co.kr/www/news/*
 // @include http://www.koreaherald.com/view.php*
 // @include http://www.fnnews.com/news/*
@@ -118,6 +119,7 @@ var where = function (hostname) { // window.location.hostname
     case 'koreajoongangdaily.joins.com': return '중앙데일리';
     case 'joongang.joins.com': return '중앙일보';
     case 'www.zdnet.co.kr': return '지디넷코리아';
+    case 'www.jiji.com': return '지지통신';
     case 'www.koreatimes.co.kr': return '코리아타임스';
     case 'www.koreaherald.com': return '코리아헤럴드';
     case 'www.fnnews.com': return '파이낸셜뉴스';
@@ -1178,6 +1180,19 @@ parse['지디넷코리아'] = function (jews) {
             mail: mail !== null ? mail[0] : undefined
         }];
     })();
+};
+parse['지지통신'] = function (jews) {
+    jews.title = $('#article-title').text();
+    jews.subtitle = undefined;
+    jews.content = clearStyles($('#article-body')[0].cloneNode(true)).innerHTML;
+    jews.timestamp = {
+        created: undefined,
+        lastModified: undefined
+    };
+    jews.reporters = [];
+    jews.pesticide = function () {
+        $('iframe, [id^=goog], [id^=popIn_menu]').remove();
+    };
 };
 parse['코리아타임스'] = function (jews) {
     jews.title = $('.view_page_news .view_page_news_header_wrapper h1').text().trim();

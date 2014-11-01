@@ -109,7 +109,7 @@ spraying_cycle: number
 * [x] [중앙데일리](http://koreajoongangdaily.joins.com)
 * [x] [중앙일보](http://joongang.joins.com)
 * [x] [지디넷코리아](http://www.zdnet.co.kr)
-* [ ] [지지통신](http://www.jiji.com)
+* [x] [지지통신](http://www.jiji.com)
 * [x] [코리아타임스](http://www.koreatimes.co.kr)
 * [x] [코리아헤럴드](http://www.koreaherald.com)
 * [x] [파이낸셜뉴스](http://www.fnnews.com)
