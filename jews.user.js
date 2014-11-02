@@ -398,7 +398,9 @@ parse['뉴데일리'] = function (jews) {
         b = a.querySelectorAll('#ndArtOption>li'),
         c = b[2].childNodes,
         i = -1, j;
-    while (j = c[++i]) if (j.nodeType === 3) break;
+    while (j = c[++i]) {
+        if (j.nodeType === 3) break;
+    }
     j = j.textContent;
     jews.title = a.getElementsByTagName('h1')[0].innerText;
     jews.subtitle = a.getElementsByTagName('h2')[0].innerText;
@@ -944,9 +946,10 @@ parse['월스트리트저널'] = function (jews) {
         Array.prototype.forEach.call(article.querySelectorAll('.socialByline, .insetCol3wide'), function (v) { v.remove(); });
         var article_p = article.getElementsByTagName('p');
         Array.prototype.forEach.call(article.getElementsByTagName('p'), function (v, i, arr) {
-            if (/기사 번역 관련 문의: [A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+/i.exec(v.innerText))
+            if (/기사 번역 관련 문의: [A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+/i.exec(v.innerText)) {
                 while (arr[i])
                     remove(arr[i]);
+            }
         });
         remove(article.querySelectorAll('img[src*="//cp.news.search.daum.net"]')[0]);
         return clearStyles(article).innerHTML;
@@ -1168,7 +1171,7 @@ parse['중앙일보'] = function (jews) {
         reporters.forEach(function (el) {
             var name = $(el).text().trim().match(/(.*?) 기자/)[1];
             var mail, mail_el = $('.email a', el);
-            if(mail_el !== null) mail = mail_el.text();
+            if (mail_el !== null) mail = mail_el.text();
 
             list.push({
                 name: name,
