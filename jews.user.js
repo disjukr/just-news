@@ -831,6 +831,7 @@ parse['서울경제'] = function (jews) {
     });
     jews.pesticide = function () {
         $('#frm_photoLink').remove();
+        $('#scrollDiv').remove();
     };
 };
 parse['서울신문'] = function (jews) {
