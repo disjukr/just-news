@@ -670,6 +670,9 @@ parse['마이데일리'] = function (jews) {
             mail: match[2]
         }];
     })();
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['매일경제'] = function (jews) {
     jews.title = $('.head_tit').text();
