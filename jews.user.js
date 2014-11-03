@@ -497,6 +497,9 @@ parse['데일리안'] = function (jews) {
             mail: matches[2]
         }];
     })();
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['동아일보'] = function (jews) {
     jews.title = $('.article_title h1').text();
