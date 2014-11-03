@@ -365,7 +365,7 @@ parse['국민일보'] = function (jews) {
         var parsedData = $('.NwsCon .nwsti .date .t11');
         return {
             created: new Date(parsedData.eq(0).text().replace(/-/g, '/')),
-            lastModified: parsedData.length > 1 ? new Date(parsedData.eq(1).text().replace(/-/g, '/')) : lastModified
+            lastModified: parsedData.length > 1 ? new Date(parsedData.eq(1).text().replace(/-/g, '/')) : undefined
         };
     })();
     jews.reporters = (function () {
