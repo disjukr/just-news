@@ -870,7 +870,7 @@ parse['서울신문'] = function (jews) {
 };
 parse['세계일보'] = function (jews) {
     jews.title = document.querySelector('.container>.content>.titleh1>h1').childNodes[0].textContent;
-    jews.subtitle = document.querySelector('.container>.content>.titleh2>h2').innerText;
+    jews.subtitle = $('.container>.content>.titleh2>h2').text() || undefined;
     jews.content = clearStyles(document.getElementById('article_txt')).innerHTML;
     jews.timestamp = { created: undefined, lastModified: undefined };
     document.getElementById('SG_ArticleDateLine').innerText
