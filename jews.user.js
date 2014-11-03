@@ -746,6 +746,9 @@ parse['문화일보'] = function (jews) {
         lastModified: undefined
     };
     jews.reporters = [];
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['미디어오늘'] = function (jews) {
     jews.title = $('#font_title').text().trim();
