@@ -97,7 +97,7 @@ spraying_cycle: number
 * [ ] [스포츠동아](http://sports.donga.com)
 * [x] [스포츠조선](http://sports.chosun.com)
 * [ ] [스포탈코리아](http://www.sportalkorea.com)
-* [ ] [아시아경제](http://www.asiae.co.kr)
+* [x] [아시아경제](http://www.asiae.co.kr)
 * [x] [아이뉴스24](http://www.inews24.com)
 * [x] [오마이뉴스](http://www.ohmynews.com)
 * [x] [월스트리트저널](http://kr.wsj.com)
