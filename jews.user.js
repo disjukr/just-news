@@ -223,9 +223,13 @@ parse['KBS World'] = function (jews) {
     })();
     jews.timestamp = (function () {
         var parsedData = document.getElementById('content_area').getElementsByClassName('title')[0].getElementsByTagName('em');
+        var lastModified;
+        if (parsedData.length > 1) {
+            lastModified = new Date(parsedData[1].textContent.replace(/-/g, '/'));
+        }
         return {
             created: new Date(parsedData[0].textContent.replace(/-/g, '/')),
-            lastModified: new Date(parsedData[1].textContent.replace(/-/g, '/'))
+            lastModified: lastModified
         };
     })();
     jews.reporters = [];
