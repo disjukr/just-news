@@ -1146,7 +1146,7 @@ parse['중앙데일리'] = function (jews) {
     jews.subtitle = $('#articletitle .title h4').text().trim() || undefined;
     jews.content = (function () {
         var content = $('#articlebody')[0].cloneNode(true);
-        $('.article_middle_ad, .article_ad250', content).remove();
+        $('#divArticleBottomTextBannerInline, .article_middle_ad', content).remove();
         $('table', content).each(function (i, v) {
             v.removeAttribute('width');
         });
@@ -1170,6 +1170,9 @@ parse['중앙데일리'] = function (jews) {
         });
         return reporters;
     })();
+    jews.pesticide = function () {
+        $('iframe, #gnb_banner, .article_ad250').remove();
+    };
 };
 parse['중앙일보'] = function (jews) {
     jews.title = $('#articletitle .title h3').text();
