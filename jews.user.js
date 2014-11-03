@@ -1034,6 +1034,9 @@ parse['전자신문'] = function (jews) {
         name: $('.art_reporter strong').text(),
         mail: $('.art_reporter .mail').text()
     }];
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['조선비즈'] = function (jews) {
     jews.title = $('#title_text').text();
