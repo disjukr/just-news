@@ -1233,6 +1233,9 @@ parse['중앙일보'] = function (jews) {
 
         return list;
     })();
+    jews.pesticide = function () {
+        $('iframe, #gnb_banner').remove();
+    };
 };
 parse['지디넷코리아'] = function (jews) {
     jews.title = $('#wrap_container_new .sub_tit_area h2').text();
