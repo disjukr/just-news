@@ -905,6 +905,9 @@ parse['스포츠조선'] = function (jews) {
         };
     })();
     jews.reporters = [];
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['아시아경제'] = function (jews) {
     jews.title = document.getElementById('content').getElementsByClassName('area_title')[0].getElementsByTagName('h1')[0].textContent;
