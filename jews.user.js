@@ -1021,6 +1021,7 @@ parse['전자신문'] = function (jews) {
     jews.content = (function () {
         var content = $('.article_body')[0].cloneNode(true);
         $('#openLine, .art_reporter, .article_ad, .sns_area2, *[src^="http://adv"]', content).remove();
+        $('.daum_ddn_area, [id^=beacon]', content).remove();
         $('.a_ict_word', content).each(function (i, el) {
             $(el).replaceWith($('.ict_word', el).text());
         });
