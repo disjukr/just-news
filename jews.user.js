@@ -49,6 +49,7 @@
 // @include http://sports.donga.com/Entertainment/3/*
 // @include http://sports.donga.com/It/3/*
 // @include http://sports.donga.com/Series/3/*
+// @include http://sports.donga.com/SPORTS/3/*
 // @include http://sports.chosun.com/news/utype.htm*
 // @include http://www.asiae.co.kr/news/view.htm*
 // @include http://car.asiae.co.kr/view.htm*
