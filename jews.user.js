@@ -42,6 +42,14 @@
 // @include http://economy.hankooki.com/lpage*
 // @include http://www.seoul.co.kr/news/newsView.php*
 // @include http://www.segye.com/content/html/*
+// @include http://sports.donga.com/home/3/*
+// @include http://sports.donga.com/list/3/*
+// @include http://sports.donga.com/Baseball/3/*
+// @include http://sports.donga.com/Soccer/3/*
+// @include http://sports.donga.com/Entertainment/3/*
+// @include http://sports.donga.com/It/3/*
+// @include http://sports.donga.com/Series/3/*
+// @include http://sports.donga.com/SPORTS/3/*
 // @include http://sports.chosun.com/news/utype.htm*
 // @include http://www.asiae.co.kr/news/view.htm*
 // @include http://car.asiae.co.kr/view.htm*
@@ -117,6 +125,7 @@ var where = function (hostname) { // window.location.hostname
     case 'economy.hankooki.com': return '서울경제';
     case 'www.seoul.co.kr': return '서울신문';
     case 'www.segye.com': return '세계일보';
+    case 'sports.donga.com': return '스포츠동아';
     case 'sports.chosun.com': return '스포츠조선';
     case 'www.asiae.co.kr': case 'car.asiae.co.kr': case 'edu.asiae.co.kr': case 'gold.asiae.co.kr': case 'golf.asiae.co.kr': case 'stock.asiae.co.kr': return '아시아경제';
     case 'news.inews24.com': case 'joynews.inews24.com': return '아이뉴스24';
@@ -890,6 +899,54 @@ parse['세계일보'] = function (jews) {
     jews.pesticide = function () {
         $('#scrollDiv, #realclick_view, script, iframe, .mask_div').remove();
     };
+};
+parse['스포츠동아'] = function (jews) {
+    jews.title = document.querySelector('#sub_content>.article_cont>.article_tit>h3').innerText;
+    jews.subtitle = undefined;
+    jews.timestamp = {
+        created: new Date(document.querySelector('#sub_content>.article_cont>.article_tit>p').innerText.replace('입력', '').trim().replace(/\s+/,'T')+'+09:00'),  // ISO 8601
+        lastModified: undefined
+    };
+    jews.content = clearStyles(document.querySelector('#ct>div.article_word')).innerHTML;
+    jews.pesticide = function () {
+        [].forEach.call(document.getElementById('content').querySelectorAll('div:not([class^="article"]):not(.slideshow), script, iframe'), function (v) {
+            v.parentNode.removeChild(v)
+        });
+    };
+    var slides = document.querySelector('iframe[id^="iPhotoSlide_"]');
+    if (slides) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                var toparse = document.createElement('div');
+                toparse.innerHTML = this.responseText;
+                var img = toparse.querySelector('.iPhotoSlide>.iPhotoSlideList>ul').querySelectorAll('li a.p img');
+                var slides = document.createElement('div');
+                slides.className = 'slideshow';
+                slides.style.width = '100%';
+                slides.style.whiteSpace = 'nowrap';
+                slides.style['overflow-x'] = 'scroll';
+                [].forEach.call(img, function (v) {
+                    var figure = document.createElement('figure');
+                    var img = document.createElement('img');
+                    img.src = v.src;
+                    figure.appendChild(img);
+                    figure.style.display = 'inline-block';
+                    figure.style.width = '100%';
+                    figure.style.margin = '0';
+                    slides.appendChild(figure);
+                });
+                window.setTimeout((function (slides) {
+                    return function q() {
+                        var jewsContent = document.getElementById('content');
+                        jewsContent.insertBefore(slides, jewsContent.firstChild);
+                    }
+                })(slides), 500);
+            }
+        };
+        xhr.open("GET", slides.src, true);
+        xhr.send();
+    }
 };
 parse['스포츠조선'] = function (jews) {
     jews.title = $('.acle_c h1').text();
