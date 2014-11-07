@@ -62,6 +62,8 @@
 // @include http://www.ohmynews.com/NWS_Web/View/at_pg.aspx*
 // @include http://kr.wsj.com/posts/*
 // @include http://www.edaily.co.kr/news/NewsRead.edy*
+// @include http://isplus.joins.com/article/*
+// @include http://isplus.live.joins.com/news/article/article.asp*
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://news.chosun.com/site/data/html_dir/*
@@ -133,6 +135,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.ohmynews.com': return '오마이뉴스';
     case 'kr.wsj.com': return '월스트리트저널';
     case 'www.edaily.co.kr': return '이데일리';
+    case 'isplus.joins.com': case 'isplus.live.joins.com': return '일간스포츠';
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
     case 'news.chosun.com': return '조선일보';
@@ -1103,6 +1106,39 @@ parse['이데일리'] = function (jews) {
             mail: reporter[1]
         }];
     })();
+};
+parse['일간스포츠'] = function (jews) {
+    jews.title = $('#articletitle .title h3').text();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var content = $('#article_content')[0].cloneNode(true);
+        $('#spnAddLinkArticleContent, .ad_article_bottom1text', content).remove();
+        var trimIndex = -1;
+        $(content).contents().each(function (i, v) {
+            if (v.nodeType === 3 && v.textContent.trim() === '[OSEN 주요뉴스]') {
+                trimIndex = i;
+            }
+            if (trimIndex !== -1) {
+                $(v).remove();
+            }
+        });
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var parsedData = $('.artical_date').contents();
+        var lastModified;
+        if (parsedData.length > 1) {
+            lastModified = new Date(parsedData.eq(1).text().replace('수정 ', '').replace(/\./g, '/'));
+        }
+        return {
+            created: new Date(parsedData.eq(0).text().replace('입력 ', '').replace(/\./g, '/')),
+            lastModified: lastModified
+        };
+    })();
+    jews.reporters = [];
+    jews.pesticide = function () {
+        $('#gnb_banner, .article_ad250, iframe, div#fb-root').remove();
+    }
 };
 parse['전자신문'] = function (jews) {
     jews.title = $('.hgroup h1').text() || undefined;

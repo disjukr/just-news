@@ -102,7 +102,7 @@ spraying_cycle: number
 * [x] [오마이뉴스](http://www.ohmynews.com)
 * [x] [월스트리트저널](http://kr.wsj.com)
 * [x] [이데일리](http://www.edaily.co.kr)
-* [ ] [일간스포츠](http://isplus.joins.com)
+* [x] [일간스포츠](http://isplus.joins.com)
 * [x] [전자신문](http://www.etnews.com)
 * [x] [조선비즈](http://biz.chosun.com)
 * [x] [조선일보](http://www.chosun.com)
