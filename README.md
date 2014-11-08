@@ -63,7 +63,6 @@ reporter = {
     mail: string // email address
 }
 jews.cleanup: function
-jews.cleanup_interval: number
 ```
 
 ### 털어내기
@@ -71,8 +70,7 @@ jews.cleanup_interval: number
 몇몇 뉴스 사이트들은 사이트 재구성 뒤에도 광고가 남아있을 수 있습니다.
 재구성을 했는데도 남는 광고들은 `jews.cleanup`를 사용하여 털어내도록 합시다.
 
-`jews.cleanup` 함수는 사이트 재구성이 일어난 뒤, 매 `jews.cleanup_interval`(밀리초 단위)마다 호출됩니다.
-`jews.cleanup_interval`이 정의되어있지 않다면 1초 주기로 호출됩니다.
+`jews.cleanup` 함수는 사이트 재구성이 일어난 뒤, 1초 주기로 매 번 호출됩니다.
 
 
 ## 지원 사이트

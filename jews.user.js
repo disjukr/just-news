@@ -84,8 +84,7 @@ var jews = {
     content: undefined,
     timestamp: undefined,
     reporters: undefined,
-    cleanup: undefined,
-    cleanup_interval: undefined
+    cleanup: undefined
 };
 var where = function (hostname) { // window.location.hostname
     switch (hostname) {
@@ -1972,7 +1971,7 @@ if ('undefined' === typeof window) {
             '</body>'
         ].join('');
         if (typeof jews.cleanup === 'function')
-            window.setInterval(jews.cleanup, jews.cleanup_interval || 1000);
+            window.setInterval(jews.cleanup, 1000);
     };
     if (document.readyState === 'interactive' || document.readyState === 'complete') run();
     else window.addEventListener('DOMContentLoaded', run, true);
