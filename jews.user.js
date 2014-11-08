@@ -340,8 +340,8 @@ parse['경향비즈'] = function (jews) {
     jews.timestamp = (function() {
         var times = $('.time').text().split('ㅣ');
         return {
-            created: new Date(times[0].substr(5).replace(' ', 'T')),
-            lastModified: new Date(times[1].substr(5).replace(' ', 'T'))
+            created: new Date(times[0].substr(5).replace(' ', 'T') + '+09:00'),
+            lastModified: new Date(times[1].substr(5).replace(' ', 'T') + '+09:00')
         };
     })();
     jews.reporters = (function () {
