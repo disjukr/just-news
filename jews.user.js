@@ -51,6 +51,8 @@
 // @include http://sports.donga.com/Series/3/*
 // @include http://sports.donga.com/SPORTS/3/*
 // @include http://sports.chosun.com/news/utype.htm*
+// @include http://www.sportalkorea.com/news/view.php*
+// @include http://www.sportalkorea.com/newsplus/view_sub.php*
 // @include http://www.asiae.co.kr/news/view.htm*
 // @include http://car.asiae.co.kr/view.htm*
 // @include http://edu.asiae.co.kr/view.htm*
@@ -130,6 +132,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.segye.com': return '세계일보';
     case 'sports.donga.com': return '스포츠동아';
     case 'sports.chosun.com': return '스포츠조선';
+    case 'www.sportalkorea.com': return '스포탈코리아';
     case 'www.asiae.co.kr': case 'car.asiae.co.kr': case 'edu.asiae.co.kr': case 'gold.asiae.co.kr': case 'golf.asiae.co.kr': case 'stock.asiae.co.kr': return '아시아경제';
     case 'news.inews24.com': case 'joynews.inews24.com': return '아이뉴스24';
     case 'www.ohmynews.com': return '오마이뉴스';
@@ -973,6 +976,27 @@ parse['스포츠조선'] = function (jews) {
     jews.reporters = [];
     jews.pesticide = function () {
         $('#scrollDiv').remove();
+    };
+};
+parse['스포탈코리아'] = function (jews) {
+    jews.title = $('#reView h2').text().trim();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var image = $('#DivContents .img_review_ad')[0];
+        var content = $('#DivContents .review_text02')[0].cloneNode(true);
+        if (image !== undefined) {
+            content.insertBefore(image.cloneNode(true), content.firstChild);
+        }
+        $('.ad_gigigi', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('#reView p').contents().eq(0).text().replace(/기사입력\s*:\s(\d{4})\.(\d{2})\.(\d{2}).*/, '$1/$2/$3')),
+        lastModified: undefined
+    };
+    jews.reporters = [];
+    jews.pesticide = function () {
+        $('iframe, #scrollDiv').remove();
     };
 };
 parse['아시아경제'] = function (jews) {
