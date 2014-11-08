@@ -1113,7 +1113,7 @@ parse['이데일리'] = function (jews) {
     })();
     jews.reporters = (function () {
         var parsedData = $('.newsdate').text().split(' | ');
-        var reporter = parsedData[parsedData.length - 1].split(String.fromCharCode(0xA0)); // Non-breaking space
+        var reporter = parsedData[parsedData.length - 1].split('\xA0'); // Non-breaking space
         return [{
             name: reporter[0],
             mail: reporter[1]
@@ -1422,7 +1422,7 @@ parse['코리아타임스'] = function (jews) {
     })();
     jews.timestamp = (function () {
         var parsedData = $('.view_page_news .view_page_news_header_wrapper span');
-        var nbsp = String.fromCharCode(0xA0);
+        var nbsp = '\xA0';
         return {
             created: new Date(parsedData.eq(0).text().replace(nbsp, ' ').replace('Posted : ', '').replace(/-/g, '/')),
             lastModified: new Date(parsedData.eq(1).text().replace(nbsp, ' ').replace('Updated : ', '').replace(/-/g, '/'))
