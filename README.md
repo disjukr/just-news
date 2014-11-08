@@ -62,8 +62,8 @@ reporter = {
     name: string
     mail: string // email address
 }
-cleanup: function
-cleanup_interval: number
+jews.cleanup: function
+jews.cleanup_interval: number
 ```
 
 ### 털어내기
