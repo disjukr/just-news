@@ -102,7 +102,7 @@ jews.cleanup: function
 * [x] [머니투데이](http://www.mt.co.kr)
 * [x] [문화일보](http://www.munhwa.com)
 * [x] [미디어오늘](http://www.mediatoday.co.kr)
-* [ ] [민중의소리](http://www.vop.co.kr)
+* [x] [민중의소리](http://www.vop.co.kr)
 * [x] [블로터닷넷](http://www.bloter.net)
 * [x] [서울경제](http://economy.hankooki.com)
 * [x] [서울신문](http://www.seoul.co.kr)
