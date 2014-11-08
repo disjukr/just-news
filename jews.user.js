@@ -1022,25 +1022,28 @@ parse['아시아경제'] = function (jews) {
     jews.reporters = [];
 };
 parse['아이뉴스24'] = function (jews) {
-    jews.title = $('.head_txt').text().trim();
-    jews.subtitle = $('.shead_txt').text();
+    jews.title = $('#content .title').text();
+    jews.subtitle = $('#content .sub_title').text();
+    var content = $('#news_content')[0].cloneNode(true);
     jews.content = (function () {
-        var content = $('#newContent4Img')[0].cloneNode(true);
         $('a[href="javascript:search_gija();"]', content).remove();
+        $('[id^=div-gpt-ad]', content).parent().remove();
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date($('.location_txt').eq(0).text()
-                         .replace(/(\d{4})\.(\d{2})\.(\d{2})\. . (\d{2}):(\d{2}).*/, '$1/$2/$3 $4:$5')),
+        created: new Date($('#content .info').text().replace(/(\d+)[^\d]+(\d+)[^\d]+(\d+)[^\d]+(\d+):(\d+)/, '$1/$2/$3 $4:$5')),
         lastModified: undefined
     };
     jews.reporters = (function () {
-        var match = $('#newContent4Img').contents().eq(0).text().match(/^\[([^[]+)\]/);
+        var match = $(content).text().trim().match(/^\[([^[]+)\]/);
         return [{
             name: match ? match[1] : undefined,
-            mail: $('#newContent4Img a[href^="mailto:"]').text() || undefined
+            mail: $('#news_content a[href^="mailto:"]').text() || undefined
         }];
     })();
+    jews.pesticide = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['오마이뉴스'] = function (jews) {
     jews.title = $('.newstitle .tit_subject a').text();
