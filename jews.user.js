@@ -338,7 +338,7 @@ parse['경향비즈'] = function (jews) {
     jews.subtitle = undefined;
     jews.content = $('#sub_cntTopTxt').html();
     jews.timestamp = (function() {
-        var times = $('.time').text().split('ㅣ');
+        var times = $('.time').text().split('\u3163'); // Korean vowel 'ㅣ'
         return {
             created: new Date(times[0].substr(5).replace(' ', 'T') + '+09:00'),
             lastModified: new Date(times[1].substr(5).replace(' ', 'T') + '+09:00')
