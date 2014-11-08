@@ -31,6 +31,7 @@
 // @include http://news.mt.co.kr/mtview.php*
 // @include http://www.munhwa.com/news/view.html*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
+// @include http://www.vop.co.kr/A*.html
 // @include http://www.bloter.net/archives/*
 // @include http://economy.hankooki.com/lpage*
 // @include http://www.seoul.co.kr/news/newsView.php*
@@ -112,6 +113,7 @@ var where = function (hostname) { // window.location.hostname
     case 'news.mt.co.kr': return '머니투데이';
     case 'www.munhwa.com': return '문화일보';
     case 'www.mediatoday.co.kr': return '미디어오늘';
+    case 'www.vop.co.kr': return '민중의소리';
     case 'www.bloter.net': return '블로터닷넷';
     case 'economy.hankooki.com': return '서울경제';
     case 'www.seoul.co.kr': return '서울신문';
@@ -787,6 +789,32 @@ parse['미디어오늘'] = function (jews) {
     jews.cleanup = function () {
         $('#scrollDiv').remove();
     };
+};
+parse['민중의소리'] = function (jews) {
+    jews.title = $('.article-header h1').text();
+    jews.subtitle = $('.article-header p').text() || undefined;
+    jews.content = (function () {
+        var content = document.createElement('div');
+        $('.article .news_photo, .article .article-text').each(function (i, v) {
+            content.appendChild(v);
+        });
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var parsedData = $('.article-bottom-meta .time');
+        var lastModified;
+        if (parsedData.length > 1) {
+            lastModified = new Date(parsedData.eq(1).text().replace('최종수정 ', '').replace(' ', 'T') + '+09:00');
+        }
+        return {
+            created: new Date(parsedData.eq(0).text().replace('발행시간 ', '').replace(' ', 'T') + '+09:00'),
+            lastModified: lastModified
+        };
+    })();
+    jews.reporters = [{
+        name: $('.article-bottom-meta .writer').text().trim(),
+        mail: $('.article-bottom-meta .wrtier-email').text().trim() || undefined
+    }];
 };
 parse['블로터닷넷'] = function (jews) {
     jews.title = document.title;
