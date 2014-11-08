@@ -915,7 +915,7 @@ parse['스포츠동아'] = function (jews) {
     jews.content = clearStyles(document.querySelector('#ct>div.article_word')).innerHTML;
     jews.pesticide = function () {
         [].forEach.call(document.getElementById('content').querySelectorAll('div:not([class^="article"]):not(.slideshow), script, iframe'), function (v) {
-            v.parentNode.removeChild(v)
+            v.parentNode.removeChild(v);
         });
     };
     var slides = document.querySelector('iframe[id^="iPhotoSlide_"]');
@@ -945,7 +945,7 @@ parse['스포츠동아'] = function (jews) {
                     return function q() {
                         var jewsContent = document.getElementById('content');
                         jewsContent.insertBefore(slides, jewsContent.firstChild);
-                    }
+                    };
                 })(slides), 500);
             }
         };
@@ -1138,7 +1138,7 @@ parse['일간스포츠'] = function (jews) {
     jews.reporters = [];
     jews.pesticide = function () {
         $('#gnb_banner, .article_ad250, iframe, div#fb-root').remove();
-    }
+    };
 };
 parse['전자신문'] = function (jews) {
     jews.title = $('.hgroup h1').text() || undefined;
