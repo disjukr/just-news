@@ -22,6 +22,7 @@
 // @include http://www.newsis.com/ar_detail/view.html*
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.dailian.co.kr/news/view/*
+// @include http://news.donga.com/3/*
 // @include http://news.donga.com/*/3/*
 // @include http://www.dt.co.kr/contents.html*
 // @include http://www.reuters.com/article/*
@@ -34,6 +35,7 @@
 // @include http://economy.hankooki.com/lpage*
 // @include http://www.seoul.co.kr/news/newsView.php*
 // @include http://www.segye.com/content/html/*
+// @include http://sports.donga.com/3/*
 // @include http://sports.donga.com/*/3/*
 // @include http://sports.chosun.com/news/utype.htm*
 // @include http://www.sportalkorea.com/news/view.php*
