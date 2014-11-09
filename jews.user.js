@@ -340,7 +340,14 @@ parse['YTN'] = function (jews) {
 parse['경향비즈'] = function (jews) {
     jews.title = $('.tit_subject').text();
     jews.subtitle = undefined;
-    jews.content = $('#sub_cntTopTxt').html();
+    jews.content = (function () {
+        var content = $('#sub_cntTopTxt')[0].cloneNode(true);
+        $('a', content).each(function (_, anchor) {
+            $(anchor).replaceWith($(anchor)[0].innerHTML);
+        });
+        $('#article_bottom_ad, #divBox', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
     jews.timestamp = (function() {
         var times = $('.time').text().split('\u3163'); // Korean vowel 'ㅣ'
         return {
