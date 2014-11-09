@@ -14,6 +14,7 @@
 // @include http://osen.mt.co.kr/article/*
 // @include http://news.sbs.co.kr/news/endPage.do*
 // @include http://www.ytn.co.kr/_ln/*
+// @include http://bizn.khan.co.kr/khan_art_view.html*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://news.kmib.co.kr/article/view.asp*
 // @include http://www.nocutnews.co.kr/news/*
@@ -98,6 +99,7 @@ var where = function (hostname) { // window.location.hostname
     case 'osen.mt.co.kr': return 'OSEN';
     case 'news.sbs.co.kr': return 'SBS';
     case 'www.ytn.co.kr': return 'YTN';
+    case 'bizn.khan.co.kr': return '경향비즈';
     case 'news.khan.co.kr': return '경향신문';
     case 'news.kmib.co.kr': return '국민일보';
     case 'www.nocutnews.co.kr': return '노컷뉴스';
@@ -334,6 +336,27 @@ parse['YTN'] = function (jews) {
             $(link).replaceWith($(link).text());
         });
     };
+};
+parse['경향비즈'] = function (jews) {
+    jews.title = $('.tit_subject').text();
+    jews.subtitle = undefined;
+    jews.content = $('#sub_cntTopTxt').html();
+    jews.timestamp = (function() {
+        var times = $('.time').text().split('\u3163'); // Korean vowel 'ㅣ'
+        return {
+            created: new Date(times[0].substr(5).replace(' ', 'T') + '+09:00'),
+            lastModified: new Date(times[1].substr(5).replace(' ', 'T') + '+09:00')
+        };
+    })();
+    jews.reporters = (function () {
+        var information = $('.info_part').text().split('기자');
+        return [{
+            name: information[0].trim(),
+            mail: information[1].trim()
+        }];
+
+    })();
+    jews.cleanup = undefined;
 };
 parse['경향신문'] = function (jews) {
     jews.title = $('#container .title_group .CR dt').text();
