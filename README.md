@@ -114,7 +114,7 @@ jews.cleanup: function
 * [x] [아시아경제](http://www.asiae.co.kr)
 * [ ] [아시아투데이](http://www.asiatoday.co.kr)
 * [x] [아이뉴스24](http://www.inews24.com)
-* [ ] [연합뉴스](http://www.yonhapnews.co.kr)
+* [x] [연합뉴스](http://www.yonhapnews.co.kr)
 * [x] [오마이뉴스](http://www.ohmynews.com)
 * [x] [월스트리트저널](http://kr.wsj.com)
 * [x] [이데일리](http://www.edaily.co.kr)

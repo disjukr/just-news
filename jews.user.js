@@ -49,6 +49,7 @@
 // @include http://stock.asiae.co.kr/news/view.htm*
 // @include http://news.inews24.com/php/news_view.php*
 // @include http://joynews.inews24.com/php/news_view.php*
+// @include http://www.yonhapnews.co.kr/*AKR*.HTML*
 // @include http://www.ohmynews.com/NWS_Web/View/at_pg.aspx*
 // @include http://kr.wsj.com/posts/*
 // @include http://www.edaily.co.kr/news/NewsRead.edy*
@@ -123,6 +124,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.sportalkorea.com': return '스포탈코리아';
     case 'www.asiae.co.kr': case 'car.asiae.co.kr': case 'edu.asiae.co.kr': case 'gold.asiae.co.kr': case 'golf.asiae.co.kr': case 'stock.asiae.co.kr': return '아시아경제';
     case 'news.inews24.com': case 'joynews.inews24.com': return '아이뉴스24';
+    case 'www.yonhapnews.co.kr': return '연합뉴스';
     case 'www.ohmynews.com': return '오마이뉴스';
     case 'kr.wsj.com': return '월스트리트저널';
     case 'www.edaily.co.kr': return '이데일리';
@@ -1058,6 +1060,20 @@ parse['아이뉴스24'] = function (jews) {
     jews.cleanup = function () {
         $('#scrollDiv').remove();
     };
+};
+parse['연합뉴스'] = function (jews) {
+    jews.title = $('#articleWrap h2').text();
+    jews.subtitle = $('.article .stit strong b').text() || undefined;
+    jews.content = (function () {
+        var content = $('.article')[0].cloneNode(true);
+        $('.stit, .banner-0-wrap, .adrs', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('.article .adrs .pblsh').text().replace(/\s*송고/, '')),
+        lastModified: undefined
+    };
+    jews.reporters = [];
 };
 parse['오마이뉴스'] = function (jews) {
     jews.title = $('.newstitle .tit_subject a').text();
