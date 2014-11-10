@@ -48,6 +48,7 @@
 // @include http://gold.asiae.co.kr/view.htm*
 // @include http://golf.asiae.co.kr/view.htm*
 // @include http://stock.asiae.co.kr/news/view.htm*
+// @include http://www.asiatoday.co.kr/view.php*
 // @include http://news.inews24.com/php/news_view.php*
 // @include http://joynews.inews24.com/php/news_view.php*
 // @include http://www.yonhapnews.co.kr/*AKR*.HTML*
@@ -126,6 +127,7 @@ var where = function (hostname) { // window.location.hostname
     case 'sports.chosun.com': return '스포츠조선';
     case 'www.sportalkorea.com': return '스포탈코리아';
     case 'www.asiae.co.kr': case 'car.asiae.co.kr': case 'edu.asiae.co.kr': case 'gold.asiae.co.kr': case 'golf.asiae.co.kr': case 'stock.asiae.co.kr': return '아시아경제';
+    case 'www.asiatoday.co.kr': return '아시아투데이';
     case 'news.inews24.com': case 'joynews.inews24.com': return '아이뉴스24';
     case 'www.yonhapnews.co.kr': return '연합뉴스';
     case 'www.ohmynews.com': return '오마이뉴스';
@@ -1067,6 +1069,35 @@ parse['아시아경제'] = function (jews) {
         };
     })();
     jews.reporters = [];
+};
+parse['아시아투데이'] = function (jews) {
+    jews.title = $('.news_title').text();
+    jews.subtitle = $('.sub_title').text() || undefined;
+    jews.content = (function () {
+        var content = $('.news_bm')[0].cloneNode(true);
+        $('.hidephotocaption, .daum_ddn_area, #body_relnews', content).remove();
+        content.innerHTML = content.innerHTML.split('<!-- //news_body -->')[0];
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var parsedData = $('.news_date').text().split(',');
+        var timeRegex = /\d{4}-\d{2}-\d{2} \d{2}:\d{2}/;
+        var lastModified;
+        if (parsedData.length > 1) {
+            lastModified = new Date(parsedData[1].match(timeRegex)[0].replace(/-/g, '/'));
+        }
+        return {
+            created: new Date(parsedData[0].match(timeRegex)[0].replace(/-/g, '/')),
+            lastModified: lastModified
+        };
+    })();
+    jews.reporters = [{
+        name: $('.gisa_moree a').contents().eq(0).text().trim(),
+        mail: $('.gija_mail').text()
+    }];
+    jews.cleanup = function () {
+        $('#fb-root').remove();
+    };
 };
 parse['아이뉴스24'] = function (jews) {
     jews.title = $('#content .title').text();
