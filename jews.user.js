@@ -62,6 +62,7 @@
 // @include http://koreajoongangdaily.joins.com/news/article/article.aspx*
 // @include http://joongang.joins.com/article/*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
+// @include http://www.zdnet.co.kr/column/column_view.asp*
 // @include http://www.jiji.com/jc/c?g=*
 // @include http://www.koreatimes.co.kr/www/news/*
 // @include http://www.koreaherald.com/view.php*
@@ -1448,7 +1449,7 @@ parse['중앙일보'] = function (jews) {
 };
 parse['지디넷코리아'] = function (jews) {
     jews.title = $('#wrap_container_new .sub_tit_area h2').text();
-    jews.subtitle = $('#wrap_container_new .sub_tit_area h3').text();
+    jews.subtitle = $('#wrap_container_new .sub_tit_area h3').text() || undefined;
     jews.content = clearStyles($('#content')[0].cloneNode(true)).innerHTML;
     jews.timestamp = (function () {
         var time = $('#wrap_container_new .sub_tit_area .sub_data').text().split('/');
@@ -1466,11 +1467,18 @@ parse['지디넷코리아'] = function (jews) {
     })();
     jews.reporters = (function () {
         var reporterInfoString = $('#wrap_container_new .sub_tit_area').children().eq(2).text().trim();
-        var mail = /[.a-zA-Z0-9]+@[.a-zA-Z0-9]+/.exec(reporterInfoString);
-        return [{
-            name: reporterInfoString.split(/\s+/)[0],
-            mail: mail !== null ? mail[0] : undefined
-        }];
+        var parsedData = reporterInfoString.match(/(.*?)\s*([.a-zA-Z0-9]+@[.a-zA-Z0-9]+)/);
+        if (parsedData !== null) {
+            return [{
+                name: parsedData[1].replace(/\/?\s*$/, '') || undefined,
+                mail: parsedData[2]
+            }];
+        } else {
+            return [{
+                name: reporterInfoString.replace(/\/?\s*$/, ''),
+                mail: undefined
+            }];
+        }
     })();
 };
 parse['지지통신'] = function (jews) {
