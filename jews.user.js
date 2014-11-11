@@ -5,6 +5,7 @@
 // @version 0.7.0
 // @updateURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
 // @downloadURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
+// @include http://news.jtbc.joins.com/article/*
 // @include http://news.jtbc.joins.com/html/*
 // @include http://news.kbs.co.kr/news/NewsView.do*
 // @include http://world.kbs.co.kr/*/news/news_*_detail.htm*
