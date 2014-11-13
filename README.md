@@ -11,6 +11,8 @@
 
 jews는 뉴스 기사 페이지에서 작동되는 스크립트이며, 자동으로 실행되기 위해서는 UserScript 플러그인의 도움이 필요합니다.
 
+### UserScript 플러그인 설치
+
 필요한 UserScript 플러그인은 사용중인 브라우저마다 다르며, 각각의 플러그인은 다음의 링크로 들어가 설치하실 수 있습니다:
 
 * [파이어폭스 사용자 - Greasemonkey](https://addons.mozilla.org/ko/firefox/addon/greasemonkey/)
@@ -18,9 +20,12 @@ jews는 뉴스 기사 페이지에서 작동되는 스크립트이며, 자동으
 * [사파리 사용자 - NinjaKit](https://github.com/os0x/NinjaKit)
 * [IE 사용자 - TrixIE](http://sourceforge.net/projects/trixiewpf45/)
 
-UserScript 플러그인이 설치됐다면 다음의 링크를 클릭하여 스크립트 설치 다이얼로그를 띄웁니다:
+### 스크립트 설치
 
-**[>>>>> 스크립트 설치 <<<<<](https://github.com/disjukr/jews/raw/release/jews.user.js)**
+UserScript 플러그인이 설치됐다면 다음의 링크 중 하나를 클릭하여 스크립트 설치 다이얼로그를 띄웁니다:
+
+* **[안정버전](https://github.com/disjukr/jews/raw/release/jews.user.js)** - 마지막으로 릴리즈 된 버전입니다. 이 스크립트를 설치하는 것을 권장합니다.
+* **[최신버전](https://github.com/disjukr/jews/raw/master/jews.user.js)** - 개발 중인 버전입니다. 설치를 해도 작동하지 않을 수 있습니다.
 
 
 ## 기여하는 법
