@@ -405,6 +405,26 @@ parse['국민일보'] = function (jews) {
         if (fbPost.length > 0) {
             $('.fb-post', content).replaceWith(fbPost[0].outerHTML);
         }
+        var slides = document.createElement('div');
+        slides.className = 'slideshow';
+        slides.style.width = '100%'
+        slides.style.whiteSpace = 'nowrap';
+        slides.style['overflow-x'] = 'scroll';
+        var style = document.createElement('style');
+        style.innerText = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
+        slides.appendChild(style);
+        [].forEach.call(document.querySelectorAll('#gisaimage>.pic #picLst'), function (v) {
+            var fig = document.createElement('figure'),
+                el = document.createElement('img');
+            el.src = v.getElementsByTagName('img')[0].src;
+            fig.appendChild(el);
+            el = document.createElement('figcaption');
+            el.innerText = v.getElementsByClassName('captn')[0].innerText;
+            console.log(v.getElementsByClassName('captn')[0].innerText)
+            fig.appendChild(el);
+            slides.appendChild(fig);
+        });
+        content.insertBefore(slides, content.firstChild);
         return content.innerHTML;
     })();
     jews.timestamp = (function () {
