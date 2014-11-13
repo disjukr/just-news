@@ -68,6 +68,7 @@
 // @include http://www.jiji.com/jc/c?g=*
 // @include http://www.koreatimes.co.kr/www/news/*
 // @include http://www.koreaherald.com/view.php*
+// @include http://khnews.kheraldm.com/view.php*
 // @include http://www.fnnews.com/news/*
 // @include http://www.pressian.com/news/article.html*
 // @include http://www.hani.co.kr/arti/*
@@ -143,7 +144,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.zdnet.co.kr': return '지디넷코리아';
     case 'www.jiji.com': return '지지통신';
     case 'www.koreatimes.co.kr': return '코리아타임스';
-    case 'www.koreaherald.com': return '코리아헤럴드';
+    case 'www.koreaherald.com': case 'khnews.kheraldm.com': return '코리아헤럴드';
     case 'www.fnnews.com': return '파이낸셜뉴스';
     case 'www.pressian.com': return '프레시안';
     case 'www.hani.co.kr': return '한겨레';
