@@ -361,12 +361,18 @@ parse['경향비즈'] = function (jews) {
         };
     })();
     jews.reporters = (function () {
-        var information = $('.info_part').text().split('기자');
-        return [{
-            name: information[0].trim(),
-            mail: information[1].trim()
-        }];
-
+        var information = $('.info_part').text().match(/(.*)\s+(.*@.*)/);
+        if (information !== null) {
+            return [{
+                name: information[1].trim(),
+                mail: information[2].trim()
+            }];
+        } else {
+            return [{
+                name: $('.info_part').text().trim(),
+                mail: undefined
+            }];
+        }
     })();
     jews.cleanup = undefined;
 };
