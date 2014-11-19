@@ -418,7 +418,7 @@ parse['국민일보'] = function (jews) {
         slides.style.whiteSpace = 'nowrap';
         slides.style['overflow-x'] = 'scroll';
         var style = document.createElement('style');
-        style.innerText = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
+        style.textContent = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
         slides.appendChild(style);
         [].forEach.call(document.querySelectorAll('#gisaimage>.pic #picLst'), function (v) {
             var fig = document.createElement('figure'),
@@ -429,8 +429,8 @@ parse['국민일보'] = function (jews) {
             fig.appendChild(el);
             el = document.createElement('figcaption');
             var captn = v.getElementsByClassName('captn')[0];
-            if (captn == null) el.innerText = img.alt;
-            else el.innerText = captn.innerText;
+            if (captn == null) el.textContent = img.alt;
+            else el.textContent = captn.textContent;
             fig.appendChild(el);
             slides.appendChild(fig);
         });
@@ -485,27 +485,27 @@ parse['뉴데일리'] = function (jews) {
         if (j.nodeType === 3) break;
     }
     j = j.textContent;
-    jews.title = a.getElementsByTagName('h1')[0].innerText;
-    jews.subtitle = a.getElementsByTagName('h2')[0].innerText;
+    jews.title = a.getElementsByTagName('h1')[0].textContent;
+    jews.subtitle = a.getElementsByTagName('h2')[0].textContent;
     jews.content = document.getElementById('ndArtBody').innerHTML
                         .split(/<!--.+?기사본문\s*하단.+?-->/)[0].trim()
                         .replace(/(?:style|width|height)=(?:"[^"]+?"|'[^']+?')/g, '').replace(/<p><br><\/p>/g, '');
     jews.timestamp = {
         'created': undefined,
-        'lastModified': new Date(b[0].getElementsByTagName('span')[0].innerText.trim().replace(/\./g, '-').replace(' ', 'T') + '+09:00') // ISO 8601
+        'lastModified': new Date(b[0].getElementsByTagName('span')[0].textContent.trim().replace(/\./g, '-').replace(' ', 'T') + '+09:00') // ISO 8601
     };
     jews.reporters = [{
         'name': j,
-        'mail': b[4].getElementsByTagName('a')[0].innerText.trim().split(' ', 1)[0]
+        'mail': b[4].getElementsByTagName('a')[0].textContent.trim().split(' ', 1)[0]
     }];
 };
 parse['뉴데일리경제'] = function (jews) {
     var $ = function (b) { return document.querySelector(b); },
         a = [].slice.call($('.arvdate').childNodes).filter(function (v) { return v.nodeType === 3; })[0].textContent.trim();
-    jews.title = $('.hbox>h2').innerText.trim();
-    jews.subtitle = $('.hbox>h3').innerText.trim();
+    jews.title = $('.hbox>h2').textContent.trim();
+    jews.subtitle = $('.hbox>h3').textContent.trim();
     jews.reporters = [{
-        'name': $('.arvdate>a').innerText.replace('뉴데일리경제', '').trim(),
+        'name': $('.arvdate>a').textContent.replace('뉴데일리경제', '').trim(),
         'mail': a.match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)[0]
     }];
     jews.timestamp = {
@@ -638,7 +638,7 @@ parse['로이터'] = function (jews) {
         }
         if ($('#slideshowInlineLarge+script')[0]) {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', $('#slideshowInlineLarge+script')[0].innerText.split(/'sJSON'|"sJSON"/g).pop().match(/\/assets\/[^']+/), true);
+            xhr.open('GET', $('#slideshowInlineLarge+script')[0].textContent.split(/'sJSON'|"sJSON"/g).pop().match(/\/assets\/[^']+/), true);
             xhr.onreadystatechange = function () {
                 if (this.readyState === (this.DONE || 4)) {
                     var r = this.responseText;
@@ -653,7 +653,7 @@ parse['로이터'] = function (jews) {
                     slides.style.whiteSpace = 'nowrap';
                     slides.style['overflow-x'] = 'scroll';
                     var style = document.createElement('style');
-                    style.innerText = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
+                    style.textContent = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
                     slides.appendChild(style);
                     imgJSON.forEach(function (v) {
                         /*
@@ -893,7 +893,7 @@ parse['블로터닷넷'] = function (jews) {
     };
     var author = document.getElementsByClassName('press-context-author')[0];
     jews.reporters = [{
-        name: author.getElementsByTagName('cite')[0].innerText,
+        name: author.getElementsByTagName('cite')[0].textContent,
         mail: author.getElementsByTagName('a')[0].href.match(/bloter\.net\/archives\/author\/([^\/\?\s]+)/)[1]+'@bloter.net'
     }];
 };
@@ -971,13 +971,13 @@ parse['세계일보'] = function (jews) {
     jews.subtitle = $('.container>.content>.titleh2>h2').text() || undefined;
     jews.content = clearStyles(document.getElementById('article_txt')).innerHTML;
     jews.timestamp = { created: undefined, lastModified: undefined };
-    document.getElementById('SG_ArticleDateLine').innerText
+    document.getElementById('SG_ArticleDateLine').textContent
         .replace(/(입력|수정)\s*(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2}:\d{2})/g, function(_, p1, p2, p3){
             var ts = p2 + 'T' + p3 + '+09:00'; // ISO 8601
             if (p1 === '입력') jews.timestamp.created = new Date(ts);
             else if (p1 === '수정') jews.timestamp.lastModified = new Date(ts);
         });
-    var r = ('\n' + document.getElementById('article_txt').innerText + '\n').match(/\n([^\n@]+)\s기자\s([^가-힣\s\n]+@segye.com)\n/);
+    var r = ('\n' + document.getElementById('article_txt').textContent + '\n').match(/\n([^\n@]+)\s기자\s([^가-힣\s\n]+@segye.com)\n/);
     jews.reporters = [];
     if (r) {
         jews.reporters.push({
@@ -990,10 +990,10 @@ parse['세계일보'] = function (jews) {
     };
 };
 parse['스포츠동아'] = function (jews) {
-    jews.title = document.querySelector('#sub_content>.article_cont>.article_tit>h3').innerText;
+    jews.title = document.querySelector('#sub_content>.article_cont>.article_tit>h3').textContent;
     jews.subtitle = undefined;
     jews.timestamp = {
-        created: new Date(document.querySelector('#sub_content>.article_cont>.article_tit>p').innerText.replace('입력', '').trim().replace(/\s+/,'T')+'+09:00'),  // ISO 8601
+        created: new Date(document.querySelector('#sub_content>.article_cont>.article_tit>p').textContent.replace('입력', '').trim().replace(/\s+/,'T')+'+09:00'),  // ISO 8601
         lastModified: undefined
     };
     jews.content = clearStyles(document.querySelector('#ct>div.article_word')).innerHTML;
@@ -1194,7 +1194,7 @@ parse['오마이뉴스'] = function (jews) {
     }];
 };
 parse['월스트리트저널'] = function (jews) {
-    jews.title = $('.articleHeadlineBox h1')[0].innerText;
+    jews.title = $('.articleHeadlineBox h1')[0].textContent;
     jews.subtitle = undefined;
     jews.content = (function () {
         function remove(e) {
@@ -1205,7 +1205,7 @@ parse['월스트리트저널'] = function (jews) {
         Array.prototype.forEach.call(article.querySelectorAll('.socialByline, .insetCol3wide'), function (v) { v.remove(); });
         var article_p = article.getElementsByTagName('p');
         Array.prototype.forEach.call(article.getElementsByTagName('p'), function (v, i, arr) {
-            if (/기사 번역 관련 문의: [A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+/i.exec(v.innerText)) {
+            if (/기사 번역 관련 문의: [A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+/i.exec(v.textContent)) {
                 while (arr[i])
                     remove(arr[i]);
             }
@@ -1214,14 +1214,14 @@ parse['월스트리트저널'] = function (jews) {
         return clearStyles(article).innerHTML;
     })();
     jews.timestamp = ({
-        created: new Date($('.articleHeadlineBox .dateStamp')[0].innerText.replace(/\s*KST\s*$/, ' +0900').replace(/(\d+)\.?\s+([a-z]{3})[a-z]+\s+(\d+)\s*,\s*/i, '$1 $2 $3 ')), /* RFC 2822 */
+        created: new Date($('.articleHeadlineBox .dateStamp')[0].textContent.replace(/\s*KST\s*$/, ' +0900').replace(/(\d+)\.?\s+([a-z]{3})[a-z]+\s+(\d+)\s*,\s*/i, '$1 $2 $3 ')), /* RFC 2822 */
         lastModified: undefined
     });
     jews.reporters = (function () {
         var byline = $('.socialByline .byline')[0];
         if (byline) {
             return [{
-                name: byline.innerText.trim().replace(/^by\s+/i, ''),
+                name: byline.textContent.trim().replace(/^by\s+/i, ''),
                 mail: undefined
             }];
         } else {
@@ -1325,7 +1325,7 @@ parse['조선비즈'] = function (jews) {
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = (function () {
-        var timeStr = $('#date_text')[0].innerText;
+        var timeStr = $('#date_text')[0].textContent;
         var created;
         var cTime = timeStr.match(/입력 : ([^\|]+)/);
         if (cTime !== null) {
@@ -1393,7 +1393,7 @@ parse['조선일보'] = function (jews) {
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = (function () {
-        var timeStr = $('#date_text')[0].innerText;
+        var timeStr = $('#date_text')[0].textContent;
         var created;
         var cTime = timeStr.match(/입력 : ([^\|]+)/);
         if (cTime !== null) {
@@ -1679,7 +1679,7 @@ parse['한겨레'] = function (jews) {
                 mail = e.href.replace(/^mailto:/, '');
                 e.remove();
             } else if (e instanceof HTMLParagraphElement) {
-                var tmp = e.innerText.trim();
+                var tmp = e.textContent.trim();
                 if (tmp.match(/ (?:선임기자|기자|특파원)$/)) {
                     name = tmp.replace(/(?:글.사진|사진.글)\s+/, '');
                     e.remove();
@@ -1707,7 +1707,7 @@ parse['한겨레'] = function (jews) {
             lastModified: undefined
         };
         $('.article-control-menu .date span').forEach(function (el, i) {
-            var match = el.innerText.match(/(등록|수정)\s*:\s+(\d{4}\.\d{2}\.\d{2}\s+\d{1,2}:\d{1,2})/);
+            var match = el.textContent.match(/(등록|수정)\s*:\s+(\d{4}\.\d{2}\.\d{2}\s+\d{1,2}:\d{1,2})/);
             if (match === null) return;
             var time = new Date(match[2].replace(/\./g, '-').replace(/\s+/, 'T') + ':00+09:00'); // ISO 8601
             if (match[1] === '등록') data.created = time;
