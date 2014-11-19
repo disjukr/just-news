@@ -421,12 +421,15 @@ parse['국민일보'] = function (jews) {
         slides.appendChild(style);
         [].forEach.call(document.querySelectorAll('#gisaimage>.pic #picLst'), function (v) {
             var fig = document.createElement('figure'),
-                el = document.createElement('img');
-            el.src = v.getElementsByTagName('img')[0].src;
+                el = document.createElement('img'),
+                img = v.getElementsByTagName('img')[0];
+            if (img == null) return;
+            el.src = img.src;
             fig.appendChild(el);
             el = document.createElement('figcaption');
-            el.innerText = v.getElementsByClassName('captn')[0].innerText;
-            console.log(v.getElementsByClassName('captn')[0].innerText)
+            var captn = v.getElementsByClassName('captn')[0];
+            if (captn == null) el.innerText = img.alt;
+            else el.innerText = captn.innerText;
             fig.appendChild(el);
             slides.appendChild(fig);
         });
