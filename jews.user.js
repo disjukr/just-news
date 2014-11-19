@@ -337,7 +337,8 @@ parse['YTN'] = function (jews) {
     };
     jews.reporters = [];
     jews.cleanup = function () {
-        $('.dklink', content).each(function (_, link) {
+        $('#scrollDiv').remove();
+        $('.dklink').each(function (_, link) {
             $(link).replaceWith($(link).text());
         });
     };
