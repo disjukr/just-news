@@ -416,7 +416,7 @@ parse['국민일보'] = function (jews) {
         slides.className = 'slideshow';
         slides.style.width = '100%'
         slides.style.whiteSpace = 'nowrap';
-        slides.style['overflow-x'] = 'scroll';
+        slides.style.overflowX = 'auto';
         var style = document.createElement('style');
         style.textContent = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
         slides.appendChild(style);
@@ -651,7 +651,7 @@ parse['로이터'] = function (jews) {
                     slides.className = 'slideshow';
                     slides.style.width = '100%';
                     slides.style.whiteSpace = 'nowrap';
-                    slides.style['overflow-x'] = 'scroll';
+                    slides.style.overflowX = 'auto';
                     var style = document.createElement('style');
                     style.textContent = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
                     slides.appendChild(style);
@@ -1014,7 +1014,7 @@ parse['스포츠동아'] = function (jews) {
                 slides.className = 'slideshow';
                 slides.style.width = '100%';
                 slides.style.whiteSpace = 'nowrap';
-                slides.style['overflow-x'] = 'scroll';
+                slides.style.overflowX = 'auto';
                 [].forEach.call(img, function (v) {
                     var figure = document.createElement('figure');
                     var img = document.createElement('img');
