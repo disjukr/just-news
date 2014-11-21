@@ -325,10 +325,19 @@ parse['SBS'] = function (jews) {
     })();
     jews.reporters = (function () {
         var parsedData = $('#container .smdend_content_w .sep_cont_w .sed_atcinfo_sec_w .seda_author').children();
-        return [{
-            name: parsedData.eq(0).text(),
-            mail: /(?:mailto:)?(.*)/.exec(parsedData.eq(1).attr('href'))[1]
-        }];
+        var name = parsedData.eq(0).text() || undefined;
+        var mail;
+        if (parsedData.length > 1) {
+            mail = /(?:mailto:)?(.*)/.exec(parsedData.eq(1).attr('href'))[1];
+        }
+        if (name || mail) {
+            return [{
+                name: name,
+                mail: mail
+            }];
+        } else {
+            return [];
+        }
     })();
 };
 parse['YTN'] = function (jews) {
