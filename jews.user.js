@@ -36,6 +36,7 @@
 // @include http://www.vop.co.kr/A*.html
 // @include http://www.bloter.net/archives/*
 // @include http://economy.hankooki.com/lpage*
+// @include http://seoul.co.kr/news/newsView.php*
 // @include http://www.seoul.co.kr/news/newsView.php*
 // @include http://www.segye.com/content/html/*
 // @include http://sports.donga.com/3/*
@@ -123,7 +124,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.vop.co.kr': return '민중의소리';
     case 'www.bloter.net': return '블로터닷넷';
     case 'economy.hankooki.com': return '서울경제';
-    case 'www.seoul.co.kr': return '서울신문';
+    case 'seoul.co.kr': case 'www.seoul.co.kr': return '서울신문';
     case 'www.segye.com': return '세계일보';
     case 'sports.donga.com': return '스포츠동아';
     case 'sports.chosun.com': return '스포츠조선';
