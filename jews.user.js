@@ -1686,7 +1686,7 @@ parse['한겨레'] = function (jews) {
                 }
             }
             else if (el instanceof HTMLParagraphElement && el.innerHTML.trim() === "") return;
-            else if (el instanceof HTMLDivElement && !$(el).hasClass('article-alignC')) return;
+            else if (el instanceof HTMLDivElement && !($(el).hasClass('article-alignC') || $(el).hasClass('article-alignR'))) return;
             else content.appendChild(el.cloneNode(true));
         });
         var i = content.childNodes.length, mail, name;
