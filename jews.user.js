@@ -72,6 +72,7 @@
 // @include http://khnews.kheraldm.com/view.php*
 // @include http://www.fnnews.com/news/*
 // @include http://www.pressian.com/news/article.html*
+// @include http://hani.co.kr/arti/*
 // @include http://www.hani.co.kr/arti/*
 // @include http://www.hankyung.com/news/app/newsview.php*
 // @include http://ent.hankyung.com/news/app/newsview.php*
@@ -148,7 +149,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.koreaherald.com': case 'khnews.kheraldm.com': return '코리아헤럴드';
     case 'www.fnnews.com': return '파이낸셜뉴스';
     case 'www.pressian.com': return '프레시안';
-    case 'www.hani.co.kr': return '한겨레';
+    case 'hani.co.kr': case 'www.hani.co.kr': return '한겨레';
     case 'www.hankyung.com': case 'ent.hankyung.com': case 'golf.hankyung.com': case 'land.hankyung.com': case 'stock.hankyung.com': return '한국경제';
     case 'www.wowtv.co.kr': return '한국경제TV';
     case 'www.hankookilbo.com': return '한국일보';
