@@ -56,6 +56,7 @@
 // @include http://www.yonhapnews.co.kr/*AKR*.HTML*
 // @include http://www.ohmynews.com/NWS_Web/View/at_pg.aspx*
 // @include http://kr.wsj.com/posts/*
+// @include http://realtime.wsj.com/korea/*
 // @include http://www.edaily.co.kr/news/NewsRead.edy*
 // @include http://isplus.joins.com/article/*
 // @include http://isplus.live.joins.com/news/article/article.asp*
@@ -135,7 +136,7 @@ var where = function (hostname) { // window.location.hostname
     case 'news.inews24.com': case 'joynews.inews24.com': return '아이뉴스24';
     case 'www.yonhapnews.co.kr': return '연합뉴스';
     case 'www.ohmynews.com': return '오마이뉴스';
-    case 'kr.wsj.com': return '월스트리트저널';
+    case 'kr.wsj.com': case 'realtime.wsj.com': return '월스트리트저널';
     case 'www.edaily.co.kr': return '이데일리';
     case 'isplus.joins.com': case 'isplus.live.joins.com': return '일간스포츠';
     case 'www.etnews.com': return '전자신문';
@@ -1230,7 +1231,10 @@ parse['월스트리트저널'] = function (jews) {
                     remove(arr[i]);
             }
         });
-        remove(article.querySelectorAll('img[src*="//cp.news.search.daum.net"]')[0]);
+        var daum_img = article.querySelectorAll('img[src*="//cp.news.search.daum.net"]')[0];
+        if (daum_img) {
+            remove(daum_img);
+        }
         return clearStyles(article).innerHTML;
     })();
     jews.timestamp = ({
