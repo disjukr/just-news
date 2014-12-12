@@ -2037,6 +2037,10 @@ function clearStyles(element) {
         image.removeAttribute('height');
         image.removeAttribute('border');
     });
+    Array.prototype.forEach.call(element.getElementsByTagName('table'), function (table) {
+        table.removeAttribute('width');
+        table.removeAttribute('height');
+    });
     return element;
 }
 
