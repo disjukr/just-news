@@ -1723,6 +1723,11 @@ parse['한겨레'] = function (jews) {
         jews.reporters = [{
             name: name, mail: mail
         }];
+        var ad = content.querySelectorAll('#evt_bn, #ad_box01, #recopick_widget');
+        if (ad[0]) [].forEach.call(ad, function (v) {
+            v.remove();
+        });
+
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = (function () {
