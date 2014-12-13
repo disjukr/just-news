@@ -648,7 +648,7 @@ parse['디지털타임스'] = function (jews) {
         $('#soeaLayerLoc_fi').remove();
     };
 };
-parse['로이터'] = function (jews) {
+parse['로이터'] = function (jews, done) {
     jews.title = $('#content > .main-content > .sectionContent h1').text();
     jews.subtitle = undefined;
     jews.content = (function () {
@@ -656,53 +656,6 @@ parse['로이터'] = function (jews) {
         var articleImage = $('#articleImage')[0];
         if (articleImage) {
             header += clearStyles(articleImage.cloneNode(true)).innerHTML;
-        }
-        if ($('#slideshowInlineLarge+script')[0]) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', $('#slideshowInlineLarge+script')[0].textContent.split(/'sJSON'|"sJSON"/g).pop().match(/\/assets\/[^']+/), true);
-            xhr.onreadystatechange = function () {
-                if (this.readyState === (this.DONE || 4)) {
-                    var r = this.responseText;
-                    var imgJSON = new Function(
-                        'return ' + r.substring(r.indexOf('{'), r.lastIndexOf('}') + 1)
-                    )();
-                    imgJSON = imgJSON && imgJSON.slideshow && imgJSON.slideshow.slides; // Bro, do you even javascript?
-                    if (!imgJSON) return;
-                    var slides = document.createElement('div');
-                    slides.className = 'slideshow';
-                    slides.style.width = '100%';
-                    slides.style.whiteSpace = 'nowrap';
-                    slides.style.overflowX = 'auto';
-                    var style = document.createElement('style');
-                    style.textContent = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
-                    slides.appendChild(style);
-                    imgJSON.forEach(function (v) {
-                        /*
-                        * <figure>
-                        *     <img src="/sample.jpg">
-                        *     <figcaption>caption message</figcaption>
-                        * </figure>
-                        */
-                        var fig = document.createElement('figure'),
-                            el = document.createElement('img'),
-                            caption = document.createTextNode(v.caption);
-                        el.src = v.image;
-                        fig.appendChild(el);
-                        el = document.createElement('figcaption');
-                        el.appendChild(caption);
-                        fig.appendChild(el);
-                        slides.appendChild(fig);
-                    });
-                    var runLittleLater = (function (slides) {
-                        return function () {
-                            var jewsContent = document.getElementById('content');
-                            jewsContent.insertBefore(slides, jewsContent.firstChild);
-                        };
-                    })(slides);
-                    window.setTimeout(runLittleLater, 500);
-                }
-            };
-            xhr.send();
         }
         return header + clearStyles($('#articleText')[0].cloneNode(true)).innerHTML;
     })();
@@ -747,6 +700,50 @@ parse['로이터'] = function (jews) {
     jews.cleanup = function () {
         $('#trackbar, iframe').remove();
     };
+    if ($('#slideshowInlineLarge+script')[0]) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', $('#slideshowInlineLarge+script')[0].textContent.split(/'sJSON'|"sJSON"/g).pop().match(/\/assets\/[^']+/), true);
+        xhr.onreadystatechange = function () {
+            if (this.readyState === (this.DONE || 4)) {
+                var r = this.responseText;
+                var imgJSON = new Function(
+                    'return ' + r.substring(r.indexOf('{'), r.lastIndexOf('}') + 1)
+                )();
+                imgJSON = imgJSON && imgJSON.slideshow && imgJSON.slideshow.slides; // Bro, do you even javascript?
+                if (!imgJSON) return;
+                var slides = document.createElement('div');
+                slides.className = 'slideshow';
+                slides.style.width = '100%';
+                slides.style.whiteSpace = 'nowrap';
+                slides.style.overflowX = 'auto';
+                var style = document.createElement('style');
+                style.textContent = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
+                slides.appendChild(style);
+                imgJSON.forEach(function (v) {
+                    /*
+                    * <figure>
+                    *     <img src="/sample.jpg">
+                    *     <figcaption>caption message</figcaption>
+                    * </figure>
+                    */
+                    var fig = document.createElement('figure'),
+                        el = document.createElement('img'),
+                        caption = document.createTextNode(v.caption);
+                    el.src = v.image;
+                    fig.appendChild(el);
+                    el = document.createElement('figcaption');
+                    el.appendChild(caption);
+                    fig.appendChild(el);
+                    slides.appendChild(fig);
+                });
+                jews.content = slides.outerHTML + jews.content;
+                done();
+            }
+        };
+        xhr.send();
+        return;
+    }
+    done();
 };
 parse['마이데일리'] = function (jews) {
     jews.title = $('#Read_Part h1').text();
