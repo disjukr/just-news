@@ -542,9 +542,12 @@ parse['뉴시스'] = function (jews) {
     jews.subtitle = undefined;
     jews.content = (function () {
         var content = $('#articleBody')[0].cloneNode(true);
-        var centerImage = $('.center_img')[0].cloneNode(true);
+        var centerImage = $('.center_img')[0];
         // $('.relatednews', content).remove();
-        return clearStyles(centerImage).innerHTML + clearStyles(content).innerHTML;
+        if (centerImage) {
+            return clearStyles(centerImage.cloneNode(true)).innerHTML + clearStyles(content).innerHTML;
+        }
+        return clearStyles(content).innerHTML;
     })();
     jews.timestamp = (function () {
         var $time = $('font', $('.viewnewstitle').closest('tbody'));
