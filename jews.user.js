@@ -24,6 +24,7 @@
 // @include http://www.newsis.com/ar_detail/view.html*
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.dailian.co.kr/news/view/*
+// @include http://daily.hankooki.com/lpage/*
 // @include http://news.donga.com/3/*
 // @include http://news.donga.com/*/3/*
 // @include http://www.dt.co.kr/contents.html*
@@ -35,7 +36,7 @@
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.vop.co.kr/A*.html
 // @include http://www.bloter.net/archives/*
-// @include http://economy.hankooki.com/lpage*
+// @include http://economy.hankooki.com/lpage/*
 // @include http://seoul.co.kr/news/newsView.php*
 // @include http://www.seoul.co.kr/news/newsView.php*
 // @include http://www.segye.com/content/html/*
@@ -115,6 +116,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.newsis.com': return '뉴시스';
     case 'dailysecu.com': return '데일리시큐';
     case 'www.dailian.co.kr': return '데일리안';
+    case 'daily.hankooki.com': return '데일리한국';
     case 'news.donga.com': return '동아일보';
     case 'www.dt.co.kr': return '디지털타임스';
     case 'www.reuters.com': return '로이터';
@@ -598,6 +600,45 @@ parse['데일리안'] = function (jews) {
         $('#scrollDiv').remove();
     };
 };
+parse['데일리한국'] = function (jews) {
+    jews.title = $('#GS_Title').text();
+    jews.subtitle = $('#GS_SubTitle').text() || undefined;
+    jews.content = (function () {
+        var content = $('#GS_Content')[0].cloneNode(true);
+        $('#frm_AD_GISA_PHOTO_LINE, #AD_GISA_PHOTO_LINE', content).remove();
+        $('a', content).each(function (_, anchor) {
+            $(anchor).replaceWith($(anchor)[0].innerHTML);
+        });
+        var photo = $('#GS_RelPhoto')[0];
+        var imgs = '';
+        if (photo) {
+            var photoDiv = document.createElement('div');
+            photo = photo.cloneNode(true);
+            if ($('.RelPhoto2', photo)[0])
+                $('.RelPhoto1', photo).remove();
+            $('li > *', photo).toArray().forEach(function (item) {
+                photoDiv.appendChild(clearStyles(item));
+            });
+            return clearStyles(photoDiv).innerHTML + clearStyles(content).innerHTML;
+        }
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('#input_time dd').eq(0).text().replace('입력시간 :', '').trim()),
+        lastModified: new Date($('#modify_gisa').eq(0).text().replace('수정시간 :', '').replace(/\./g, '/').trim())
+    };
+    jews.reporters = $('#GS_Reporter ul li').toArray().map(function (li) {
+        li = li.cloneNode(true);
+        var mail = $('a', li).text();
+        $('a', li).remove();
+        var name = $(li).text();
+        return { name: name, mail: mail };
+    });
+    jews.cleanup = function () {
+        $('#frm_photoLink').remove();
+        $('#scrollDiv').remove();
+    };
+};
 parse['동아일보'] = function (jews) {
     jews.title = $('.article_title h1').text();
     jews.subtitle = undefined;
@@ -915,45 +956,7 @@ parse['블로터닷넷'] = function (jews) {
         mail: author.getElementsByTagName('a')[0].href.match(/bloter\.net\/archives\/author\/([^\/\?\s]+)/)[1]+'@bloter.net'
     }];
 };
-parse['서울경제'] = function (jews) {
-    jews.title = $('#GS_Title').text();
-    jews.subtitle = $('#GS_SubTitle').text();
-    jews.content = (function () {
-        var content = $('#GS_Content')[0].cloneNode(true);
-        $('#frm_AD_GISA_PHOTO_LINE', content).remove();
-        $('a', content).each(function (_, anchor) {
-            $(anchor).replaceWith($(anchor)[0].innerHTML);
-        });
-        var photo = $('#GS_RelPhoto')[0];
-        var photoDiv = document.createElement('div');
-        var imgs = '';
-        if (photo) {
-            photo = photo.cloneNode(true);
-            if ($('.RelPhoto2', photo)[0])
-                $('.RelPhoto1', photo).remove();
-            $('li > *', photo).toArray().forEach(function (item) {
-                photoDiv.appendChild(clearStyles(item));
-            });
-            return clearStyles(photoDiv).innerHTML + clearStyles(content).innerHTML;
-        }
-        return clearStyles(content).innerHTML;
-    })();
-    jews.timestamp = {
-        created: new Date($('#input_time dd').eq(0).text().replace('입력시간 :', '').trim()),
-        lastModified: new Date($('#modify_gisa').eq(0).text().replace('수정시간 :', '').trim())
-    };
-    jews.reporters = $('#GS_Reporter ul li').toArray().map(function (li) {
-        li = li.cloneNode(true);
-        var mail = $('a', li).text();
-        $('a', li).remove();
-        var name = $(li).text();
-        return { name: name, mail: mail };
-    });
-    jews.cleanup = function () {
-        $('#frm_photoLink').remove();
-        $('#scrollDiv').remove();
-    };
-};
+parse['서울경제'] = parse['데일리한국'];
 parse['서울신문'] = function (jews) {
     jews.title = $('.title_main').contents().eq(0).text().trim();
     jews.subtitle = $('.title_sub').text() || undefined;
