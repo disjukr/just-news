@@ -919,7 +919,12 @@ parse['미디어오늘'] = function (jews) {
         $('#scrollDiv').remove();
     };
 };
-parse['민중의소리'] = function (jews) {
+parse['민중의소리'] = function (jews, done) {
+    var category = $('.article-category').text();
+    if (category === '뉴스 타임라인') {
+        // Don't call done() to show unmodified web page.
+        return;
+    }
     jews.title = $('.article-header h1').text();
     jews.subtitle = $('.article-header p').text() || undefined;
     jews.content = (function () {
@@ -944,6 +949,8 @@ parse['민중의소리'] = function (jews) {
         name: $('.article-bottom-meta .writer').text().trim(),
         mail: $('.article-bottom-meta .wrtier-email').text().trim() || undefined
     }];
+    // Explicitly call done() although this is not asynchronous.
+    done();
 };
 parse['블로터닷넷'] = function (jews) {
     jews.title = document.title;
