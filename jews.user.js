@@ -1738,6 +1738,9 @@ parse['한겨레'] = function (jews) {
             v.remove();
         });
 
+        var style = document.createElement('style');
+        style.textContent = '.description{margin: 0 40px 20px}';
+        content.insertBefore(style, content.firstChild);
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = (function () {
