@@ -2062,6 +2062,16 @@ function clearStyles(element) {
     return element;
 }
 
+function unjewsUrl() {
+    var query = window.location.search;
+    if (query.length) {
+        query += '&jews=false';
+    } else {
+        query = '?jews=false';
+    }
+    return window.location.origin + window.location.pathname + query
+}
+
 function reconstruct() {
     (function () {
         var id = window.setTimeout('0', 0);
@@ -2073,9 +2083,13 @@ function reconstruct() {
             '<style>',
             '@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);',
             'body {',
-                'margin-top: 50px;',
+                'margin-top: 10px;',
                 'margin-bottom: 500px;',
                 'text-align: center;',
+            '}',
+            '#info {',
+                'margin-bottom: 40px;',
+                'color: #666',
             '}',
             '#meta {',
                 'display: inline-block;',
@@ -2113,6 +2127,12 @@ function reconstruct() {
             '<meta charset="utf-8">',
         '</head>',
         '<body>',
+            '<div id="info">',
+                '<small>',
+                    '<a href="https://github.com/disjukr/jews">jews</a>에 의해 변환된 페이지입니다. ',
+                    '<a href="', unjewsUrl(), '">원본 페이지 보기</a>',
+                '</small>',
+            '</div>',
             '<h1>', jews.title || 'no title', '</h1>',
             (function () {
                 if (jews.subtitle && jews.subtitle !== '') {
@@ -2162,6 +2182,9 @@ function reconstruct() {
 }
 
 function runJews() {
+    if (window.location.search.indexOf('jews=false') > -1) {
+        return;
+    }
     parse(where(window.location.hostname), jews, reconstruct);
 }
 
