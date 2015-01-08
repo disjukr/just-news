@@ -18,6 +18,7 @@
 // @include http://bizn.khan.co.kr/khan_art_view.html*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://news.kmib.co.kr/article/view.asp*
+// @include http://nownews.seoul.co.kr/news/newsView.php*
 // @include http://www.nocutnews.co.kr/news/*
 // @include http://www.newdaily.co.kr/news/article.html?no=*
 // @include http://biz.newdaily.co.kr/news/article.html?no=*
@@ -110,6 +111,7 @@ var where = function (hostname) { // window.location.hostname
     case 'bizn.khan.co.kr': return '경향비즈';
     case 'news.khan.co.kr': return '경향신문';
     case 'news.kmib.co.kr': return '국민일보';
+    case 'nownews.seoul.co.kr': return '나우뉴스';
     case 'www.nocutnews.co.kr': return '노컷뉴스';
     case 'www.newdaily.co.kr': return '뉴데일리';
     case 'biz.newdaily.co.kr': return '뉴데일리경제';
@@ -478,6 +480,32 @@ parse['국민일보'] = function (jews) {
     jews.cleanup = function () {
         $('#scrollDiv').remove();
     };
+};
+parse['나우뉴스'] = function (jews) {
+    jews.title = $('.atic_title div h3').text();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var content = $('#articleContent')[0].cloneNode(true);
+        $('#hnsIframe, #ifrm_photolink, table[width="250px"][height="250px"]', content).remove();
+        var figure = $('table[align="center"]', content)[0];
+        if (figure) {
+            $('table div', figure).each(function (i, el) {
+                $(el).replaceWith($('ul li', $(el))[0].innerHTML);
+            });
+        }
+        $('a.dklink', content).each(function (i, el) {
+            $(el).replaceWith(el.textContent);
+        });
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var parsedData = $('.atic_title .tdata').text().split('\u3163'); // Korean vowel 'ㅣ'
+        return {
+            created: new Date(parsedData[0].trim().replace('입력: ', '').replace(/\./g, '/')),
+            lastModified: new Date(parsedData[1].trim().replace('수정 ', '').replace(/\./g, '/'))
+        };
+    })();
+    jews.reporters = [];
 };
 parse['노컷뉴스'] = function (jews) {
     jews.title = $('.reporter_info h2').text();

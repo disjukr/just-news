@@ -99,7 +99,7 @@ jews.cleanup: function
 * [x] [경향비즈](http://bizn.khan.co.kr)
 * [x] [경향신문](http://www.khan.co.kr)
 * [x] [국민일보](http://www.kmib.co.kr)
-* [ ] [나우뉴스](http://nownews.seoul.co.kr)
+* [x] [나우뉴스](http://nownews.seoul.co.kr)
 * [x] [노컷뉴스](http://www.nocutnews.co.kr)
 * [x] [뉴데일리](http://www.newdaily.co.kr)
 * [x] [뉴데일리경제](http://biz.newdaily.co.kr)
