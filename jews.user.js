@@ -46,6 +46,7 @@
 // @include http://sports.chosun.com/news/utype.htm*
 // @include http://www.sportalkorea.com/news/view.php*
 // @include http://www.sportalkorea.com/newsplus/view_sub.php*
+// @include http://www.sisainlive.com/news/articleView.html?*
 // @include http://www.asiae.co.kr/news/view.htm*
 // @include http://car.asiae.co.kr/view.htm*
 // @include http://edu.asiae.co.kr/view.htm*
@@ -135,6 +136,7 @@ var where = function (hostname) { // window.location.hostname
     case 'sports.donga.com': return '스포츠동아';
     case 'sports.chosun.com': return '스포츠조선';
     case 'www.sportalkorea.com': return '스포탈코리아';
+    case 'www.sisainlive.com': return '시사IN Live';
     case 'www.asiae.co.kr': case 'car.asiae.co.kr': case 'edu.asiae.co.kr': case 'gold.asiae.co.kr': case 'golf.asiae.co.kr': case 'stock.asiae.co.kr': return '아시아경제';
     case 'www.asiatoday.co.kr': return '아시아투데이';
     case 'news.inews24.com': case 'joynews.inews24.com': return '아이뉴스24';
@@ -1137,6 +1139,33 @@ parse['스포탈코리아'] = function (jews) {
     jews.reporters = [];
     jews.cleanup = function () {
         $('iframe, #scrollDiv').remove();
+    };
+};
+parse['시사IN Live'] = function (jews) {
+    jews.title = $('.View_Title h1').text().trim();
+    jews.subtitle = $('.View_Title span').text().trim();
+    jews.content = (function () {
+        var content = $('#articleBody')[0].cloneNode(true);
+        $('table', content).closest('table').remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var view_time = $('.View_Time')[0].cloneNode(true);
+        $('span', view_time).remove();
+        return {
+            created: new Date($(view_time).text().trim().split(/\s+/).reverse().join(' ').replace(/\./g, '/')),
+            lastModified: undefined
+        }
+    })();
+    jews.reporters = (function () {
+        var view_info = $('.View_Info').text().split('|').reverse();
+        return [{
+            name: (view_info[1] || '').trim(),
+            mail: (view_info[0] || '').trim()
+        }];
+    })();
+    jews.cleanup = function () {
+        $('#scrollDiv').remove();
     };
 };
 parse['아시아경제'] = function (jews) {
