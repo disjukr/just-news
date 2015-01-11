@@ -1161,7 +1161,7 @@ parse['시사IN Live'] = function (jews) {
         var view_info = $('.View_Info').text().split('|').reverse();
         return [{
             name: (view_info[1] || '').trim(),
-            mail: (view_info[0] || '').trim()
+            mail: view_info[0].trim()
         }];
     })();
     jews.cleanup = function () {
