@@ -1240,7 +1240,7 @@ parse['아이뉴스24'] = function (jews) {
         }];
     })();
     jews.cleanup = function () {
-        $('#scrollDiv').remove();
+        $('#scrollDiv, #soeaFrame_, #soeaLayerLoc_st, #soeaLayerLoc_fi, iframe').remove();
     };
 };
 parse['연합뉴스'] = function (jews) {
