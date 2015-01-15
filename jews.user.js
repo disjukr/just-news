@@ -1244,7 +1244,7 @@ parse['아이뉴스24'] = function (jews) {
     };
 };
 parse['연합뉴스'] = function (jews) {
-    jews.title = $('#articleWrap h2').text();
+    jews.title = $('#articleWrap h2').text() || $('#articleWrap h1').text() || undefined;
     jews.subtitle = $('.article .stit strong b').text() || undefined;
     jews.content = (function () {
         var content = $('.article')[0].cloneNode(true);
