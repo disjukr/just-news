@@ -2173,6 +2173,7 @@ function reconstruct() {
                 'font-family: \'Nanum Myeongjo\', serif;',
                 'font-size: 11pt;',
                 'text-align: justify;',
+                'line-height: 1.6;',
             '}',
             '#content img {',
                 'display: block;',
