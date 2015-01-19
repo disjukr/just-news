@@ -1153,7 +1153,7 @@ parse['시사IN Live'] = function (jews) {
         var view_time = $('.View_Time')[0].cloneNode(true);
         $('span', view_time).remove();
         return {
-            created: new Date($(view_time).text().trim().split(/\s+/).reverse().join(' ').replace(/\./g, '/')),
+            created: new Date($(view_time).text().trim().split(/\s+/).join(' ').replace(/\./g, '/')),
             lastModified: undefined
         };
     })();
