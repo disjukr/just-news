@@ -1146,7 +1146,7 @@ parse['시사IN Live'] = function (jews) {
     jews.subtitle = $('.View_Title span').text().trim();
     jews.content = (function () {
         var content = $('#articleBody')[0].cloneNode(true);
-        $('iframe', content).closest('table').remove();
+        $('table[width="320"][height="265"][align="right"], iframe', content).closest('table').remove();
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = (function () {
@@ -1155,7 +1155,7 @@ parse['시사IN Live'] = function (jews) {
         return {
             created: new Date($(view_time).text().trim().split(/\s+/).reverse().join(' ').replace(/\./g, '/')),
             lastModified: undefined
-        }
+        };
     })();
     jews.reporters = (function () {
         var view_info = $('.View_Info').text().split('|').reverse();
