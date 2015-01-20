@@ -85,6 +85,7 @@
 // @include http://stock.hankyung.com/news/app/newsview.php*
 // @include http://www.wowtv.co.kr/newscenter/news/view.asp*
 // @include http://www.hankookilbo.com/v/*
+// @include http://hankookilbo.com/v/*
 // @include http://www.huffingtonpost.kr/*
 // @include http://biz.heraldcorp.com/view.php?*
 // @include http://news.heraldcorp.com/view.php?*
@@ -159,7 +160,7 @@ var where = function (hostname) { // window.location.hostname
     case 'hani.co.kr': case 'www.hani.co.kr': return '한겨레';
     case 'www.hankyung.com': case 'ent.hankyung.com': case 'golf.hankyung.com': case 'land.hankyung.com': case 'stock.hankyung.com': return '한국경제';
     case 'www.wowtv.co.kr': return '한국경제TV';
-    case 'www.hankookilbo.com': return '한국일보';
+    case 'www.hankookilbo.com': case 'hankookilbo.com': return '한국일보';
     case 'www.huffingtonpost.kr': return '허핑턴포스트';
     case 'biz.heraldcorp.com': case 'news.heraldcorp.com': return '헤럴드경제';
     default: throw new Error('jews don\'t support this site');
