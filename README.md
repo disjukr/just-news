@@ -87,7 +87,7 @@ jews.cleanup: function
 
 ## 지원 사이트
 
-* [ ] [ITWORLD](http://www.itworld.co.kr)
+* [x] [ITWORLD](http://www.itworld.co.kr)
 * [x] [JTBC](http://news.jtbc.joins.com)
 * [x] [KBS](http://news.kbs.co.kr)
 * [x] [KBS World](http://world.kbs.co.kr)

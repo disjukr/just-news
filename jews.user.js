@@ -5,6 +5,7 @@
 // @version 0.8.0
 // @updateURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
 // @downloadURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
+// @include http://www.itworld.co.kr/news/*
 // @include http://news.jtbc.joins.com/article/*
 // @include http://news.jtbc.joins.com/html/*
 // @include http://news.kbs.co.kr/news/NewsView.do*
@@ -102,6 +103,7 @@ var jews = {
 };
 var where = function (hostname) { // window.location.hostname
     switch (hostname) {
+    case 'www.itworld.co.kr': return 'ITWORLD';
     case 'news.jtbc.joins.com': return 'JTBC';
     case 'news.kbs.co.kr': return 'KBS';
     case 'world.kbs.co.kr': return 'KBS World';
@@ -178,6 +180,61 @@ function parse(where, jews, done) {
         parseFunction(jews, _done);
     }
 }
+parse['ITWORLD'] = function (jews, done) {
+    function submitJews(props) {
+        for (var i in props) jews[i] = props[i];
+        done();
+    }
+    var j = {
+        'title': document.getElementsByClassName('node_title')[0].textContent.trim(),
+        'timestamp': {
+            'created': new Date(document.getElementsByClassName('news_list_time')[0].textContent.replace(/\./g, '-')),
+            'lastModified': undefined
+        },
+        'reporters': [{
+            'name': document.getElementsByClassName('node_source')[0].textContent.trim(),
+            'mail': undefined
+        }]
+    };
+    var pagination = document.getElementsByClassName('pagination')[0];
+    if (pagination != null) {
+        function get(s, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', s, true);
+            xhr.onreadystatechange = function () {
+                if (this.readyState === (this.DONE || 4)) callback(this);
+            };
+            xhr.send();
+        }
+
+        function finish(){
+            if (p.indexOf(0) !== -1) return;
+            j.content = p.join('<br><br>');
+            submitJews(j);
+        }
+        var p = [].slice.call(pagination.getElementsByTagName('li')).map(function (v, i) {
+            if (v.className.match(/\bactive\b/)) {
+                var el = document.createElement('div');
+                el.innerHTML = document.getElementsByClassName('node_body')[0].innerHTML;
+                el.getElementsByClassName('pagination')[0].remove();
+                return el.innerHTML;
+            }
+            get(v.getElementsByTagName('a')[0].href, function (t) {
+                var a = document.createElement('div');
+                a.innerHTML = t.responseText;
+                a = a.getElementsByClassName('node_body')[0];
+                a.getElementsByClassName('pagination')[0].remove();
+                p[i] = a.innerHTML;
+                a = null;
+                finish();
+            })
+            return 0;
+        });
+    } else {
+        j.content = document.getElementsByClassName('node_body')[0].innerHTML;
+        submitJews(j);
+    }
+};
 parse['JTBC'] = function (jews) {
     jews.title = $('#articletitle .title h3').text();
     jews.subtitle = $('#sub_articletitle .title h4').html() || undefined;
