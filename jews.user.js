@@ -1274,7 +1274,7 @@ parse['아시아투데이'] = function (jews) {
         mail: $('.gija_mail').text()
     }];
     jews.cleanup = function () {
-        $('#fb-root').remove();
+        $('#fb-root, #scrollDiv').remove();
     };
 };
 parse['아이뉴스24'] = function (jews) {
