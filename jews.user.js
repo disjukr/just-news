@@ -1253,7 +1253,7 @@ parse['아시아투데이'] = function (jews) {
     jews.subtitle = $('.sub_title').text() || undefined;
     jews.content = (function () {
         var content = $('.news_bm')[0].cloneNode(true);
-        $('.hidephotocaption, .daum_ddn_area, #body_relnews', content).remove();
+        $('.phototitle[style="display: none;"], .hidephotocaption, .photocaption[style="display: none;"], .daum_ddn_area, #body_relnews', content).remove();
         content.innerHTML = content.innerHTML.split('<!-- //news_body -->')[0];
         return clearStyles(content).innerHTML;
     })();
