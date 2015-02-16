@@ -1693,7 +1693,7 @@ parse['지디넷코리아'] = function (jews) {
         }
     })();
     jews.cleanup = function () {
-        $('#scrollDiv').remove()
+        $('#scrollDiv').remove();
     };
 };
 parse['지지통신'] = function (jews) {
