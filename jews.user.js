@@ -44,6 +44,7 @@
 // @include http://www.segye.com/content/html/*
 // @include http://sports.donga.com/3/*
 // @include http://sports.donga.com/*/3/*
+// @include http://sports.chosun.com/news/ntype5.htm*
 // @include http://sports.chosun.com/news/utype.htm*
 // @include http://www.sportalkorea.com/news/view.php*
 // @include http://www.sportalkorea.com/newsplus/view_sub.php*
