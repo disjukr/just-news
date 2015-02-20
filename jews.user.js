@@ -422,7 +422,7 @@ parse['YTN'] = function (jews) {
     };
     jews.reporters = [];
     jews.cleanup = function () {
-        $('#scrollDiv').remove();
+        $('iframe, #scrollDiv, #content style').remove();
         $('.dklink').each(function (_, link) {
             $(link).replaceWith($(link).text());
         });
