@@ -34,6 +34,7 @@
 // @include http://www.mydaily.co.kr/new_yk/html/read.php*
 // @include http://news.mk.co.kr/newsRead.php*
 // @include http://news.mt.co.kr/mtview.php*
+// @include http://cnews.mt.co.kr/mtview.php*
 // @include http://www.munhwa.com/news/view.html*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.vop.co.kr/A*.html
@@ -129,7 +130,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.reuters.com': return '로이터';
     case 'www.mydaily.co.kr': return '마이데일리';
     case 'news.mk.co.kr': return '매일경제';
-    case 'news.mt.co.kr': return '머니투데이';
+    case 'news.mt.co.kr': case 'cnews.mt.co.kr': return '머니투데이';
     case 'www.munhwa.com': return '문화일보';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.vop.co.kr': return '민중의소리';
