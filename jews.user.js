@@ -1455,7 +1455,7 @@ parse['전자신문'] = function (jews) {
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date($('.a_date').text().replace(/\./g, '/')),
+        created: new Date(($('.a_date').text().match(/\d+\.\d+\.\d+/)||[""])[0].replace(/\./g, '/')),
         modefied: undefined
     };
     jews.reporters = [{
