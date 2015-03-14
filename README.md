@@ -59,22 +59,46 @@ jews는 github issue tracker를 사용합니다.
 * 유사 jQuery 함수를 만들어서 사용합니다.
     * 실제 jQuery와 기능이 다르게 동작할 경우 버그로 간주합니다만, 그 기능을 사용할 때만 adhoc하게 고치도록 합니다.
 
-### `jews` 타입
+### `jews` 타입 정의
 
-```
-jews.title: string
-jews.subtitle: string
-jews.content: string // html fragment
-jews.timestamp: {
-    created: Date
-    lastModified: Date
+아래 타입 정의 스키마는 [makise](https://github.com/disjukr/makise)의 문법을 따릅니다.
+```makise
+this is jews
+
+jews is {
+    title: string,
+    subtitle: string,
+    content: html_fragment,
+    timestamp: {
+        created: Date,
+        lastModified: Date
+    },
+    reporters: [reporter, ...],
+    cleanup: Function
 }
-jews.reporters: reporter[]
-reporter = {
-    name: string
-    mail: string // email address
+
+reporter is {
+    name: string,
+    mail: mail_address
 }
-jews.cleanup: function
+
+html_fragment is string
+mail_address is string
+
+#if js
+checker('Date', function (value, context) {
+    var result = value instanceof Date;
+    if (!result)
+        throws(value, context, '{{context}} is not Date');
+    return result;
+});
+checker('Function', function (value, context) {
+    var result = value instanceof Function;
+    if (!result)
+        throws(value, context, '{{context}} is not Function');
+    return result;
+});
+#endif
 ```
 
 ### 털어내기
