@@ -84,21 +84,6 @@ reporter is {
 
 html_fragment is string
 mail_address is string
-
-#if js
-checker('Date', function (value, context) {
-    var result = value instanceof Date;
-    if (!result)
-        throws(value, context, '{{context}} is not Date');
-    return result;
-});
-checker('Function', function (value, context) {
-    var result = value instanceof Function;
-    if (!result)
-        throws(value, context, '{{context}} is not Function');
-    return result;
-});
-#endif
 ```
 
 ### 털어내기
