@@ -2085,10 +2085,17 @@ function unjewsUrl() {
 }
 
 function reconstruct() {
+    // timeout, interval 청소
     (function () {
         var id = window.setTimeout('0', 0);
-        while (id--) window.clearTimeout(id);
+        while (id--) {
+            window.clearTimeout(id);
+            window.clearInterval(id);
+        }
     })();
+    // popup 창 못 띄우게 만들기
+    window.open = function () {};
+    // 페이지 재구축
     document.body.parentElement.innerHTML = [
         '<head>',
             '<title>', jews.title || 'jews', '</title>',
