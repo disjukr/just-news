@@ -1649,6 +1649,8 @@ parse['지디넷코리아'] = function (jews) {
     })();
     jews.cleanup = function () {
         $('#scrollDiv').remove();
+        document.onmousedown = null;
+        window._cz_mouseClick = null;
     };
 };
 parse['지지통신'] = function (jews) {
