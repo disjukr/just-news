@@ -1813,6 +1813,9 @@ parse['한국경제'] = function (jews) {
         };
     })();
     jews.reporters = [];
+    jews.cleanup = function (){
+        $('#scrollDiv, iframe').remove();
+    };
 };
 parse['한국경제TV'] = function (jews) {
     jews.title = $('#viewTitle h2 strong').text();
