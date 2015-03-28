@@ -1891,7 +1891,7 @@ parse['허핑턴포스트'] = function (jews) {
         lastModified: new Date($('.updated time[datetime]').attr('datetime'))
     };
     jews.reporters = [{
-        name: document.querySelector('.name.fn a[rel="author"]').textContent.trim(),
+        name: document.querySelector('.name.fn').textContent.split('작성자')[1].trim().split(/\s+/).join(' '),
         mail: undefined
     }];
     jews.cleanup = function () {
