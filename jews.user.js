@@ -1731,20 +1731,17 @@ parse['파이낸셜뉴스'] = function (jews) {
     };
 };
 parse['프레시안'] = function (jews) {
-    jews.title = $('.arvtitle .hbox h2').text();
-    jews.subtitle = $('.arvtitle .hbox h3').text();
+    jews.title = $('.hboxtitle').text().trim();
+    jews.subtitle = $('.hboxsubtitle').text().trim();
     jews.content = clearStyles($('#news_body_area')[0].cloneNode(true)).innerHTML;
     jews.timestamp = {
-        created: $('.arvdate').contents().eq(1).text(),
+        created: new Date($('.hboxbylinedata span').text().trim().replace(/\./g, '-').replace(/\s+/, 'T')+'+09:00'),
         lastModified: undefined
     };
-    jews.reporters = (function () {
-        var parsedData = $('.news_body_area>div[style="float:right;"]').children();
-        return [{
-            name: parsedData.eq(0).text(),
-            mail: parsedData.eq(1).attr('href').replace('mailto:', '')
-        }];
-    })();
+    jews.reporters = [{
+        name: $('.hboxbylinedata a').text(),
+        mail: undefined
+    }];
     jews.cleanup = function () {
         $('#scrollDiv').remove();
     };
