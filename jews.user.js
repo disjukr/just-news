@@ -5,32 +5,44 @@
 // @version 0.9.0
 // @updateURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
 // @downloadURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
+// i
 // @include http://www.itworld.co.kr/news/*
+// j
 // @include http://news.jtbc.joins.com/article/*
 // @include http://news.jtbc.joins.com/html/*
+// k
 // @include http://news.kbs.co.kr/news/NewsView.do*
 // @include http://world.kbs.co.kr/*/news/news_*_detail.htm*
+// m
 // @include http://imnews.imbc.com/*
 // @include http://mbn.mk.co.kr/pages/news/newsView.php*
 // @include http://www.mbn.co.kr/pages/news/newsView.php*
+// o
 // @include http://osen.mt.co.kr/article/*
+// s
 // @include http://news.sbs.co.kr/news/endPage.do*
+// y
 // @include http://www.ytn.co.kr/_ln/*
+// ㄱ
 // @include http://bizn.khan.co.kr/khan_art_view.html*
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://news.kmib.co.kr/article/view.asp*
+// ㄴ
 // @include http://nownews.seoul.co.kr/news/newsView.php*
 // @include http://www.nocutnews.co.kr/news/*
 // @include http://www.newdaily.co.kr/news/article.html?no=*
 // @include http://biz.newdaily.co.kr/news/article.html?no=*
 // @include http://www.newsis.com/ar_detail/view.html*
+// ㄷ
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.dailian.co.kr/news/view/*
 // @include http://daily.hankooki.com/lpage/*
 // @include http://news.donga.com/3/*
 // @include http://news.donga.com/*/3/*
 // @include http://www.dt.co.kr/contents.html*
+// ㄹ
 // @include http://www.reuters.com/article/*
+// ㅁ
 // @include http://www.mydaily.co.kr/new_yk/html/read.php*
 // @include http://news.mk.co.kr/newsRead.php*
 // @include http://news.mt.co.kr/mtview.php*
@@ -38,7 +50,9 @@
 // @include http://www.munhwa.com/news/view.html*
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.vop.co.kr/A*.html
+// ㅂ
 // @include http://www.bloter.net/archives/*
+// ㅅ
 // @include http://economy.hankooki.com/lpage/*
 // @include http://seoul.co.kr/news/newsView.php*
 // @include http://www.seoul.co.kr/news/newsView.php*
@@ -50,6 +64,7 @@
 // @include http://www.sportalkorea.com/news/view.php*
 // @include http://www.sportalkorea.com/newsplus/view_sub.php*
 // @include http://www.sisainlive.com/news/articleView.html?*
+// ㅇ
 // @include http://www.asiae.co.kr/news/view.htm*
 // @include http://car.asiae.co.kr/view.htm*
 // @include http://edu.asiae.co.kr/view.htm*
@@ -66,6 +81,7 @@
 // @include http://www.edaily.co.kr/news/NewsRead.edy*
 // @include http://isplus.joins.com/article/*
 // @include http://isplus.live.joins.com/news/article/article.asp*
+// ㅈ
 // @include http://www.etnews.com/*
 // @include http://biz.chosun.com/site/data/html_dir/*
 // @include http://news.chosun.com/site/data/html_dir/*
@@ -74,11 +90,14 @@
 // @include http://www.zdnet.co.kr/news/news_view.asp*
 // @include http://www.zdnet.co.kr/column/column_view.asp*
 // @include http://www.jiji.com/jc/c?g=*
+// ㅋ
 // @include http://www.koreatimes.co.kr/www/news/*
 // @include http://www.koreaherald.com/view.php*
 // @include http://khnews.kheraldm.com/view.php*
+// ㅍ
 // @include http://www.fnnews.com/news/*
 // @include http://www.pressian.com/news/article.html*
+// ㅎ
 // @include http://hani.co.kr/arti/*
 // @include http://www.hani.co.kr/arti/*
 // @include http://www.hankyung.com/news/app/newsview.php*
@@ -105,36 +124,50 @@ var jews = {
 };
 var where = function (hostname) { // window.location.hostname
     switch (hostname) {
+    // i
     case 'www.itworld.co.kr': return 'ITWORLD';
+    // j
     case 'news.jtbc.joins.com': return 'JTBC';
+    // k
     case 'news.kbs.co.kr': return 'KBS';
     case 'world.kbs.co.kr': return 'KBS World';
+    // m
     case 'imnews.imbc.com': return 'MBC';
     case 'mbn.mk.co.kr': case 'www.mbn.co.kr': return 'MBN';
+    // o
     case 'osen.mt.co.kr': return 'OSEN';
+    // s
     case 'news.sbs.co.kr': return 'SBS';
+    // y
     case 'www.ytn.co.kr': return 'YTN';
+    // ㄱ
     case 'bizn.khan.co.kr': return '경향비즈';
     case 'news.khan.co.kr': return '경향신문';
     case 'news.kmib.co.kr': return '국민일보';
+    // ㄴ
     case 'nownews.seoul.co.kr': return '나우뉴스';
     case 'www.nocutnews.co.kr': return '노컷뉴스';
     case 'www.newdaily.co.kr': return '뉴데일리';
     case 'biz.newdaily.co.kr': return '뉴데일리경제';
     case 'www.newsis.com': return '뉴시스';
+    // ㄷ
     case 'dailysecu.com': return '데일리시큐';
     case 'www.dailian.co.kr': return '데일리안';
     case 'daily.hankooki.com': return '데일리한국';
     case 'news.donga.com': return '동아일보';
     case 'www.dt.co.kr': return '디지털타임스';
+    // ㄹ
     case 'www.reuters.com': return '로이터';
+    // ㅁ
     case 'www.mydaily.co.kr': return '마이데일리';
     case 'news.mk.co.kr': return '매일경제';
     case 'news.mt.co.kr': case 'cnews.mt.co.kr': return '머니투데이';
     case 'www.munhwa.com': return '문화일보';
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.vop.co.kr': return '민중의소리';
+    // ㅂ
     case 'www.bloter.net': return '블로터닷넷';
+    // ㅅ
     case 'economy.hankooki.com': return '서울경제';
     case 'seoul.co.kr': case 'www.seoul.co.kr': return '서울신문';
     case 'www.segye.com': return '세계일보';
@@ -142,6 +175,7 @@ var where = function (hostname) { // window.location.hostname
     case 'sports.chosun.com': return '스포츠조선';
     case 'www.sportalkorea.com': return '스포탈코리아';
     case 'www.sisainlive.com': return '시사IN Live';
+    // ㅇ
     case 'www.asiae.co.kr': case 'car.asiae.co.kr': case 'edu.asiae.co.kr': case 'gold.asiae.co.kr': case 'golf.asiae.co.kr': case 'stock.asiae.co.kr': return '아시아경제';
     case 'www.asiatoday.co.kr': return '아시아투데이';
     case 'news.inews24.com': case 'joynews.inews24.com': return '아이뉴스24';
@@ -150,6 +184,7 @@ var where = function (hostname) { // window.location.hostname
     case 'kr.wsj.com': case 'realtime.wsj.com': return '월스트리트저널';
     case 'www.edaily.co.kr': return '이데일리';
     case 'isplus.joins.com': case 'isplus.live.joins.com': return '일간스포츠';
+    // ㅈ
     case 'www.etnews.com': return '전자신문';
     case 'biz.chosun.com': return '조선비즈';
     case 'news.chosun.com': return '조선일보';
@@ -157,10 +192,13 @@ var where = function (hostname) { // window.location.hostname
     case 'joongang.joins.com': return '중앙일보';
     case 'www.zdnet.co.kr': return '지디넷코리아';
     case 'www.jiji.com': return '지지통신';
+    // ㅋ
     case 'www.koreatimes.co.kr': return '코리아타임스';
     case 'www.koreaherald.com': case 'khnews.kheraldm.com': return '코리아헤럴드';
+    // ㅍ
     case 'www.fnnews.com': return '파이낸셜뉴스';
     case 'www.pressian.com': return '프레시안';
+    // ㅎ
     case 'hani.co.kr': case 'www.hani.co.kr': return '한겨레';
     case 'www.hankyung.com': case 'ent.hankyung.com': case 'golf.hankyung.com': case 'land.hankyung.com': case 'stock.hankyung.com': return '한국경제';
     case 'www.wowtv.co.kr': return '한국경제TV';
@@ -182,6 +220,7 @@ function parse(where, jews, done) {
         parseFunction(jews, _done);
     }
 }
+// i
 parse['ITWORLD'] = function (jews, done) {
     function submitJews(props) {
         for (var i in props) jews[i] = props[i];
@@ -237,6 +276,7 @@ parse['ITWORLD'] = function (jews, done) {
         submitJews(j);
     }
 };
+// j
 parse['JTBC'] = function (jews) {
     jews.title = $('#articletitle .title h3').text();
     jews.subtitle = $('#sub_articletitle .title h4').html() || undefined;
@@ -272,6 +312,7 @@ parse['JTBC'] = function (jews) {
         return result;
     })();
 };
+// k
 parse['KBS'] = function (jews) {
     jews.title = $('#GoContent .news_title .tit').text();
     jews.subtitle = undefined;
@@ -326,6 +367,7 @@ parse['KBS World'] = function (jews) {
     })();
     jews.reporters = [];
 };
+// m
 parse['MBC'] = function (jews) {
     jews.title = $('#content .view-title').text();
     jews.subtitle = undefined;
@@ -353,6 +395,7 @@ parse['MBN'] = function (jews) {
     };
     jews.reporters = [];
 };
+// o
 parse['OSEN'] = function (jews) {
     jews.title = $('#container .detailTitle .obj').text().trim();
     jews.subtitle = undefined;
@@ -378,6 +421,7 @@ parse['OSEN'] = function (jews) {
         }];
     })();
 };
+// s
 parse['SBS'] = function (jews) {
     jews.title = $('#container .smdend_content_w .sep_cont_w .sed_articel_head .seda_title').text();
     jews.subtitle = $('#container .smdend_content_w .sep_cont_w .sed_article_w .sed_sub_title').text();
@@ -409,6 +453,7 @@ parse['SBS'] = function (jews) {
         }
     })();
 };
+// y
 parse['YTN'] = function (jews) {
     jews.title = $('.article_headline').text();
     jews.subtitle = undefined;
@@ -430,6 +475,7 @@ parse['YTN'] = function (jews) {
         });
     };
 };
+// ㄱ
 parse['경향비즈'] = function (jews) {
     jews.title = $('.tit_subject').text();
     jews.subtitle = undefined;
@@ -543,6 +589,7 @@ parse['국민일보'] = function (jews) {
         $('#scrollDiv').remove();
     };
 };
+// ㄴ
 parse['나우뉴스'] = function (jews) {
     jews.title = $('.atic_title div h3').text();
     jews.subtitle = undefined;
@@ -648,6 +695,7 @@ parse['뉴시스'] = function (jews) {
     })();
     jews.reporters = [];
 };
+// ㄷ
 parse['데일리시큐'] = function (jews) {
     jews.title = document.querySelector('.new_title').textContent.trim();
     jews.subtitle = document.querySelector('.news_mtitle').textContent.trim();
@@ -782,6 +830,7 @@ parse['디지털타임스'] = function (jews) {
         $('#soeaLayerLoc_fi').remove();
     };
 };
+// ㄹ
 parse['로이터'] = function (jews, done) {
     jews.title = $('#content > .main-content > .sectionContent h1').text();
     jews.subtitle = undefined;
@@ -879,6 +928,7 @@ parse['로이터'] = function (jews, done) {
     }
     done();
 };
+// ㅁ
 parse['마이데일리'] = function (jews) {
     jews.title = $('#Read_Part h1').text();
     jews.subtitle = undefined;
@@ -1033,6 +1083,7 @@ parse['민중의소리'] = function (jews, done) {
     // Explicitly call done() although this is not asynchronous.
     done();
 };
+// ㅂ
 parse['블로터닷넷'] = function (jews) {
     jews.title = document.title;
     jews.subtitle = undefined;
@@ -1047,6 +1098,7 @@ parse['블로터닷넷'] = function (jews) {
         mail: author.getElementsByTagName('a')[0].href.match(/bloter\.net\/archives\/author\/([^\/\?\s]+)/)[1]+'@bloter.net'
     }];
 };
+// ㅅ
 parse['서울경제'] = parse['데일리한국'];
 parse['서울신문'] = function (jews) {
     jews.title = $('.title_main').contents().eq(0).text().trim();
@@ -1200,6 +1252,7 @@ parse['시사IN Live'] = function (jews) {
         $('#scrollDiv').remove();
     };
 };
+// ㅇ
 parse['아시아경제'] = function (jews) {
     jews.title = document.getElementById('content').getElementsByClassName('area_title')[0].getElementsByTagName('h1')[0].textContent;
     jews.subtitle = undefined;
@@ -1408,6 +1461,7 @@ parse['일간스포츠'] = function (jews) {
         $('#gnb_banner, .article_ad250, iframe, div#fb-root').remove();
     };
 };
+// ㅈ
 parse['전자신문'] = function (jews) {
     jews.title = $('.hgroup h1').text() || undefined;
     jews.subtitle = $('.hgroup h3').text();
@@ -1666,6 +1720,7 @@ parse['지지통신'] = function (jews) {
         $('iframe, [id^=goog], [id^=popIn_menu]').remove();
     };
 };
+// ㅋ
 parse['코리아타임스'] = function (jews) {
     jews.title = $('.view_page_news .view_page_news_header_wrapper h1').text().trim();
     jews.subtitle = undefined;
@@ -1707,6 +1762,7 @@ parse['코리아헤럴드'] = function (jews) {
     })();
     jews.reporters = [];
 };
+// ㅍ
 parse['파이낸셜뉴스'] = function (jews) {
     jews.title = $('.tit_news .tit_sect .txt_tit strong').text();
     jews.subtitle = $('.tit_news .tit_sect .desc')[0].innerHTML;
@@ -1746,6 +1802,7 @@ parse['프레시안'] = function (jews) {
         $('#scrollDiv').remove();
     };
 };
+// ㅎ
 parse['한겨레'] = function (jews) {
     jews.title = $('.article-category-title td').eq(1).text().trim();
     jews.subtitle = $('.article-contents h4')[0].innerHTML.trim();
