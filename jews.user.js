@@ -1944,10 +1944,17 @@ parse['허핑턴포스트'] = function (jews) {
         created: new Date($('.posted time[datetime]').attr('datetime')),
         lastModified: new Date($('.updated time[datetime]').attr('datetime'))
     };
-    jews.reporters = [{
-        name: document.querySelector('.name.fn').textContent.split('작성자')[1].trim().split(/\s+/).join(' '),
-        mail: undefined
-    }];
+    jews.reporters = (function () {
+        var namefn = document.querySelector('.name.fn');
+        if (namefn) {
+            return [{
+                name: namefn.textContent.split('작성자')[1].trim().split(/\s+/).join(' '),
+                mail: undefined
+            }];
+        } else {
+            return [];
+        }
+    })();
     jews.cleanup = function () {
         var $share = $('a[href*="mailto"]');
         if ($share.length) {
