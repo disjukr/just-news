@@ -1861,9 +1861,12 @@ parse['한국경제'] = function (jews) {
     jews.content = clearStyles(content[0]).innerHTML;
     jews.timestamp = (function () {
         var parsedData = $('.news_info').children();
+        function parseDate(s) {
+            return new Date(s.replace(/-/g, '/').replace(/[가-힣]/g, '').replace(/^\s+/g, ''));
+        }
         return {
-            created: new Date(parsedData.eq(0).text().replace(/-/g, '/')),
-            lastModified: new Date(parsedData.eq(1).text().replace(/-/g, '/'))
+            created: parseDate(parsedData.eq(0).text()),
+            lastModified: parseDate(parsedData.eq(1).text())
         };
     })();
     jews.reporters = [];
