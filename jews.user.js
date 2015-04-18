@@ -1675,7 +1675,11 @@ parse['중앙일보'] = function (jews) {
 parse['지디넷코리아'] = function (jews) {
     jews.title = $('#wrap_container_new .sub_tit_area h2').text();
     jews.subtitle = $('#wrap_container_new .sub_tit_area h3').text() || undefined;
-    jews.content = clearStyles($('#content')[0].cloneNode(true)).innerHTML;
+    var cl = $('#content')[0].cloneNode(true);
+    $("[align]", cl).forEach(function (v) {
+        v.removeAttribute('align');
+    });
+    jews.content = clearStyles(cl).innerHTML;
     jews.timestamp = (function () {
         var time = $('#wrap_container_new .sub_tit_area .sub_data').text().split('/');
         var date = new Date(time[0].replace(/\./g, '/'));
