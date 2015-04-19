@@ -32,6 +32,8 @@
 // @include http://www.nocutnews.co.kr/news/*
 // @include http://www.newdaily.co.kr/news/article.html?no=*
 // @include http://biz.newdaily.co.kr/news/article.html?no=*
+// @include http://pk.newdaily.co.kr/news/article.html?no=*
+// @include http://tk.newdaily.co.kr/news/article.html?no=*
 // @include http://www.newsis.com/ar_detail/view.html*
 // ㄷ
 // @include http://dailysecu.com/news_view.php*
@@ -147,7 +149,7 @@ var where = function (hostname) { // window.location.hostname
     // ㄴ
     case 'nownews.seoul.co.kr': return '나우뉴스';
     case 'www.nocutnews.co.kr': return '노컷뉴스';
-    case 'www.newdaily.co.kr': return '뉴데일리';
+    case 'www.newdaily.co.kr': case 'pk.newdaily.co.kr': case 'tk.newdaily.co.kr': return '뉴데일리';
     case 'biz.newdaily.co.kr': return '뉴데일리경제';
     case 'www.newsis.com': return '뉴시스';
     // ㄷ
