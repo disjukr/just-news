@@ -231,7 +231,7 @@ parse['ITWORLD'] = function (jews, done) {
         m = /(\d)일 전/.exec(t),
         d = 1000 * 60 * 60 * 24;
     function f(m) {return new Date(((Date.now() / d | 0) - (m | 0)) * d - 1000 * 60 * 60 * 9 /* +09:00 */)}
-    
+
     if (date !== null) t = new Date(date[1] + '-' + date[2] + '-' + date[3] + 'T00:00:00+09:00');
     else {
         if (m === null)
