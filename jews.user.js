@@ -2262,13 +2262,13 @@ function reconstruct() {
                         created = created.toLocaleString !== undefined ?
                                   created.toLocaleString() :
                                   created.toDateString();
-                        result += '<p>작성일: <span class="created">' + created + '</span></p>';
+                        result += '<p>작성일: <time datetime="' + jews.timestamp.created.toISOString() + '" class="created">' + created + '</time></p>';
                     }
                     if (lastModified !== undefined) {
                         lastModified = lastModified.toLocaleString !== undefined ?
                                        lastModified.toLocaleString() :
                                        lastModified.toDateString();
-                        result += '<p>마지막 수정일: <span class="last-modified">' + lastModified + '</span></p>';
+                        result += '<p>마지막 수정일: <time datetime="' + jews.timestamp.lastModified.toISOString() + '" class="last-modified">' + lastModified + '</time></p>';
                     }
                     return result;
                 })(),
