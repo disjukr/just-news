@@ -226,10 +226,24 @@ parse['ITWORLD'] = function (jews, done) {
         for (var i in props) jews[i] = props[i];
         done();
     }
+    var t = document.getElementsByClassName('news_list_time')[0].textContent.trim(),
+        date = /^(\d{4})\.(\d{2})\.(\d{2})$/.exec(t),
+        m = /(\d)일 전/.exec(t),
+        d = 1000 * 60 * 60 * 24;
+    function f(m) {return new Date(((Date.now() / d | 0) - (m | 0)) * d - 1000 * 60 * 60 * 9 /* +09:00 */)}
+    
+    if (date !== null) t = new Date(date[1] + '-' + date[2] + '-' + date[3] + 'T00:00:00+09:00');
+    else {
+        if (m === null)
+            if ((m = /(\d+)시간 전/.exec(t)) !== null) d /= 24;
+            else if ((m = /(\d+)분 전/.exec(t)) !== null) d /= 24 * 60;
+        console.log(((Date.now() / d | 0) - (m[1] | 0)) * d)
+        if (m !== null) t = f(m[1]);
+    }
     var j = {
         'title': document.getElementsByClassName('node_title')[0].textContent.trim(),
         'timestamp': {
-            'created': new Date(document.getElementsByClassName('news_list_time')[0].textContent.replace(/\./g, '-')),
+            'created': t,
             'lastModified': undefined
         },
         'reporters': [{
