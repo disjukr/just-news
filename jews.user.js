@@ -2266,16 +2266,20 @@ function reconstruct() {
                     var created = jews.timestamp.created;
                     var lastModified = jews.timestamp.lastModified;
                     if (created !== undefined) {
-                        created = created.toLocaleString !== undefined ?
-                                  created.toLocaleString() :
-                                  created.toDateString();
-                        result += '<p>작성일: <time datetime="' + jews.timestamp.created.toISOString() + '" class="created">' + created + '</time></p>';
+                        if (!isNaN(created.getTime())) {
+                            created = created.toLocaleString !== undefined ?
+                                      created.toLocaleString() :
+                                      created.toDateString();
+                            result += '<p>작성일: <time datetime="' + jews.timestamp.created.toISOString() + '" class="created">' + created + '</time></p>';
+                        } else result += '<p>잘못된 작성일</p>'
                     }
                     if (lastModified !== undefined) {
-                        lastModified = lastModified.toLocaleString !== undefined ?
-                                       lastModified.toLocaleString() :
-                                       lastModified.toDateString();
-                        result += '<p>마지막 수정일: <time datetime="' + jews.timestamp.lastModified.toISOString() + '" class="last-modified">' + lastModified + '</time></p>';
+                        if (!isNaN(lastModified.getTime())) {
+                            lastModified = lastModified.toLocaleString !== undefined ?
+                                           lastModified.toLocaleString() :
+                                           lastModified.toDateString();
+                            result += '<p>마지막 수정일: <time datetime="' + jews.timestamp.lastModified.toISOString() + '" class="last-modified">' + lastModified + '</time></p>';
+                        } else result += '<p>잘못된 마지막 수정일</p>'
                     }
                     return result;
                 })(),
