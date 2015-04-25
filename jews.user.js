@@ -863,16 +863,17 @@ parse['로이터'] = function (jews, done) {
         }
         return header + clearStyles($('#articleText')[0].cloneNode(true)).innerHTML;
     })();
-    jews.timestamp = (function () {
-        var rawDate = $('#articleInfo .timestamp').text().split(' ');
-        var time = rawDate[rawDate.length - 2].match(/(\d+):(\d{2})(p?)/);
-        time = parseInt(time[1], 10) + (time[3] ? 12 : 0) + ':' + time[2];
-        rawDate[rawDate.length - 2] = time;
-        return {
-            created: new Date(rawDate.join(' ')),
-            lastModified: undefined
-        };
-    })();
+    jews.timestamp = {
+        created: new Date($('.article-header .timestamp').text().trim().replace(/\s+/g, " ")
+            .replace(/^([A-Z][a-z]{2}) ([A-Z][a-z]{2}) (\d+),/, "$1, $3 $2")
+            .replace(/(\d+)(:\d+)([ap]m)/, function(_, a, b, c){
+                a |= 0;
+                if(c === "pm") a +=12;
+                if(a % 12 === 0) a -= 12;
+                return a + b + ":00";
+        })),
+        lastModified: undefined
+    };
     jews.reporters = (function () {
         var result = [];
         var rawReporters = $('#articleInfo .byline').text().replace(/By /, '');
