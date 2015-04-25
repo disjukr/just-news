@@ -46,6 +46,11 @@ jews는 github issue tracker를 사용합니다.
     3. `jews.title`, `jews.subtitle`, `jews.content`, `jews.timestamp`, `jews.reporters`를 각각 구현합니다.
 3. 지원 사이트 목록에 구현한 항목을 체크하고 Pull Request를 보냅니다.
 
+#### 팁
+
+[초벌구이 구현을 해주는 북마클릿](http://0xabcdef.com/jewsgen/)이 있어요!
+
+
 ### 유의사항
 
 #### 버그 제보 관련
