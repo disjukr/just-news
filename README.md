@@ -48,7 +48,7 @@ jews는 github issue tracker를 사용합니다.
 
 #### 팁
 
-[초벌구이 구현을 해주는 북마클릿](http://0xabcdef.com/jewsgen/)이 있어요!
+[초벌구현을 해주는 북마클릿](http://0xabcdef.com/jewsgen/)이 있어요!
 
 
 ### 유의사항
