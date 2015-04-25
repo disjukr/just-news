@@ -2271,7 +2271,7 @@ function reconstruct() {
                                       created.toLocaleString() :
                                       created.toDateString();
                             result += '<p>작성일: <time datetime="' + jews.timestamp.created.toISOString() + '" class="created">' + created + '</time></p>';
-                        } else result += '<p>잘못된 작성일</p>'
+                        } else result += '<p>잘못된 작성일</p>';
                     }
                     if (lastModified !== undefined) {
                         if (!isNaN(lastModified.getTime())) {
@@ -2279,7 +2279,7 @@ function reconstruct() {
                                            lastModified.toLocaleString() :
                                            lastModified.toDateString();
                             result += '<p>마지막 수정일: <time datetime="' + jews.timestamp.lastModified.toISOString() + '" class="last-modified">' + lastModified + '</time></p>';
-                        } else result += '<p>잘못된 마지막 수정일</p>'
+                        } else result += '<p>잘못된 마지막 수정일</p>';
                     }
                     return result;
                 })(),
