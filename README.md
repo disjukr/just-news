@@ -128,6 +128,7 @@ mail_address is string
 * [x] [매일경제](http://www.mk.co.kr)
 * [x] [머니투데이](http://www.mt.co.kr)
 * [x] [문화일보](http://www.munhwa.com)
+* [x] [미디어스](http://www.mediaus.co.kr/)
 * [x] [미디어오늘](http://www.mediatoday.co.kr)
 * [x] [민중의소리](http://www.vop.co.kr)
 * [x] [블로터닷넷](http://www.bloter.net)
