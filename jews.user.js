@@ -2194,8 +2194,11 @@ function reconstruct() {
     })();
     // popup 창 못 띄우게 만들기
     window.open = function () {};
+    // 문서에 걸려있는 이벤트 전부 뜯어내기 ...안 뜯어지나?
+    var root = document.createElement('html');
+    document.replaceChild(root, document.documentElement);
     // 페이지 재구축
-    document.body.parentElement.innerHTML = [
+    root.innerHTML = [
         '<head>',
             '<title>', jews.title || 'jews', '</title>',
             '<style>',
