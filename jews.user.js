@@ -1575,6 +1575,9 @@ parse['조선비즈'] = function (jews) {
         name: $('#j1').text().trim().split(' ')[0],
         mail: $('.j_con_li a').text() || undefined
     }];
+    jews.cleanup = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['조선일보'] = function (jews) {
     jews.title = $('#title_text').text();
