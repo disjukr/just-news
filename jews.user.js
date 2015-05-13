@@ -2125,7 +2125,7 @@ $.fn.init.prototype.filter = function (selector) {
 };
 $.fn.init.prototype.forEach = function (fn) {
     for (var i = 0; i < this.length; i++) {
-        fn.call(this, this[i], i);
+        fn.call(this[i], this[i], i, this);
     }
 };
 $.fn.init.prototype.hasClass = function (className) {
