@@ -711,7 +711,7 @@ parse['뉴스1'] = function (jews) {
     jews.timestamp = (function() {
         var time_info = news_info[1].trim();
         return {
-            created: new Date(new Date(time_info.replace(/\./g,'-').replace(/[^0-9\-\:\s]/g, '').trim())),
+            created: new Date(time_info.replace(/\./g,'/').replace(/[^0-9\/\:\s]/g, '').trim()),
             lastModified: undefined
         };
     })();
