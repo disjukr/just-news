@@ -56,6 +56,8 @@
 // @include http://www.mediatoday.co.kr/news/articleView.html*
 // @include http://www.vop.co.kr/A*.html
 // ㅂ
+// @include http://viewsnnews.com/article/view.jsp*
+// @include http://www.viewsnnews.com/article/view.jsp*
 // @include http://www.bloter.net/archives/*
 // ㅅ
 // @include http://economy.hankooki.com/lpage/*
@@ -174,6 +176,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.mediatoday.co.kr': return '미디어오늘';
     case 'www.vop.co.kr': return '민중의소리';
     // ㅂ
+    case 'www.viewsnnews.com': case 'viewsnnews.com': return '뷰스앤뉴스';
     case 'www.bloter.net': return '블로터닷넷';
     // ㅅ
     case 'economy.hankooki.com': return '서울경제';
@@ -1172,6 +1175,27 @@ parse['민중의소리'] = function (jews, done) {
     done();
 };
 // ㅂ
+parse['뷰스앤뉴스'] = function (jews) {
+    jews.title = $('#ArticleVTitle').text();
+    jews.subtitle = $('#ArticleVSubject').text();
+    jews.content = (function() {
+        var newsContent = $('#ArticleVContent')[0].cloneNode(true);
+        $('#ArticleVAdvert', newsContent).remove();
+        return clearStyles(newsContent).innerHTML;
+    })();
+    jews.timestamp = {
+        created: new Date($('#ArticleVDate').text().trim().replace(/-/g,'/')),
+        lastModified: undefined
+    };
+    jews.reporters = (function() {
+        var reporters = $('#ArticleVName')[0].cloneNode(true);
+        $('.goTop', reporters).remove();
+        return [{
+            name: clearStyles(reporters).innerHTML,
+            mail: undefined
+        }];
+    })();
+};
 parse['블로터닷넷'] = function (jews) {
     jews.title = document.title;
     jews.subtitle = undefined;
