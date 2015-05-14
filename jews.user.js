@@ -1388,6 +1388,7 @@ parse['여성뉴스'] = function (jews) {
     jews.subtitle = $('#news_title2').text().trim();
     jews.content = (function () {
         var content = $('#news_content')[0].cloneNode(true);
+        $('.adsbygoogle', content).remove();
         $('.slogan', content).remove();
         return clearStyles(content).innerHTML;
     })();
