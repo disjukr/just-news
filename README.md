@@ -143,6 +143,7 @@ mail_address is string
 * [x] [아시아경제](http://www.asiae.co.kr)
 * [x] [아시아투데이](http://www.asiatoday.co.kr)
 * [x] [아이뉴스24](http://www.inews24.com)
+* [x] [여성뉴스](http://www.womennews.co.kr)
 * [x] [연합뉴스](http://www.yonhapnews.co.kr)
 * [x] [오마이뉴스](http://www.ohmynews.com)
 * [x] [월스트리트저널](http://kr.wsj.com)
