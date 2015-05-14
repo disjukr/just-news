@@ -1447,10 +1447,10 @@ parse['여성뉴스'] = function (jews) {
     }];
 };
 parse['연합뉴스'] = function (jews) {
+    var content = $('.article')[0].cloneNode(true);
     jews.title = $('#articleWrap h2').text() || $('#articleWrap h1').text() || undefined;
     jews.subtitle = $('.article .stit strong b').text() || undefined;
     jews.content = (function () {
-        var content = $('.article')[0].cloneNode(true);
         $('.stit, .banner-0-wrap, .adrs', content).remove();
         return clearStyles(content).innerHTML;
     })();
@@ -1458,7 +1458,17 @@ parse['연합뉴스'] = function (jews) {
         created: new Date($('.article .adrs .pblsh').text().replace(/\s*송고/, '')),
         lastModified: undefined
     };
-    jews.reporters = [];
+    jews.reporters = (function() {
+        var newsContent = content;
+        $('.article-img', newsContent).remove();
+        newsContent = clearStyles(content).textContent;
+        var reporter_name = newsContent.match(/\s?([^\)]+)\s기자/)[0];
+        var reporter_email = newsContent.match(/(.+)@yna\.co\.kr/)[0];
+        return [{
+            name: reporter_name.trim(),
+            mail: reporter_email.trim()
+        }];
+    })();
 };
 parse['오마이뉴스'] = function (jews) {
     jews.title = $('.newstitle .tit_subject a').text();
