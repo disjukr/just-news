@@ -1,4 +1,4 @@
-// ==UserScript==
+﻿// ==UserScript==
 // @name jews
 // @namespace http://0xABCDEF.com/jews
 // @description just news
@@ -450,6 +450,10 @@ parse['SBS'] = function (jews) {
     jews.subtitle = $('#container .smdend_content_w .sep_cont_w .sed_article_w .sed_sub_title').text();
     jews.content = (function () {
         var content = $('#container .smdend_content_w .sep_cont_w .sed_article_w .sed_article')[0].cloneNode(true);
+        $('.lazy', content).each(function(_, anchor){
+            anchor.classList.remove("lazy");
+            anchor.attributes['src'].value = anchor.attributes['data-original'].value;
+        });
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = (function () {
