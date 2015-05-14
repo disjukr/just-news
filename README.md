@@ -118,6 +118,7 @@ mail_address is string
 * [x] [뉴데일리](http://www.newdaily.co.kr)
 * [x] [뉴데일리경제](http://biz.newdaily.co.kr)
 * [x] [뉴시스](http://www.newsis.com)
+* [x] [뉴스1](http://www.news1.kr)
 * [x] [데일리시큐](http://dailysecu.com)
 * [x] [데일리안](http://www.dailian.co.kr)
 * [x] [데일리한국](http://daily.hankooki.com)
