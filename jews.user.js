@@ -154,7 +154,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.nocutnews.co.kr': return '노컷뉴스';
     case 'www.newdaily.co.kr': case 'pk.newdaily.co.kr': case 'tk.newdaily.co.kr': return '뉴데일리';
     case 'biz.newdaily.co.kr': return '뉴데일리경제';
-    case 'www.news1.kr': return '뉴스1';
+    case 'www.news1.kr': case 'news1.kr': return '뉴스1';
     case 'www.newsis.com': return '뉴시스';
     // ㄷ
     case 'dailysecu.com': return '데일리시큐';
