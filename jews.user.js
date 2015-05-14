@@ -36,6 +36,7 @@
 // @include http://tk.newdaily.co.kr/news/article.html?no=*
 // @include http://www.newsis.com/ar_detail/view.html*
 // @include http://www.news1.kr/articles/*
+// @include http://news1.kr/articles/*
 // ㄷ
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.dailian.co.kr/news/view/*
