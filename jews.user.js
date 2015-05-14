@@ -77,6 +77,7 @@
 // @include http://www.asiatoday.co.kr/view.php*
 // @include http://news.inews24.com/php/news_view.php*
 // @include http://joynews.inews24.com/php/news_view.php*
+// @include http://www.womennews.co.kr/news/*
 // @include http://www.yonhapnews.co.kr/*AKR*.HTML*
 // @include http://www.ohmynews.com/NWS_Web/View/at_pg.aspx*
 // @include http://kr.wsj.com/posts/*
@@ -183,6 +184,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.asiae.co.kr': case 'car.asiae.co.kr': case 'edu.asiae.co.kr': case 'gold.asiae.co.kr': case 'golf.asiae.co.kr': case 'stock.asiae.co.kr': return '아시아경제';
     case 'www.asiatoday.co.kr': return '아시아투데이';
     case 'news.inews24.com': case 'joynews.inews24.com': return '아이뉴스24';
+    case 'www.womennews.co.kr': return '여성뉴스';
     case 'www.yonhapnews.co.kr': return '연합뉴스';
     case 'www.ohmynews.com': return '오마이뉴스';
     case 'kr.wsj.com': case 'realtime.wsj.com': return '월스트리트저널';
@@ -1380,6 +1382,38 @@ parse['아이뉴스24'] = function (jews) {
     jews.cleanup = function () {
         $('#scrollDiv, #soeaFrame_, #soeaLayerLoc_st, #soeaLayerLoc_fi, iframe').remove();
     };
+};
+parse['여성뉴스'] = function (jews) {
+    jews.title = $('#news_title').text().trim();
+    jews.subtitle = $('#news_title2').text().trim();
+    jews.content = (function () {
+        var content = $('#news_content')[0].cloneNode(true);
+        $('.adsbygoogle', content).remove();
+        $('.slogan', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    function parseDate(t) {
+        var date = /(\d{4})\-(\d{2})\-(\d{2})/.exec(t),
+            m = /(\d)일전/.exec(t),
+            d = 1000 * 60 * 60 * 24;
+
+        if (date !== null) return new Date(t.replace(/-/g, '/').replace(/[가-힣]/g, '').replace(/^\s+/g, ''));
+        else {
+            if (m === null){
+                if ((m = /(\d+)시간전/.exec(t)) !== null) d /= 24;
+                else if ((m = /(\d+)분전/.exec(t)) !== null) d /= 24 * 60;
+            }
+            if (m !== null) return new Date(((Date.now() / d | 0) - (m[1] | 0)) * d - 1000 * 60 * 60 * 9 /* +09:00 */)
+        }
+    }
+    jews.timestamp = {
+        created: parseDate($('.news_dates')[0].childNodes[0].textContent.trim()),
+        lastModified: parseDate($('.news_dates')[0].childNodes[2].textContent.trim())
+    };
+    jews.reporters = [{
+        name: $('#news_sig strong').text(),
+        mail: $('#news_sig').text().replace(/[가-힣()]/g, '').trim()
+    }];
 };
 parse['연합뉴스'] = function (jews) {
     jews.title = $('#articleWrap h2').text() || $('#articleWrap h1').text() || undefined;
