@@ -154,8 +154,8 @@ var where = function (hostname) { // window.location.hostname
     case 'www.nocutnews.co.kr': return '노컷뉴스';
     case 'www.newdaily.co.kr': case 'pk.newdaily.co.kr': case 'tk.newdaily.co.kr': return '뉴데일리';
     case 'biz.newdaily.co.kr': return '뉴데일리경제';
-    case 'www.newsis.com': return '뉴시스';
     case 'www.news1.kr': return '뉴스1';
+    case 'www.newsis.com': return '뉴시스';
     // ㄷ
     case 'dailysecu.com': return '데일리시큐';
     case 'www.dailian.co.kr': return '데일리안';
@@ -700,27 +700,6 @@ parse['뉴데일리경제'] = function (jews) {
     };
     jews.content = clearStyles(document.getElementById('news_body_area')).innerHTML;
 };
-parse['뉴시스'] = function (jews) {
-    jews.title = $('.viewnewstitle').text();
-    jews.subtitle = undefined;
-    jews.content = (function () {
-        var content = $('#articleBody')[0].cloneNode(true);
-        var centerImage = $('.center_img')[0];
-        // $('.relatednews', content).remove();
-        if (centerImage) {
-            return clearStyles(centerImage.cloneNode(true)).innerHTML + clearStyles(content).innerHTML;
-        }
-        return clearStyles(content).innerHTML;
-    })();
-    jews.timestamp = (function () {
-        var $time = $('font', $('.viewnewstitle').closest('tbody'));
-        return {
-            created: new Date($time.eq(0).text().replace(/\[|\]/g, '').replace(/-/g, '/')),
-            lastModified: $time.eq(1).text() ? new Date($time.eq(1).text().replace(/\[|\]/g, '').replace(/-/g, '/')) : undefined
-        };
-    })();
-    jews.reporters = [];
-};
 parse['뉴스1'] = function (jews) {
     var news_article = document.querySelector('#articles_detail').cloneNode(true);
     var news_info = document.querySelector('.info').textContent.trim().split('|');
@@ -744,6 +723,27 @@ parse['뉴스1'] = function (jews) {
             mail: matches[0] ? matches[0] : undefined
         }];
     })();
+};
+parse['뉴시스'] = function (jews) {
+    jews.title = $('.viewnewstitle').text();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var content = $('#articleBody')[0].cloneNode(true);
+        var centerImage = $('.center_img')[0];
+        // $('.relatednews', content).remove();
+        if (centerImage) {
+            return clearStyles(centerImage.cloneNode(true)).innerHTML + clearStyles(content).innerHTML;
+        }
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var $time = $('font', $('.viewnewstitle').closest('tbody'));
+        return {
+            created: new Date($time.eq(0).text().replace(/\[|\]/g, '').replace(/-/g, '/')),
+            lastModified: $time.eq(1).text() ? new Date($time.eq(1).text().replace(/\[|\]/g, '').replace(/-/g, '/')) : undefined
+        };
+    })();
+    jews.reporters = [];
 };
 // ㄷ
 parse['데일리시큐'] = function (jews) {
