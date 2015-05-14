@@ -35,6 +35,8 @@
 // @include http://pk.newdaily.co.kr/news/article.html?no=*
 // @include http://tk.newdaily.co.kr/news/article.html?no=*
 // @include http://www.newsis.com/ar_detail/view.html*
+// @include http://www.news1.kr/articles/*
+// @include http://news1.kr/articles/*
 // ㄷ
 // @include http://dailysecu.com/news_view.php*
 // @include http://www.dailian.co.kr/news/view/*
@@ -153,6 +155,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.nocutnews.co.kr': return '노컷뉴스';
     case 'www.newdaily.co.kr': case 'pk.newdaily.co.kr': case 'tk.newdaily.co.kr': return '뉴데일리';
     case 'biz.newdaily.co.kr': return '뉴데일리경제';
+    case 'www.news1.kr': case 'news1.kr': return '뉴스1';
     case 'www.newsis.com': return '뉴시스';
     // ㄷ
     case 'dailysecu.com': return '데일리시큐';
@@ -702,6 +705,30 @@ parse['뉴데일리경제'] = function (jews) {
         'lastModified': undefined
     };
     jews.content = clearStyles(document.getElementById('news_body_area')).innerHTML;
+};
+parse['뉴스1'] = function (jews) {
+    var news_article = document.querySelector('#articles_detail').cloneNode(true);
+    var news_info = document.querySelector('.info').textContent.trim().split('|');
+    jews.title = document.querySelector('h2').textContent.trim();
+    jews.subtitle = document.querySelector('.title').textContent.trim().split('\n')[1].trim();
+    jews.content = (function () {
+        return clearStyles(news_article).innerHTML;
+    })();
+    jews.timestamp = (function() {
+        var time_info = news_info[1].trim();
+        return {
+            created: new Date(time_info.replace(/\./g,'/').replace(/[^0-9\/\:\s]/g, '').trim()),
+            lastModified: undefined
+        };
+    })();
+    jews.reporters = (function(){
+        var reporters = news_info[0].trim().replace(/\(.+\)/, '').trim();
+        var matches = clearStyles(news_article).innerHTML.match(/[a-z0-9_]+@/);
+        return [{
+            name: reporters.split(','),
+            mail: matches[0] ? matches[0] : undefined
+        }];
+    })();
 };
 parse['뉴시스'] = function (jews) {
     jews.title = $('.viewnewstitle').text();
