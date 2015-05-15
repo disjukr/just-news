@@ -138,7 +138,7 @@ mail_address is string
 * [x] [서울신문](http://www.seoul.co.kr)
 * [x] [세계일보](http://www.segye.com)
 * [x] [스포츠동아](http://sports.donga.com)
-* [ ] [스포츠서울](http://www.sportsseoul.com)
+* [x] [스포츠서울](http://www.sportsseoul.com)
 * [x] [스포츠조선](http://sports.chosun.com)
 * [x] [스포탈코리아](http://www.sportalkorea.com)
 * [x] [시사IN Live](http://www.sisainlive.com)
