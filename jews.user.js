@@ -43,6 +43,7 @@
 // @include http://daily.hankooki.com/lpage/*
 // @include http://news.donga.com/3/*
 // @include http://news.donga.com/*/3/*
+// @include http://www.dispatch.co.kr/*
 // @include http://www.dt.co.kr/contents.html*
 // ㄹ
 // @include http://www.reuters.com/article/*
@@ -166,6 +167,7 @@ var where = function (hostname) { // window.location.hostname
     case 'www.dailian.co.kr': return '데일리안';
     case 'daily.hankooki.com': return '데일리한국';
     case 'news.donga.com': return '동아일보';
+    case 'www.dispatch.co.kr': return '디스패치';
     case 'www.dt.co.kr': return '디지털타임스';
     // ㄹ
     case 'www.reuters.com': return '로이터';
@@ -865,6 +867,23 @@ parse['동아일보'] = function (jews) {
     jews.cleanup = function () {
         $('#scrollDiv').remove();
     };
+};
+parse['디스패치'] = function (jews) {
+    jews.title = document.querySelector('.txtBox h4 a').textContent.trim();
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var content = document.querySelector('.articleSingle').cloneNode(true);
+        $('.txtBox', content).remove();
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var time_info = document.querySelector('.txtBox h6').textContent.trim();
+        return {
+            created: new Date(time_info.replace('기사입력 : ', '')),
+            lastModified: undefined
+        }
+    })();
+    jews.reporters = [];
 };
 parse['디지털타임스'] = function (jews) {
     jews.title = $('#news_names h1').text();
