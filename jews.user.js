@@ -1299,7 +1299,7 @@ parse['스포츠서울'] = function (jews) {
     })();
     jews.reporters = [];
     jews.cleanup = function () {
-        $('span, iframe, #wp_adbn_root').remove();
+        $('span, iframe, #wp_adbn_root, #scrollDiv').remove();
     };
 };
 parse['스포츠조선'] = function (jews) {
