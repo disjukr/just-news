@@ -1029,6 +1029,11 @@ parse['머니투데이'] = function (jews) {
     jews.content = (function () {
         var content = $('#textBody')[0].cloneNode(true);
         $('#now-sence', content).remove();
+        $('span.up, span.down', content).remove();
+        $('a', content).forEach(function (v) {
+            if ($('img', v)[0]) return;
+            $(v).replaceWith(v.textContent);
+        });
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
