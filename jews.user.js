@@ -1120,7 +1120,7 @@ parse['미디어스'] = function (jews) {
         mail: el_filter(info, HTMLAnchorElement)[0].textContent
     }];
     jews.content = document.getElementById('_article').innerHTML.trim();
-}
+};
 parse['미디어오늘'] = function (jews) {
     jews.title = $('#font_title').text().trim();
     jews.subtitle = $('#font_subtitle').text();
