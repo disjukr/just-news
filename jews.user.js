@@ -2227,7 +2227,7 @@ $.fn.init.prototype.contents = function () {
 };
 $.fn.init.prototype.each = function (fn) {
     for (var i = 0; i < this.length; ++i)
-        fn.call(this, i, this[i]);
+        fn.call(this[i], i, this[i]);
 };
 $.fn.init.prototype.eq = function (index) {
     if (index < 0) {
@@ -2253,7 +2253,7 @@ $.fn.init.prototype.filter = function (selector) {
 };
 $.fn.init.prototype.forEach = function (fn) {
     for (var i = 0; i < this.length; i++) {
-        fn.call(this, this[i], i);
+        fn.call(this[i], this[i], i, this);
     }
 };
 $.fn.init.prototype.hasClass = function (className) {
