@@ -1,0 +1,10 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+root = true
+
+[*.js]
+charset = utf-8
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+spaces_around_operators = true
