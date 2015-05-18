@@ -98,6 +98,7 @@
 // @include http://news.chosun.com/site/data/html_dir/*
 // @include http://koreajoongangdaily.joins.com/news/article/article.aspx*
 // @include http://joongang.joins.com/article/*
+// @include http://article.joins.com/news/article/article.asp*
 // @include http://www.zdnet.co.kr/news/news_view.asp*
 // @include http://www.zdnet.co.kr/column/column_view.asp*
 // @include http://www.jiji.com/jc/c?g=*
@@ -206,7 +207,7 @@ var where = function (hostname) { // window.location.hostname
     case 'biz.chosun.com': return '조선비즈';
     case 'news.chosun.com': return '조선일보';
     case 'koreajoongangdaily.joins.com': return '중앙데일리';
-    case 'joongang.joins.com': return '중앙일보';
+    case 'joongang.joins.com': case 'article.joins.com': return '중앙일보';
     case 'www.zdnet.co.kr': return '지디넷코리아';
     case 'www.jiji.com': return '지지통신';
     // ㅋ
@@ -1823,6 +1824,7 @@ parse['중앙일보'] = function (jews) {
     })();
     jews.content = (function () {
         var content = $('#article_content')[0].cloneNode(true);
+        $('[style="display:none;"]', content).remove();
         $('#__inline_ms_da_ad__', content).remove();
         $('#relation_news', content).remove();
         $('span', content).remove();
@@ -1874,7 +1876,7 @@ parse['중앙일보'] = function (jews) {
         return list;
     })();
     jews.cleanup = function () {
-        $('iframe, #gnb_banner').remove();
+        $('body>iframe, #gnb_banner').remove();
     };
 };
 parse['지디넷코리아'] = function (jews) {
