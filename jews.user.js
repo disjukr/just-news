@@ -1,4 +1,4 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name jews
 // @namespace http://0xABCDEF.com/jews
 // @description just news
