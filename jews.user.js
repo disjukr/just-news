@@ -2165,8 +2165,15 @@ parse['허핑턴포스트'] = function (jews) {
     jews.reporters = (function () {
         var namefn = document.querySelector('.name.fn');
         if (namefn) {
+            var splitted = namefn.textContent.split('작성자');
+            var parsedName;
+            if (splitted.length === 1) {
+                parsedName = splitted[0];
+            } else {
+                parsedName = splitted[1];
+            }
             return [{
-                name: namefn.textContent.split('작성자')[1].trim().split(/\s+/).join(' '),
+                name: parsedName.trim().split(/\s+/).join(' '),
                 mail: undefined
             }];
         } else {
