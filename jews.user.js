@@ -1278,10 +1278,10 @@ parse['세계일보'] = function (jews) {
     };
 };
 parse['스포츠동아'] = function (jews) {
-    jews.title = document.querySelector('#sub_content>.article_cont>.article_tit>h3').textContent;
+    jews.title = document.querySelector('.sub_contents>.article_cont .article_tit>h3').textContent;
     jews.subtitle = undefined;
     jews.timestamp = {
-        created: new Date(document.querySelector('#sub_content>.article_cont>.article_tit>p').textContent.replace('입력', '').trim().replace(/\s+/,'T')+'+09:00'),  // ISO 8601
+        created: new Date(document.querySelector('.sub_contents>.article_cont .article_tit>p').textContent.replace('입력', '').trim().replace(/\s+/,'T')+'+09:00'),  // ISO 8601
         lastModified: undefined
     };
     jews.content = clearStyles(document.querySelector('#ct>div.article_word')).innerHTML;
