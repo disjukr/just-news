@@ -846,12 +846,13 @@ parse['데일리한국'] = function (jews) {
     };
 };
 parse['동아일보'] = function (jews) {
-    jews.title = $('.article_title h1').text();
+    jews.title = $('.article_title02 h1').text();
     jews.subtitle = undefined;
     jews.content = (function () {
         var content = $('.article_txt')[0].cloneNode(true);
         $('.title_foot', content).remove();
         $('.txt_ad, [class^=sub_cont_AD]', content).remove();
+        $('.recommend', content).remove();
         $('.article_relation', content).remove();
         $('.t_sns', content).remove();
         $('[alt="기자의 다른기사 더보기"]', content).parent().remove();
