@@ -248,14 +248,13 @@ parse['ITWORLD'] = function (jews, done) {
         date = /^(\d{4})\.(\d{2})\.(\d{2})$/.exec(t),
         m = /(\d)일 전/.exec(t),
         d = 1000 * 60 * 60 * 24;
-    function f(m) {return new Date(((Date.now() / d | 0) - (m | 0)) * d - 1000 * 60 * 60 * 9 /* +09:00 */)}
+    function f(m) { return new Date(((Date.now() / d | 0) - (m | 0)) * d - 1000 * 60 * 60 * 9 /* +09:00 */); }
 
     if (date !== null) t = new Date(date[1] + '-' + date[2] + '-' + date[3] + 'T00:00:00+09:00');
     else {
         if (m === null)
             if ((m = /(\d+)시간 전/.exec(t)) !== null) d /= 24;
             else if ((m = /(\d+)분 전/.exec(t)) !== null) d /= 24 * 60;
-        console.log(((Date.now() / d | 0) - (m[1] | 0)) * d)
         if (m !== null) t = f(m[1]);
     }
     var j = {
@@ -270,7 +269,7 @@ parse['ITWORLD'] = function (jews, done) {
         }]
     };
     var pagination = document.getElementsByClassName('pagination')[0];
-    if (pagination != null) {
+    if (pagination !== null) {
         function get(s, callback) {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', s, true);
@@ -300,7 +299,7 @@ parse['ITWORLD'] = function (jews, done) {
                 p[i] = a.innerHTML;
                 a = null;
                 finish();
-            })
+            });
             return 0;
         });
     } else {
@@ -586,7 +585,7 @@ parse['국민일보'] = function (jews) {
         }
         var slides = document.createElement('div');
         slides.className = 'slideshow';
-        slides.style.width = '100%'
+        slides.style.width = '100%';
         slides.style.whiteSpace = 'nowrap';
         slides.style.overflowX = 'auto';
         var style = document.createElement('style');
@@ -596,12 +595,12 @@ parse['국민일보'] = function (jews) {
             var fig = document.createElement('figure'),
                 el = document.createElement('img'),
                 img = v.getElementsByTagName('img')[0];
-            if (img == null) return;
+            if (img === null) return;
             el.src = img.src;
             fig.appendChild(el);
             el = document.createElement('figcaption');
             var captn = v.getElementsByClassName('captn')[0];
-            if (captn == null) el.textContent = img.alt;
+            if (captn === null) el.textContent = img.alt;
             else el.textContent = captn.textContent;
             fig.appendChild(el);
             slides.appendChild(fig);
@@ -883,7 +882,7 @@ parse['디스패치'] = function (jews) {
         return {
             created: new Date(time_info.replace('기사입력 : ', '')),
             lastModified: undefined
-        }
+        };
     })();
     jews.reporters = [];
 };
@@ -1125,8 +1124,8 @@ parse['미디어스'] = function (jews) {
         if (typeof el==="string") el = $(el)[0].childNodes;
         else if (el instanceof Node) el = el.childNodes;
         var f;
-        if (m === true || m === undefined) f = function(v) {return v instanceof obj};
-        else f = function(v) {return !(v instanceof obj)};
+        if (m === true || m === undefined) f = function(v) { return v instanceof obj; };
+        else f = function(v) { return !(v instanceof obj); };
         return _filter(el, f);
     };
     jews.title = $('.View_Title>strong').text();
@@ -1191,7 +1190,7 @@ parse['민중의소리'] = function (jews, done) {
     var amb = $('.article-meta-bottom')[0];
     [].some.call(amb.getElementsByClassName('date'), function (v) {
         var a=v.textContent.match(/^\s*[가-힣]+ (\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})\s*$/);
-        if (a != null) {
+        if (a !== null) {
             jews.timestamp = {created: undefined, lastModified: new Date(a[1] + 'T' + a[2] + '+09:00')}; // ISO 8601
             return true;
         }
@@ -1513,7 +1512,7 @@ parse['여성뉴스'] = function (jews) {
                 if ((m = /(\d+)시간전/.exec(t)) !== null) d /= 24;
                 else if ((m = /(\d+)분전/.exec(t)) !== null) d /= 24 * 60;
             }
-            if (m !== null) return new Date(((Date.now() / d | 0) - (m[1] | 0)) * d - 1000 * 60 * 60 * 9 /* +09:00 */)
+            if (m !== null) return new Date(((Date.now() / d | 0) - (m[1] | 0)) * d - 1000 * 60 * 60 * 9 /* +09:00 */);
         }
     }
     jews.timestamp = {
@@ -2373,7 +2372,7 @@ function unjewsUrl() {
     } else {
         query = '?jews=false';
     }
-    return window.location.origin + window.location.pathname + query
+    return window.location.origin + window.location.pathname + query;
 }
 
 function reconstruct() {
@@ -2396,7 +2395,7 @@ function reconstruct() {
                 try {
                     jQuery(window).unbind();
                     jQuery(document.body).unbind();
-                } catch (e) {}
+                } catch (err) {}
             }
         }
         var root = document.createElement('html');
