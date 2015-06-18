@@ -2085,15 +2085,16 @@ parse['한국경제'] = function (jews) {
         };
     })();
     jews.reporters = [];
-    jews.cleanup = function (){
+    jews.cleanup = function () {
         $('#scrollDiv, iframe').remove();
     };
 };
 parse['한국경제TV'] = function (jews) {
-    jews.title = $('#viewTitle h2 strong').text();
+    jews.title = $('#viewTitle h2').text();
     jews.subtitle = undefined;
     var content = $($('#viewContent_3')[0].cloneNode(true));
     $('div>iframe', content).remove();
+    $('.tt-wrapper', content).remove();
     jews.content = clearStyles(content[0]).innerHTML;
     jews.timestamp = {
         created: new Date($('.writeDate').text().replace('입력 : ', '').replace(/-/g, '/')),
@@ -2101,8 +2102,13 @@ parse['한국경제TV'] = function (jews) {
     };
     jews.reporters = (function () {
         var parsedData = $('.journalist_mail').contents();
-        if (parsedData.length < 1) {
+        if (parsedData.length < 1 || parsedData.text().trim().length === 0) {
             return [];
+        } else if (parsedData.length < 2) {
+            return [{
+                name: parsedData.eq(0).text().trim(),
+                mail: undefined
+            }];
         } else {
             return [{
                 name: parsedData.eq(0).text().trim(),
@@ -2110,6 +2116,9 @@ parse['한국경제TV'] = function (jews) {
             }];
         }
     })();
+    jews.cleanup = function () {
+        $('#scrollDiv').remove();
+    };
 };
 parse['한국일보'] = function (jews) {
     jews.title = $('#article-title').text();
