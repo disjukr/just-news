@@ -1529,7 +1529,7 @@ parse['연합뉴스'] = function (jews) {
     jews.subtitle = $('.article .stit strong b').text() || undefined;
     jews.content = (function () {
         var content = $('.article')[0].cloneNode(true);
-        $('.stit, .banner-0-wrap, .adrs', content).remove();
+        $('.stit, .banner-0-wrap, .article_ban, .adrs', content).remove();
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
