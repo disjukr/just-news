@@ -855,6 +855,9 @@ parse['동아일보'] = function (jews) {
         $('.article_relation', content).remove();
         $('.t_sns', content).remove();
         $('[alt="기자의 다른기사 더보기"]', content).parent().remove();
+        $('.cha_link', content).each(function () {
+            $(this).parent().remove();
+        });
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
