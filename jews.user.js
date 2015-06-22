@@ -1244,6 +1244,9 @@ parse['블로터닷넷'] = function (jews) {
         name: $author.text(),
         mail: $author.attr('href')
     }];
+    jews.cleanup = function () {
+        $('#move-to-top, #selectionSharerPopover, #selectionSharerPopunder, #fb-root').remove();
+    };
 };
 // ㅅ
 parse['서울경제'] = parse['데일리한국'];
