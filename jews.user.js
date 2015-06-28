@@ -1886,41 +1886,36 @@ parse['중앙일보'] = function (jews) {
     };
 };
 parse['지디넷코리아'] = function (jews) {
-    jews.title = $('#wrap_container_new .sub_tit_area h2').text();
-    jews.subtitle = $('#wrap_container_new .sub_tit_area h3').text() || undefined;
-    var cl = $('#content')[0].cloneNode(true);
-    $("[align]", cl).forEach(function (v) {
-        v.removeAttribute('align');
-    });
-    jews.content = clearStyles(cl).innerHTML;
+    jews.title = $('.m_container .sub_view_tit2 h2').text().trim();
+    jews.subtitle = $('.m_container .sub_view_tit2 p').text().trim() || undefined;
+    jews.content = (function () {
+        var content = $('.m_container .sub_view_cont')[0].cloneNode(true);
+        $('[align]', content).forEach(function (v) {
+            v.removeAttribute('align');
+        });
+        return clearStyles(content).innerHTML;
+    })();
     jews.timestamp = (function () {
-        var time = $('#wrap_container_new .sub_tit_area .sub_data').text().split('/');
-        var date = new Date(time[0].replace(/\./g, '/'));
-        time = /([AP]M)\s*(\d\d):(\d\d)/i.exec(time[1]);
-        var hh = time[2] | 0;
-        var mm = time[3] | 0;
-        if (time[1].toUpperCase() === 'PM') hh += 12;
-        date.setHours(hh);
-        date.setMinutes(mm);
+        var created = $('.m_container .sub_view_tit3 .tit3_2 span').text().replace('입력 : ', '').replace(/\./g, '/');
+        var lastModified = $('.m_container .sub_view_tit3 .tit3_3 span').text().replace('수정 : ', '').replace(/\./g, '/');
+        var timeIndex;
+
+        timeIndex = created.lastIndexOf('/');
+        created = new Date(created.substring(0, timeIndex) + ' ' + created.substring(timeIndex + 1));
+        timeIndex = lastModified.lastIndexOf('/');
+        lastModified = new Date(lastModified.substring(0, timeIndex) + ' ' + lastModified.substring(timeIndex + 1));
         return {
-            created: date,
-            lastModified: undefined
+            created: created,
+            lastModified: lastModified
         };
     })();
     jews.reporters = (function () {
-        var reporterInfoString = $('#wrap_container_new .sub_tit_area').children().eq(2).text().trim();
-        var parsedData = reporterInfoString.match(/(.*?)\s*([.a-zA-Z0-9]+@[.a-zA-Z0-9]+)/);
-        if (parsedData !== null) {
-            return [{
-                name: parsedData[1].replace(/\/?\s*$/, '') || undefined,
-                mail: parsedData[2]
-            }];
-        } else {
-            return [{
-                name: reporterInfoString.replace(/\/?\s*$/, ''),
-                mail: undefined
-            }];
-        }
+        var name = $('.m_container .sub_view_tit3 .tit3_1 span').text();
+        var mail = $('.journalist_1 span a').text().trim() || undefined;
+        return [{
+            name: name,
+            mail: mail
+        }];
     })();
     jews.cleanup = function () {
         $('#scrollDiv').remove();
