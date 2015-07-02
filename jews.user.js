@@ -595,13 +595,18 @@ parse['국민일보'] = function (jews) {
             var fig = document.createElement('figure'),
                 el = document.createElement('img'),
                 img = v.getElementsByTagName('img')[0];
-            if (img === null) return;
+            if (!img) {
+                return;
+            }
             el.src = img.src;
             fig.appendChild(el);
             el = document.createElement('figcaption');
             var captn = v.getElementsByClassName('captn')[0];
-            if (captn === null) el.textContent = img.alt;
-            else el.textContent = captn.textContent;
+            if (captn) {
+                el.textContent = captn.textContent;
+            } else {
+                el.textContent = img.alt;
+            }
             fig.appendChild(el);
             slides.appendChild(fig);
         });
