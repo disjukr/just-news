@@ -1895,6 +1895,7 @@ parse['지디넷코리아'] = function (jews) {
     jews.subtitle = $('.m_container .sub_view_tit2 p').text().trim() || undefined;
     jews.content = (function () {
         var content = $('.m_container .sub_view_cont')[0].cloneNode(true);
+        $('.view_ad', content).remove();
         $('[align]', content).forEach(function (v) {
             v.removeAttribute('align');
         });
