@@ -68,11 +68,6 @@ let config = {
                 test: /\.js$/,
                 include: [ path.resolve(__dirname, 'src') ],
                 loader: 'babel'
-            },
-            {
-                test: /\.cursive$/,
-                include: [ path.resolve(__dirname, 'src') ],
-                loader: 'cursive'
             }
         ]
     },
