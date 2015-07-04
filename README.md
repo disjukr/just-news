@@ -47,6 +47,20 @@ jews는 github issue tracker를 사용합니다.
         2. 비동기로 작동해야할 경우 `Promise` 객체를 반환하면 됩니다.
 3. 지원 사이트 목록에 구현한 항목을 체크하고 Pull Request를 보냅니다.
 
+### 소스코드 빌드하기
+
+이 프로젝트는 [webpack](http://webpack.github.io/)을 사용하여 `jews.user.js` 파일을 빌드합니다.
+웹팩을 사용해서 빌드를 하기 위해 다음의 절차를 따라야 합니다:
+
+1. [nodejs](https://nodejs.org/)를 설치합니다.
+2. jews가 사용하는 라이브러리들을 설치합니다.
+    1. jews 저장소 폴더에서 다음의 명령을 실행합니다: `npm install`
+3. 다음 중 하나의 명령을 사용해서 빌드를 수행합니다:
+    * 테스트용 빌드: `npm run build`
+    * 지속적인 테스트용 빌드: `npm run watch`
+    * 릴리즈용 빌드: `npm run production`
+4. 저장소의 `dist` 폴더로 가면 빌드된 `jews.user.js` 파일을 확인할 수 있습니다.
+
 ### 유의사항
 
 #### 버그 제보 관련
@@ -90,20 +104,6 @@ mail_address is string
 재구성을 했는데도 남는 광고들은 `jews.cleanup`를 사용하여 털어내도록 합시다.
 
 `jews.cleanup` 함수는 사이트 재구성이 일어난 뒤, 1초 주기로 매 번 호출됩니다.
-
-### 소스코드 빌드하기
-
-이 프로젝트는 [webpack](http://webpack.github.io/)을 사용하여 `jews.user.js` 파일을 빌드합니다.
-웹팩을 사용해서 빌드를 하기 위해 다음의 절차를 따라야 합니다:
-
-1. [nodejs](https://nodejs.org/)를 설치합니다.
-2. jews가 사용하는 라이브러리들을 설치합니다.
-    1. jews 저장소 폴더에서 다음의 명령을 실행합니다: `npm install`
-3. 다음 중 하나의 명령을 사용해서 빌드를 수행합니다:
-    * 테스트용 빌드: `npm run build`
-    * 지속적인 테스트용 빌드: `npm run watch`
-    * 릴리즈용 빌드: `npm run production`
-4. 저장소의 `dist` 폴더로 가면 빌드된 `jews.user.js` 파일을 확인할 수 있습니다.
 
 
 ## 지원 사이트
