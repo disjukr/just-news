@@ -1,7 +1,7 @@
 {
   "name": "jews",
   "description": "just news",
-  "version": "0.11.0",
+  "version": "1.0.0",
   "author": {
     "name": "JongChan Choi",
     "url": "https://github.com/disjukr"
@@ -12,6 +12,12 @@
       "url": "https://github.com/yous"
     }
   ],
+  "scripts": {
+    "build": "babel-node build.js",
+    "watch": "babel-node build.js --watch",
+    "production": "babel-node build.js --production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/disjukr/jews.git"
@@ -26,5 +32,21 @@
     "news",
     "userscript"
   ],
+  "dependencies": {
+    "babel-runtime": "^5.6.15",
+    "jquery": "^2.1.4"
+  },
+  "devDependencies": {
+    "babel": "^5.6.14",
+    "babel-core": "^5.6.15",
+    "babel-loader": "^5.2.2",
+    "moment": "^2.10.3",
+    "node-libs-browser": "^0.5.2",
+    "optimist": "^0.6.1",
+    "source-map": "^0.4.2",
+    "webpack": "^1.10.1",
+    "webpack-core": "^0.6.5",
+    "webpack-notifier": "^1.2.1"
+  },
   "private": true
 }
