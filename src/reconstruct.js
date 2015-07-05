@@ -94,7 +94,7 @@ export default function (jews) {
             if (lastModified) {
                 if (!isNaN(lastModified.getTime())) {
                     result += `<p>
-                        작성일: <time datetime="${ lastModified.toISOString() }" class="last-modified"></time>
+                        마지막 수정일: <time datetime="${ lastModified.toISOString() }" class="last-modified"></time>
                         ${ created.toLocaleString ? created.toLocaleString() : created.toDateString() }
                     </p>`;
                 } else {
@@ -110,6 +110,7 @@ export default function (jews) {
             if (!!reporter.name) result.push(`<span class="name">${ reporter.name }</span>`);
             if (!!reporter.mail) result.push(`<span class="mail">${ reporter.mail }</span>`);
             result.push(`</li>`);
+            return result.join('');
         }).join('') || '' }
         </ul>
     </div><br>

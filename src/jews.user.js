@@ -24,7 +24,14 @@ function jewsable() {
     return window.location.search.indexOf('jews=false') < 0;
 }
 function waitWhilePageIsLoading() {
-    return new Promise(resolve => $(resolve));
+    return new Promise(resolve => {
+        switch (document.readyState) {
+        case 'interactive': case 'complete': { resolve(); break; }
+        default: {
+            window.addEventListener('DOMContentLoaded', resolve);
+        } break;
+        }
+    });
 }
 function checkUrl(pattern) {
     return (new RegExp(
