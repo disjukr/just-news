@@ -110,8 +110,8 @@ mail_address is string
 
 * [x] [ITWORLD](http://www.itworld.co.kr)
 * [x] [JTBC](http://news.jtbc.joins.com)
-* [ ] [KBS](http://news.kbs.co.kr)
-* [ ] [KBS World](http://world.kbs.co.kr)
+* [x] [KBS](http://news.kbs.co.kr)
+* [x] [KBS World](http://world.kbs.co.kr)
 * [ ] [MBC](http://imnews.imbc.com)
 * [ ] [MBN](http://mbn.mk.co.kr/pages/news/index.html)
 * [ ] [OSEN](http://osen.mt.co.kr)
