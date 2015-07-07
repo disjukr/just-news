@@ -1,7 +1,7 @@
-import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = document.getElementById('content').getElementsByClassName('area_title')[0].getElementsByTagName('h1')[0].textContent;
     jews.subtitle = undefined;
     jews.content = (function () {
@@ -22,4 +22,5 @@ export default function (jews) {
         };
     })();
     jews.reporters = [];
+    return jews;
 }

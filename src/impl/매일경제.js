@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('.head_tit').text();
     jews.subtitle = $('.sub_tit').text();
     jews.content = (function () {
@@ -16,4 +17,5 @@ export default function (jews) {
         lastModified: new Date($('#view_tit .sm_num').eq(1).text().replace(/\./g, '/'))
     };
     jews.reporters = [];
+    return jews;
 }

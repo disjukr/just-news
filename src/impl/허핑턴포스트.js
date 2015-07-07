@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     var mainImageContent = (function () {
         var $mainImage = $('.main-visual img[data-img-path]');
         if ($mainImage.length) {
@@ -52,4 +53,5 @@ export default function (jews) {
         $('.ad_wrapper').remove();
         $('.hp-slideshow-wrapper').remove();
     };
+    return jews;
 }

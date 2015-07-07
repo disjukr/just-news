@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#GS_Title').text();
     jews.subtitle = $('#GS_SubTitle').text() || undefined;
     jews.content = (function () {
@@ -39,4 +40,5 @@ export default function (jews) {
         $('#frm_photoLink').remove();
         $('#scrollDiv').remove();
     };
+    return jews;
 }

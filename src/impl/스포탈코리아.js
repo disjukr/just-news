@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#reView h2').text().trim();
     jews.subtitle = undefined;
     jews.content = (function () {
@@ -21,4 +22,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('iframe, #scrollDiv').remove();
     };
+    return jews;
 }

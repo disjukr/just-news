@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#news_names h1').text();
     jews.subtitle = $('#news_names h3').text();
     jews.content = (function () {
@@ -26,4 +27,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('#soeaLayerLoc_fi').remove();
     };
+    return jews;
 }

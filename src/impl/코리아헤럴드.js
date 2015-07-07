@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('.nview .title_sec').text();
     jews.subtitle = $('.nview .stitle_sec').text() || undefined;
     jews.content = clearStyles($('#articleText')[0].cloneNode(true)).innerHTML;
@@ -13,4 +14,5 @@ export default function (jews) {
         };
     })();
     jews.reporters = [];
+    return jews;
 }

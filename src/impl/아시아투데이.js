@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('.news_title').text();
     jews.subtitle = $('.sub_title').text() || undefined;
     jews.content = (function () {
@@ -29,4 +30,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('#fb-root, #scrollDiv').remove();
     };
+    return jews;
 }

@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('.articleHeadlineBox h1')[0].textContent;
     jews.subtitle = undefined;
     jews.content = (function () {
@@ -42,4 +43,5 @@ export default function (jews) {
             }];
         }
     })();
+    return jews;
 }

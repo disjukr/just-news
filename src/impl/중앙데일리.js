@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#sTitle_a').text();
     jews.subtitle = $('#articletitle .title h4').text().trim() || undefined;
     jews.content = (function () {
@@ -20,4 +21,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('iframe, #gnb_banner, .article_ad250').remove();
     };
+    return jews;
 }

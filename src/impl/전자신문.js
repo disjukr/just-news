@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('.hgroup h1').text() || undefined;
     jews.subtitle = $('.hgroup h3').text();
     jews.content = (function () {
@@ -24,4 +25,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('#scrollDiv').remove();
     };
+    return jews;
 }

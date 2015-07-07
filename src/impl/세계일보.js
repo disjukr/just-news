@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = document.querySelector('.container>.content>.titleh1>h1').childNodes[0].textContent;
     jews.subtitle = $('.container>.content>.titleh2>h2').text() || undefined;
     jews.content = clearStyles(document.getElementById('article_txt')).innerHTML;
@@ -16,4 +17,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('#scrollDiv, #realclick_view, script, iframe, .mask_div').remove();
     };
+    return jews;
 }

@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('.m_container .sub_view_tit2 h2').text().trim();
     jews.subtitle = $('.m_container .sub_view_tit2 p').text().trim() || undefined;
     jews.content = (function () {
@@ -39,4 +40,5 @@ export default function (jews) {
         document.onmousedown = null;
         window._cz_mouseClick = null;
     };
+    return jews;
 }

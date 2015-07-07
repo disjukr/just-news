@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('.hboxtitle').text().trim();
     jews.subtitle = $('.hboxsubtitle').text().trim();
     jews.content = clearStyles($('#news_body_area')[0].cloneNode(true)).innerHTML;
@@ -16,4 +17,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('#scrollDiv').remove();
     };
+    return jews;
 }
