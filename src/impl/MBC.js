@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#content .view-title').text();
     jews.subtitle = undefined;
     jews.content = clearStyles($('#DivPrint .view-con')[0].cloneNode(true)).innerHTML;
@@ -13,4 +14,5 @@ export default function (jews) {
         name: $('#DivPrint .reporter').text().trim().split(/\s+/)[0],
         mail: undefined
     }];
+    return jews;
 }

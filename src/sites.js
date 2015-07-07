@@ -7,14 +7,14 @@ export default {
     'KBS': ['http://news.kbs.co.kr/news/view.do?*'],
     'KBS World': ['http://world.kbs.co.kr/*/news/news_*_detail.htm*'],
     // m
-    'MBC': [],
-    'MBN': [],
+    'MBC': ['http://imnews.imbc.com/*'],
+    'MBN': ['http://mbn.mk.co.kr/pages/news/newsView.php*', 'http://www.mbn.co.kr/pages/news/newsView.php*'],
     // o
-    'OSEN': [],
+    'OSEN': ['http://osen.mt.co.kr/article/*'],
     // s
-    'SBS': [],
+    'SBS': ['http://news.sbs.co.kr/news/endPage.do*'],
     // y
-    'YTN': [],
+    'YTN': ['http://www.ytn.co.kr/_ln/*'],
     // ㄱ
     '경향비즈': [],
     '경향신문': [],
