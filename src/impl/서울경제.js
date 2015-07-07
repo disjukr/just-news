@@ -12,7 +12,6 @@ export default function () {
             $(anchor).replaceWith($(anchor)[0].innerHTML);
         });
         var photo = $('#GS_RelPhoto')[0];
-        var imgs = '';
         if (photo) {
             var photoDiv = document.createElement('div');
             photo = photo.cloneNode(true);
