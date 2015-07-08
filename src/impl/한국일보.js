@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#article-title').text();
     jews.subtitle = $('#article-subtitle').text();
     var content = $($('#article-body')[0].cloneNode(true));
@@ -27,4 +28,5 @@ export default function (jews) {
             return [];
         }
     })();
+    return jews;
 }

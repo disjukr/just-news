@@ -1,7 +1,7 @@
-import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = document.querySelector('.new_title').textContent.trim();
     jews.subtitle = document.querySelector('.news_mtitle').textContent.trim();
     jews.content = clearStyles(document.querySelector('.news_text')).innerHTML;
@@ -16,4 +16,5 @@ export default function (jews) {
         name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
         mail: infos[2].trim()
     }];
+    return jews;
 }

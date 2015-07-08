@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#viewTitle h2').text();
     jews.subtitle = undefined;
     var content = $($('#viewContent_3')[0].cloneNode(true));
@@ -31,4 +32,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('#scrollDiv').remove();
     };
+    return jews;
 }

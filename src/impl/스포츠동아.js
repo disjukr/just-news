@@ -1,7 +1,7 @@
-import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = document.querySelector('.sub_contents>.article_cont .article_tit>h3').textContent;
     jews.subtitle = undefined;
     jews.timestamp = {
@@ -49,4 +49,5 @@ export default function (jews) {
         xhr.open("GET", slides.src, true);
         xhr.send();
     }
+    return jews;
 }

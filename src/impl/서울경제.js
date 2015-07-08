@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#GS_Title').text();
     jews.subtitle = $('#GS_SubTitle').text() || undefined;
     jews.content = (function () {
@@ -11,7 +12,6 @@ export default function (jews) {
             $(anchor).replaceWith($(anchor)[0].innerHTML);
         });
         var photo = $('#GS_RelPhoto')[0];
-        var imgs = '';
         if (photo) {
             var photoDiv = document.createElement('div');
             photo = photo.cloneNode(true);
@@ -39,4 +39,5 @@ export default function (jews) {
         $('#frm_photoLink').remove();
         $('#scrollDiv').remove();
     };
+    return jews;
 }

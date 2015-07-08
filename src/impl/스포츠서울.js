@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('.title > h3').text();
     jews.subtitle = undefined;
     jews.content = (function() {
@@ -26,4 +27,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('span, iframe, #wp_adbn_root, #scrollDiv').remove();
     };
+    return jews;
 }

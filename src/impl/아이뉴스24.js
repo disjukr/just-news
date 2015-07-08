@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#content .title').text();
     jews.subtitle = $('#content .sub_title').text();
     var content = $('#news_content')[0].cloneNode(true);
@@ -18,4 +19,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('#scrollDiv, #soeaFrame_, #soeaLayerLoc_st, #soeaLayerLoc_fi, iframe').remove();
     };
+    return jews;
 }

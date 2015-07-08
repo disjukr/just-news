@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = document.title;
     jews.subtitle = undefined;
     jews.content = (function () {
@@ -21,4 +22,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('#move-to-top, #selectionSharerPopover, #selectionSharerPopunder, #fb-root').remove();
     };
+    return jews;
 }

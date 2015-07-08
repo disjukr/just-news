@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#news_title').text().trim();
     jews.subtitle = $('#news_title2').text().trim();
     jews.content = (function () {
@@ -32,4 +33,5 @@ export default function (jews) {
         name: $('#news_sig strong').text(),
         mail: $('#news_sig').text().replace(/[가-힣()]/g, '').trim()
     }];
+    return jews;
 }

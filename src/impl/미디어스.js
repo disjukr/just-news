@@ -1,7 +1,7 @@
 import $ from 'jquery';
-import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     ['Top', 'Left'].forEach(function (v) {
         Object.defineProperty(document.body, 'scroll' + v, {writable: false, value: 0});
     });
@@ -31,4 +31,5 @@ export default function (jews) {
         mail: el_filter(info, HTMLAnchorElement)[0].textContent
     }];
     jews.content = document.getElementById('_article').innerHTML.trim();
+    return jews;
 }

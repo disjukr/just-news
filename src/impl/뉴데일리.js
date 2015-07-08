@@ -1,7 +1,5 @@
-import $ from 'jquery';
-import { clearStyles } from '../util';
-
-export default function (jews) {
+export default function () {
+    let jews = {};
     var titleData = document.getElementById('titlebox');
     var articleData = document.getElementById('ndArtOption');
     jews.title = titleData.getElementsByTagName('h1')[0].textContent;
@@ -25,4 +23,5 @@ export default function (jews) {
         'name': articleData.childNodes[2].textContent.trim(),
         'mail': articleData.querySelectorAll('a[href^="mailto:"]')[0].textContent.trim()
     }];
+    return jews;
 }

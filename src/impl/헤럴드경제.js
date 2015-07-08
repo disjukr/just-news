@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     var $content = $($('#articleText')[0].cloneNode(true));
     $('.mask_div', $content).remove();
     jews.title = $('.article_text span').text();
@@ -16,4 +17,5 @@ export default function (jews) {
         $('#scrollDiv').remove();
         $('#tbFadeIn').remove();
     };
+    return jews;
 }

@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#ArticleVTitle').text();
     jews.subtitle = $('#ArticleVSubject').text();
     jews.content = (function() {
@@ -21,4 +22,5 @@ export default function (jews) {
             mail: undefined
         }];
     })();
+    return jews;
 }

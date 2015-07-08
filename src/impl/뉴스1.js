@@ -1,7 +1,7 @@
-import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     var news_article = document.querySelector('#articles_detail').cloneNode(true);
     var news_info = document.querySelector('.info').textContent.trim().split('|');
     jews.title = document.querySelector('h2').textContent.trim();
@@ -24,4 +24,5 @@ export default function (jews) {
             mail: matches[0] ? matches[0] : undefined
         }];
     })();
+    return jews;
 }

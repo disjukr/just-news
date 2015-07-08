@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     jews.title = $('#articletitle .title h3').text();
     jews.subtitle = (function () {
         var el = document.querySelector('#articletitle .title h4');
@@ -64,4 +65,5 @@ export default function (jews) {
     jews.cleanup = function () {
         $('body>iframe, #gnb_banner').remove();
     };
+    return jews;
 }

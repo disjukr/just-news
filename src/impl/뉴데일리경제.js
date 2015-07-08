@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { clearStyles } from '../util';
 
-export default function (jews) {
+export default function () {
+    let jews = {};
     var $ = function (b) { return document.querySelector(b); },
         a = [].slice.call($('.arvdate').childNodes).filter(function (v) { return v.nodeType === 3; })[0].textContent.trim();
     jews.title = $('.hbox>h2').textContent.trim();
@@ -15,4 +16,5 @@ export default function (jews) {
         'lastModified': undefined
     };
     jews.content = clearStyles(document.getElementById('news_body_area')).innerHTML;
+    return jews;
 }
