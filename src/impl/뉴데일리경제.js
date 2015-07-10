@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { clearStyles } from '../util';
 
 export default function () {
