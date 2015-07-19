@@ -1298,7 +1298,10 @@ parse['스포츠동아'] = function (jews) {
     jews.content = clearStyles(document.querySelector('#ct>div.article_word')).innerHTML;
     jews.reporters = [];
     jews.cleanup = function () {
-        [].forEach.call(document.getElementById('content').querySelectorAll('div:not([class^="article"]):not(.slideshow), script, iframe'), function (v) {
+        [].forEach.call(document.querySelectorAll('#scrollDiv'), function (v) {
+            v.parentNode.removeChild(v);
+        });
+        [].forEach.call(document.getElementById('content').querySelectorAll('script, iframe'), function (v) {
             v.parentNode.removeChild(v);
         });
     };
