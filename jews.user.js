@@ -722,6 +722,8 @@ parse['뉴데일리경제'] = function (jews) {
 parse['뉴스1'] = function (jews) {
     var news_article = document.createElement('div');
     news_article.innerHTML = document.getElementById('articles_detail').innerHTML.split('<!-- news1_bottom_468*60 -->')[0].trim();
+    [].slice.call(news_article.getElementsByTagName('iframe')).forEach(function (v) {v.remove()});
+    
     var news_info = document.querySelector('.info').textContent.trim().split('|');
     jews.title = document.querySelector('h2').textContent.trim();
     jews.subtitle = document.querySelector('.title').textContent.trim().split('\n')[1].trim();
