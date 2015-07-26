@@ -145,6 +145,7 @@ mail_address is string
 * [x] [서울경제](http://economy.hankooki.com)
 * [x] [서울신문](http://www.seoul.co.kr)
 * [x] [세계일보](http://www.segye.com)
+* [x] [스포츠경향](http://sports.khan.co.kr)
 * [x] [스포츠동아](http://sports.donga.com)
 * [x] [스포츠서울](http://www.sportsseoul.com)
 * [x] [스포츠조선](http://sports.chosun.com)
