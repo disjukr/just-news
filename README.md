@@ -23,9 +23,8 @@ jews는 뉴스 기사 페이지에서 작동되는 스크립트이며, 자동으
 ### 스크립트 설치
 
 UserScript 플러그인이 설치됐다면 다음의 링크 중 하나를 클릭하여 스크립트 설치 다이얼로그를 띄웁니다:
-
-* **[안정버전](https://github.com/disjukr/jews/raw/release/jews.user.js)** - 마지막으로 릴리즈 된 버전입니다. 이 스크립트를 설치하는 것을 권장합니다.
-* **[최신버전](https://github.com/disjukr/jews/raw/master/jews.user.js)** - 개발 중인 버전입니다. 설치를 해도 작동하지 않을 수 있습니다.
+* **[안정버전](https://github.com/disjukr/jews/raw/release/dist/jews.user.js)** - 마지막으로 릴리즈 된 버전입니다. 이 스크립트를 설치하는 것을 권장합니다.
+* **[최신버전](https://github.com/disjukr/jews/raw/master/dist/jews.user.js)** - 개발 중인 버전입니다. 설치를 해도 작동하지 않을 수 있습니다.
 
 
 ## 기여하는 법
@@ -66,6 +65,28 @@ jews는 github issue tracker를 사용합니다.
 #### 버그 제보 관련
 * 특정 환경에서만 발생하는 버그는 제보시에 특정 환경(브라우저/OS 등)을 명시해주세요.
 * 특정 뉴스사이트나 기사 페이지에서만 발생하는 버그 역시 제보시에 링크를 명시해주세요.
+
+#### 릴리즈 관련
+* `dist` 하위 경로의 수정사항을 커밋하려면 `npm run production`으로 빌드된 상태여야 합니다.
+* 버전을 날짜 기준으로 매기기 때문에 같은 날 커밋이 여러번 된다면 버전이 겹칠 수 있습니다. 하지만 무시하고 커밋하도록 합니다.
+* 릴리즈는 기본적으로 매일 합니다.
+    * 이전 릴리즈 이후로 아무런 수정사항이 없다면 릴리즈를 하지 않습니다.
+    * 하루 전 날 마지막으로 커밋된 파일로 릴리즈 합니다.
+
+##### 릴리즈 하는 법 (대강)
+```sh
+git checkout release
+git merge master
+git commit --allow-empty -m "<버전>"
+git tag <버전>
+git push origin release
+git push origin <버전>
+git checkout master
+git merge release
+git push origin master
+```
+
+[가능하면 사람의 손으로 릴리즈하지 않도록 합니다.](https://github.com/disjukr/jews/issues/160)
 
 #### 개발 관련
 * `jews` 객체 반환 시에 아래에 정의된 타입을 따르도록 합니다.
