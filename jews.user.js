@@ -66,6 +66,7 @@
 // @include http://seoul.co.kr/news/newsView.php*
 // @include http://www.seoul.co.kr/news/newsView.php*
 // @include http://www.segye.com/content/html/*
+// @include http://sports.khan.co.kr/news/sk_index.html?*
 // @include http://sports.donga.com/3/*
 // @include http://sports.donga.com/*/3/*
 // @include http://www.sportsseoul.com/?*i=*
@@ -187,6 +188,7 @@ var where = function (hostname) { // window.location.hostname
     case 'economy.hankooki.com': return '서울경제';
     case 'seoul.co.kr': case 'www.seoul.co.kr': return '서울신문';
     case 'www.segye.com': return '세계일보';
+    case 'sports.khan.co.kr': return '스포츠경향';
     case 'sports.donga.com': return '스포츠동아';
     case 'www.sportsseoul.com': return '스포츠서울';
     case 'sports.chosun.com': return '스포츠조선';
@@ -723,7 +725,7 @@ parse['뉴스1'] = function (jews) {
     var news_article = document.createElement('div');
     news_article.innerHTML = document.getElementById('articles_detail').innerHTML.split('<!-- news1_bottom_468*60 -->')[0].trim();
     [].slice.call(news_article.getElementsByTagName('iframe')).forEach(function (v) {v.remove()});
-    
+
     var news_info = document.querySelector('.info').textContent.trim().split('|');
     jews.title = document.querySelector('h2').textContent.trim();
     jews.subtitle = document.querySelector('.title').textContent.trim().split('\n')[1].trim();
@@ -1290,6 +1292,42 @@ parse['세계일보'] = function (jews) {
     jews.cleanup = function () {
         $('#scrollDiv, #realclick_view, script, iframe, .mask_div').remove();
     };
+};
+parse['스포츠경향'] = function (jews) {
+    jews.title = document.querySelector('.newsWrap > .viewHeader > .tit_subject').textContent;
+    jews.subtitle = undefined;
+    jews.content = (function () {
+        var content = document.getElementById('_article').cloneNode(true);
+        [].forEach.call(content.querySelectorAll('#divBox, #article_bottom_ad, .khwidgetWrap, .social_widget'), function (v) {
+            v.parentNode.removeChild(v);
+        });
+        return clearStyles(content).innerHTML;
+    })();
+    jews.timestamp = (function () {
+        var parsedData = document.querySelector('.newsWrap > .viewHeader > .newsInfo > .time').textContent;
+        var created = parsedData.replace('입력: ', '').replace(/(\d+)년\s*(\d+)월\s*(\d+)일\s*([\d:]+)/g, function (_, year, month, day, time) {
+            return year + '/' + month + '/' + day + ' ' + time;
+        });
+        return {
+            created: new Date(created),
+            lastModified: undefined
+        };
+    })();
+    jews.reporters = (function () {
+        var parsedData = document.querySelector('.newsWrap > .viewHeader > .newsInfo > .info_part').textContent;
+        var matches = parsedData.match(/[^\s]+@.+/);
+        if (matches) {
+            return [{
+                name: parsedData.split(matches[0])[0].trim(),
+                mail: matches[0]
+            }];
+        } else {
+            return [{
+                name: parsedData,
+                mail: undefined
+            }];
+        }
+    })();
 };
 parse['스포츠동아'] = function (jews) {
     jews.title = document.querySelector('.sub_contents>.article_cont .article_tit>h3').textContent;
