@@ -44,7 +44,7 @@
     "node-libs-browser": "^0.5.2",
     "optimist": "^0.6.1",
     "source-map": "^0.4.2",
-    "webpack": "^1.10.1",
+    "webpack": "^1.10.5",
     "webpack-core": "^0.6.5",
     "webpack-notifier": "^1.2.1"
   },
