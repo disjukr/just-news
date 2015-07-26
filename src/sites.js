@@ -50,6 +50,7 @@ export default {
     '서울경제': ['http://economy.hankooki.com/lpage/*'],
     '서울신문': ['http://seoul.co.kr/news/newsView.php*', 'http://www.seoul.co.kr/news/newsView.php*'],
     '세계일보': ['http://www.segye.com/content/html/*'],
+    '스포츠경향': ['http://sports.khan.co.kr/news/sk_index.html?*'],
     '스포츠동아': ['http://sports.donga.com/3/*', 'http://sports.donga.com/*/3/*'],
     '스포츠서울': ['http://www.sportsseoul.com/?*i=*'],
     '스포츠조선': ['http://sports.chosun.com/news/ntype5.htm*', 'http://sports.chosun.com/news/utype.htm*'],
