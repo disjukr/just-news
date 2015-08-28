@@ -8,7 +8,7 @@ export default function () {
     jews.content = (function () {
         var content = $('.m_container .sub_view_cont')[0].cloneNode(true);
         $('.view_ad', content).remove();
-        $('[align]', content).forEach(function (v) {
+        $('[align]', content).each(function (v) {
             v.removeAttribute('align');
         });
         return clearStyles(content).innerHTML;
