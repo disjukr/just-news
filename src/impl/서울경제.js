@@ -1,43 +1,46 @@
-import $ from 'jquery';
 import { clearStyles } from '../util';
 
 export default function () {
     let jews = {};
-    jews.title = $('#GS_Title').text();
-    jews.subtitle = $('#GS_SubTitle').text() || undefined;
+    jews.title = document.querySelector('#GS_TitleGroup > .newstitle').innerHTML.replace(/<!--\/?DCM_TITLE-->/g, '').trim();
+    jews.subtitle = document.querySelector('#GS_TitleGroup > .subtitle').innerHTML.replace(/<!--\/?DCM_SUBTITLE-->/g, '').trim() || undefined;
     jews.content = (function () {
-        var content = $('#GS_Content')[0].cloneNode(true);
-        $('#frm_AD_GISA_PHOTO_LINE, #AD_GISA_PHOTO_LINE', content).remove();
-        $('a', content).each(function (_, anchor) {
-            $(anchor).replaceWith($(anchor)[0].innerHTML);
+        var content = document.getElementById('GS_Content').cloneNode(true);
+        [].forEach.call(content.querySelectorAll('#frm_AD_GISA_PHOTO_LINE, #AD_GISA_PHOTO_LINE'), function (v) {
+            v.parentNode.removeChild(v);
         });
-        var photo = $('#GS_RelPhoto')[0];
-        if (photo) {
-            var photoDiv = document.createElement('div');
-            photo = photo.cloneNode(true);
-            if ($('.RelPhoto2', photo)[0])
-                $('.RelPhoto1', photo).remove();
-            $('li > *', photo).toArray().forEach(function (item) {
-                photoDiv.appendChild(clearStyles(item));
-            });
-            return clearStyles(photoDiv).innerHTML + clearStyles(content).innerHTML;
-        }
         return clearStyles(content).innerHTML;
     })();
-    jews.timestamp = {
-        created: new Date($('#input_time dd').eq(0).text().replace('입력시간 :', '').trim()),
-        lastModified: new Date($('#modify_gisa').eq(0).text().replace('수정시간 :', '').replace(/\./g, '/').trim())
-    };
-    jews.reporters = $('#GS_Reporter ul li').toArray().map(function (li) {
-        li = li.cloneNode(true);
-        var mail = $('a', li).text();
-        $('a', li).remove();
-        var name = $(li).text();
-        return { name: name, mail: mail };
-    });
-    jews.cleanup = function () {
-        $('#frm_photoLink').remove();
-        $('#scrollDiv').remove();
-    };
+    jews.timestamp = (function () {
+        var parsedData = document.getElementById('copyright').textContent;
+        var createdMatch = parsedData.match(/입력시간 : (\d+\/\d+\/\d+\s+\d+:\d+:\d+)/);
+        var lastModifiedMatch = parsedData.match(/수정시간 : (\d+\/\d+\/\d+\s+\d+:\d+:\d+)/);
+        var created;
+        var lastModified;
+        if (createdMatch) {
+            created = new Date(createdMatch[1]);
+        }
+        if (lastModifiedMatch) {
+            lastModified = new Date(lastModifiedMatch[1]);
+        }
+        return {
+            created: created,
+            lastModified: lastModified
+        };
+    })();
+    jews.reporters = (function () {
+        var parsedData = document.querySelector('#GS_TitleGroup > .report');
+        var name = [].slice.call(parsedData.childNodes).filter(function (v) {
+            return v.nodeType === 3;
+        }).map(function (v) {
+            return v.textContent;
+        }).join().trim();
+        var mail = parsedData.querySelector('a').getAttribute('href').replace('mailto:', '');
+
+        return [{
+            name: name,
+            mail: mail
+        }];
+    })();
     return jews;
 }
