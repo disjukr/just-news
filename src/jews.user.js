@@ -3,8 +3,12 @@ import reconstruct from './reconstruct';
 
 (async () => {
     if (!jewsable()) return;
-    await waitWhilePageIsLoading();
-    reconstruct(await jews(here()));
+    try {
+        await waitWhilePageIsLoading();
+        reconstruct(await jews(here()));
+    } catch (e) {
+        console.error(e.message);
+    }
 })();
 
 function jews(where) {

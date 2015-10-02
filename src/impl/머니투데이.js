@@ -9,7 +9,7 @@ export default function () {
         var content = $('#textBody')[0].cloneNode(true);
         $('#now-sence', content).remove();
         $('span.up, span.down', content).remove();
-        $('a', content).forEach(function (v) {
+        $('a', content).each(function (v) {
             if ($('img', v)[0]) return;
             $(v).replaceWith(v.textContent);
         });
