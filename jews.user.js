@@ -1241,6 +1241,16 @@ parse['블로터닷넷'] = function (jews) {
     jews.title = document.title;
     jews.subtitle = undefined;
     jews.content = (function () {
+        // Youtube Size Fix.
+        $('iframe').each(function (index) {
+            var iframe = $($("iframe")[index]);
+            var width = parseInt(iframe.attr("width"));
+            var height = parseInt(iframe.attr("height"));
+            if (iframe.attr("src").indexOf("youtube") != -1 && width > 640) {
+                iframe.attr("width", 640).attr("height", 640 / width * height);
+            }
+        });
+        
         var content = $('.pf-content')[0].cloneNode(true);
         $('.printfriendly', content).remove();
         return clearStyles(content).innerHTML;
