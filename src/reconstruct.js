@@ -95,7 +95,7 @@ export default function (jews) {
                 if (!isNaN(lastModified.getTime())) {
                     result += `<p>
                         마지막 수정일: <time datetime="${ lastModified.toISOString() }" class="last-modified"></time>
-                        ${ created.toLocaleString ? created.toLocaleString() : created.toDateString() }
+                        ${ lastModified.toLocaleString ? lastModified.toLocaleString() : lastModified.toDateString() }
                     </p>`;
                 } else {
                     result += `<p>잘못된 마지막 수정일</p>`;
