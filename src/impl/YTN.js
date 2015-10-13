@@ -3,16 +3,21 @@ import { clearStyles } from '../util';
 
 export default function () {
     let jews = {};
-    jews.title = $('.article_headline').text();
+    jews.title = $('.article_tit').text();
     jews.subtitle = undefined;
     jews.content = (function () {
         var content = $('#newsContent')[0].cloneNode(true);
-        $('.articleAd_new, .hns_mask_div', content).remove();
-        $('.playbt, .vState, .vodinfoButton', content).remove();
+        $('.news_slide, .articleAd_new, .hns_mask_div', content).remove();
+        $('.playbt', content).remove();
+        $('.bt_vodinfo', content).remove();
+        $('.share_btns', content).remove();
+        $('.copyright', content).remove();
+        $('div:last-child', content).remove();
+
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date($('#d_date').text().trim().replace(/-/g, '/')),
+        created: new Date($('.article_info .extra_info').text().trim().replace('Posted : ', '').replace(/-/g, '/')),
         lastModified: undefined
     };
     jews.reporters = [];

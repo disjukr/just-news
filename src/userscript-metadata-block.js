@@ -7,8 +7,8 @@ export default `// ==UserScript==
 // @namespace http://0xABCDEF.com/jews
 // @description just news
 // @version ${ moment().format('YYYY-MM-DD') }
-// @updateURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
-// @downloadURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
+// @updateURL https://github.com/disjukr/jews/raw/release/dist/jews.user.js
+// @downloadURL https://github.com/disjukr/jews/raw/release/dist/jews.user.js
 // @copyright 2014 JongChan Choi
 // @grant none
 ${
