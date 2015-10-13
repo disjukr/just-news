@@ -1,19 +1,31 @@
+import $ from 'jquery';
 import { clearStyles } from '../util';
 
 export default function () {
     let jews = {};
-    var $ = function (b) { return document.querySelector(b); },
-        a = [].slice.call($('.arvdate').childNodes).filter(function (v) { return v.nodeType === 3; })[0].textContent.trim();
-    jews.title = $('.hbox>h2').textContent.trim();
-    jews.subtitle = $('.hbox>h3').textContent.trim();
+    var headline = $('.hbox');
+    var content = $('#news_body_area')[0].cloneNode(true);
+    jews.title = $('h2', headline).text();
+    jews.subtitle = (function(){
+        var h3 = $('h3', headline).text();
+        var p_toptitle = $('p.toptitle', headline).text();
+
+        if (p_toptitle) {
+            return h3 + '<br>' + p_toptitle;
+        } else {
+            return h3;
+        }
+    })();
     jews.reporters = [{
-        'name': $('.arvdate>a').textContent.replace('뉴데일리경제', '').trim(),
-        'mail': a.match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)[0]
+        'name': $('.cnt_view.news_body_area > div:eq(-2) ul a li').text(),
+        'mail': undefined
     }];
+    console.log($('.arvdate').text().split(/최종편집\s+/));
     jews.timestamp = {
-        'created': new Date(a.match(/\d{4}\.\d{2}.\d{2}\s+\d{2}:\d{2}:\d{2}/)[0].replace(/\./g, '-').replace(/\s+/, 'T') + '+09:00'), // ISO 8601
-        'lastModified': undefined
+        'created': undefined,
+        'lastModified': new Date($('.arvdate').text().split(/최종편집\s+/)[1].replace(/\./g, '-').replace(/\s+/, 'T') + '+09:00') // ISO 8601
     };
-    jews.content = clearStyles(document.getElementById('news_body_area')).innerHTML;
+    $('>div:last-child', content).remove();
+    jews.content = clearStyles(content).innerHTML;
     return jews;
 }
