@@ -15,9 +15,8 @@ export default function () {
         }
     })();
     var content = $('#ndArtBody')[0].cloneNode(true);
+    $('#writerProfileCon ~ div', content).remove();
     $('#writerProfileCon', content).remove();
-    $('div:last-child', content).remove();
-    $('div:last-child', content).remove(); // remove twice
     jews.content = clearStyles(content).innerHTML;
 
     jews.timestamp = {
