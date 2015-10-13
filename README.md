@@ -20,13 +20,16 @@ jews는 뉴스 기사 페이지에서 작동되는 스크립트이며, 자동으
 * [사파리 사용자 - NinjaKit](https://github.com/os0x/NinjaKit)
 * [IE 사용자 - TrixIE](http://sourceforge.net/projects/trixiewpf45/)
 
-### 스크립트 설치
+### [스크립트 설치](https://github.com/disjukr/jews/raw/release/dist/jews.user.js)
 
-UserScript 플러그인이 설치됐다면 다음의 링크 중 하나를 클릭하여 스크립트 설치 다이얼로그를 띄웁니다:
+UserScript 플러그인이 설치됐다면 위 링크를 클릭하여 스크립트 설치 다이얼로그를 띄웁니다.
 
-* **[안정버전](https://github.com/disjukr/jews/raw/release/jews.user.js)** - 마지막으로 릴리즈 된 버전입니다. 이 스크립트를 설치하는 것을 권장합니다.
-* **[최신버전](https://github.com/disjukr/jews/raw/master/jews.user.js)** - 개발 중인 버전입니다. 설치를 해도 작동하지 않을 수 있습니다.
+### 최상위 경로의 `jews.user.js`에 대해서...
 
+배포전용 파일은 `dist/jews.user.js`로 대체되었지만,
+유저스크립트 플러그인의 스크립트 자동 업데이트 등을 위해
+당분간 저장소 최상위 경로에 `jews.user.js` 파일은 남겨놓도록 하겠습니다.
+한 번 업데이트 되고나면 그 이후로는 `dist/jews.user.js`로 업데이트될 것입니다.
 
 ## 기여하는 법
 
@@ -40,16 +43,26 @@ jews는 github issue tracker를 사용합니다.
 1. 구현하고 싶은 뉴스 사이트를 정합니다.
     1. 뉴스 사이트가 하단의 지원 사이트 목록에 체크되어있지 않은지 확인합니다.
     2. 목록에 사이트가 없으면 추가합니다.
-2. jews.user.js에 구현합니다.
-    1. 상단의 UserScript 주석에 뉴스 페이지 주소를 추가합니다.
-    2. `where` 함수에 뉴스사를 구분할 수 있는 문자열을 추가합니다.
-    3. `jews.title`, `jews.subtitle`, `jews.content`, `jews.timestamp`, `jews.reporters`를 각각 구현합니다.
+2. 구현합니다.
+    1. `src/sites.js`에 뉴스사 이름을 키로 갖는, 주소 패턴 목록을 추가합니다.
+    2. `src/impl` 경로에 `jews` 객체를 반환하는 모듈을 작성합니다.
+        1. 모듈 이름은 뉴스사 이름으로 합니다.
+        2. 비동기로 작동해야할 경우 `Promise` 객체를 반환하면 됩니다.
 3. 지원 사이트 목록에 구현한 항목을 체크하고 Pull Request를 보냅니다.
 
-#### 팁
+### 소스코드 빌드하기
 
-[초벌구현을 해주는 북마클릿](http://0xabcdef.com/jewsgen/)이 있어요!
+이 프로젝트는 [webpack](http://webpack.github.io/)을 사용하여 `jews.user.js` 파일을 빌드합니다.
+웹팩을 사용해서 빌드를 하기 위해 다음의 절차를 따라야 합니다:
 
+1. [nodejs](https://nodejs.org/)를 설치합니다.
+2. jews가 사용하는 라이브러리들을 설치합니다.
+    1. jews 저장소 폴더에서 다음의 명령을 실행합니다: `npm install`
+3. 다음 중 하나의 명령을 사용해서 빌드를 수행합니다:
+    * 테스트용 빌드: `npm run build`
+    * 지속적인 테스트용 빌드: `npm run watch`
+    * 릴리즈용 빌드: `npm run production`
+4. 저장소의 `dist` 폴더로 가면 빌드된 `jews.user.js` 파일을 확인할 수 있습니다.
 
 ### 유의사항
 
@@ -57,12 +70,31 @@ jews는 github issue tracker를 사용합니다.
 * 특정 환경에서만 발생하는 버그는 제보시에 특정 환경(브라우저/OS 등)을 명시해주세요.
 * 특정 뉴스사이트나 기사 페이지에서만 발생하는 버그 역시 제보시에 링크를 명시해주세요.
 
+#### 릴리즈 관련
+* `dist` 하위 경로의 수정사항을 커밋하려면 `npm run production`으로 빌드된 상태여야 합니다.
+* 버전을 날짜 기준으로 매기기 때문에 같은 날 커밋이 여러번 된다면 버전이 겹칠 수 있습니다. 하지만 무시하고 커밋하도록 합니다.
+* 릴리즈는 기본적으로 매일 합니다.
+    * 이전 릴리즈 이후로 아무런 수정사항이 없다면 릴리즈를 하지 않습니다.
+    * 하루 전 날 마지막으로 커밋된 파일로 릴리즈 합니다.
+
+##### 릴리즈 하는 법 (대강)
+```sh
+git checkout release
+git merge master
+git commit --allow-empty -m "<버전>"
+git tag <버전>
+git push origin release
+git push origin <버전>
+git checkout master
+git merge release
+git push origin master
+```
+
+[가능하면 사람의 손으로 릴리즈하지 않도록 합니다.](https://github.com/disjukr/jews/issues/160)
+
 #### 개발 관련
-* 지원 사이트 목록은 알파벳, 가나다순 정렬을 유지하도록 합니다.
-* `jews` 객체 구현 시에 아래에 정의된 타입을 따르도록 합니다.
+* `jews` 객체 반환 시에 아래에 정의된 타입을 따르도록 합니다.
 * 뉴스 페이지에서 해당하는 정보가 없을 경우 `undefined`값을 채워 넣습니다.
-* 유사 jQuery 함수를 만들어서 사용합니다.
-    * 실제 jQuery와 기능이 다르게 동작할 경우 버그로 간주합니다만, 그 기능을 사용할 때만 adhoc하게 고치도록 합니다.
 
 ### `jews` 타입 정의
 

@@ -3,8 +3,8 @@
 // @namespace http://0xABCDEF.com/jews
 // @description just news
 // @version 0.11.0
-// @updateURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
-// @downloadURL https://raw.githubusercontent.com/disjukr/jews/release/jews.user.js
+// @updateURL https://github.com/disjukr/jews/raw/release/dist/jews.user.js
+// @downloadURL https://github.com/disjukr/jews/raw/release/dist/jews.user.js
 // i
 // @include http://www.itworld.co.kr/news/*
 // j
