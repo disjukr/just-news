@@ -8,7 +8,7 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     npm run production
 
     RELEASE_DIR="$TRAVIS_BUILD_DIR"/../jews-release
-    VERSION="v$(date +%Y-%m-%d)-r$TRAVIS_BUILD_NUMBER"
+    VERSION="$(date +%Y-%m-%d)-r$TRAVIS_BUILD_NUMBER"
     TAG_MESSAGE="release $VERSION"
     echo "git clone release"
     git clone https://github.com/disjukr/jews.git $RELEASE_DIR
@@ -31,12 +31,12 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     fi
     echo "git commit"
     git commit -m "release new version"
-    echo "git tag"
-    git tag -a -m $TAG_MESSAGE $VERSION
+    # echo "git tag"
+    # git tag -a -m $TAG_MESSAGE $VERSION
     echo "git push origin release"
     git push origin release
-    echo "git push origin TAG"
-    git push origin $TAG
+    # echo "git push origin --tags"
+    # git push origin $TAG
     echo "popd"
     popd
 fi
