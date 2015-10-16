@@ -16,7 +16,7 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     echo "git checkout release"
     git checkout release
     echo "git merge master"
-    git merge master
+    git merge --no-edit master
     echo "mkdir dist"
     mkdir dist
     echo "cp jews.user.js"
