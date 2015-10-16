@@ -23,8 +23,8 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     cp $TRAVIS_BUILD_DIR/dist/jews.user.js dist/jews.user.js
     echo "git add -f dist/jews.user.js"
     git add -f dist/jews.user.js
-    echo "check git stage"
-    if git stage | grep 'Nothing specified'; then
+    echo "check git status"
+    if git status | grep 'no changes added to commit'; then
         exit
     fi
     echo "git commit"
