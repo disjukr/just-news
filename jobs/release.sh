@@ -8,8 +8,13 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
 
     git status
 
+    git fetch
     git checkout release
+    git branch
+    git pull origin release
+    git merge master
     git add dist/jews.user.js
+    git stage
     git commit -m "release new version"
     git push origin release
 fi
