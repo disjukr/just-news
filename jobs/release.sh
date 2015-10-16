@@ -24,6 +24,7 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     echo "git add -f dist/jews.user.js"
     git add -f dist/jews.user.js
     echo "check git status"
+    git status
     if git status | grep 'no changes added to commit'; then
         exit
     fi
