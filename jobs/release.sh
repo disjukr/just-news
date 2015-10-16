@@ -32,7 +32,7 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     echo "git commit"
     git commit -m "release new version"
     echo "git tag"
-    git tag -a $TAG -m $TAG_MESSAGE
+    git tag -a -m $TAG_MESSAGE $TAG
     echo "git push origin release"
     git push origin release
     echo "git push origin TAG"
