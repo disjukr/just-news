@@ -3,6 +3,7 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     echo "machine github.com login reactjs-bot password $GITHUB_TOKEN" >~/.netrc
     git config --global user.name "jews-bot"
     git config --global user.email "jews@chan.moe"
+    git config --bool core.bare true
 
     npm run production
 
