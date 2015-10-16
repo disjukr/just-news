@@ -6,18 +6,21 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
 
     npm run production
 
-    git status
-
-    echo "git fetch"
-    git fetch
+    RELEASE_DIR="$TRAVIS_BUILD_DIR"/../jews-release
+    echo "git clone release"
+    git clone https://github.com/disjukr/jews.git $RELEASE_DIR
+    echo "pushd to RELEASE_DIR"
+    pushd $RELEASE_DIR
     echo "git checkout release"
     git checkout release
-    echo "git branch"
-    git branch
-    echo "git pull origin release"
-    git pull origin release
     echo "git merge master"
     git merge master
+    echo "popd"
+    popd
+    echo "cp dist/jews.user.js to release"
+    cp dist/jews.user.js $RELEASE_DIR/dist/jews.user.js
+    echo "pushd to RELEASE_DIR"
+    pushd $RELEASE_DIR
     echo "git add dist/jews.user.js"
     git add dist/jews.user.js
     echo "git stage"
@@ -26,4 +29,6 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     git commit -m "release new version"
     echo "git push origin release"
     git push origin release
+    echo "popd"
+    popd
 fi
