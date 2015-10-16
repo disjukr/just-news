@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+    - 4
+sudo: false
+cache:
+    directories:
+        - docs/vendor/bundle
+        - node_modules
+before_install:
+    - npm install -g npm@latest-2
+    - npm --version
+    - npm install
+script:
+    - npm run build
+    - ./jobs/release.sh
+env:
+    global:
+        # GITHUP TOKEN
+        - secure: "Zy6YCBtBtjOvEw67L9wWtDjo6NmrTKgLSouTg89T0I2awBB0SocQn8jEy6OHqvnap7LgEHHQF5xKeIp9yVotgoiJ+bgn5NRGgujiTwuxMFMeRpR3BGDbBjf29jgfbqSFywMM0b1uAgoMUz0gGpJIrPXOBT+6Y2pyUYurd7Dbnvk="
