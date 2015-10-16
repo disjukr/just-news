@@ -19,8 +19,8 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     mkdir dist
     echo "cp jews.user.js"
     cp $TRAVIS_BUILD_DIR/dist/jews.user.js dist/jews.user.js
-    echo "git add dist/jews.user.js"
-    git add dist/jews.user.js
+    echo "git add -f dist/jews.user.js"
+    git add -f dist/jews.user.js
     echo "git stage"
     git stage
     echo "git commit"
