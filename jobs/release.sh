@@ -15,12 +15,10 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     git checkout release
     echo "git merge master"
     git merge master
-    echo "popd"
-    popd
-    echo "cp dist/jews.user.js to release"
-    cp dist/jews.user.js $RELEASE_DIR/dist/jews.user.js
-    echo "pushd to RELEASE_DIR"
-    pushd $RELEASE_DIR
+    echo "mkdir dist"
+    mkdir dist
+    echo "cp jews.user.js"
+    cp $TRAVIS_BUILD_DIR/dist/jews.user.js dist/jews.user.js
     echo "git add dist/jews.user.js"
     git add dist/jews.user.js
     echo "git stage"
