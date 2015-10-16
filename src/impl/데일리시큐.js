@@ -9,7 +9,7 @@ export default function () {
     var infos = document.querySelector('.new_write').textContent.split(',');
 
     jews.timestamp = {
-        created: new Date(infos[0].replace(/-/g, '/')),
+        created: new Date(infos[0].trim().replace('등록 : ', '').replace(/-/g, '/')),
         lastModified: undefined
     };
     jews.reporters = [{
