@@ -1,5 +1,7 @@
 # jews
 
+[![travis](https://travis-ci.org/disjukr/jews.svg)](https://travis-ci.org/disjukr/jews)
+
 뉴스 사이트 기사 페이지에 접속하면 뉴스 본문외의 정보를 전부 제거한 뒤 페이지를 재구성하는 스크립트입니다.
 
 프로젝트를 만든 사람이 구글 크롬 브라우저를 사용하기 때문에 크롬을 최우선으로 지원합니다.
@@ -70,31 +72,10 @@ jews는 github issue tracker를 사용합니다.
 * 특정 환경에서만 발생하는 버그는 제보시에 특정 환경(브라우저/OS 등)을 명시해주세요.
 * 특정 뉴스사이트나 기사 페이지에서만 발생하는 버그 역시 제보시에 링크를 명시해주세요.
 
-#### 릴리즈 관련
-* `dist` 하위 경로의 수정사항을 커밋하려면 `npm run production`으로 빌드된 상태여야 합니다.
-* 버전을 날짜 기준으로 매기기 때문에 같은 날 커밋이 여러번 된다면 버전이 겹칠 수 있습니다. 하지만 무시하고 커밋하도록 합니다.
-* 릴리즈는 기본적으로 매일 합니다.
-    * 이전 릴리즈 이후로 아무런 수정사항이 없다면 릴리즈를 하지 않습니다.
-    * 하루 전 날 마지막으로 커밋된 파일로 릴리즈 합니다.
-
-##### 릴리즈 하는 법 (대강)
-```sh
-git checkout release
-git merge master
-git commit --allow-empty -m "<버전>"
-git tag <버전>
-git push origin release
-git push origin <버전>
-git checkout master
-git merge release
-git push origin master
-```
-
-[가능하면 사람의 손으로 릴리즈하지 않도록 합니다.](https://github.com/disjukr/jews/issues/160)
-
 #### 개발 관련
 * `jews` 객체 반환 시에 아래에 정의된 타입을 따르도록 합니다.
 * 뉴스 페이지에서 해당하는 정보가 없을 경우 `undefined`값을 채워 넣습니다.
+* 릴리즈는 사람이 직접 할 필요가 없습니다. travis ci를 통해 [jews-bot 계정](https://github.com/jews-bot)이 자동으로 처리합니다.
 
 ### `jews` 타입 정의
 
