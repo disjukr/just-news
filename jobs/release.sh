@@ -17,8 +17,8 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     git checkout release
     echo "git merge master"
     git merge --no-edit master
-    echo "mkdir dist"
-    mkdir dist
+    echo "mkdir dist if not exists"
+    [ -d dist ] || mkdir dist
     echo "cp jews.user.js"
     cp $TRAVIS_BUILD_DIR/dist/jews.user.js dist/jews.user.js
     echo "git add -f dist/jews.user.js"
