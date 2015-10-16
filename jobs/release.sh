@@ -8,8 +8,8 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
 
     git status
 
-    if ! git diff-index --quiet HEAD --; then
-        git add dist/jews.user.js
-        git commit -m "release new version"
-        git push origin release
+    git checkout release
+    git add dist/jews.user.js
+    git commit -m "release new version"
+    git push origin release
 fi
