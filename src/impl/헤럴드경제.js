@@ -14,6 +14,7 @@ export default function () {
     };
     jews.reporters = [];
     jews.cleanup = function () {
+        $('div[id^=soea], #wp_adbn_root, #mobon_toast_banner').remove();
         $('#scrollDiv').remove();
         $('#tbFadeIn').remove();
     };
