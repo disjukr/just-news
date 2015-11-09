@@ -8,7 +8,7 @@ export default function () {
     jews.subtitle = undefined;
     jews.content = (function () {
         var content = $('#news_body_id')[0].cloneNode(true);
-        $('#date_text, #keyword, .copy_2011', content).remove();
+        $('#date_text, #keyword, #rel_art_list_id, .copy_2011, script, iframe', content).remove();
 
         return clearStyles(content).innerHTML;
     })();
