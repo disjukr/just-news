@@ -2,7 +2,7 @@
 // @name jews
 // @namespace http://0xABCDEF.com/jews
 // @description just news
-// @version 2015-11-09
+// @version 2015-11-10
 // @updateURL https://github.com/disjukr/jews/raw/release/dist/jews.user.js
 // @downloadURL https://github.com/disjukr/jews/raw/release/dist/jews.user.js
 // @copyright 2014 JongChan Choi
