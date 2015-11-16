@@ -21,7 +21,11 @@ export default function () {
     })();
     jews.title = $('h1.title').text();
     jews.subtitle = undefined;
-    jews.content = mainImageContent + mainVideoContent + clearStyles($('#mainentrycontent')[0]).innerHTML;
+    jews.content = (function () {
+        var content = $($('#mainentrycontent')[0].cloneNode(true));
+        $('.float_left', content).remove();
+        return mainImageContent + mainVideoContent + clearStyles(content[0]).innerHTML;
+    })();
     jews.timestamp = {
         created: new Date($('.posted time[datetime]').attr('datetime')),
         lastModified: new Date($('.updated time[datetime]').attr('datetime'))
