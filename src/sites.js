@@ -53,7 +53,7 @@ export default {
     '스포츠경향': ['http://sports.khan.co.kr/news/sk_index.html?*'],
     '스포츠동아': ['http://sports.donga.com/3/*', 'http://sports.donga.com/*/3/*'],
     '스포츠서울': ['http://www.sportsseoul.com/?*i=*'],
-    '스포츠조선': ['http://sports.chosun.com/news/ntype5.htm*', 'http://sports.chosun.com/news/utype.htm*'],
+    '스포츠조선': ['http://sports.chosun.com/news/ntype.htm*', 'http://sports.chosun.com/news/ntype5.htm*', 'http://sports.chosun.com/news/utype.htm*'],
     '스포탈코리아': ['http://www.sportalkorea.com/news/view.php*', 'http://www.sportalkorea.com/newsplus/view_sub.php*'],
     '시사IN Live': ['http://www.sisainlive.com/news/articleView.html?*'],
     // ㅇ
