@@ -22,7 +22,7 @@ export default function () {
     };
     jews.reporters = [];
     jews.cleanup = function () {
-        $('iframe, #scrollDiv, #content style').remove();
+        $('#scrollDiv, #content style').remove();
         $('.dklink').each(function (_, link) {
             $(link).replaceWith($(link).text());
         });
