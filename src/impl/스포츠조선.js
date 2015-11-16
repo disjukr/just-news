@@ -7,7 +7,7 @@ export default function () {
     jews.subtitle = undefined;
     jews.content = (function () {
         var content = $('.news_text .article')[0].cloneNode(true);
-        $('#divBox, .mask_div, .gisa_banner', content).remove();
+        $('#divBox, .mask_div, .gisa_banner, div[id^="AD_LIVE_AREA_"]', content).remove();
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = (function () {
