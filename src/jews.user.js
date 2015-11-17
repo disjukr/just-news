@@ -39,6 +39,6 @@ function waitWhilePageIsLoading() {
 }
 function checkUrl(pattern) {
     return (new RegExp(
-        RegExp.escape(pattern).replace(/\\\*/g, '.+?')
+        RegExp.escape(pattern).replace(/\\\*/g, '.*')
     )).test(window.location.href);
 }
