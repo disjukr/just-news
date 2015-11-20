@@ -11,6 +11,8 @@ export default function () {
         if (image[0]) {
             image = image[0].cloneNode(true);
             $('.gal', image).remove();
+        } else {
+            image = false;
         }
         $('.stocksise', content).each(function (i, el) {
             $(el).replaceWith($('b', el).text());
