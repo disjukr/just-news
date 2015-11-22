@@ -12,7 +12,7 @@ before_install:
     - npm install
 script:
     - npm run build
-    - ./jobs/release.sh
+    - ./dev/release.sh
 env:
     global:
         # GITHUP TOKEN

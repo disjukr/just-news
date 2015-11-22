@@ -13,10 +13,10 @@
     }
   ],
   "scripts": {
-    "build": "babel-node build.js",
-    "watch": "babel-node build.js --watch",
-    "production": "babel-node build.js --production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel-node ./dev build",
+    "watch": "babel-node ./dev watch",
+    "production": "babel-node ./dev production",
+    "test": "babel-node ./dev test"
   },
   "repository": {
     "type": "git",
@@ -42,11 +42,11 @@
     "babel-loader": "^5.2.2",
     "moment": "^2.10.3",
     "node-libs-browser": "^0.5.2",
-    "optimist": "^0.6.1",
     "source-map": "^0.4.2",
     "webpack": "^1.10.5",
     "webpack-core": "^0.6.5",
-    "webpack-notifier": "^1.2.1"
+    "webpack-notifier": "^1.2.1",
+    "yargs": "^3.30.0"
   },
   "private": true
 }

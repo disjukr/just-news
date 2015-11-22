@@ -4,8 +4,10 @@ import webpack from 'webpack';
 import sourceMap from 'source-map';
 import UglifyJsPlugin from 'webpack/lib/optimize/UglifyJsPlugin';
 import RawSource from 'webpack-core/lib/RawSource';
-import userscriptMetadataBlock from './src/userscript-metadata-block';
 import WebpackNotifierPlugin from 'webpack-notifier';
+
+import userscriptMetadataBlock from '../src/userscript-metadata-block';
+import getBaseConfig from './base-config';
 
 // jews emitter
 class JewsEmitter {
@@ -44,57 +46,49 @@ class JewsEmitter {
     }
 }
 
-// config
-let config = {
-    entry: {
+let config = getBaseConfig(); {
+    config.entry = {
         'jews.user': 'jews.user'
-    },
-    devtool: 'source-map',
-    output: {
-        path: __dirname + '/dist',
+    };
+    config.output = {
+        path: path.resolve(__dirname, '../dist'),
         filename: '[name].js'
-    },
-    resolve: {
-        extensions: ['', '.js', '.min.js'],
-        modulesDirectories: ['src', 'node_modules']
-    },
-    node: {
-        filename: true,
-        global: true
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                include: [ path.resolve(__dirname, 'src') ],
-                loader: 'babel'
-            }
-        ]
-    },
-    plugins: [
+    };
+    config.plugins.push(
         new JewsEmitter(),
         new WebpackNotifierPlugin({ title: 'jews', alwaysNotify: true })
-    ]
-};
-
-// build
-let argv = optimist.argv;
-if (argv.production) {
-    delete config.devtool;
-    config.plugins.push(new UglifyJsPlugin());
+    );
 }
 
 let compiler = webpack(config);
 let lastHash = null;
+let watchFlag = false;
+
+export function build() {
+    compiler.run(compilerCallback);
+};
+
+export function watch() {
+    watchFlag = true;
+    compiler.watch({}, compilerCallback);
+};
+
+export function production() {
+    delete config.devtool;
+    config.plugins.push(new UglifyJsPlugin());
+    compiler.run(compilerCallback);
+};
+
+
 function compilerCallback(err, stats) {
-    if (!argv.watch) {
+    if (!watchFlag) {
         compiler.purgeInputFileSystem();
     }
     if (err) {
         lastHash = null;
         console.error(err.stack || err);
         if (err.details) console.error(err.details);
-        if (!argv.watch) {
+        if (!watchFlag) {
             process.on('exit', function() {
                 process.exit(1);
             });
@@ -105,9 +99,4 @@ function compilerCallback(err, stats) {
         lastHash = stats.hash;
         process.stdout.write(stats.toString({ colors: true }) + '\n');
     }
-}
-if (argv.watch) {
-    compiler.watch({}, compilerCallback);
-} else {
-    compiler.run(compilerCallback);
 }
