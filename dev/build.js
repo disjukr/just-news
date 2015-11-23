@@ -1,5 +1,4 @@
 import path from 'path';
-import optimist from 'optimist';
 import webpack from 'webpack';
 import sourceMap from 'source-map';
 import UglifyJsPlugin from 'webpack/lib/optimize/UglifyJsPlugin';
