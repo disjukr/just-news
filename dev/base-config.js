@@ -8,7 +8,7 @@ export default function get() {
         output: {},
         resolve: {
             extensions: ['', '.js', '.min.js'],
-            modulesDirectories: ['src', 'node_modules']
+            modulesDirectories: ['src', 'lib', 'node_modules']
         },
         node: {
             filename: true,

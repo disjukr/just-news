@@ -1,6 +1,12 @@
 import electron from 'electron';
-const { app, BrowserWindow } = electron;
+import Mocha from './jews-mocha';
+
+const { app } = electron;
 electron.hideInternalModules();
 
-console.log('hello, electron');
-app.exit(0);
+let mocha = new Mocha();
+
+mocha.run(fail => {
+    if (fail) app.exit(1);
+    else app.exit(0);
+});
