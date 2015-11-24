@@ -11,7 +11,7 @@ before_install:
     - npm --version
     - npm install
 script:
-    - npm run build
+    - npm run test
     - ./dev/release.sh
 env:
     global:
