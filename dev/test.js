@@ -26,12 +26,15 @@ export default function test() {
         let testProc = childProcess.spawn(
             electron,
             [path.resolve(__dirname, '../tmp/test.js')],
-            { stdio: 'inherit' }
+            { stdio: 'pipe' }
         );
         process.on('uncaughtException', err => {
             console.error(err.stack);
             testProc.kill();
         });
+        testProc.stdout.pipe(process.stdout);
+        testProc.stderr.pipe(process.stderr);
         testProc.on('close', code => process.exit(code));
+        testProc.on('exit', code => process.exit(code));
     });
 };
