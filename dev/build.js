@@ -47,11 +47,11 @@ class JewsEmitter {
 
 let config = getBaseConfig(); {
     config.entry = {
-        'jews.user': 'jews.user'
+        'jews': 'jews'
     };
     config.output = {
         path: path.resolve(__dirname, '../dist'),
-        filename: '[name].js'
+        filename: 'jews.user.js'
     };
     config.plugins.push(
         new JewsEmitter(),

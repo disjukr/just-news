@@ -7,7 +7,7 @@ export default function get() {
         devtool: 'source-map',
         output: {},
         resolve: {
-            extensions: ['', '.js', '.min.js'],
+            extensions: ['', '.js', '.min.js', '.user.js'],
             modulesDirectories: ['src', 'lib', 'node_modules']
         },
         node: {

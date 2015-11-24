@@ -1,33 +1,8 @@
 import sites from './sites';
 import reconstruct from './reconstruct';
 
-(async () => {
-    if (!jewsable()) return;
-    try {
-        await waitWhilePageIsLoading();
-        reconstruct(await jews(here()));
-    } catch (e) {
-        console.error(e.message);
-    }
-})();
 
-function jews(where) {
-    return require('./impl/' + where)();
-}
-function here() {
-    for (let site in sites) {
-        for (let pattern of sites[site]) {
-            if (checkUrl(pattern)) {
-                return site;
-            }
-        }
-    }
-    throw new Error('jews don\'t support this site');
-}
-function jewsable() {
-    return window.location.search.indexOf('jews=false') < 0;
-}
-function waitWhilePageIsLoading() {
+export function waitWhilePageIsLoading() {
     return new Promise(resolve => {
         switch (document.readyState) {
         case 'interactive': case 'complete': { resolve(); break; }
@@ -36,9 +11,41 @@ function waitWhilePageIsLoading() {
         } break;
         }
     });
-}
-function checkUrl(pattern) {
+};
+
+export function checkUrl(pattern, url=window.location.href) {
     return (new RegExp(
         RegExp.escape(pattern).replace(/\\\*/g, '.*')
-    )).test(window.location.href);
+    )).test(url);
+};
+
+export function here() {
+    for (let site in sites) {
+        for (let pattern of sites[site]) {
+            if (checkUrl(pattern)) {
+                return site;
+            }
+        }
+    }
+    throw new Error('jews don\'t support this site');
+};
+
+export function jewsable() {
+    return window.location.search.indexOf('jews=false') < 0;
+};
+
+export default function jews(where=here()) {
+    return require('./impl/' + where)();
+};
+
+if (require.main === module) {
+    (async () => {
+        if (!jewsable()) return;
+        try {
+            await waitWhilePageIsLoading();
+            reconstruct(await jews());
+        } catch (e) {
+            console.error(e.message);
+        }
+    })();
 }
