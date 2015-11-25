@@ -23,15 +23,11 @@ let compiler = webpack(config);
 export default function test() {
     compiler.run(err => {
         if (err) throw err;
-        console.error('travis에서 console.error가 안 찍히나?');
-        console.log('before spawn');
-        console.log(electron);
         let testProc = childProcess.spawn(
             electron,
             [path.resolve(__dirname, '../tmp/test.js')],
             { stdio: 'pipe' }
         );
-        console.log('after spawn');
         process.on('uncaughtException', err => {
             console.error(err.stack);
             testProc.kill();
