@@ -45,7 +45,7 @@ if (require.main === module) {
             await waitWhilePageIsLoading();
             reconstruct(await jews());
         } catch (e) {
-            console.error(e.message);
+            console.error(e ? (e.stack || e) : e);
         }
     })();
 }
