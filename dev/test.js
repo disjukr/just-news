@@ -34,6 +34,10 @@ export default function test() {
         });
         testProc.stdout.pipe(process.stdout);
         testProc.stderr.pipe(process.stderr);
+        testProc.on('error', err => {
+            console.error(err.stack);
+            process.exit(2);
+        });
         testProc.on('close', code => process.exit(code));
         testProc.on('exit', code => process.exit(code));
     });
