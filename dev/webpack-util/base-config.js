@@ -6,6 +6,7 @@ export default function get() {
         entry: {},
         devtool: 'source-map',
         output: {},
+        externals: ['electron', 'fs'],
         resolve: {
             extensions: ['', '.js', '.min.js', '.user.js'],
             modulesDirectories: ['src', 'lib', 'node_modules']
@@ -18,7 +19,7 @@ export default function get() {
             loaders: [
                 {
                     test: /\.js$/,
-                    include: [ path.resolve(__dirname, '../src') ],
+                    include: [ path.resolve(__dirname, '../../src') ],
                     loader: 'babel'
                 }
             ]

@@ -2,5 +2,5 @@
     "nonStandard": false,
     "modules": "common",
     "stage": 0,
-    "optional": ["runtime"]
+    "optional": ["runtime", "utility.inlineEnvironmentVariables"]
 }

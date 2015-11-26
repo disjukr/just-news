@@ -38,14 +38,31 @@ export default function jews(where=here()) {
     return require('./impl/' + where)();
 };
 
+if (process.env.JEWS === 'test') {
+    require('electron').ipcRenderer.send('test', 'test async');
+    require('electron').ipcRenderer.sendSync('test', 'test sync');
+}
+
 if (require.main === module) {
     (async () => {
-        if (!jewsable()) return;
+        if (!jewsable()) {
+            if (process.env.JEWS === 'test') {
+                require('electron').ipcRenderer.sendSync('jews-error', new Error('not jewsable'));
+            }
+            return;
+        }
         try {
             await waitWhilePageIsLoading();
             reconstruct(await jews());
         } catch (e) {
             console.error(e ? (e.stack || e) : e);
+            if (process.env.JEWS === 'test') {
+                require('electron').ipcRenderer.sendSync('jews-error', e);
+            }
+            return;
+        }
+        if (process.env.JEWS === 'test') {
+            require('electron').ipcRenderer.sendSync('jews-done');
         }
     })();
 }

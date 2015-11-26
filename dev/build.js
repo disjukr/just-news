@@ -6,7 +6,7 @@ import RawSource from 'webpack-core/lib/RawSource';
 import WebpackNotifierPlugin from 'webpack-notifier';
 
 import userscriptMetadataBlock from '../src/userscript-metadata-block';
-import getBaseConfig from './base-config';
+import * as webpackUtil from './webpack-util';
 
 // jews emitter
 class JewsEmitter {
@@ -45,57 +45,53 @@ class JewsEmitter {
     }
 }
 
-let config = getBaseConfig(); {
-    config.entry = {
-        'jews': 'jews'
-    };
-    config.output = {
-        path: path.resolve(__dirname, '../dist'),
-        filename: 'jews.user.js'
-    };
-    config.plugins.push(
-        new JewsEmitter(),
-        new WebpackNotifierPlugin({ title: 'jews', alwaysNotify: true })
-    );
+function getCompiler(verbose=true, production=false) {
+    let config = webpackUtil.getBaseConfig(); {
+        config.entry = {
+            'jews': 'jews'
+        };
+        config.output = {
+            path: path.resolve(__dirname, '../dist'),
+            filename: 'jews.user.js',
+            libraryTarget: 'commonjs'
+        };
+        config.plugins.push(
+            new JewsEmitter()
+        );
+        if (verbose) {
+            config.plugins.push(
+                new WebpackNotifierPlugin({ title: 'jews', alwaysNotify: true })
+            );
+        }
+    }
+    return webpack(config);
 }
 
-let compiler = webpack(config);
-let lastHash = null;
-let watchFlag = false;
-
-export function build() {
-    compiler.run(compilerCallback);
+export async function build(verbose=true) {
+    let compiler = getCompiler(verbose);
+    let stats = await webpackUtil.asyncRunCompiler(compiler, verbose);
+    if (verbose) console.log(stats.toString({ colors: true }));
 };
 
 export function watch() {
-    watchFlag = true;
-    compiler.watch({}, compilerCallback);
-};
-
-export function production() {
-    delete config.devtool;
-    config.plugins.push(new UglifyJsPlugin());
-    compiler.run(compilerCallback);
-};
-
-
-function compilerCallback(err, stats) {
-    if (!watchFlag) {
-        compiler.purgeInputFileSystem();
-    }
-    if (err) {
-        lastHash = null;
-        console.error(err.stack || err);
-        if (err.details) console.error(err.details);
-        if (!watchFlag) {
-            process.on('exit', function() {
-                process.exit(1);
-            });
+    let compiler = getCompiler();
+    let lastHash = null;
+    compiler.watch({}, (err, stats) => {
+        if (err) {
+            lastHash = null;
+            console.error(err.stack || err);
+            if (err.details) console.error(err.details);
+            return;
         }
-        return;
-    }
-    if (stats.hash !== lastHash) {
-        lastHash = stats.hash;
-        process.stdout.write(stats.toString({ colors: true }) + '\n');
-    }
-}
+        if (stats.hash !== lastHash) {
+            lastHash = stats.hash;
+            console.log(stats.toString({ colors: true }));
+        }
+    });
+};
+
+export async function production(verbose=true) {
+    let compiler = getCompiler(verbose, true);
+    let stats = await webpackUtil.asyncRunCompiler(compiler, verbose);
+    if (verbose) console.log(stats.toString({ colors: true }));
+};

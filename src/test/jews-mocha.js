@@ -8,19 +8,19 @@ export default class JewsMocha extends window.Mocha {
     constructor(options) {
         super(options);
         let req = require.context('./suite', true);
-        this.__webpackRequire = req;
         this.files = req.keys();
+        this.__require = (path) => {
+            try { req(path); } catch (e) {
+                console.error(e ? (e.stack || e) : e);
+                app.exit(1);
+            }
+        };
     }
     loadFiles(fn) {
-        try {
-            for (let file of this.files) {
-                this.suite.emit('pre-require', global, file, this);
-                this.suite.emit('require', this.__webpackRequire(file), file, this);
-                this.suite.emit('post-require', global, file, this);
-            }
-        } catch (e) {
-            console.error(e ? (e.stack || e) : e);
-            app.exit(1);
+        for (let file of this.files) {
+            this.suite.emit('pre-require', global, file, this);
+            this.suite.emit('require', this.__require(file), file, this);
+            this.suite.emit('post-require', global, file, this);
         }
         if (fn) fn();
     }

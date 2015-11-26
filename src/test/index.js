@@ -5,9 +5,15 @@ const { app } = electron;
 
 electron.hideInternalModules();
 
-let mocha = new Mocha();
+process.on('uncaughtException', err => {
+    console.error(err.stack);
+    app.exit(1);
+});
 
-mocha.run(fail => {
-    if (fail) app.exit(1);
-    else app.exit(0);
+app.on('ready', () => {
+    let mocha = new Mocha();
+    mocha.run(fail => {
+        if (fail) app.exit(1);
+        else app.exit(0);
+    });
 });
