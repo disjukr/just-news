@@ -41,6 +41,7 @@ export default function jews(where=here()) {
 
 if (require.main === module) {
     (async function () {
+        // 다음과 같은 비교구문은 production 빌드에서 자동으로 제거됩니다.
         if (process.env.JEWS === 'test') {
             var ipc = eval(`require('electron')`).ipcRenderer;
         }
@@ -50,9 +51,11 @@ if (require.main === module) {
             }
             return;
         }
+        let jewsResult;
         try {
             await waitWhilePageIsLoading();
-            reconstruct(await jews());
+            jewsResult = await jews();
+            reconstruct(jewsResult);
         } catch (e) {
             let err = e ? (e.stack || e) : e;
             console.error(err);
@@ -62,7 +65,21 @@ if (require.main === module) {
             return;
         }
         if (process.env.JEWS === 'test') {
-            ipc.sendSync('jews-done');
+            // ipc를 통할 때는 Date 등의 객체가 제대로 전달되지 않으므로
+            // builtin type으로 변환해야합니다. 예) Date -> string
+            ipc.sendSync('jews-done', {
+                title: jewsResult.title,
+                subtitle: jewsResult.subtitle,
+                content: jewsResult.content,
+                timestamp: (t => {
+                    if (!t) return void 0;
+                    return {
+                        created: t.created ? t.created + '' : void 0,
+                        lastModified: t.lastModified ? t.lastModified + '' : void 0
+                    };
+                })(jewsResult.timestamp),
+                reporters: jewsResult.reporters
+            });
         }
     })();
 }
