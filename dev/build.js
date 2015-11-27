@@ -1,11 +1,12 @@
 import path from 'path';
-import optimist from 'optimist';
 import webpack from 'webpack';
 import sourceMap from 'source-map';
 import UglifyJsPlugin from 'webpack/lib/optimize/UglifyJsPlugin';
 import RawSource from 'webpack-core/lib/RawSource';
-import userscriptMetadataBlock from './src/userscript-metadata-block';
 import WebpackNotifierPlugin from 'webpack-notifier';
+
+import userscriptMetadataBlock from '../src/userscript-metadata-block';
+import * as webpackUtil from './webpack-util';
 
 // jews emitter
 class JewsEmitter {
@@ -44,70 +45,52 @@ class JewsEmitter {
     }
 }
 
-// config
-let config = {
-    entry: {
-        'jews.user': 'jews.user'
-    },
-    devtool: 'source-map',
-    output: {
-        path: __dirname + '/dist',
-        filename: '[name].js'
-    },
-    resolve: {
-        extensions: ['', '.js', '.min.js'],
-        modulesDirectories: ['src', 'node_modules']
-    },
-    node: {
-        filename: true,
-        global: true
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                include: [ path.resolve(__dirname, 'src') ],
-                loader: 'babel'
-            }
-        ]
-    },
-    plugins: [
-        new JewsEmitter(),
-        new WebpackNotifierPlugin({ title: 'jews', alwaysNotify: true })
-    ]
+function getCompiler(verbose=true, production=false) {
+    let config = webpackUtil.getBaseConfig(); {
+        config.entry = {
+            'jews': 'jews'
+        };
+        config.output = {
+            path: path.resolve(__dirname, '../dist'),
+            filename: 'jews.user.js'
+        };
+        config.plugins.push(
+            new JewsEmitter()
+        );
+        if (verbose) {
+            config.plugins.push(
+                new WebpackNotifierPlugin({ title: 'jews', alwaysNotify: true })
+            );
+        }
+    }
+    return webpack(config);
+}
+
+export async function build(verbose=true) {
+    let compiler = getCompiler(verbose);
+    let stats = await webpackUtil.asyncRunCompiler(compiler, verbose);
+    if (verbose) console.log(stats.toString({ colors: true }));
 };
 
-// build
-let argv = optimist.argv;
-if (argv.production) {
-    delete config.devtool;
-    config.plugins.push(new UglifyJsPlugin());
-}
-
-let compiler = webpack(config);
-let lastHash = null;
-function compilerCallback(err, stats) {
-    if (!argv.watch) {
-        compiler.purgeInputFileSystem();
-    }
-    if (err) {
-        lastHash = null;
-        console.error(err.stack || err);
-        if (err.details) console.error(err.details);
-        if (!argv.watch) {
-            process.on('exit', function() {
-                process.exit(1);
-            });
+export function watch() {
+    let compiler = getCompiler();
+    let lastHash = null;
+    compiler.watch({}, (err, stats) => {
+        if (err) {
+            lastHash = null;
+            console.error(err.stack || err);
+            if (err.details) console.error(err.details);
+            return;
         }
-        return;
-    }
-    if (stats.hash !== lastHash) {
-        lastHash = stats.hash;
-        process.stdout.write(stats.toString({ colors: true }) + '\n');
-    }
-}
-if (argv.watch) {
-    compiler.watch({}, compilerCallback);
-} else {
-    compiler.run(compilerCallback);
-}
+        if (stats.hash !== lastHash) {
+            lastHash = stats.hash;
+            console.log(stats.toString({ colors: true }));
+        }
+    });
+};
+
+export async function production(verbose=true) {
+    let compiler = getCompiler(verbose, true);
+    let stats = await webpackUtil.asyncRunCompiler(compiler, verbose);
+    if (verbose) console.log(stats.toString({ colors: true }));
+};
