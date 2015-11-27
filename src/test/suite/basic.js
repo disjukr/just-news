@@ -1,25 +1,29 @@
 import assert from 'assert';
-import fs from 'fs';
 
 import electron from 'electron';
 const { BrowserWindow, ipcMain } = electron;
 
-const jews = fs.readFileSync('dist/jews.user.js');
-
 function t(url) {
     return new Promise((resolve, reject) => {
         let window = new BrowserWindow({
-            webPreferences: {
-                nodeIntegration: false
-            },
-            show: true
+            show: process.env.JEWS_SHOW_ELECTRON_WINDOW === 'show'
         });
         let wc = window.webContents;
-        ipcMain.on('test', (e, v) => console.log(v));
         ipcMain.on('jews-done', () => resolve());
         ipcMain.on('jews-error', (event, err) => reject(err));
+        console.log('테스트 페이지를 여는 중...');
+        console.log(`url: ${ url }`);
         window.loadURL(url);
-        window.webContents.executeJavaScript(jews);
+        window.webContents.on('did-finish-load', () => {
+            console.log('jews를 실행하는 중...');
+            window.webContents.executeJavaScript(`
+                try {
+                    eval(require('fs').readFileSync('dist/jews.user.js', 'utf-8'));
+                } catch (e) {
+                    require('electron').ipcRenderer.sendSync('jews-error', e);
+                }
+            `);
+        });
     });
 }
 

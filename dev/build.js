@@ -52,8 +52,7 @@ function getCompiler(verbose=true, production=false) {
         };
         config.output = {
             path: path.resolve(__dirname, '../dist'),
-            filename: 'jews.user.js',
-            libraryTarget: 'commonjs'
+            filename: 'jews.user.js'
         };
         config.plugins.push(
             new JewsEmitter()

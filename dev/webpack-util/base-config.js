@@ -6,7 +6,7 @@ export default function get() {
         entry: {},
         devtool: 'source-map',
         output: {},
-        externals: ['electron', 'fs'],
+        externals: ['electron'],
         resolve: {
             extensions: ['', '.js', '.min.js', '.user.js'],
             modulesDirectories: ['src', 'lib', 'node_modules']

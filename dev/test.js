@@ -20,13 +20,14 @@ let config = webpackUtil.getBaseConfig(); {
 
 let compiler = webpack(config);
 
-export default async function test() {
+export default async function test(showElectronWindow=false) {
     { // dist/jews.user.js
         console.log('building jews.user.js...');
         await build(false);
     }
     { // tmp/test.js
         console.log('building test resources...');
+        global.process.env.JEWS_SHOW_ELECTRON_WINDOW = showElectronWindow ? 'show' : 'hide';
         await webpackUtil.asyncRunCompiler(compiler);
     }
     { // run test

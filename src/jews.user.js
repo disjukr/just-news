@@ -38,16 +38,15 @@ export default function jews(where=here()) {
     return require('./impl/' + where)();
 };
 
-if (process.env.JEWS === 'test') {
-    require('electron').ipcRenderer.send('test', 'test async');
-    require('electron').ipcRenderer.sendSync('test', 'test sync');
-}
 
 if (require.main === module) {
-    (async () => {
+    (async function () {
+        if (process.env.JEWS === 'test') {
+            var ipc = eval(`require('electron')`).ipcRenderer;
+        }
         if (!jewsable()) {
             if (process.env.JEWS === 'test') {
-                require('electron').ipcRenderer.sendSync('jews-error', new Error('not jewsable'));
+                ipc.sendSync('jews-error', 'not jewsable');
             }
             return;
         }
@@ -55,14 +54,15 @@ if (require.main === module) {
             await waitWhilePageIsLoading();
             reconstruct(await jews());
         } catch (e) {
-            console.error(e ? (e.stack || e) : e);
+            let err = e ? (e.stack || e) : e;
+            console.error(err);
             if (process.env.JEWS === 'test') {
-                require('electron').ipcRenderer.sendSync('jews-error', e);
+                ipc.sendSync('jews-error', err + '');
             }
             return;
         }
         if (process.env.JEWS === 'test') {
-            require('electron').ipcRenderer.sendSync('jews-done');
+            ipc.sendSync('jews-done');
         }
     })();
 }

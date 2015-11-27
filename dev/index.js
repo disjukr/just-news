@@ -14,6 +14,6 @@ switch (command) {
 case 'build': build.build(); break;
 case 'watch': build.watch(); break;
 case 'production': build.production(); break;
-case 'test': test(); break;
+case 'test': test(argv.showElectronWindow); break;
 default: throw new Error('알 수 없는 빌드 명령: ' + command);
 }

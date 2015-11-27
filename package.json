@@ -16,7 +16,8 @@
     "build": "babel-node ./dev build",
     "watch": "babel-node ./dev watch",
     "production": "babel-node ./dev production",
-    "test": "babel-node ./dev test"
+    "test": "babel-node ./dev test",
+    "test-show": "babel-node ./dev test --show-electron-window"
   },
   "repository": {
     "type": "git",
