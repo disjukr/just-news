@@ -10,10 +10,14 @@ function jews(url) {
             show: process.env.JEWS_SHOW_ELECTRON_WINDOW === 'show'
         });
         ipcMain.on('jews-done', (event, result) => {
+            window.destroy();
             jews.cache[url] = result;
             resolve(result);
         });
-        ipcMain.on('jews-error', (event, err) => reject(err));
+        ipcMain.on('jews-error', (event, err) => {
+            window.destroy();
+            reject(err);
+        });
         window.loadURL(url);
         window.webContents.executeJavaScript(`
             try {
