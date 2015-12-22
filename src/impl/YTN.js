@@ -14,7 +14,7 @@ export default function () {
         $('.copyright', content).remove();
         $('div:last-child', content).remove();
         $('div[id^=float]', content).remove();
-        $('iwm_float', content).remove();
+        $('#iwm_float', content).remove();
 
         return clearStyles(content).innerHTML;
     })();
