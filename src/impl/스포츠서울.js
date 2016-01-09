@@ -3,25 +3,20 @@ import { clearStyles } from '../util';
 
 export default function () {
     let jews = {};
-    jews.title = $('.title > h3').text();
+    jews.title = $('.viewtitle').text();
     jews.subtitle = undefined;
     jews.content = (function() {
-        var content = $('#view_subject.subject')[0].cloneNode(true);
-        $('.mask_div', content).remove();
+        var content = $('.article')[0].cloneNode(true);
+        $('span[style="margin-top:30px; float:right;padding-right:1px;margin-left:5px;display:inline;z-index:1;"]', content).remove();
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = (function() {
-        var time_info = $('.title > em').text().trim();
-        var result = {
-            created: undefined,
-            lastModified: undefined
+        var time_info = $('.dateWrap li .date');
+        return {
+            // ISO 8601
+            created: new Date(time_info[0].innerHTML.split(' ').join('T') + '+09:00'),
+            lastModified: new Date(time_info[1].innerHTML.split(' ').join('T') + '+09:00')
         };
-        time_info.replace(/\./g, '-').replace(/(입력|수정)\s*(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2})/g, function(_, p1, p2, p3){
-            var ts = p2 + 'T' + p3 + '+09:00'; // ISO 8601
-            if (p1 === '입력') result.created = new Date(ts);
-            else if (p1 === '수정') result.lastModified = new Date(ts);
-        });
-        return result;
     })();
     jews.reporters = [];
     jews.cleanup = function () {

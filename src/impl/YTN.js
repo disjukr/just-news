@@ -6,7 +6,7 @@ export default function () {
     jews.title = $('.article_tit').text();
     jews.subtitle = undefined;
     jews.content = (function () {
-        var content = $('#newsContent')[0].cloneNode(true);
+        var content = $('.article_paragraph > span')[0].cloneNode(true);
         $('.news_slide, .articleAd_new, .hns_mask_div', content).remove();
         $('.playbt', content).remove();
         $('.bt_vodinfo', content).remove();
@@ -14,7 +14,7 @@ export default function () {
         $('.copyright', content).remove();
         $('div:last-child', content).remove();
         $('div[id^=float]', content).remove();
-        $('iwm_float', content).remove();
+        $('#iwm_float', content).remove();
 
         return clearStyles(content).innerHTML;
     })();

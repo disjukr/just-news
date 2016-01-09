@@ -19,6 +19,8 @@ install:
 
 script:
     - npm run test
+
+after_success:
     - ./dev/release.sh
 
 after_failure:

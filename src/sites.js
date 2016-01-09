@@ -37,7 +37,7 @@ export default {
     '로이터': ['http://www.reuters.com/article/*'],
     // ㅁ
     '마이데일리': ['http://www.mydaily.co.kr/new_yk/html/read.php*'],
-    '매일경제': ['http://news.mk.co.kr/newsRead.php*'],
+    '매일경제': ['http://news.mk.co.kr/newsRead.php*', 'http://nnews.mk.co.kr/newsRead.php*'],
     '머니투데이': ['http://www.mt.co.kr/view/mtview.php*', 'http://news.mt.co.kr/mtview.php*', 'http://cnews.mt.co.kr/mtview.php*'],
     '문화일보': ['http://www.munhwa.com/news/view.html*'],
     '미디어스': ['http://www.mediaus.co.kr/news/articleView.html*'],
@@ -52,7 +52,7 @@ export default {
     '세계일보': ['http://www.segye.com/content/html/*'],
     '스포츠경향': ['http://sports.khan.co.kr/news/sk_index.html?*'],
     '스포츠동아': ['http://sports.donga.com/3/*', 'http://sports.donga.com/*/3/*'],
-    '스포츠서울': ['http://www.sportsseoul.com/?*i=*'],
+    '스포츠서울': ['http://www.sportsseoul.com/news/read/*'],
     '스포츠조선': ['http://sports.chosun.com/news/ntype.htm*', 'http://sports.chosun.com/news/ntype5.htm*', 'http://sports.chosun.com/news/utype.htm*'],
     '스포탈코리아': ['http://www.sportalkorea.com/news/view.php*', 'http://www.sportalkorea.com/newsplus/view_sub.php*'],
     '시사IN Live': ['http://www.sisainlive.com/news/articleView.html?*'],

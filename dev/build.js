@@ -8,7 +8,8 @@ import WebpackNotifierPlugin from 'webpack-notifier';
 import userscriptMetadataBlock from '../src/userscript-metadata-block';
 import * as webpackUtil from './webpack-util';
 
-// jews emitter
+// userscript comment를 jews.user.js 상단에 붙이고
+// sourcemap을 보정하는 webpack plugin
 class JewsEmitter {
     apply(compiler) {
         compiler.plugin('emit', (compilation, done) => {

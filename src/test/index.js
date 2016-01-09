@@ -17,3 +17,7 @@ app.on('ready', () => {
         else app.exit(0);
     });
 });
+
+// 모든 창이 닫히면 기본적으로 electron은 꺼지도록 되어있습니다.
+// 이 코드는 해당 동작을 무효화합니다.
+app.on('window-all-closed', () => void 0);
