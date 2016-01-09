@@ -5,7 +5,11 @@ import sites from '../../sites';
 
 function site(site) {
     return function (url) {
-        assert(checkUrl(sites[site], url));
+        let pass = false;
+        for (let pattern of sites[site]) {
+            if (checkUrl(pattern, url)) pass = true;
+        }
+        assert(pass);
     }
 }
 
