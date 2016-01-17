@@ -52,6 +52,9 @@ describe('날짜 파싱에 실패하면 안됨', function () {
     it('마이데일리', async () => {
         await testTimestampParsing('http://www.mydaily.co.kr/new_yk/html/read.php?newsid=201511192101592220&ext=na'); // #208
     });
+    it('머니투데이', async () => {
+        await testTimestampParsing('http://news.mt.co.kr/mtview.php?no=2016011710375658661&MT'); // #229
+    });
 });
 
 
