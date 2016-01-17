@@ -16,7 +16,7 @@ export default function () {
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date($('.infobox1 .num').text().replace(": ", "").replace(/\./g, '/')), // ": 2014.06.20 06:31"형태로 들어있음
+        created: new Date($('.infobox1 .num:first').text().replace(": ", "").replace(/\./g, '/')), // ": 2014.06.20 06:31"형태로 들어있음
         lastModified: undefined
     };
     jews.reporters = (function () {
