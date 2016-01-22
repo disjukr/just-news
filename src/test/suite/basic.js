@@ -35,6 +35,12 @@ describe('파싱 중에 에러가 나면 안됨', function () {
     it('한겨레', async () => {
         await jews('http://www.hani.co.kr/arti/society/schooling/718916.html'); // #211
     });
+    it('중앙일보', async () => {
+       await jews('http://news.joins.com/article/19174423'); // #217
+    });
+    it('중앙일보', async () => {
+        await jews('http://news.joins.com/article/19455621'); // #217
+    });
 });
 
 
