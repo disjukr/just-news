@@ -39,6 +39,7 @@ export default function () {
     })();
     jews.cleanup = function () {
         $('#scrollDiv').remove();
+        $('.util_box').remove();
     };
     return jews;
 }
