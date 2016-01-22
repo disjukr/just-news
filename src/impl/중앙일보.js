@@ -49,7 +49,7 @@ export default function () {
         var reporters = $('.layer_journalist_wrap');
         var list = [];
 
-        reporters.forEach(function (el) {
+        reporters.each(function (el) {
             var name = $('.layer_journalist_area .mg a', el).text().trim().match(/(.*?) 기자/)[1];
             var mail, mail_el = $('.share_area a', el);
             if (mail_el.attr('href') !== null) mail = mail_el.attr('href').replace(/mailto:/, '');
