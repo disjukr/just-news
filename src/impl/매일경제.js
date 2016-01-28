@@ -6,9 +6,15 @@ export default function () {
     jews.title = $('.top_title').text();
     jews.subtitle = $('.sub_title1').text();
     jews.content = (function () {
-        let c = $('#article_body .art_txt')[0].cloneNode(true);
-        $('#google_dfp_MC_250x250', c).remove();
-        return clearStyles(c).innerHTML;
+        let d = $('<div>');
+        let c = $('#article_body .art_txt, #article_body img, #article_body figure');
+        c.each(function(index, el) {
+            $('#google_dfp_MC_250x250', el).remove();
+            d.append(el);
+        });
+        $('img[alt="사진설명"]', d).remove();
+        $('script', d).remove();
+        return clearStyles(d[0]).innerHTML;
     })();
     {
         let $a = $('.news_title_author');

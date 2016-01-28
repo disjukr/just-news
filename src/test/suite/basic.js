@@ -78,3 +78,19 @@ describe('제목이 비어있으면 안됨', function () {
         await testTitleParsing('http://www.mydaily.co.kr/new_yk/html/read.php?newsid=201511192101592220&ext=na'); // #208
     });
 });
+
+async function testContentParsing(url) {
+    let jewsResult = await jews(url);
+    let content = jewsResult.content.replace(/(<([^>]+)>)/ig,"");
+    switch (content) {
+    case undefined: throw new Error('내용이 undefined');
+    case '': throw new Error('내용이 비어있음');
+    }
+}
+
+describe('내용이 비어있으면 안됨', function () {
+    this.timeout(0);
+    it('매일경제', async () => {
+        await testContentParsing('http://news.mk.co.kr/newsRead.php?year=2015&no=979621'); // #231
+    })
+})
