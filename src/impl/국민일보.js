@@ -58,6 +58,7 @@ export default function () {
     })();
     jews.cleanup = function () {
         $('#scrollDiv').remove();
+        $('#wp_adbn_root').remove();
     };
     return jews;
 }
