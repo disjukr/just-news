@@ -33,6 +33,9 @@ jews.cache = {};
 describe('파싱 중에 에러가 나면 안됨', function () {
     this.timeout(0);
     it('한겨레', async () => {
+        await jews('http://www.hani.co.kr/arti/politics/politics_general/716934.html'); // #196
+    });
+    it('한겨레', async () => {
         await jews('http://www.hani.co.kr/arti/society/schooling/718916.html'); // #211
     });
     it('중앙일보', async () => {
