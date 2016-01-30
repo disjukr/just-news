@@ -3,13 +3,13 @@ import { clearStyles } from '../util';
 
 export default function () {
     let jews = {};
-    jews.title = $('.news_sbj_h').text();
+    jews.title = $('.news-atc-tit .atc-tit').text();
     jews.subtitle = $('.article_stit').text().trim();
     var content = $($('#newsView')[0].cloneNode(true));
     $('.article_stit, .article_aside_group, .ico_imgMore', content).remove();
     jews.content = clearStyles(content[0]).innerHTML;
     jews.timestamp = (function () {
-        var parsedData = $('.news_info').children();
+        var parsedData = $('.atc-info').children();
         function parseDate(s) {
             return new Date(s.replace(/-/g, '/').replace(/[가-힣]/g, '').replace(/^\s+/g, ''));
         }
