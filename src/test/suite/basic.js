@@ -59,6 +59,9 @@ describe('날짜 파싱에 실패하면 안됨', function () {
         await testTimestampParsing('http://www.mydaily.co.kr/new_yk/html/read.php?newsid=201511192101592220&ext=na'); // #208
     });
     it('SBS', async () => {
+        await testTimestampParsing('http://news.sbs.co.kr/news/endPage.do?news_id=N1003295957#sns'); // #218
+    });
+    it('SBS', async () => {
         await testTimestampParsing('http://news.sbs.co.kr/news/endPage.do?news_id=N1003355118'); // #228
     });
     it('머니투데이', async () => {
