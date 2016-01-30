@@ -5,6 +5,8 @@ export default function () {
     let jews = {};
     var $content = $($('#articleText')[0].cloneNode(true));
     $('.mask_div', $content).remove();
+    // 아래와 같은 스타일을 갖고 있는 span은 모두 광고 (#234)
+    $('span[style="width:640px; height:70px; text-align:center; margin:0 10px; padding:10px 10px 15px 10px; clear:both;"]', $content).remove();
     jews.title = $('.article_text span').text();
     jews.subtitle = undefined;
     jews.content = clearStyles($content[0]).innerHTML;
