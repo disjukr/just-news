@@ -15,9 +15,17 @@ export default function () {
     })();
     jews.timestamp = (function () {
         var parsedData = $('#container .smdend_content_w .sep_cont_w .sed_atcinfo_sec_w .sed_write_time').contents();
+        var created = parsedData[0] || undefined;
+        var lastModified = parsedData[2] || undefined;
+        if (created) {
+            created = new Date(created.textContent.replace(/\./g, '/'));
+        }
+        if (lastModified) {
+            lastModified = new Date(lastModified.textContent.replace(/\./g, '/'));
+        }
         return {
-          created: new Date(parsedData.eq(0).text().replace(/\./g, '/')),
-          lastModified: new Date(parsedData.eq(2).text().replace(/\./g, '/'))
+          created: created,
+          lastModified: lastModified
         };
     })();
     jews.reporters = (function () {
