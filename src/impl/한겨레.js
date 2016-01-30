@@ -9,6 +9,7 @@ export default function () {
         let $subtitle = $('.subtitle', articleBody);
         jews.subtitle = $subtitle.html();
         $subtitle.remove();
+        $('.relation2-area', articleBody).remove();
         jews.content = articleBody.innerHTML;
     }
     jews.timestamp = (function () {

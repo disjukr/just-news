@@ -33,6 +33,9 @@ jews.cache = {};
 describe('파싱 중에 에러가 나면 안됨', function () {
     this.timeout(0);
     it('한겨레', async () => {
+        await jews('http://www.hani.co.kr/arti/politics/politics_general/716934.html'); // #196
+    });
+    it('한겨레', async () => {
         await jews('http://www.hani.co.kr/arti/society/schooling/718916.html'); // #211
     });
     it('중앙일보', async () => {
@@ -57,6 +60,9 @@ describe('날짜 파싱에 실패하면 안됨', function () {
     this.timeout(0);
     it('마이데일리', async () => {
         await testTimestampParsing('http://www.mydaily.co.kr/new_yk/html/read.php?newsid=201511192101592220&ext=na'); // #208
+    });
+    it('SBS', async () => {
+        await testTimestampParsing('http://news.sbs.co.kr/news/endPage.do?news_id=N1003295957#sns'); // #218
     });
     it('SBS', async () => {
         await testTimestampParsing('http://news.sbs.co.kr/news/endPage.do?news_id=N1003355118'); // #228
