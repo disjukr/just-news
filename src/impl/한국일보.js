@@ -3,29 +3,39 @@ import { clearStyles } from '../util';
 
 export default function () {
     let jews = {};
-    jews.title = $('#article-title').text();
-    jews.subtitle = $('#article-subtitle').text();
+    jews.title = $('.titGroup h4').text();
+    jews.subtitle = $('titGroup h5').text().trim();
     var content = $($('#article-body')[0].cloneNode(true));
     $('.article-ad-align-left', content).remove();
     jews.content = clearStyles(content[0]).innerHTML;
-    jews.timestamp = {
-        created: new Date($('#date-registered').text().replace('등록: ', '').replace(/\./g, '/')),
-        lastModified: new Date($('#date-edited').text().replace('수정: ', '').replace(/\./g, '/'))
-    };
+    jews.timestamp = (function () {
+        var parsedData = $('.newsStoryDetail .author .writeOption p').contents();
+        var created = parsedData[0] || undefined;
+        var lastModified = parsedData[2] || undefined;
+        if (created) {
+            created = new Date(created.textContent.replace('등록 : ', '').replace(/\./g, '/'));
+        }
+        if (lastModified) {
+            lastModified = new Date(lastModified.textContent.replace('수정 : ', '').replace(/\./g, '/'));
+        }
+        return {
+            created: created,
+            lastModified: lastModified
+        };
+    })();
     jews.reporters = (function () {
-        var name = $('#article-info .author .author a').text();
-        var mail;
-        if (name !== '') {
-            var parsedData = /\S+@\S+/.exec($('#article-body').contents().eq(-1).text().trim());
-            if (parsedData !== null) {
-                mail = parsedData[0];
-            }
+        var name = $('.newsStoryDetail .author .authorInfo').text().trim().split(/\s+/).join(' ') || undefined;
+        var mail = $('.newsStoryDetail .author .authorLink a[href^="mailto:"]');
+        if (mail) {
             return [{
                 name: name,
-                mail: mail
+                mail: mail.attr('href').replace('mailto:', '')
             }];
         } else {
-            return [];
+            return [{
+                name: name,
+                mail: undefined
+            }];
         }
     })();
     return jews;
