@@ -73,6 +73,9 @@ describe('날짜 파싱에 실패하면 안됨', function () {
     it('한국경제', async () => {
         await testTimestampParsing('http://www.hankyung.com/news/app/newsview.php?aid=201601189451v'); // #235
     });
+    it('한국일보', async () => {
+        await testTimestampParsing('http://hankookilbo.com/v/9888a7bbbd344b03af60adde5a9df984'); // # 238
+    });
 });
 
 
@@ -91,7 +94,10 @@ describe('제목이 비어있으면 안됨', function () {
     });
     it('한국경제', async () => {
         await testTitleParsing('http://www.hankyung.com/news/app/newsview.php?aid=201601189451v'); // #235
-    })
+    });
+    it('한국일보', async () => {
+        await testTitleParsing('http://hankookilbo.com/v/9888a7bbbd344b03af60adde5a9df984'); // # 238
+    });
 });
 
 async function testContentParsing(url) {
