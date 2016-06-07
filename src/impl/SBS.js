@@ -29,7 +29,7 @@ export default function () {
         };
     })();
     jews.reporters = (function () {
-        var parsedData = $('#container .smdend_content_w .sep_cont_w .sed_atcinfo_sec_w .seda_author').children();
+        var parsedData = $('#container .smdend_content_w .sep_cont_w .seda_author').children();
         var name = parsedData.eq(0).text() || undefined;
         var mail;
         if (parsedData.length > 1) {
