@@ -47,6 +47,9 @@ describe('파싱 중에 에러가 나면 안됨', function () {
     it('한국경제증권', async () => {
         await jews('http://stock.hankyung.com/news/app/newsview.php?aid=2016042111386'); // #245
     });
+    it('경향신문', async () => {
+        await jews('http://news.khan.co.kr/kh_news/khan_art_view.html?artid=201602141517231&code=970100'); // #240
+    });
 });
 
 
