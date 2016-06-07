@@ -44,6 +44,9 @@ describe('파싱 중에 에러가 나면 안됨', function () {
     it('중앙일보', async () => {
         await jews('http://news.joins.com/article/19455621'); // #217
     });
+    it('한국경제증권', async () => {
+        await jews('http://stock.hankyung.com/news/app/newsview.php?aid=2016042111386'); // #245
+    });
 });
 
 

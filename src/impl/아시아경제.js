@@ -22,5 +22,8 @@ export default function () {
         };
     })();
     jews.reporters = [];
+    jews.cleanup = function () {
+        $('#scrollDiv').remove();
+    };
     return jews;
 }
