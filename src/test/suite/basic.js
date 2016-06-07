@@ -115,3 +115,28 @@ describe('내용이 비어있으면 안됨', function () {
         await testContentParsing('http://news.mk.co.kr/newsRead.php?year=2015&no=979621'); // #231
     })
 })
+
+async function testReporterNameParsing(url) {
+    let jewsResult = await jews(url);
+    let reporters = jewsResult.reporters;
+    if (reporters === undefined) {
+        throw new Error('기자 목록이 undefined');
+    }
+    if (reporters.length === 0) {
+        throw new Error('기자 목록이 비어있음');
+    }
+    for (var i = reporters.length - 1; i >= 0; i--) {
+        let reporter_name = reporters[i].name.replace(/(<([^>]+)>)/ig,"");
+        switch (reporter_name) {
+            case undefined: throw new Error('기자 이름이 undefined');
+            case '': throw new Error('기자 이름이 비어있음');
+        }
+    }
+}
+
+describe('기자 이름이 비어있으면 안됨', function () {
+    this.timeout(0);
+    it('SBS', async () => {
+        await testReporterNameParsing('http://news.sbs.co.kr/news/endPage.do?news_id=N1003611765'); // #249
+    })
+})
