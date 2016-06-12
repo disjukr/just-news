@@ -11,34 +11,46 @@ import * as webpackUtil from './webpack-util';
 // userscript comment를 jews.user.js 상단에 붙이고
 // sourcemap을 보정하는 webpack plugin
 class JewsEmitter {
+    constructor(production) {
+        this.production = production;
+    }
     apply(compiler) {
         compiler.plugin('emit', (compilation, done) => {
-            let jewsSource = compilation.assets['jews.user.js'].source();
+            const jewsSource = compilation.assets['jews.user.js'].source();
             if (!compilation.assets['jews.user.js.map']) {
                 compilation.assets['jews.user.js'] = new RawSource(
                     userscriptMetadataBlock + jewsSource
                 );
             } else {
-                let jewsSourceMap = JSON.parse(compilation.assets['jews.user.js.map'].source());
+                const jewsSourceMap = JSON.parse(compilation.assets['jews.user.js.map'].source());
+                const userscriptMetadataBlockLoc = userscriptMetadataBlock.split('\n').length;
+                let jewsSourceMapString;
                 let jewsSourceMapBase64;
-                let userscriptMetadataBlockLoc = userscriptMetadataBlock.split('\n').length;
                 { // manipulate source map
-                    let smc = new sourceMap.SourceMapConsumer(jewsSourceMap);
-                    let smg = sourceMap.SourceMapGenerator.fromSourceMap(smc);
+                    const smc = new sourceMap.SourceMapConsumer(jewsSourceMap);
+                    const smg = sourceMap.SourceMapGenerator.fromSourceMap(smc);
                     for (let mapping of smg._mappings._array) {
                         mapping.generatedLine += userscriptMetadataBlockLoc;
                     }
-                    let jewsSourceMapString = smg.toString();
+                    jewsSourceMapString = smg.toString();
                     jewsSourceMapBase64 = new Buffer(jewsSourceMapString).toString('base64');
-                    delete compilation.assets['jews.user.js.map'];
                 }
-                { // emit jews.user.js
+                { // emit `jews.user.js`, `jews.user.js.map`
+                    const sourceMappingURLComment = this.production ?
+                        '//# sourceMappingURL=https://github.com/disjukr/jews/raw/release/dist/jews.user.js.map' :
+                        '//# sourceMappingURL=data:application/json;base64,' + jewsSourceMapBase64
                     compilation.assets['jews.user.js'] = new RawSource(
                         userscriptMetadataBlock +
                         jewsSource.replace(/\/\/# sourceMappingURL.*/, '') +
-                        '//# sourceMappingURL=data:application/json;base64,' +
-                        jewsSourceMapBase64
+                        sourceMappingURLComment
                     );
+                    if (this.production) {
+                        compilation.assets['jews.user.js.map'] = new RawSource(
+                            jewsSourceMapString
+                        );
+                    } else {
+                        delete compilation.assets['jews.user.js.map'];
+                    }
                 }
             }
             done();
@@ -47,7 +59,7 @@ class JewsEmitter {
 }
 
 function getCompiler(verbose=true, production=false) {
-    let config = webpackUtil.getBaseConfig(); {
+    const config = webpackUtil.getBaseConfig(); {
         config.entry = {
             'jews': 'jews'
         };
@@ -56,11 +68,20 @@ function getCompiler(verbose=true, production=false) {
             filename: 'jews.user.js'
         };
         config.plugins.push(
-            new JewsEmitter()
+            new JewsEmitter(production)
         );
         if (verbose) {
             config.plugins.push(
                 new WebpackNotifierPlugin({ title: 'jews', alwaysNotify: true })
+            );
+        }
+        if (production) {
+            config.plugins.push(
+                new UglifyJsPlugin({
+                    compress: {
+                        screw_ie8: true
+                    }
+                })
             );
         }
     }
