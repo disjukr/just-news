@@ -18,12 +18,10 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     git checkout release
     echo "git merge master"
     git merge --no-edit master
-    echo "mkdir dist if not exists"
-    [ -d dist ] || mkdir dist
-    echo "cp jews.user.js"
-    cp $TRAVIS_BUILD_DIR/dist/jews.user.js dist/jews.user.js
-    echo "git add -f dist/jews.user.js"
-    git add -f dist/jews.user.js
+    echo "cp -R dist"
+    cp -R $TRAVIS_BUILD_DIR/dist dist
+    echo "git add -f dist"
+    git add -f dist
     echo "check git status"
     git status
     if git status | grep 'no changes added to commit'; then

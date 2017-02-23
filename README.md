@@ -59,7 +59,8 @@ jews는 github issue tracker를 사용합니다.
 
 1. [nodejs](https://nodejs.org/)를 설치합니다.
 2. jews가 사용하는 라이브러리들을 설치합니다.
-    1. jews 저장소 폴더에서 다음의 명령을 실행합니다: `npm install`
+    1. jews 저장소 폴더에서 다음의 명령을 실행합니다: `yarn`
+    2. `yarn`이 작동하지 않으면 다음의 명령으로 `yarn`을 설치한 후 다시 시도합니다: `npm install -g yarn`
 3. 다음 중 하나의 명령을 사용해서 빌드를 수행합니다:
     * 테스트용 빌드: `npm run build`
     * 지속적인 테스트용 빌드: `npm run watch`
