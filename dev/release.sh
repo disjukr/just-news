@@ -5,7 +5,7 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$
     git config --global user.email "jews@chan.moe"
     git config --bool core.bare true
 
-    npm run production
+    npm run build
 
     RELEASE_DIR="$TRAVIS_BUILD_DIR"/../jews-release
     VERSION="$(date +%Y-%m-%d)-r$TRAVIS_BUILD_NUMBER"

@@ -1,4 +1,5 @@
-export default {
+exports.__esModule = true;
+exports.default = {
     // i
     'ITWORLD': ['http://www.itworld.co.kr/news/*'],
     // j
