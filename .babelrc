@@ -1,6 +1,0 @@
-{
-    "nonStandard": false,
-    "modules": "common",
-    "stage": 0,
-    "optional": ["runtime", "utility.inlineEnvironmentVariables"]
-}

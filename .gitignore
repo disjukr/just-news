@@ -1,4 +1,5 @@
-node_modules
+/dist
+/tmp
+/.fusebox
+/node_modules
 npm-debug.log
-dist
-tmp

@@ -26,12 +26,6 @@ jews는 뉴스 기사 페이지에서 작동되는 스크립트이며, 자동으
 
 UserScript 플러그인이 설치됐다면 위 링크를 클릭하여 스크립트 설치 다이얼로그를 띄웁니다.
 
-### 최상위 경로의 `jews.user.js`에 대해서...
-
-배포전용 파일은 `dist/jews.user.js`로 대체되었지만,
-유저스크립트 플러그인의 스크립트 자동 업데이트 등을 위해
-당분간 저장소 최상위 경로에 `jews.user.js` 파일은 남겨놓도록 하겠습니다.
-한 번 업데이트 되고나면 그 이후로는 `dist/jews.user.js`로 업데이트될 것입니다.
 
 ## 기여하는 법
 
@@ -54,17 +48,15 @@ jews는 github issue tracker를 사용합니다.
 
 ### 소스코드 빌드하기
 
-이 프로젝트는 [webpack](http://webpack.github.io/)을 사용하여 `jews.user.js` 파일을 빌드합니다.
-웹팩을 사용해서 빌드를 하기 위해 다음의 절차를 따라야 합니다:
+이 프로젝트는 [fuse-box](http://fuse-box.org/)을 사용하여 `jews.user.js` 파일을 빌드합니다.
+빌드를 하기 위해 다음의 절차를 따라야 합니다:
 
 1. [nodejs](https://nodejs.org/)를 설치합니다.
 2. jews가 사용하는 라이브러리들을 설치합니다.
-    1. jews 저장소 폴더에서 다음의 명령을 실행합니다: `yarn`
-    2. `yarn`이 작동하지 않으면 다음의 명령으로 `yarn`을 설치한 후 다시 시도합니다: `npm install -g yarn`
-3. 다음 중 하나의 명령을 사용해서 빌드를 수행합니다:
-    * 테스트용 빌드: `npm run build`
-    * 지속적인 테스트용 빌드: `npm run watch`
-    * 릴리즈용 빌드: `npm run production`
+    1. jews는 의존성 관리를 위해 [yarn](https://yarnpkg.com)을 사용하고 있습니다.
+    2. `npm install -g yarn` 명령으로 yarn을 설치합니다.
+    3. jews 저장소 폴더에서 다음의 명령을 실행합니다: `yarn`
+3. `npm run build` 명령을 실행합니다.
 4. 저장소의 `dist` 폴더로 가면 빌드된 `jews.user.js` 파일을 확인할 수 있습니다.
 
 ### 유의사항
