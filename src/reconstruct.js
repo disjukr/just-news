@@ -1,4 +1,20 @@
-export default function (jews) {
+const noReconstructQueryKey = 'just_news';
+
+export function reconstructable() {
+    return window.location.search.indexOf(`${ noReconstructQueryKey }=false`) < 0;
+}
+
+export function noReconstructUrl() {
+    var query = window.location.search;
+    if (query.length) {
+        query += `&${ noReconstructQueryKey }=false`;
+    } else {
+        query = `?${ noReconstructQueryKey }=false`;
+    }
+    return window.location.origin + window.location.pathname + query;
+}
+
+export function reconstruct(article) {
     { // timeout, interval 청소
         let id = window.setTimeout('0', 0);
         while (id--) {
@@ -10,13 +26,13 @@ export default function (jews) {
         window.open = function () {};
     }
     { // cleanup
-        if (typeof jews.cleanup === 'function') window.setInterval(jews.cleanup, 1000);
+        if (typeof article.cleanup === 'function') window.setInterval(article.cleanup, 1000);
     }
     let root = document.createElement('html');
     document.replaceChild(root, document.documentElement);
     root.innerHTML = `
 <head>
-    <title>${ jews.title || 'jews' }</title>
+    <title>${ article.title || 'just-news' }</title>
     <style>
     @import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
     body {
@@ -67,17 +83,17 @@ export default function (jews) {
 <body>
     <div id="info">
         <small>
-            <a href="https://github.com/disjukr/jews">jews</a>에 의해 변환된 페이지입니다.
-            <a href="${ unjewsUrl() }">원본 페이지 보기</a>
+            <a href="https://github.com/disjukr/article">article</a>에 의해 변환된 페이지입니다.
+            <a href="${ noReconstructUrl() }">원본 페이지 보기</a>
         </small>
     </div>
-    <h1>${ jews.title || 'no title' }</h1>
-    ${ (!!jews.subtitle) ? `<h2>${ jews.subtitle }</h2>` : '' }
+    <h1>${ article.title || 'no title' }</h1>
+    ${ (!!article.subtitle) ? `<h2>${ article.subtitle }</h2>` : '' }
     <div id="meta">
         <div id="timestamp">
         ${(() => {
             let result = '';
-            let timestamp = jews.timestamp;
+            let timestamp = article.timestamp;
             if (!timestamp) return result;
             let created = timestamp.created;
             let lastModified = timestamp.lastModified;
@@ -105,7 +121,7 @@ export default function (jews) {
         })()}
         </div>
         <ul id="reporters">
-        ${ jews.reporters && jews.reporters.map(reporter => {
+        ${ article.reporters && article.reporters.map(reporter => {
             let result = [`<li>`];
             if (!!reporter.name) result.push(`<span class="name">${ reporter.name }</span>`);
             if (!!reporter.mail) result.push(`<span class="mail">${ reporter.mail }</span>`);
@@ -114,16 +130,6 @@ export default function (jews) {
         }).join('') || '' }
         </ul>
     </div><br>
-    <div id="content">${ jews.content || 'empty' }</div>
+    <div id="content">${ article.content || 'empty' }</div>
 </body>`;
-}
-
-function unjewsUrl() {
-    var query = window.location.search;
-    if (query.length) {
-        query += '&jews=false';
-    } else {
-        query = '?jews=false';
-    }
-    return window.location.origin + window.location.pathname + query;
 }

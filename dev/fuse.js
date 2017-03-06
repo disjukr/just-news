@@ -27,7 +27,7 @@ const bannerPlugin = BannerPlugin(userscriptMetadataBlock);
 
 const fuse = FuseBox.init({
     homeDir: './src/',
-    outFile: './dist/jews.user.js',
+    outFile: './dist/just-news.user.js',
     plugins: [
         babelPlugin,
         bannerPlugin,
@@ -35,7 +35,7 @@ const fuse = FuseBox.init({
 });
 
 fuse.bundle(`
-    > jews.user.js
+    > index.js
     + [impl/*]
     + regenerator-runtime
     + lodash.escaperegexp

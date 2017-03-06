@@ -17,7 +17,7 @@ export function clearStyles(element) {
         });
     } catch (e) {
         console.error('스타일 청소에 실패하였습니다.');
-        console.error('`jews.content`를 처리하는 부분이 의심됩니다.');
+        console.error('`article.content`를 처리하는 부분이 의심됩니다.');
         console.error('청소하려던 element:', element);
         console.error('에러:', e);
     }
