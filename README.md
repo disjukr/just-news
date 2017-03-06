@@ -1,6 +1,6 @@
-# jews
+# just-news
 
-[![travis](https://travis-ci.org/disjukr/jews.svg)](https://travis-ci.org/disjukr/jews)
+[![travis](https://travis-ci.org/disjukr/just-news.svg)](https://travis-ci.org/disjukr/just-news)
 
 뉴스 사이트 기사 페이지에 접속하면 뉴스 본문외의 정보를 전부 제거한 뒤 페이지를 재구성하는 스크립트입니다.
 
@@ -11,7 +11,7 @@
 
 ## 설치하기
 
-jews는 뉴스 기사 페이지에서 작동되는 스크립트이며, 자동으로 실행되기 위해서는 UserScript 플러그인의 도움이 필요합니다.
+just-news는 뉴스 기사 페이지에서 작동되는 스크립트이며, 자동으로 실행되기 위해서는 UserScript 플러그인의 도움이 필요합니다.
 
 ### UserScript 플러그인 설치
 
@@ -22,7 +22,7 @@ jews는 뉴스 기사 페이지에서 작동되는 스크립트이며, 자동으
 * [사파리 사용자 - NinjaKit](https://github.com/os0x/NinjaKit)
 * [IE 사용자 - TrixIE](http://sourceforge.net/projects/trixiewpf45/)
 
-### [스크립트 설치](https://github.com/disjukr/jews/raw/release/dist/jews.user.js)
+### [스크립트 설치](https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js)
 
 UserScript 플러그인이 설치됐다면 위 링크를 클릭하여 스크립트 설치 다이얼로그를 띄웁니다.
 
@@ -31,8 +31,8 @@ UserScript 플러그인이 설치됐다면 위 링크를 클릭하여 스크립�
 
 ### 버그 제보하기
 
-jews는 github issue tracker를 사용합니다.
-이슈는 https://github.com/disjukr/jews/issues 로 제보해주시기 바랍니다.
+just-news는 github issue tracker를 사용합니다.
+이슈는 https://github.com/disjukr/just-news/issues 로 제보해주시기 바랍니다.
 
 ### 소스코드로 기여하기
 
@@ -41,23 +41,23 @@ jews는 github issue tracker를 사용합니다.
     2. 목록에 사이트가 없으면 추가합니다.
 2. 구현합니다.
     1. `src/sites.js`에 뉴스사 이름을 키로 갖는, 주소 패턴 목록을 추가합니다.
-    2. `src/impl` 경로에 `jews` 객체를 반환하는 모듈을 작성합니다.
+    2. `src/impl` 경로에 `article` 객체를 반환하는 모듈을 작성합니다.
         1. 모듈 이름은 뉴스사 이름으로 합니다.
         2. 비동기로 작동해야할 경우 `Promise` 객체를 반환하면 됩니다.
 3. 지원 사이트 목록에 구현한 항목을 체크하고 Pull Request를 보냅니다.
 
 ### 소스코드 빌드하기
 
-이 프로젝트는 [fuse-box](http://fuse-box.org/)을 사용하여 `jews.user.js` 파일을 빌드합니다.
+이 프로젝트는 [fuse-box](http://fuse-box.org/)을 사용하여 `just-news.user.js` 파일을 빌드합니다.
 빌드를 하기 위해 다음의 절차를 따라야 합니다:
 
 1. [nodejs](https://nodejs.org/)를 설치합니다.
-2. jews가 사용하는 라이브러리들을 설치합니다.
-    1. jews는 의존성 관리를 위해 [yarn](https://yarnpkg.com)을 사용하고 있습니다.
+2. just-news가 사용하는 라이브러리들을 설치합니다.
+    1. just-news는 의존성 관리를 위해 [yarn](https://yarnpkg.com)을 사용하고 있습니다.
     2. `npm install -g yarn` 명령으로 yarn을 설치합니다.
-    3. jews 저장소 폴더에서 다음의 명령을 실행합니다: `yarn`
+    3. just-news 저장소 폴더에서 다음의 명령을 실행합니다: `yarn`
 3. `npm run build` 명령을 실행합니다.
-4. 저장소의 `dist` 폴더로 가면 빌드된 `jews.user.js` 파일을 확인할 수 있습니다.
+4. 저장소의 `dist` 폴더로 가면 빌드된 `just-news.user.js` 파일을 확인할 수 있습니다.
 
 ### 유의사항
 
@@ -66,17 +66,17 @@ jews는 github issue tracker를 사용합니다.
 * 특정 뉴스사이트나 기사 페이지에서만 발생하는 버그 역시 제보시에 링크를 명시해주세요.
 
 #### 개발 관련
-* `jews` 객체 반환 시에 아래에 정의된 타입을 따르도록 합니다.
+* `article` 객체 반환 시에 아래에 정의된 타입을 따르도록 합니다.
 * 뉴스 페이지에서 해당하는 정보가 없을 경우 `undefined`값을 채워 넣습니다.
 * 릴리즈는 사람이 직접 할 필요가 없습니다. travis ci를 통해 [jews-bot 계정](https://github.com/jews-bot)이 자동으로 처리합니다.
 
-### `jews` 타입 정의
+### `article` 타입 정의
 
 아래 타입 정의 스키마는 [makise](https://github.com/disjukr/makise)의 문법을 따릅니다.
 ```makise
-this is jews
+this is article
 
-jews is {
+article is {
     title: string,
     subtitle: string,
     content: html_fragment,
@@ -100,9 +100,9 @@ mail_address is string
 ### 털어내기
 
 몇몇 뉴스 사이트들은 사이트 재구성 뒤에도 광고가 남아있을 수 있습니다.
-재구성을 했는데도 남는 광고들은 `jews.cleanup`를 사용하여 털어내도록 합시다.
+재구성을 했는데도 남는 광고들은 `article.cleanup`를 사용하여 털어내도록 합시다.
 
-`jews.cleanup` 함수는 사이트 재구성이 일어난 뒤, 1초 주기로 매 번 호출됩니다.
+`article.cleanup` 함수는 사이트 재구성이 일어난 뒤, 1초 주기로 매 번 호출됩니다.
 
 
 ## 지원 사이트
