@@ -83,7 +83,7 @@ export function reconstruct(article) {
 <body>
     <div id="info">
         <small>
-            <a href="https://github.com/disjukr/article">article</a>에 의해 변환된 페이지입니다.
+            <a href="https://github.com/disjukr/just-news">just-news</a>에 의해 변환된 페이지입니다.
             <a href="${ noReconstructUrl() }">원본 페이지 보기</a>
         </small>
     </div>
