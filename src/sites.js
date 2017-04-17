@@ -58,7 +58,7 @@ exports.default = {
     '스포탈코리아': ['http://www.sportalkorea.com/news/view.php*', 'http://www.sportalkorea.com/newsplus/view_sub.php*'],
     '시사IN Live': ['http://www.sisainlive.com/news/articleView.html?*'],
     // ㅇ
-    '아시아경제': ['http://www.asiae.co.kr/news/view.htm*', 'http://car.asiae.co.kr/view.htm*', 'http://edu.asiae.co.kr/view.htm*', 'http://gold.asiae.co.kr/view.htm*', 'http://golf.asiae.co.kr/view.htm*', 'http://stock.asiae.co.kr/news/view.htm*'],
+    '아시아경제': ['http://www.asiae.co.kr/news/view.htm*', 'http://car.asiae.co.kr/view.htm*', 'http://edu.asiae.co.kr/view.htm*', 'http://gold.asiae.co.kr/view.htm*', 'http://golf.asiae.co.kr/view.htm*', 'http://stock.asiae.co.kr/news/view.htm*', 'http://view.asiae.co.kr/news/view.htm*'],
     '아시아투데이': ['http://www.asiatoday.co.kr/view.php*'],
     '아이뉴스24': ['http://news.inews24.com/php/news_view.php*', 'http://joynews.inews24.com/php/news_view.php*'],
     '여성뉴스': ['http://www.womennews.co.kr/news/*'],
