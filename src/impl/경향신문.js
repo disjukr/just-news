@@ -27,5 +27,11 @@ export default function () {
             mail: parsedData[2] || undefined
         }];
     })();
+    jews.cleanup = (function () {
+        $('.article_bottom_ad').remove();
+        $('.iwmads-wrapper').remove();
+        $('#pscroller2.someclass').remove();
+        $('#ILSA_obj').remove();
+    })();
     return jews;
 }
