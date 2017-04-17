@@ -13,7 +13,7 @@ export default function () {
         jews.subtitle = $('.article-title p').text() || undefined;
         jews.content = (function () {
             var content = document.createElement('div');
-            $('.article-body>p, .article-body p.article-text, .article-body .news_photo').each(function (i, v) {
+            $('.article-body p.article-text, .article-body .news_photo').each(function (i, v) {
                 content.appendChild(v);
             });
             return clearStyles(content).innerHTML;
