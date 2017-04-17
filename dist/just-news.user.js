@@ -2,7 +2,7 @@
 // @name just-news
 // @namespace http://0xABCDEF.com/just-news
 // @description just news
-// @version 2017-03-06
+// @version 2017-04-17
 // @updateURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @downloadURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @copyright 2014 JongChan Choi
@@ -827,7 +827,7 @@ exports.default = function () {
     jews.title = (0, _jquery2.default)('.article_tit').text();
     jews.subtitle = undefined;
     jews.content = function () {
-        var content = (0, _jquery2.default)('.article_paragraph > span')[0].cloneNode(true);
+        var content = (0, _jquery2.default)('.article_paragraph')[0].cloneNode(true);
         (0, _jquery2.default)('.news_slide, .articleAd_new, .hns_mask_div', content).remove();
         (0, _jquery2.default)('.playbt', content).remove();
         (0, _jquery2.default)('.bt_vodinfo', content).remove();
