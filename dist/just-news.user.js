@@ -944,6 +944,12 @@ exports.default = function () {
             mail: parsedData[2] || undefined
         }];
     }();
+    jews.cleanup = function () {
+        (0, _jquery2.default)('.article_bottom_ad').remove();
+        (0, _jquery2.default)('.iwmads-wrapper').remove();
+        (0, _jquery2.default)('#pscroller2.someclass').remove();
+        (0, _jquery2.default)('#ILSA_obj').remove();
+    }();
     return jews;
 };
 
