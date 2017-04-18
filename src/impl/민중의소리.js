@@ -23,7 +23,7 @@ export default function () {
         ai.find('.meta-text').each(function (v) {
             var a=v.textContent.match(/^\s*(발행|수정)\s*(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})\s*$/);
             if (a !== null) {
-                if (a[1] === '발행') jews.timestamp.created = new Date(a[2] + 'T' + a[3] + '+09:00')}; // ISO 8601
+                if (a[1] === '발행') jews.timestamp.created = new Date(a[2] + 'T' + a[3] + '+09:00'); // ISO 8601
                 else if (a[1] === '수정') jews.timestamp.lastModified = new Date(a[2] + 'T' + a[3] + '+09:00'); // ISO 8601
             }
         });
