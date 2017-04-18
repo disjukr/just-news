@@ -22,6 +22,8 @@
 // @include http://news.khan.co.kr/kh_news/khan_art_view.html*
 // @include http://news.kmib.co.kr/article/view.asp*
 // @include http://nownews.seoul.co.kr/news/newsView.php*
+// @include http://news.naver.com/main/*/read.nhn*
+// @include http://news.naver.com/main/read.nhn*
 // @include http://www.nocutnews.co.kr/news/*
 // @include http://www.newdaily.co.kr/news/article.html?no=*
 // @include http://pk.newdaily.co.kr/news/article.html?no=*
@@ -224,6 +226,7 @@ exports.default = {
     '국민일보': ['http://news.kmib.co.kr/article/view.asp*'],
     // ㄴ
     '나우뉴스': ['http://nownews.seoul.co.kr/news/newsView.php*'],
+    '네이버뉴스': ['http://news.naver.com/main/*/read.nhn*', 'http://news.naver.com/main/read.nhn*'],
     '노컷뉴스': ['http://www.nocutnews.co.kr/news/*'],
     '뉴데일리': ['http://www.newdaily.co.kr/news/article.html?no=*', 'http://pk.newdaily.co.kr/news/article.html?no=*', 'http://tk.newdaily.co.kr/news/article.html?no=*'],
     '뉴데일리경제': ['http://biz.newdaily.co.kr/news/article.html?no=*'],
@@ -1081,6 +1084,40 @@ var _jquery2 = _interopRequireDefault(_jquery);
 var _util = require('../util');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+});
+___scope___.file("impl/네이버뉴스.js", function(exports, require, module, __filename, __dirname){ 
+
+'use strict';
+
+exports.__esModule = true;
+
+exports.default = function () {
+    var jews = {};
+    jews.title = document.querySelector('#articleTitle').innerText;
+    var content = document.querySelector('#articleBodyContents');
+    var iframes = content.querySelectorAll('.vod_area iframe[_src]');
+    if (iframes.length > 0) {
+        iframes.forEach(function (v) {
+            v.setAttribute('src', v.getAttribute('_src'));
+        });
+    }
+    jews.content = (0, _util.clearStyles)(content).innerHTML;
+
+    var created = document.querySelector('.article_info .sponsor .t11').innerText;
+    created = new Date(created.replace(' ', 'T') + '+09:00'); // ISO 8601
+    jews.timestamp = {
+        created: created,
+        lastModified: undefined
+    };
+    jews.cleanup = function () {
+        document.querySelectorAll('#tooltipLayer_english, .u_cbox_layer_wrap').forEach(function (v) {
+            v.remove();
+        });
+    };
+    return jews;
+};
+
+var _util = require('../util');
 });
 ___scope___.file("impl/노컷뉴스.js", function(exports, require, module, __filename, __dirname){ 
 
