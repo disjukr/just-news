@@ -120,7 +120,7 @@ mail_address is string
 * [x] [경향신문](http://www.khan.co.kr)
 * [x] [국민일보](http://www.kmib.co.kr)
 * [x] [나우뉴스](http://nownews.seoul.co.kr)
-* [ ] [네이버뉴스](http://news.naver.com)
+* [x] [네이버뉴스](http://news.naver.com)
 * [ ] [네이트뉴스](http://news.nate.com)
 * [x] [노컷뉴스](http://www.nocutnews.co.kr)
 * [x] [뉴데일리](http://www.newdaily.co.kr)
