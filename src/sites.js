@@ -65,7 +65,7 @@ exports.default = {
     '연합뉴스': ['http://www.yonhapnews.co.kr/*AKR*.HTML*'],
     '오마이뉴스': ['http://www.ohmynews.com/NWS_Web/View/at_pg.aspx*'],
     '월스트리트저널': ['http://kr.wsj.com/posts/*', 'http://realtime.wsj.com/korea/*'],
-    '이데일리': ['http://www.edaily.co.kr/news/NewsRead.edy*'],
+    '이데일리': ['http://www.edaily.co.kr/news/NewsRead.edy*', 'http://starin.edaily.co.kr/news/NewsRead.edy*'],
     '일간스포츠': ['http://isplus.joins.com/article/*', 'http://isplus.live.joins.com/news/article/article.asp*'],
     // ㅈ
     '전자신문': ['http://www.etnews.com/*'],
