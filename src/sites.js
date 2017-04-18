@@ -22,6 +22,7 @@ exports.default = {
     '국민일보': ['http://news.kmib.co.kr/article/view.asp*'],
     // ㄴ
     '나우뉴스': ['http://nownews.seoul.co.kr/news/newsView.php*'],
+    '네이버뉴스': ['http://news.naver.com/main/*/read.nhn*', 'http://news.naver.com/main/read.nhn*'],
     '노컷뉴스': ['http://www.nocutnews.co.kr/news/*'],
     '뉴데일리': ['http://www.newdaily.co.kr/news/article.html?no=*', 'http://pk.newdaily.co.kr/news/article.html?no=*', 'http://tk.newdaily.co.kr/news/article.html?no=*'],
     '뉴데일리경제': ['http://biz.newdaily.co.kr/news/article.html?no=*'],
