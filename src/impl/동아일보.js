@@ -3,7 +3,7 @@ import { clearStyles } from '../util';
 
 export default function () {
     let jews = {};
-    jews.title = $('.article_title02 h1').text();
+    jews.title = $('.article_title .title').text();
     jews.subtitle = undefined;
     jews.content = (function () {
         var content = $('.article_txt')[0].cloneNode(true);
