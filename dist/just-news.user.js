@@ -2,7 +2,7 @@
 // @name just-news
 // @namespace http://0xABCDEF.com/just-news
 // @description just news
-// @version 2017-04-24
+// @version 2017-09-26
 // @updateURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @downloadURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @copyright 2014 JongChan Choi
@@ -1476,16 +1476,19 @@ exports.default = function () {
         });
         return (0, _util.clearStyles)(content).innerHTML;
     }();
-    jews.timestamp = {
-        created: new Date((0, _jquery2.default)('.title_foot .date').text().replace(/-/g, '/')),
-        lastModified: new Date((0, _jquery2.default)('.title_foot .date2').text().replace(/-/g, '/'))
-    };
+    jews.timestamp = function () {
+        var times = (0, _jquery2.default)('.title_foot .date01');
+        return {
+            created: new Date(times[0].textContent.replace('입력 ', '').replace(/-/g, '/')),
+            lastModified: new Date(times[1].textContent.replace('수정 ', '').replace(/-/g, '/'))
+        };
+    }();
     jews.reporters = [{
         name: (0, _jquery2.default)('.repoter').text(),
         mail: undefined
     }];
     jews.cleanup = function () {
-        (0, _jquery2.default)('#scrollDiv').remove();
+        (0, _jquery2.default)('#bestnews_layer, #scrollDiv, #sub_ad01, #sub_ad02').remove();
     };
     return jews;
 };
