@@ -18,16 +18,19 @@ export default function () {
         });
         return clearStyles(content).innerHTML;
     })();
-    jews.timestamp = {
-        created: new Date($('.title_foot .date').text().replace(/-/g, '/')),
-        lastModified: new Date($('.title_foot .date2').text().replace(/-/g, '/'))
-    };
+    jews.timestamp = (function () {
+        var times = $('.title_foot .date01');
+        return {
+            created: new Date(times[0].textContent.replace('입력 ', '').replace(/-/g, '/')),
+            lastModified: new Date(times[1].textContent.replace('수정 ', '').replace(/-/g, '/'))
+        };
+    })();
     jews.reporters = [{
         name: $('.repoter').text(),
         mail: undefined
     }];
     jews.cleanup = function () {
-        $('#scrollDiv').remove();
+        $('#bestnews_layer, #scrollDiv, #sub_ad01, #sub_ad02').remove();
     };
     return jews;
 }
