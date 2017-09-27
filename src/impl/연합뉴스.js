@@ -7,7 +7,7 @@ export default function () {
     jews.subtitle = $('.article .stit strong b').text() || undefined;
     jews.content = (function () {
         var content = $('.article')[0].cloneNode(true);
-        $('.stit, .banner-0-wrap, .article_ban, .adrs', content).remove();
+        $('.stit, .banner-0-wrap, .article_ban, .adrs, .article-ad-box', content).remove();
         return clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
