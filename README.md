@@ -52,10 +52,7 @@ just-news는 github issue tracker를 사용합니다.
 빌드를 하기 위해 다음의 절차를 따라야 합니다:
 
 1. [nodejs](https://nodejs.org/)를 설치합니다.
-2. just-news가 사용하는 라이브러리들을 설치합니다.
-    1. just-news는 의존성 관리를 위해 [yarn](https://yarnpkg.com)을 사용하고 있습니다.
-    2. `npm install -g yarn` 명령으로 yarn을 설치합니다.
-    3. just-news 저장소 폴더에서 다음의 명령을 실행합니다: `yarn`
+2. `npm install` 명령을 실행합니다.
 3. `npm run build` 명령을 실행합니다.
 4. 저장소의 `dist` 폴더로 가면 빌드된 `just-news.user.js` 파일을 확인할 수 있습니다.
 
