@@ -30,6 +30,9 @@
     "news",
     "userscript"
   ],
+  "engines": {
+    "node": ">= 8.7.0"
+  },
   "dependencies": {
     "jquery": "^3.2.1",
     "lodash.escaperegexp": "^4.1.2",
