@@ -26,18 +26,18 @@ const babelPlugin = BabelPlugin({
 const bannerPlugin = BannerPlugin(userscriptMetadataBlock);
 
 const fuse = FuseBox.init({
-    homeDir: './src/',
-    outFile: './dist/just-news.user.js',
+    homeDir: '../src/',
+    output: '../dist/$name.js',
     plugins: [
         babelPlugin,
         bannerPlugin,
     ],
 });
-
-fuse.bundle(`
+fuse.bundle('just-news.user').instructions(`
     > index.js
     + [impl/*]
     + regenerator-runtime
     + lodash.escaperegexp
     + jquery
 `);
+fuse.run();
