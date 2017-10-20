@@ -2,7 +2,7 @@
 // @name just-news
 // @namespace http://0xABCDEF.com/just-news
 // @description just news
-// @version 20171015
+// @version 20171020
 // @updateURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @downloadURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @copyright 2014 JongChan Choi
@@ -161,20 +161,7 @@ function checkUrl(pattern, url = window.location.href) {
 
 function here() {
     for (let site in _sites2.default) {
-        for (var _iterator = _sites2.default[site], _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-            var _ref;
-
-            if (_isArray) {
-                if (_i >= _iterator.length) break;
-                _ref = _iterator[_i++];
-            } else {
-                _i = _iterator.next();
-                if (_i.done) break;
-                _ref = _i.value;
-            }
-
-            let pattern = _ref;
-
+        for (let pattern of _sites2.default[site]) {
             if (checkUrl(pattern)) {
                 return site;
             }
@@ -2879,11 +2866,11 @@ exports.__esModule = true;
 
 exports.default = function () {
     let jews = {};
-    jews.title = (0, _jquery2.default)('.hgroup h1').text() || undefined;
-    jews.subtitle = (0, _jquery2.default)('.hgroup h3').text();
+    jews.title = (0, _jquery2.default)('.article_title').text() || undefined;
+    jews.subtitle = undefined;
     jews.content = function () {
         var content = (0, _jquery2.default)('.article_body')[0].cloneNode(true);
-        (0, _jquery2.default)('#openLine, .art_reporter, .article_ad, .sns_area2, *[src^="http://adv"]', content).remove();
+        (0, _jquery2.default)('.ad, .footer_btnwrap, img[src^="http://img.etnews.com/2017/banner/"], *[src^="http://adv"]', content).remove();
         (0, _jquery2.default)('.daum_ddn_area, [id^=beacon]', content).remove();
         (0, _jquery2.default)('.a_ict_word', content).each(function (i, el) {
             (0, _jquery2.default)(el).replaceWith((0, _jquery2.default)('.ict_word', el).text());
@@ -2891,13 +2878,10 @@ exports.default = function () {
         return (0, _util.clearStyles)(content).innerHTML;
     }();
     jews.timestamp = {
-        created: new Date(((0, _jquery2.default)('.a_date').text().match(/\d+\.\d+\.\d+/) || [""])[0].replace(/\./g, '/')),
+        created: new Date((0, _jquery2.default)('.date').text().replace('발행일 : ', '').replace(/\./g, '/')),
         modefied: undefined
     };
-    jews.reporters = [{
-        name: (0, _jquery2.default)('.art_reporter strong').text(),
-        mail: (0, _jquery2.default)('.art_reporter .mail').text()
-    }];
+    jews.reporters = [];
     jews.cleanup = function () {
         (0, _jquery2.default)('#scrollDiv').remove();
     };
