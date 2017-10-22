@@ -1,12 +1,27 @@
-import 'regenerator-runtime/runtime';
-import escapeRegExp from 'lodash.escaperegexp';
-
 import sites from './sites';
 import {
     reconstruct,
     reconstructable,
 } from './reconstruct';
 
+export interface Timestamp {
+    created?: Nullable<Date>;
+    lastModified?: Nullable<Date>;
+}
+
+export interface Reporter {
+    name?: Nullable<string>;
+    mail?: Nullable<string>;
+}
+
+export interface Article {
+    title?: Nullable<string>;
+    subtitle?: Nullable<string>;
+    content?: Nullable<string>;
+    timestamp?: Nullable<Timestamp>;
+    reporters?: Nullable<Reporter[]>;
+    cleanup?: Nullable<() => void>;
+}
 
 export function waitWhilePageIsLoading() {
     return new Promise(resolve => {
@@ -19,7 +34,8 @@ export function waitWhilePageIsLoading() {
     });
 };
 
-export function checkUrl(pattern, url=window.location.href) {
+const escapeRegExp = require('lodash.escaperegexp');
+export function checkUrl(pattern: string, url=window.location.href) {
     return (new RegExp(
         escapeRegExp(pattern).replace(/\\\*/g, '.*')
     )).test(url);
@@ -40,9 +56,7 @@ main: {
     if (!reconstructable()) {
         break main;
     }
-    waitWhilePageIsLoading(
-        void 0,
-    ).then(() => {
+    waitWhilePageIsLoading().then(() => {
         const where = here();
         return require('./impl/' + where).default();
     }).then(

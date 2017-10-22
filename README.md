@@ -56,6 +56,21 @@ just-news는 github issue tracker를 사용합니다.
 3. `npm run build` 명령을 실행합니다.
 4. 저장소의 `dist` 폴더로 가면 빌드된 `just-news.user.js` 파일을 확인할 수 있습니다.
 
+#### 쉽게 개발버전 userscript를 테스트하는 법
+Tampermonkey 등의 브라우저 플러그인을 사용하면
+`*.user.js` 꼴의 주소로 접근할 때 자동으로 재설치 브라우저 탭을 띄워줍니다.
+
+따라서 저장소 디렉토리에 http 서버를 띄워놓고, 소스코드 빌드 후
+브라우저 탭을 열고 `http://localhost:<포트>/dist/just-news.user.js` 주소로 들어가면
+방금 빌드한 `just-news`를 재설치하는 화면이 뜹니다.
+`업그레이드` 또는 `재설치` 버튼을 눌러주면 됩니다.
+
+http 서버는 다음과 같이 설치해서 띄울 수 있습니다:
+```sh
+$ npm install -g http-server
+$ http-server -p <포트>
+```
+
 ### 유의사항
 
 #### 버그 제보 관련
@@ -63,36 +78,9 @@ just-news는 github issue tracker를 사용합니다.
 * 특정 뉴스사이트나 기사 페이지에서만 발생하는 버그 역시 제보시에 링크를 명시해주세요.
 
 #### 개발 관련
-* `article` 객체 반환 시에 아래에 정의된 타입을 따르도록 합니다.
-* 뉴스 페이지에서 해당하는 정보가 없을 경우 `undefined`값을 채워 넣습니다.
+* `article` 객체는 `src/index.ts`에 정의된 `Article` 인터페이스를 따르도록 합니다.
+    * 뉴스 페이지에서 해당하는 정보가 없을 경우 `null`값을 채워 넣습니다.
 * 릴리즈는 사람이 직접 할 필요가 없습니다. travis ci를 통해 [jews-bot 계정](https://github.com/jews-bot)이 자동으로 처리합니다.
-
-### `article` 타입 정의
-
-아래 타입 정의 스키마는 [makise](https://github.com/disjukr/makise)의 문법을 따릅니다.
-```makise
-this is article
-
-article is {
-    title: string,
-    subtitle: string,
-    content: html_fragment,
-    timestamp: {
-        created: Date,
-        lastModified: Date
-    },
-    reporters: [reporter, ...],
-    cleanup: Function
-}
-
-reporter is {
-    name: string,
-    mail: mail_address
-}
-
-html_fragment is string
-mail_address is string
-```
 
 ### 털어내기
 
