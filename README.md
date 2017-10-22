@@ -4,27 +4,27 @@
 
 뉴스 사이트 기사 페이지에 접속하면 뉴스 본문외의 정보를 전부 제거한 뒤 페이지를 재구성하는 스크립트입니다.
 
-프로젝트를 만든 사람이 구글 크롬 브라우저를 사용하기 때문에 크롬을 최우선으로 지원합니다.
-
-릴리즈 기준은 크롬 브라우저에서 전부 잘 동작하는가이므로 업데이트가 있을 경우 크롬 외 브라우저에서는 잘 동작하지 않을 수 있습니다.
+모든 주요 웹브라우저(인터넷 익스플로러 제외)에 대해 최신 안정버전으로부터 한버전 전까지만 지원합니다.
 
 
 ## 설치하기
 
-just-news는 뉴스 기사 페이지에서 작동되는 스크립트이며, 자동으로 실행되기 위해서는 UserScript 플러그인의 도움이 필요합니다.
+just-news는 뉴스 기사 페이지에서 작동되는 유저스크립트이며,
+자동으로 실행되기 위해서는 유저스크립트 플러그인의 도움이 필요합니다.
 
-### UserScript 플러그인 설치
+### 유저스크립트 플러그인 설치
 
-필요한 UserScript 플러그인은 사용중인 브라우저마다 다르며, 각각의 플러그인은 다음의 링크로 들어가 설치하실 수 있습니다:
+유저스크립트 플러그인은 여러 종류가 있지만 just-news는 [Tampermonkey](http://tampermonkey.net/) 사용을 권장합니다.
+Tampermonkey는 크롬, 파이어폭스, 엣지, 사파리, 오페라 등의 웹브라우저를 지원합니다.
 
-* [파이어폭스 사용자 - Greasemonkey](https://addons.mozilla.org/ko/firefox/addon/greasemonkey/)
-* [크롬 사용자 - Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
-* [사파리 사용자 - NinjaKit](https://github.com/os0x/NinjaKit)
-* [IE 사용자 - TrixIE](http://sourceforge.net/projects/trixiewpf45/)
+Tampermonkey 외에도
+[Greasemonkey](http://www.greasespot.net/),
+[Violentmonkey](https://github.com/violentmonkey/violentmonkey),
+[NinjaKit](https://github.com/os0x/NinjaKit) 등의 유저스크립트 플러그인이 있습니다.
 
 ### [스크립트 설치](https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js)
 
-UserScript 플러그인이 설치됐다면 위 링크를 클릭하여 스크립트 설치 다이얼로그를 띄웁니다.
+유저스크립트 플러그인이 설치됐다면 위 링크를 클릭하면 자동으로 just-news 설치창이 뜹니다.
 
 
 ## 기여하는 법
@@ -57,8 +57,8 @@ just-news는 github issue tracker를 사용합니다.
 4. 저장소의 `dist` 폴더로 가면 빌드된 `just-news.user.js` 파일을 확인할 수 있습니다.
 
 #### 쉽게 개발버전 userscript를 테스트하는 법
-Tampermonkey 등의 브라우저 플러그인을 사용하면
-`*.user.js` 꼴의 주소로 접근할 때 자동으로 재설치 브라우저 탭을 띄워줍니다.
+Tampermonkey 등의 유저스크립트 플러그인을 사용하면
+`*.user.js` 꼴의 주소로 들어갈 때 자동으로 재설치 화면을 띄워줍니다.
 
 따라서 저장소 디렉토리에 http 서버를 띄워놓고, 소스코드 빌드 후
 브라우저 탭을 열고 `http://localhost:<포트>/dist/just-news.user.js` 주소로 들어가면
@@ -74,7 +74,7 @@ $ http-server -p <포트>
 ### 유의사항
 
 #### 버그 제보 관련
-* 특정 환경에서만 발생하는 버그는 제보시에 특정 환경(브라우저/OS 등)을 명시해주세요.
+* 특정 환경에서만 발생하는 버그는 제보시에 특정 환경(웹브라우저/OS 등)을 명시해주세요.
 * 특정 뉴스사이트나 기사 페이지에서만 발생하는 버그 역시 제보시에 링크를 명시해주세요.
 
 #### 개발 관련
