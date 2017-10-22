@@ -34,9 +34,8 @@ const fuse = FuseBox.init({
     ],
 });
 fuse.bundle('just-news.user').instructions(`
-    > index.js
-    + [impl/*]
-    + regenerator-runtime
+    > index.ts
+    + impl/*.{ts,js}
     + lodash.escaperegexp
     + jquery
 `);
