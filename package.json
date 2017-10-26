@@ -14,7 +14,9 @@
   ],
   "scripts": {
     "build": "node ./dev/fuse",
-    "test": "node ./src/test"
+    "test": "node ./src/test",
+    "server": "http-server -p 4040",
+    "dev": "npm run build && npm run server"
   },
   "repository": {
     "type": "git",
