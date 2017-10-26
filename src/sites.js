@@ -1,3 +1,5 @@
+// This file should be kept in a '.js' file to simplify babel's settings.
+
 exports.__esModule = true;
 exports.default = {
     // i
@@ -17,7 +19,7 @@ exports.default = {
     // y
     'YTN': ['http://www.ytn.co.kr/_ln/*'],
     // ㄱ
-    '경향비즈': ['http://bizn.khan.co.kr/khan_art_view.html*'],
+    '경향비즈': ['http://biz.khan.co.kr/khan_art_view.html*'],
     '경향신문': ['http://news.khan.co.kr/kh_news/khan_art_view.html*'],
     '국민일보': ['http://news.kmib.co.kr/article/view.asp*'],
     // ㄴ
@@ -57,7 +59,7 @@ exports.default = {
     '스포츠서울': ['http://www.sportsseoul.com/news/read/*'],
     '스포츠조선': ['http://sports.chosun.com/news/ntype.htm*', 'http://sports.chosun.com/news/ntype5.htm*', 'http://sports.chosun.com/news/utype.htm*'],
     '스포탈코리아': ['http://www.sportalkorea.com/news/view.php*', 'http://www.sportalkorea.com/newsplus/view_sub.php*'],
-    '시사IN Live': ['http://www.sisainlive.com/news/articleView.html?*'],
+    '시사INLive': ['http://www.sisainlive.com/news/articleView.html?*'],
     // ㅇ
     '아시아경제': ['http://www.asiae.co.kr/news/view.htm*', 'http://car.asiae.co.kr/view.htm*', 'http://edu.asiae.co.kr/view.htm*', 'http://gold.asiae.co.kr/view.htm*', 'http://golf.asiae.co.kr/view.htm*', 'http://stock.asiae.co.kr/news/view.htm*', 'http://view.asiae.co.kr/news/view.htm*'],
     '아시아투데이': ['http://www.asiatoday.co.kr/view.php*'],
