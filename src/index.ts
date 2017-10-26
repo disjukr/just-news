@@ -7,10 +7,9 @@ import {
 
 export function checkUrl(pattern: string): boolean {
     const { href } = window.location;
+    const re = new RegExp(escapeRegExp(pattern).replace(/\\\*/g, '.*'));
 
-    return (new RegExp(
-        escapeRegExp(pattern).replace(/\\\*/g, '.*')
-    )).test(href);
+    return re.test(href);
 }
 
 export function here(): string | void {
