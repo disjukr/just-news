@@ -1,6 +1,4 @@
-import {
-    Article,
-} from '..';
+import Article from '../Article';
 
 export default function (): Promise<Article> {
     return new Promise(resolve => {
