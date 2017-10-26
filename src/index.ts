@@ -13,7 +13,7 @@ export function checkUrl(pattern: string): boolean {
     )).test(href);
 }
 
-export function where(): string | void {
+export function here(): string | void {
     for (const site in sites) {
         for (const pattern of sites[site]) {
             if (checkUrl(pattern)) {
@@ -45,7 +45,7 @@ main: {
     }
 
     waitWhilePageIsLoading()
-    .then(() => require('./impl/' + where()).default())
+    .then(() => require('./impl/' + here()).default())
     .then(article => reconstruct(article))
     .catch(err => console.log(err && (err.stack || err)));
 }

@@ -26,23 +26,25 @@ export function noReconstructUrl(): string {
 }
 
 export function reconstruct(article: Article): void {
-    // timeout, interval 청소
-    let id = window.setTimeout('0', 0);
+    { // timeout, interval 청소
+        let id = window.setTimeout('0', 0);
 
-    while (id--) {
-        window.clearTimeout(id);
-        window.clearInterval(id);
+        while (id--) {
+            window.clearTimeout(id);
+            window.clearInterval(id);
+        }
     }
 
-    // hack: popup 창 못 띄우게 만들기
-    window.open = function () {};
-
-    // cleanup
-    if (typeof article.cleanup === 'function') {
-        window.setInterval(article.cleanup, 1000);
+    { // hack: popup 창 못 띄우게 만들기
+        window.open = function () {};
     }
 
-    // reconstruct
+    { // cleanup
+        if (typeof article.cleanup === 'function') {
+            window.setInterval(article.cleanup, 1000);
+        }
+    }
+
     const root = document.createElement('html');
     document.replaceChild(root, document.documentElement);
     root.innerHTML = `
@@ -64,7 +66,7 @@ export function reconstruct(article: Article): void {
         <div id="timestamp">
         ${(() => {
             let result = '';
-            const timestamp = article.timestamp;
+            const { timestamp } = article;
 
             if (!timestamp) {
                 return result;
