@@ -1,18 +1,18 @@
-export function clearStyles (element) {
+export default (element: any): any => {
   if (element.jquery) {
       throw new Error('`clearStyles` 함수는 인자로 DOM element만 받습니다.');
   }
 
   try {
-      Array.prototype.forEach.call(element.querySelectorAll('*[style]'), (child) => {
+      Array.prototype.forEach.call(element.querySelectorAll('*[style]'), (child: any): void => {
           child.removeAttribute('style');
       });
-      Array.prototype.forEach.call(element.querySelectorAll('img'), (image) => {
+      Array.prototype.forEach.call(element.querySelectorAll('img'), (image: any): void => {
           image.removeAttribute('width');
           image.removeAttribute('height');
           image.removeAttribute('border');
       });
-      Array.prototype.forEach.call(element.getElementsByTagName('table'), (table) => {
+      Array.prototype.forEach.call(element.getElementsByTagName('table'), (table: any): void => {
           table.removeAttribute('width');
           table.removeAttribute('height');
       });
