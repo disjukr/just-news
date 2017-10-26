@@ -46,5 +46,5 @@ main: {
     waitWhilePageIsLoading()
     .then(() => require('./impl/' + here()).default())
     .then(article => reconstruct(article))
-    .catch(err => console.log(err && (err.stack || err)));
+    .catch(err => console.error(err && (err.stack || err)));
 }
