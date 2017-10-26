@@ -1,3 +1,5 @@
+// This file should be kept in a '.js' file to simplify babel's settings. 
+
 exports.__esModule = true;
 exports.default = {
     // i

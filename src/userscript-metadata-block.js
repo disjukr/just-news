@@ -1,3 +1,5 @@
+// This file should be kept in a '.js' file to simplify babel's settings. 
+
 const sites = require('./sites').default;
 
 // http://wiki.greasespot.net/Metadata_Block
