@@ -1,3 +1,4 @@
+import { escapeRegExp } from 'lodash';
 import sites from './sites';
 import {
     reconstruct,
@@ -20,7 +21,6 @@ export function waitWhilePageIsLoading() {
     });
 };
 
-const escapeRegExp = require('lodash.escaperegexp');
 export function checkUrl(pattern: string, url=window.location.href) {
     return (new RegExp(
         escapeRegExp(pattern).replace(/\\\*/g, '.*')
