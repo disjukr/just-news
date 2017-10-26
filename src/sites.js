@@ -1,4 +1,4 @@
-// This file should be kept in a '.js' file to simplify babel's settings. 
+// 이 파일은 'dev/fuse.js'를 위해서 js 파일로 유지해야 해요.
 
 exports.__esModule = true;
 exports.default = {
