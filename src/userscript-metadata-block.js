@@ -1,3 +1,5 @@
+// 이 파일은 `dev/fuse.js`에서 import 하고있으니 .js 파일로 유지돼야 합니다.
+
 const sites = require('./sites').default;
 
 // http://wiki.greasespot.net/Metadata_Block
