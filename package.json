@@ -13,8 +13,8 @@
     }
   ],
   "scripts": {
-    "build": "node ./dev/fuse",
-    "test": "node ./src/test"
+    "build": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node ./dev/fuse",
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node ./src/test"
   },
   "repository": {
     "type": "git",
@@ -37,7 +37,8 @@
     "@types/jquery": "^3.2.15",
     "@types/node": "^8.0.46",
     "jquery": "^3.2.1",
-    "lodash.escaperegexp": "^4.1.2"
+    "lodash.escaperegexp": "^4.1.2",
+    "ts-node": "^3.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

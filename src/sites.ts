@@ -1,7 +1,4 @@
-// 이 파일은 `dev/fuse.js`에서 import 하고있으니 .js 파일로 유지돼야 합니다.
-
-exports.__esModule = true;
-exports.default = {
+export default {
     // i
     'ITWORLD': ['http://www.itworld.co.kr/news/*'],
     // j

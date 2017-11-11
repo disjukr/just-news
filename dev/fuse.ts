@@ -1,9 +1,9 @@
-const {
+import {
     FuseBox,
     BabelPlugin,
     BannerPlugin,
-} = require('fuse-box');
-const userscriptMetadataBlock = require('../src/userscript-metadata-block').default;
+} from 'fuse-box';
+import userscriptMetadataBlock from '../src/userscript-metadata-block';
 
 const babelPlugin = BabelPlugin({
     config: {
