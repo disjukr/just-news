@@ -26,6 +26,7 @@ const babelPlugin = BabelPlugin({
 const bannerPlugin = BannerPlugin(userscriptMetadataBlock);
 
 const fuse = FuseBox.init({
+    target: 'browser@es2015',
     homeDir: '../src/',
     output: '../dist/$name.js',
     plugins: [

@@ -43,7 +43,7 @@ export function checkUrl(pattern: string, url=window.location.href) {
 
 export function here() {
     for (let site in sites) {
-        for (let pattern of sites[site]) {
+        for (let pattern of sites[site as keyof typeof sites]) {
             if (checkUrl(pattern)) {
                 return site;
             }

@@ -12,7 +12,7 @@ export default `// ==UserScript==
 // @grant none
 ${
     Object.keys(sites).map(
-        (site: keyof typeof sites) => sites[site].map(
+        site => sites[site as keyof typeof sites].map(
             pattern => `// @include ${ pattern }`
         ).join('\n')
     ).join('\n')
