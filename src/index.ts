@@ -58,7 +58,10 @@ main: {
     }
     waitWhilePageIsLoading().then(() => {
         const where = here();
-        return require('./impl/' + where).default();
+        const impl = require('./impl/' + where);
+        if (impl.parse) return impl.parse();
+        if (impl.default) return impl.default();
+        throw new Error('구현된 파싱 함수가 없습니다.');
     }).then(
         article => reconstruct(article)
     ).catch(e => {

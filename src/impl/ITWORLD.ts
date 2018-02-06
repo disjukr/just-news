@@ -2,7 +2,7 @@ import {
     Article,
 } from '..';
 
-export default function (): Promise<Article> {
+export function parse(): Promise<Article> {
     return new Promise(resolve => {
         const created = (() => {
             const timeString = document.getElementsByClassName('news_list_time')[0].textContent!.trim();
