@@ -52,20 +52,20 @@ export function here() {
     throw new Error('이 사이트는 지원되지 않습니다.');
 };
 
-main: {
-    if (!reconstructable()) {
-        break main;
-    }
-    waitWhilePageIsLoading().then(() => {
+async function main() {
+    if (!reconstructable()) return;
+    try {
         const where = here();
         const impl = require('./impl/' + where);
-        if (impl.parse) return impl.parse();
-        if (impl.default) return impl.default();
-        throw new Error('구현된 파싱 함수가 없습니다.');
-    }).then(
-        article => reconstruct(article)
-    ).catch(e => {
-        let err = e ? (e.stack || e) : e;
-        console.error(err);
-    });
+        const article =
+            impl.parse ? await impl.parse() as Article :
+            impl.default ? await impl.default() as Article :
+            null;
+        if (article == null) throw new Error('구현된 파싱 함수가 없습니다.');
+        reconstruct(article);
+    } catch (e) {
+        console.error(e ? (e.stack || e) : e);
+    }
 }
+
+main();
