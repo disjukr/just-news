@@ -13,7 +13,7 @@ import {
 export const readyToParse = () => waitElement('#adtive');
 
 export function parse(): Article {
-    const articleBodyElement = $('.art_cont')[0].cloneNode(true);
+    const articleBodyElement = $('.art_cont')[0].cloneNode(true) as HTMLElement;
     return {
         title: $('#articleTtitle').text(),
         subtitle: $('.art_subtit', articleBodyElement).text(),
