@@ -1,3 +1,25 @@
+export function waitPage() {
+    return new Promise(resolve => {
+        switch (document.readyState) {
+        case 'interactive': case 'complete': { resolve(); break; }
+        default: {
+            window.addEventListener('DOMContentLoaded', resolve);
+        } break;
+        }
+    });
+};
+
+export function waitElement(selector) {
+    return new Promise(resolve => {
+        const i = setInterval(() => {
+            if ($(selector).length > 0) {
+                clearInterval(i);
+                resolve();
+            }
+        }, 100);
+    });
+}
+
 export function clearStyles(element) {
     if (element.jquery) {
         throw new Error('`clearStyles` 함수는 인자로 DOM element만 받습니다.');

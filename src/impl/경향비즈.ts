@@ -4,8 +4,13 @@ import * as moment from 'moment';
 import {
     Article,
 } from '..';
-import { clearStyles } from '../util';
+import {
+    clearStyles,
+    waitElement,
+} from '../util';
 
+
+export const readyToParse = () => waitElement('#adtive');
 
 export function parse(): Article {
     const articleBodyElement = $('.art_cont')[0].cloneNode(true);

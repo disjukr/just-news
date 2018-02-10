@@ -3,6 +3,8 @@ import {
     reconstruct,
     reconstructable,
 } from './reconstruct';
+import { waitPage } from './util';
+
 
 export interface Timestamp {
     created?: Nullable<Date>;
@@ -22,17 +24,6 @@ export interface Article {
     reporters?: Nullable<Reporter[]>;
     cleanup?: Nullable<() => void>;
 }
-
-export function waitWhilePageIsLoading() {
-    return new Promise(resolve => {
-        switch (document.readyState) {
-        case 'interactive': case 'complete': { resolve(); break; }
-        default: {
-            window.addEventListener('DOMContentLoaded', resolve);
-        } break;
-        }
-    });
-};
 
 const escapeRegExp = require('lodash.escaperegexp');
 export function checkUrl(pattern: string, url=window.location.href) {
@@ -57,6 +48,11 @@ async function main() {
     try {
         const where = here();
         const impl = require('./impl/' + where);
+        if (impl.readyToParse) {
+            await impl.readyToParse();
+        } else {
+            await waitPage();
+        }
         const article =
             impl.parse ? await impl.parse() as Article :
             impl.default ? await impl.default() as Article :

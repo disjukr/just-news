@@ -10,6 +10,7 @@ export default `// ==UserScript==
 // @downloadURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @copyright 2014 JongChan Choi
 // @grant none
+// @run-at document-start
 ${
     Object.keys(sites).map(
         site => sites[site as keyof typeof sites].map(
