@@ -1,15 +1,15 @@
-export function waitPage() {
+export function waitDOMContentLoaded(): Promise<void> {
     return new Promise(resolve => {
         switch (document.readyState) {
         case 'interactive': case 'complete': { resolve(); break; }
         default: {
-            window.addEventListener('DOMContentLoaded', resolve);
+            window.addEventListener('DOMContentLoaded', () => resolve());
         } break;
         }
     });
 };
 
-export function waitElement(selector) {
+export function waitElement(selector: string): Promise<void> {
     return new Promise(resolve => {
         const i = setInterval(() => {
             if ($(selector).length > 0) {
@@ -20,23 +20,23 @@ export function waitElement(selector) {
     });
 }
 
-export function clearStyles(element) {
-    if (element.jquery) {
+export function clearStyles(element: HTMLElement) {
+    if ('jquery' in element) {
         throw new Error('`clearStyles` 함수는 인자로 DOM element만 받습니다.');
     }
     try {
-        Array.prototype.forEach.call(element.querySelectorAll('*[style]'), function (child) {
+        for (const child of Array.from(element.querySelectorAll('*[style]'))) {
             child.removeAttribute('style');
-        });
-        Array.prototype.forEach.call(element.querySelectorAll('img'), function (image) {
+        }
+        for (const image of Array.from(element.querySelectorAll('img'))) {
             image.removeAttribute('width');
             image.removeAttribute('height');
             image.removeAttribute('border');
-        });
-        Array.prototype.forEach.call(element.getElementsByTagName('table'), function (table) {
+        }
+        for (const table of Array.from(element.getElementsByTagName('table'))) {
             table.removeAttribute('width');
             table.removeAttribute('height');
-        });
+        }
     } catch (e) {
         console.error('스타일 청소에 실패하였습니다.');
         console.error('`article.content`를 처리하는 부분이 의심됩니다.');

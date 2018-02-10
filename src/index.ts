@@ -3,7 +3,7 @@ import {
     reconstruct,
     reconstructable,
 } from './reconstruct';
-import { waitPage } from './util';
+import { waitDOMContentLoaded } from './util';
 
 
 export interface Timestamp {
@@ -51,7 +51,7 @@ async function main() {
         if (impl.readyToParse) {
             await impl.readyToParse();
         } else {
-            await waitPage();
+            await waitDOMContentLoaded();
         }
         const article =
             impl.parse ? await impl.parse() as Article :
