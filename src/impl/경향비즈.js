@@ -1,39 +1,42 @@
 import * as $ from 'jquery';
+import * as moment from 'moment';
 import { clearStyles } from '../util';
 
-export default function () {
-    let jews = {};
-    jews.title = $('.tit_subject').text();
-    jews.subtitle = undefined;
-    jews.content = (function () {
-        var content = $('#sub_cntTopTxt')[0].cloneNode(true);
-        $('a', content).each(function (_, anchor) {
-            $(anchor).replaceWith($(anchor)[0].innerHTML);
-        });
-        $('#article_bottom_ad, #divBox', content).remove();
-        return clearStyles(content).innerHTML;
-    })();
-    jews.timestamp = (function() {
-        var times = $('.time').text().split('\u3163'); // Korean vowel 'ㅣ'
-        return {
-            created: new Date(times[0].substr(5).replace(' ', 'T') + '+09:00'),
-            lastModified: new Date(times[1].substr(5).replace(' ', 'T') + '+09:00')
-        };
-    })();
-    jews.reporters = (function () {
-        var information = $('.info_part').text().match(/(.*)\s+(.*@.*)/);
-        if (information !== null) {
+
+export function parse() {
+    const articleBodyElement = $('.art_cont')[0].cloneNode(true);
+    return {
+        title: $('#articleTtitle').text(),
+        subtitle: $('.art_subtit', articleBodyElement).text(),
+        content: (() => {
+            { // 부제목
+                $('.art_subtit', articleBodyElement).remove();
+            }
+            { // 이상한 것들
+                $('#adtive', articleBodyElement).nextAll().remove();
+                $('#adtive', articleBodyElement).remove();
+            }
+            { // 광고
+                $('.article_bottom_ad, .iwmads-wrapper #divBox', articleBodyElement).remove();
+            }
+            return clearStyles(articleBodyElement).innerHTML;
+        })(),
+        timestamp: (() => {
+            const times = $('#bylineArea em');
+            const format = 'YYYY.MM.DD HH:mm:ss';
+            const parse = text => moment(text.replace(/.*?:\s*/, ''), format);
+            return {
+                created: parse(times.eq(0).text()).toDate(),
+                lastModified: times[1] && parse(times.eq(1).text()).toDate(),
+            };
+        })(),
+        reporters: (() => {
+            const d = /(.*?) 기자 ?(.*)/.exec($('.view_header .subject .name').text());
             return [{
-                name: information[1].trim(),
-                mail: information[2].trim()
-            }];
-        } else {
-            return [{
-                name: $('.info_part').text().trim(),
-                mail: undefined
-            }];
-        }
-    })();
-    jews.cleanup = undefined;
-    return jews;
+                name: d[1],
+                mail: d[2],
+            }]
+        })(),
+        cleanup: () => $('#scrollDiv, iframe').remove(),
+    };
 }

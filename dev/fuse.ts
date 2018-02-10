@@ -21,5 +21,6 @@ fuse.bundle('just-news.user').instructions(`
     + impl/*.{ts,js}
     + lodash.escaperegexp
     + jquery
+    + moment
 `);
 fuse.run();
