@@ -12,6 +12,8 @@ import {
 
 export const readyToParse = () => waitElement('#adtive');
 
+export const cleanup = () => $('#scrollDiv, iframe').remove();
+
 export function parse(): Article {
     const articleBodyElement = $('.art_cont')[0].cloneNode(true) as HTMLElement;
     return {
@@ -52,6 +54,5 @@ export function parse(): Article {
                 mail: d![2],
             }];
         })(),
-        cleanup: () => $('#scrollDiv, iframe').remove(),
     };
 }

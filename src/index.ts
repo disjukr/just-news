@@ -58,7 +58,7 @@ async function main() {
             impl.default ? await impl.default() as Article :
             null;
         if (article == null) throw new Error('구현된 파싱 함수가 없습니다.');
-        reconstruct(article);
+        reconstruct(article, impl.cleanup || article.cleanup);
     } catch (e) {
         console.error(e ? (e.stack || e) : e);
     }

@@ -19,7 +19,7 @@ export function noReconstructUrl() {
     return window.location.origin + window.location.pathname + query;
 }
 
-export function reconstruct(article: Article) {
+export function reconstruct(article: Article, cleanup?: Function) {
     { // timeout, interval 청소
         let id = window.setTimeout('0', 0);
         while (id--) {
@@ -31,7 +31,7 @@ export function reconstruct(article: Article) {
         window.open = () => null;
     }
     { // cleanup
-        if (typeof article.cleanup === 'function') window.setInterval(article.cleanup, 1000);
+        if (cleanup) window.setInterval(cleanup, 1000);
     }
     let root = document.createElement('html');
     document.replaceChild(root, document.documentElement);
