@@ -1,3 +1,8 @@
+import {
+    Article,
+} from '.';
+
+
 const noReconstructQueryKey = 'just_news';
 
 export function reconstructable() {
@@ -14,7 +19,7 @@ export function noReconstructUrl() {
     return window.location.origin + window.location.pathname + query;
 }
 
-export function reconstruct(article) {
+export function reconstruct(article: Article) {
     { // timeout, interval 청소
         let id = window.setTimeout('0', 0);
         while (id--) {
@@ -23,7 +28,7 @@ export function reconstruct(article) {
         }
     }
     { // popup 창 못 띄우게 만들기
-        window.open = function () {};
+        window.open = () => null;
     }
     { // cleanup
         if (typeof article.cleanup === 'function') window.setInterval(article.cleanup, 1000);
