@@ -15,7 +15,9 @@ export const readyToParse = () => waitElement('#adtive');
 export function parse(): Article {
     const articleBodyElement = $('.art_cont')[0].cloneNode(true) as HTMLElement;
     return {
-        title: $('#articleTtitle').text(),
+        // `biz.khan.co.kr`일 경우 `#articleTtitle`
+        // `news.khan.co.kr`일 경우 `#article_title`
+        title: $('#articleTtitle, #article_title').text(),
         subtitle: $('.art_subtit', articleBodyElement).text(),
         content: (() => {
             { // 부제목
@@ -31,7 +33,7 @@ export function parse(): Article {
             return clearStyles(articleBodyElement).innerHTML;
         })(),
         timestamp: (() => {
-            const times = $('#bylineArea em');
+            const times = $('.byline em');
             const format = 'YYYY.MM.DD HH:mm:ss';
             const parse = (text: string) => moment(text.replace(/.*?:\s*/, ''), format);
             return {
@@ -40,7 +42,11 @@ export function parse(): Article {
             };
         })(),
         reporters: (() => {
-            const d = /(.*?) 기자 ?(.*)/.exec($('.view_header .subject .name').text());
+            const d = /(.*?) 기자 ?(.*)/.exec(
+                // `biz.khan.co.kr`일 경우 `.view_header`
+                // `news.khan.co.kr`일 경우 `.art_header`
+                $('.view_header, .art_header').find('.subject .name').text()
+            );
             return [{
                 name: d![1],
                 mail: d![2],

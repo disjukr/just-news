@@ -105,7 +105,6 @@ $ http-server -p <포트>
 * [x] [OSEN](http://osen.mt.co.kr)
 * [x] [SBS](http://news.sbs.co.kr)
 * [x] [YTN](http://www.ytn.co.kr)
-* [x] [경향비즈](http://bizn.khan.co.kr)
 * [x] [경향신문](http://www.khan.co.kr)
 * [x] [국민일보](http://www.kmib.co.kr)
 * [x] [나우뉴스](http://nownews.seoul.co.kr)
