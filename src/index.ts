@@ -3,6 +3,8 @@ import {
     reconstruct,
     reconstructable,
 } from './reconstruct';
+import { waitDOMContentLoaded } from './util';
+
 
 export interface Timestamp {
     created?: Nullable<Date>;
@@ -23,17 +25,6 @@ export interface Article {
     cleanup?: Nullable<() => void>;
 }
 
-export function waitWhilePageIsLoading() {
-    return new Promise(resolve => {
-        switch (document.readyState) {
-        case 'interactive': case 'complete': { resolve(); break; }
-        default: {
-            window.addEventListener('DOMContentLoaded', resolve);
-        } break;
-        }
-    });
-};
-
 const escapeRegExp = require('lodash.escaperegexp');
 export function checkUrl(pattern: string, url=window.location.href) {
     return (new RegExp(
@@ -43,7 +34,7 @@ export function checkUrl(pattern: string, url=window.location.href) {
 
 export function here() {
     for (let site in sites) {
-        for (let pattern of sites[site]) {
+        for (let pattern of sites[site as keyof typeof sites]) {
             if (checkUrl(pattern)) {
                 return site;
             }
@@ -52,17 +43,25 @@ export function here() {
     throw new Error('이 사이트는 지원되지 않습니다.');
 };
 
-main: {
-    if (!reconstructable()) {
-        break main;
-    }
-    waitWhilePageIsLoading().then(() => {
+async function main() {
+    if (!reconstructable()) return;
+    try {
         const where = here();
-        return require('./impl/' + where).default();
-    }).then(
-        article => reconstruct(article)
-    ).catch(e => {
-        let err = e ? (e.stack || e) : e;
-        console.error(err);
-    });
+        const impl = require('./impl/' + where);
+        if (impl.readyToParse) {
+            await impl.readyToParse();
+        } else {
+            await waitDOMContentLoaded();
+        }
+        const article =
+            impl.parse ? await impl.parse() as Article :
+            impl.default ? await impl.default() as Article :
+            null;
+        if (article == null) throw new Error('구현된 파싱 함수가 없습니다.');
+        reconstruct(article, impl.cleanup || article.cleanup);
+    } catch (e) {
+        console.error(e ? (e.stack || e) : e);
+    }
 }
+
+main();

@@ -40,10 +40,11 @@ just-news는 github issue tracker를 사용합니다.
     1. 뉴스 사이트가 하단의 지원 사이트 목록에 체크되어있지 않은지 확인합니다.
     2. 목록에 사이트가 없으면 추가합니다.
 2. 구현합니다.
-    1. `src/sites.js`에 뉴스사 이름을 키로 갖는, 주소 패턴 목록을 추가합니다.
-    2. `src/impl` 경로에 `article` 객체를 반환하는 모듈을 작성합니다.
+    1. `src/sites.ts`에 뉴스사 이름을 키로 갖는, 주소 패턴 목록을 추가합니다.
+    2. `src/impl` 경로에 `article` 객체를 반환하는 `parse` 함수를 담은 모듈을 작성합니다.
         1. 모듈 이름은 뉴스사 이름으로 합니다.
         2. 비동기로 작동해야할 경우 `Promise` 객체를 반환하면 됩니다.
+        3. 특정 뉴스기사에서만 작동하는 코드의 경우 해당 뉴스기사 url을 주석으로 적어주세요.
 3. 지원 사이트 목록에 구현한 항목을 체크하고 Pull Request를 보냅니다.
 
 ### 소스코드 빌드하기
@@ -57,6 +58,7 @@ just-news는 github issue tracker를 사용합니다.
 4. 저장소의 `dist` 폴더로 가면 빌드된 `just-news.user.js` 파일을 확인할 수 있습니다.
 
 #### 쉽게 개발버전 userscript를 테스트하는 법
+
 Tampermonkey 등의 유저스크립트 플러그인을 사용하면
 `*.user.js` 꼴의 주소로 들어갈 때 자동으로 재설치 화면을 띄워줍니다.
 
@@ -74,10 +76,12 @@ $ http-server -p <포트>
 ### 유의사항
 
 #### 버그 제보 관련
+
 * 특정 환경에서만 발생하는 버그는 제보시에 특정 환경(웹브라우저/OS 등)을 명시해주세요.
 * 특정 뉴스사이트나 기사 페이지에서만 발생하는 버그 역시 제보시에 링크를 명시해주세요.
 
 #### 개발 관련
+
 * `article` 객체는 `src/index.ts`에 정의된 `Article` 인터페이스를 따르도록 합니다.
     * 뉴스 페이지에서 해당하는 정보가 없을 경우 `null`값을 채워 넣습니다.
 * 릴리즈는 사람이 직접 할 필요가 없습니다. travis ci를 통해 [jews-bot 계정](https://github.com/jews-bot)이 자동으로 처리합니다.
@@ -85,9 +89,17 @@ $ http-server -p <포트>
 ### 털어내기
 
 몇몇 뉴스 사이트들은 사이트 재구성 뒤에도 광고가 남아있을 수 있습니다.
-재구성을 했는데도 남는 광고들은 `article.cleanup`를 사용하여 털어내도록 합시다.
+재구성을 했는데도 남는 광고들은 `cleanup` 함수를 사용하여 털어내도록 합시다.
 
-`article.cleanup` 함수는 사이트 재구성이 일어난 뒤, 1초 주기로 매 번 호출됩니다.
+예시)
+```js
+// 주의: iframe을 없애는게 대부분의 광고를 쉽게 없애버릴 수 있는 방법이긴 하지만
+// 유투브 영상등을 포함한 뉴스기사의 경우, 단순히 iframe을 잡아서 날리면
+// 실제 기사 내용이 사라지는 문제가 발생할 수 있습니다.
+export const cleanup = () => $('#scrollDiv, iframe').remove();
+```
+
+`cleanup` 함수는 사이트 재구성이 일어난 뒤, 1초 주기로 매 번 호출됩니다.
 
 
 ## 지원 사이트
@@ -101,7 +113,6 @@ $ http-server -p <포트>
 * [x] [OSEN](http://osen.mt.co.kr)
 * [x] [SBS](http://news.sbs.co.kr)
 * [x] [YTN](http://www.ytn.co.kr)
-* [x] [경향비즈](http://bizn.khan.co.kr)
 * [x] [경향신문](http://www.khan.co.kr)
 * [x] [국민일보](http://www.kmib.co.kr)
 * [x] [나우뉴스](http://nownews.seoul.co.kr)

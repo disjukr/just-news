@@ -1,10 +1,7 @@
-// 이 파일은 `dev/fuse.js`에서 import 하고있으니 .js 파일로 유지돼야 합니다.
-
-const sites = require('./sites').default;
+import sites from './sites';
 
 // http://wiki.greasespot.net/Metadata_Block
-exports.__esModule = true;
-exports.default = `// ==UserScript==
+export default `// ==UserScript==
 // @name just-news
 // @namespace http://0xABCDEF.com/just-news
 // @description just news
@@ -13,9 +10,10 @@ exports.default = `// ==UserScript==
 // @downloadURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @copyright 2014 JongChan Choi
 // @grant none
+// @run-at document-start
 ${
     Object.keys(sites).map(
-        site => sites[site].map(
+        site => sites[site as keyof typeof sites].map(
             pattern => `// @include ${ pattern }`
         ).join('\n')
     ).join('\n')

@@ -1,3 +1,8 @@
+import {
+    Article,
+} from '.';
+
+
 const noReconstructQueryKey = 'just_news';
 
 export function reconstructable() {
@@ -14,7 +19,7 @@ export function noReconstructUrl() {
     return window.location.origin + window.location.pathname + query;
 }
 
-export function reconstruct(article) {
+export function reconstruct(article: Article, cleanup?: Function) {
     { // timeout, interval 청소
         let id = window.setTimeout('0', 0);
         while (id--) {
@@ -23,30 +28,44 @@ export function reconstruct(article) {
         }
     }
     { // popup 창 못 띄우게 만들기
-        window.open = function () {};
+        window.open = () => null;
     }
     { // cleanup
-        if (typeof article.cleanup === 'function') window.setInterval(article.cleanup, 1000);
+        if (cleanup) window.setInterval(cleanup, 1000);
     }
     let root = document.createElement('html');
     document.replaceChild(root, document.documentElement);
     root.innerHTML = `
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     <title>${ article.title || 'just-news' }</title>
     <style>
     @import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
     body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         margin-top: 10px;
-        margin-bottom: 500px;
+        margin-bottom: 60vh;
         text-align: center;
     }
     #info {
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         color: #666;
+    }
+    #title {
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+    #sub-title {
+        margin-top: -20px;
+        margin-bottom: 40px;
     }
     #meta {
         display: inline-block;
         width: 640px;
+        max-width: calc(100% - 40px);
     }
     #timestamp {
         color: #888;
@@ -66,6 +85,7 @@ export function reconstruct(article) {
     #content {
         display: inline-block;
         width: 640px;
+        max-width: calc(100% - 40px);
         font-family: 'Nanum Myeongjo', serif;
         font-size: 11pt;
         text-align: justify;
@@ -78,7 +98,6 @@ export function reconstruct(article) {
         height: auto;
     }
     </style>
-    <meta charset="utf-8">
 </head>
 <body>
     <div id="info">
@@ -87,8 +106,8 @@ export function reconstruct(article) {
             <a href="${ noReconstructUrl() }">원본 페이지 보기</a>
         </small>
     </div>
-    <h1>${ article.title || 'no title' }</h1>
-    ${ (!!article.subtitle) ? `<h2>${ article.subtitle }</h2>` : '' }
+    <h1 id="title">${ article.title || 'no title' }</h1>
+    ${ (!!article.subtitle) ? `<h2 id="sub-title">${ article.subtitle }</h2>` : '' }
     <div id="meta">
         <div id="timestamp">
         ${(() => {

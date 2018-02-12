@@ -1,7 +1,4 @@
-// 이 파일은 `dev/fuse.js`에서 import 하고있으니 .js 파일로 유지돼야 합니다.
-
-exports.__esModule = true;
-exports.default = {
+export default {
     // i
     'ITWORLD': ['http://www.itworld.co.kr/news/*'],
     // j
@@ -19,8 +16,7 @@ exports.default = {
     // y
     'YTN': ['http://www.ytn.co.kr/_ln/*'],
     // ㄱ
-    '경향비즈': ['http://bizn.khan.co.kr/khan_art_view.html*'],
-    '경향신문': ['http://news.khan.co.kr/kh_news/khan_art_view.html*'],
+    '경향신문': ['http://biz.khan.co.kr/khan_art_view.html*', 'http://news.khan.co.kr/kh_news/khan_art_view.html*'],
     '국민일보': ['http://news.kmib.co.kr/article/view.asp*'],
     // ㄴ
     '나우뉴스': ['http://nownews.seoul.co.kr/news/newsView.php*'],
