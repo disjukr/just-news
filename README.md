@@ -93,6 +93,9 @@ $ http-server -p <포트>
 
 예시)
 ```js
+// 주의: iframe을 없애는게 대부분의 광고를 쉽게 없애버릴 수 있는 방법이긴 하지만
+// 유투브 영상등을 포함한 뉴스기사의 경우, 단순히 iframe을 잡아서 날리면
+// 실제 기사 내용이 사라지는 문제가 발생할 수 있습니다.
 export const cleanup = () => $('#scrollDiv, iframe').remove();
 ```
 
