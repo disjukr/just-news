@@ -1,3 +1,6 @@
+import * as $ from 'jquery';
+
+
 export function waitDOMContentLoaded(): Promise<void> {
     return new Promise(resolve => {
         switch (document.readyState) {
