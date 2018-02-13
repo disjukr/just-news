@@ -2,7 +2,7 @@
 // @name just-news
 // @namespace http://0xABCDEF.com/just-news
 // @description just news
-// @version 20180212
+// @version 20180213
 // @updateURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @downloadURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @copyright 2014 JongChan Choi
@@ -834,7 +834,7 @@ function default_1() {
     jews.title = $('.article_tit').text();
     jews.subtitle = undefined;
     jews.content = (function () {
-        var content = $('.article_paragraph')[0].cloneNode(true);
+        var content = $('.article_wrap')[0].cloneNode(true);
         $('.news_slide, .articleAd_new, .hns_mask_div', content).remove();
         $('.playbt', content).remove();
         $('.bt_vodinfo', content).remove();
@@ -846,7 +846,7 @@ function default_1() {
         return util_1.clearStyles(content).innerHTML;
     })();
     jews.timestamp = {
-        created: new Date($('.article_info .extra_info').text().trim().replace('Posted : ', '').replace(/-/g, '/')),
+        created: $('.extra_info').length ? new Date($('.extra_info').text().trim().replace('Posted : ', '').replace(/-/g, '/')) : undefined,
         lastModified: undefined
     };
     jews.reporters = [];
@@ -855,6 +855,13 @@ function default_1() {
         $('.dklink').each(function (_, link) {
             $(link).replaceWith($(link).text());
         });
+        $('.imgArea > img').each(function (index, item) {
+            var src = $(item).data('src');
+            if (typeof src !== 'undefined') {
+                $(item).attr('src', src);
+            }
+        });
+        $('.extra_info').remove();
     };
     return jews;
 }
