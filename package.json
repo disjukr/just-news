@@ -13,8 +13,7 @@
     }
   ],
   "scripts": {
-    "build": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node ./dev/fuse",
-    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node ./src/test"
+    "build": "TS_NODE_PROJECT=\"./dev/tsconfig-for-webpack-config.json\" webpack --config ./dev/webpack.config.ts --require ts-node/register"
   },
   "repository": {
     "type": "git",
@@ -34,16 +33,22 @@
     "node": ">= 9.5.0"
   },
   "dependencies": {
-    "@types/jquery": "^3.3.0",
-    "@types/node": "^9.4.4",
     "jquery": "^3.3.1",
     "lodash.escaperegexp": "^4.1.2",
-    "moment": "^2.20.1",
-    "ts-node": "^4.1.0"
+    "moment": "^2.22.2"
   },
   "devDependencies": {
-    "fuse-box": "^3.1.3",
-    "typescript": "^2.7.1"
+    "@sucrase/webpack-loader": "^1.0.2",
+    "@types/jquery": "^3.3.2",
+    "@types/node": "^9.6.20",
+    "@types/uglifyjs-webpack-plugin": "^1.1.0",
+    "@types/webpack": "^4.4.0",
+    "sucrase": "^2.2.0",
+    "ts-node": "^4.1.0",
+    "typescript": "^2.9.1",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.10.2",
+    "webpack-command": "^0.2.0"
   },
   "private": true
 }
