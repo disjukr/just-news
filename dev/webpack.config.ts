@@ -41,12 +41,14 @@ const config: webpack.Configuration = {
                 uglifyOptions: {
                     output: {
                         comments: /^ (?:@|==U|==\/U)/,
+                        ecma: 6,
                     },
                 },
             }),
         ],
     },
     plugins: [
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new webpack.BannerPlugin({
             banner: userscriptMetadataBlock,
             raw: true,
