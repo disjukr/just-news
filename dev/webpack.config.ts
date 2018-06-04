@@ -5,7 +5,7 @@ import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import userscriptMetadataBlock from '../src/userscript-metadata-block';
 
 const config: webpack.Configuration = {
-    mode: 'production',
+    mode: process.env.NODE_ENV as webpack.Configuration['mode'],
     entry: './src/index.ts',
     output: {
         filename: 'just-news.user.js',
