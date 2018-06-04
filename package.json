@@ -13,7 +13,8 @@
     }
   ],
   "scripts": {
-    "build": "TS_NODE_PROJECT=\"./dev/tsconfig-for-webpack-config.json\" webpack --config ./dev/webpack.config.ts --require ts-node/register"
+    "build": "TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" webpack --config ./dev/webpack.config.ts --require ts-node/register",
+    "test": "TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" ts-node ./src/test"
   },
   "repository": {
     "type": "git",
