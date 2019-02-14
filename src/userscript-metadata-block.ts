@@ -14,7 +14,7 @@ export default `// ==UserScript==
 ${
     Object.keys(sites).map(
         site => sites[site as keyof typeof sites].map(
-            pattern => `// @include ${ pattern }` + '\n' + `// @include ${ pattern.replace(/^http:/, 'https:') }`
+            pattern => `// @include http://${ pattern } \n // @include https://${ pattern }`
         ).join('\n')
     ).join('\n')
 }
