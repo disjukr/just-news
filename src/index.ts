@@ -29,7 +29,7 @@ const escapeRegExp = require('lodash.escaperegexp');
 export function checkUrl(pattern: string, url=window.location.href) {
     return (new RegExp(
         escapeRegExp(pattern).replace(/\\\*/g, '.*')
-    )).test(url);
+    )).test(url.replace(/^https:/, 'http:'));
 };
 
 export function here() {
