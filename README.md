@@ -49,12 +49,14 @@ just-news는 github issue tracker를 사용합니다.
 
 ### 소스코드 빌드하기
 
-이 프로젝트는 [fuse-box](http://fuse-box.org/)을 사용하여 `just-news.user.js` 파일을 빌드합니다.
+이 프로젝트는 [webpack](https://webpack.js.org/)을 사용하여 `just-news.user.js` 파일을 빌드합니다.
 빌드를 하기 위해 다음의 절차를 따라야 합니다:
 
 1. [nodejs](https://nodejs.org/)를 설치합니다.
 2. `npm install` 명령을 실행합니다.
 3. `npm run build` 명령을 실행합니다.
+    - `npm run build` 명령은 minify된 결과물을 주기 때문에 처리가 너무 오래걸릴 수 있습니다.
+      빠르게 개발용 빌드를 얻고싶다면 `npm run build:dev` 명령을 사용하면 됩니다.
 4. 저장소의 `dist` 폴더로 가면 빌드된 `just-news.user.js` 파일을 확인할 수 있습니다.
 
 #### 쉽게 개발버전 userscript를 테스트하는 법
@@ -67,10 +69,9 @@ Tampermonkey 등의 유저스크립트 플러그인을 사용하면
 방금 빌드한 `just-news`를 재설치하는 화면이 뜹니다.
 `업그레이드` 또는 `재설치` 버튼을 눌러주면 됩니다.
 
-http 서버는 다음과 같이 설치해서 띄울 수 있습니다:
+http 서버는 다음과 같이 띄울 수 있습니다:
 ```sh
-$ npm install -g http-server
-$ http-server -p <포트>
+$ npx http-server -p <포트>
 ```
 
 ### 유의사항
