@@ -2,6 +2,10 @@ import * as $ from 'jquery';
 import { clearStyles } from '../util';
 import { Article } from 'index';
 
+export const cleanup = () => {
+    $('#scrollDiv').remove();
+}
+
 export function parse(): Article {
     return {
         title: $('.reporter_info h2').text(),
@@ -19,8 +23,5 @@ export function parse(): Article {
             name: $('.reporter_info .email span').text(),
             mail: $('.reporter_info .email a').attr('title')
         }],
-        cleanup: () => {
-            $('#scrollDiv').remove();
-        }
     };
 }

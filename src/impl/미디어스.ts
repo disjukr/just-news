@@ -1,11 +1,12 @@
 import * as $ from 'jquery';
+import { Article } from 'index';
 
-export default function () {
+export function parse(): Article {
     let jews = {};
     ['Top', 'Left'].forEach(function (v) {
         Object.defineProperty(document.body, 'scroll' + v, {writable: false, value: 0});
     });
-    ['By', 'To'].forEach(function (v) {
+    ['By', 'To'].forEach(function (v: string) {
         window['scroll' + v] = function () {};
     });
     var _filter = function (a) {

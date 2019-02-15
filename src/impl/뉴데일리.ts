@@ -1,7 +1,8 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
+import { Article } from 'index';
 
-export default function () {
+export function parse(): Article {
     const titleData = $('#titlebox');
     const reporter = $('#writerProfileCon');
     const content = $('#ndArtBody')[0].cloneNode(true);

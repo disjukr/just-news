@@ -1,9 +1,10 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
+import { Article } from 'index';
 
-export default function () {
+export function parse(): Promise<Article> {
     return new Promise(resolve => {
-        let jews = {};
+        let jews: Article = {};
         jews.title = $('#content > .main-content > .sectionContent h1').text();
         jews.subtitle = undefined;
         jews.content = (function () {
@@ -26,8 +27,8 @@ export default function () {
                               lastModified: undefined
         };
         jews.reporters = (function () {
-            var result = [];
-            var rawReporters = $('#articleInfo .byline').text().replace(/By /, '');
+            let result = [];
+            let rawReporters: any = $('#articleInfo .byline').text().replace(/By /, '');
             if (rawReporters !== "") {
                 // Reporters exist.
                 rawReporters = rawReporters.split(' and ');
@@ -57,22 +58,22 @@ export default function () {
             $('#trackbar, iframe').remove();
         };
         if ($('#slideshowInlineLarge+script')[0]) {
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.open('GET', $('#slideshowInlineLarge+script')[0].textContent.split(/'sJSON'|"sJSON"/g).pop().match(/\/assets\/[^']+/), true);
             xhr.onreadystatechange = function () {
                 if (this.readyState === (this.DONE || 4)) {
-                    var r = this.responseText;
-                    var imgJSON = new Function(
+                    const r = this.responseText;
+                    let imgJSON: any = new Function(
                         'return ' + r.substring(r.indexOf('{'), r.lastIndexOf('}') + 1)
                     )();
                     imgJSON = imgJSON && imgJSON.slideshow && imgJSON.slideshow.slides; // Bro, do you even javascript?
                     if (!imgJSON) return;
-                    var slides = document.createElement('div');
+                    const slides = document.createElement('div');
                     slides.className = 'slideshow';
                     slides.style.width = '100%';
                     slides.style.whiteSpace = 'nowrap';
                     slides.style.overflowX = 'auto';
-                    var style = document.createElement('style');
+                    const style = document.createElement('style');
                     style.textContent = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
                     slides.appendChild(style);
                     imgJSON.forEach(function (v) {
@@ -82,8 +83,8 @@ export default function () {
                          *     <figcaption>caption message</figcaption>
                          * </figure>
                          */
-                        var fig = document.createElement('figure'),
-                            el = document.createElement('img'),
+                        let fig = document.createElement('figure'),
+                            el: any = document.createElement('img'),
                             caption = document.createTextNode(v.caption);
                         el.src = v.image;
                         fig.appendChild(el);

@@ -1,6 +1,12 @@
 import { clearStyles } from '../util';
 import { Article } from 'index';
 
+export const cleanup = () => {
+    document.querySelectorAll('#tooltipLayer_english, .u_cbox_layer_wrap').forEach((v) => {
+        v.remove();
+    });
+}
+
 export function parse(): Article {
     return {
         title: document.querySelector('#articleTitle').innerText,
@@ -21,10 +27,5 @@ export function parse(): Article {
             })(),
             lastModified: undefined
         },
-        cleanup: () => {
-            document.querySelectorAll('#tooltipLayer_english, .u_cbox_layer_wrap').forEach(function (v) {
-                v.remove();
-            });
-        }
     };
 }

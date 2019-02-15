@@ -2,6 +2,20 @@ import * as $ from 'jquery';
 import { clearStyles } from '../util';
 import { Article } from 'index';
 
+export const cleanup = () => {
+    $('#scrollDiv, #content style').remove();
+    $('.dklink').each((_, link) => {
+        $(link).replaceWith($(link).text());
+    });
+    $('.imgArea > img').each((_, item) => {
+        var src = $(item).data('src');
+        if (typeof src !== 'undefined') {
+            $(item).attr('src', src);
+        }
+    });
+    $('.extra_info').remove();
+}
+
 export function parse(): Article {
     return {
         title: $('.article_tit').text(),
@@ -23,18 +37,5 @@ export function parse(): Article {
             lastModified: undefined
         },
         reporters: [],
-        cleanup: () => {
-            $('#scrollDiv, #content style').remove();
-            $('.dklink').each((_, link) => {
-                $(link).replaceWith($(link).text());
-            });
-            $('.imgArea > img').each((_, item) => {
-                var src = $(item).data('src');
-                if (typeof src !== 'undefined') {
-                    $(item).attr('src', src);
-                }
-            });
-            $('.extra_info').remove();
-        }
     };
 }
