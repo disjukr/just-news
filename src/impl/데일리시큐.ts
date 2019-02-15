@@ -1,6 +1,7 @@
 import { clearStyles } from '../util';
+import { Article } from 'index';
 
-export default function () {
+export default function parse(): Article {
     let jews = {};
     jews.title = document.querySelector('.new_title').textContent.trim();
     jews.subtitle = document.querySelector('.news_mtitle').textContent.trim();
