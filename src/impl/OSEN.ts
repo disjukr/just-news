@@ -8,7 +8,7 @@ export function parse(): Article {
         content: (() => {
             let content = $('#_article')[0].cloneNode(true);
             $('iframe, #divBox, #scrollDiv, div[class^=tabArea], .mask_div, .articleList', content).remove();
-            $('a', content).each(function (_, anchor) {
+            $('a', content).each((_, anchor) => {
                 $(anchor).replaceWith($(anchor)[0].innerHTML);
             });
             return clearStyles(content).innerHTML;
