@@ -14,7 +14,7 @@ export function parse(): Article {
             return clearStyles(content).innerHTML;
         })(),
         timestamp: {
-            created: new Date(/\d{4}.\d\d.\d\d\s+\d\d:\d\d/.exec($('#container .writer').text())[0].replace(/\./g, '/')),
+            created: new Date(/\d{4}.\d\d.\d\d\s+\d\d:\d\d/.exec($('#container .writer').text())![0].replace(/\./g, '/')),
             lastModified: undefined
         },
         reporters: (() => {

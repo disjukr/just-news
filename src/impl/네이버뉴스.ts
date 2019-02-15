@@ -9,20 +9,20 @@ export const cleanup = () => {
 
 export function parse(): Article {
     return {
-        title: document.querySelector('#articleTitle').innerText,
+        title: $('#articleTitle').text(),
         content: (() => {
-            const content = document.querySelector('#articleBodyContents');
+            const content = document.querySelector('#articleBodyContents')!;
             const iframes = content.querySelectorAll('.vod_area iframe[_src]');
             if (iframes.length > 0) {
                 iframes.forEach((v) => {
-                    v.setAttribute('src', v.getAttribute('_src'));
+                    v.setAttribute('src', v.getAttribute('_src')!);
                 });
             }
             return clearStyles(content).innerHTML;
         })(),
         timestamp: {
             created: (() => {
-                let created = document.querySelector('.article_info .sponsor .t11').innerText;
+                let created = $('.article_info .sponsor .t11').text();
                 return new Date(created.replace(' ', 'T') + '+09:00'); // ISO 8601
             })(),
             lastModified: undefined

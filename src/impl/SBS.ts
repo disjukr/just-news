@@ -7,10 +7,10 @@ export function parse(): Article {
         title: $('#container .smdend_content_w .sep_cont_w .sed_articel_head .seda_title').text(),
         subtitle: $('#container .smdend_content_w .sep_cont_w .sed_article_w .sed_sub_title').text(),
         content: (() => {
-            var content = $('#container .smdend_content_w .sep_cont_w .sed_article_w .sed_article')[0].cloneNode(true);
+            const content = $('#container .smdend_content_w .sep_cont_w .sed_article_w .sed_article')[0].cloneNode(true);
             $('.lazy', content).each(function (_, anchor) {
                 anchor.classList.remove("lazy");
-                anchor.attributes['src'].value = anchor.attributes['data-original'].value;
+                anchor.setAttribute('src', anchor.getAttribute('data-original')!);
             });
             return clearStyles(content).innerHTML;
         })(),
@@ -34,7 +34,7 @@ export function parse(): Article {
             let name = parsedData.eq(0).text() || undefined;
             let mail;
             if (parsedData.length > 1) {
-                mail = /(?:mailto:)?(.*)/.exec(parsedData.eq(1).attr('href'))[1];
+                mail = /(?:mailto:)?(.*)/.exec(parsedData.eq(1).attr('href')!)![1];
             }
             if (name || mail) {
                 return [{

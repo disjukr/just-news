@@ -1,6 +1,7 @@
 import * as $ from 'jquery';
 import { Article } from 'index';
 
+//???
 export function parse(): Article {
     let jews = {};
     ['Top', 'Left'].forEach(function (v) {

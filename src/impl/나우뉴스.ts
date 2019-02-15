@@ -15,7 +15,7 @@ export function parse(): Article {
                 });
             }
             $('a.dklink', content).each(function (i, el) {
-                $(el).replaceWith(el.textContent);
+                $(el).replaceWith(el.textContent!);
             });
             return clearStyles(content).innerHTML;
         })(),

@@ -7,11 +7,11 @@ export const cleanup = () => {
 }
 
 export function parse(): Article {
-    let created = /게재 일자 :(.+?)년(.+?)월(.+?)일/.exec($('td', $('.title').closest('table').prev().prev()).eq(1).text());
+    let created = /게재 일자 :(.+?)년(.+?)월(.+?)일/.exec($('td', $('.title').closest('table').prev().prev()).eq(1).text())!;
     created.shift();
     return {
-        title: $('.title').text();
-        subtitle: $('.sub_title').eq(0).text();
+        title: $('.title').text(),
+        subtitle: $('.sub_title').eq(0).text(),
         content: (() => {
             let content = $('#NewsAdContent')[0].cloneNode(true);
             $('.article_msn_ad', content).remove();

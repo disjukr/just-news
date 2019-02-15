@@ -13,7 +13,7 @@ export function parse(): Article {
         content: (() => {
             const content = $($('#view_con')[0].cloneNode(true));
             $('a.dklink', content).each(function (i, el) {
-                $(el).replaceWith(el.textContent);
+                $(el).replaceWith(el.textContent!);
             });
             $('.contents_img', content).each(function (i, el) {
                 el.removeAttribute('width');
@@ -25,8 +25,8 @@ export function parse(): Article {
             lastModified: undefined
         },
         reporters: (() => {
-            const parsedData = $('#view_page .view_title_sub').eq(0).contents()[0].textContent.trim();
-            const matches = parsedData.match(/(.*)\((.*)\)/);
+            const parsedData = $('#view_page .view_title_sub').eq(0).contents()[0].textContent!.trim();
+            const matches = parsedData.match(/(.*)\((.*)\)/)!;
             return [{
                 name: matches[1],
                 mail: matches[2]

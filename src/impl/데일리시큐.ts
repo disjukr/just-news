@@ -12,7 +12,7 @@ export function parse(): Article {
             lastModified: undefined
         },
         reporters: [{
-            name: /데일리시큐 (.*)기자/.exec(infos[1])[1],
+            name: /데일리시큐 (.*)기자/.exec(infos[1])![1],
             mail: infos[2].trim()
         }]
     };

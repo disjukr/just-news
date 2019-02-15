@@ -4,7 +4,7 @@ import { Article } from 'index';
 
 export function parse(): Article {
     return {
-        title: $('#news_names h1').text();
+        title: $('#news_names h1').text(),
         subtitle: $('#news_names h3').text(),
         content: (() => {
             const content = $('#NewsAdContent')[0].cloneNode(true);
@@ -22,7 +22,7 @@ export function parse(): Article {
             };
         })(),
         reporters: [{
-            name: $('#news_names p')[0].childNodes[0].textContent.trim(),
+            name: $('#news_names p')[0].childNodes[0].textContent!.trim(),
             mail: $('#news_names p [href^=mailto]').text()
         }],
         cleanup: () => {

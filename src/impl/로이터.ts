@@ -2,14 +2,18 @@ import * as $ from 'jquery';
 import { clearStyles } from '../util';
 import { Article } from 'index';
 
+export const cleanup = () => {
+    $('#trackbar, iframe').remove();
+}
+
 export function parse(): Promise<Article> {
     return new Promise(resolve => {
         let jews: Article = {};
         jews.title = $('#content > .main-content > .sectionContent h1').text();
         jews.subtitle = undefined;
-        jews.content = (function () {
-            var header = '';
-            var articleImage = $('#articleImage')[0];
+        jews.content = (() => {
+            let header = '';
+            const articleImage = $('#articleImage')[0];
             if (articleImage) {
                 header += clearStyles(articleImage.cloneNode(true)).innerHTML;
             }
@@ -26,7 +30,7 @@ export function parse(): Promise<Article> {
                               })),
                               lastModified: undefined
         };
-        jews.reporters = (function () {
+        jews.reporters = (() => {
             let result = [];
             let rawReporters: any = $('#articleInfo .byline').text().replace(/By /, '');
             if (rawReporters !== "") {
@@ -34,7 +38,7 @@ export function parse(): Promise<Article> {
                 rawReporters = rawReporters.split(' and ');
                 if (rawReporters.length > 1) {
                     // There are more than one reporter.
-                    rawReporters[0].split(',').forEach(function (v) {
+                    rawReporters[0].split(',').forEach((v: any) => {
                         result.push({
                             name: v.trim(),
                             mail: undefined
@@ -54,12 +58,9 @@ export function parse(): Promise<Article> {
             }
             return result;
         })();
-        jews.cleanup = function () {
-            $('#trackbar, iframe').remove();
-        };
         if ($('#slideshowInlineLarge+script')[0]) {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', $('#slideshowInlineLarge+script')[0].textContent.split(/'sJSON'|"sJSON"/g).pop().match(/\/assets\/[^']+/), true);
+            xhr.open('GET', $('#slideshowInlineLarge+script')[0].textContent!.split(/'sJSON'|"sJSON"/g).pop()!.match(/\/assets\/[^']+/)![0], true);
             xhr.onreadystatechange = function () {
                 if (this.readyState === (this.DONE || 4)) {
                     const r = this.responseText;
@@ -76,7 +77,8 @@ export function parse(): Promise<Article> {
                     const style = document.createElement('style');
                     style.textContent = '.slideshow figure{display: inline-block} .slideshow figure>figcaption{white-space: normal}';
                     slides.appendChild(style);
-                    imgJSON.forEach(function (v) {
+                    //?
+                    imgJSON.forEach((v: any) => {
                         /*
                          * <figure>
                          *     <img src="/sample.jpg">

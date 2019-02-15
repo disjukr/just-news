@@ -25,8 +25,8 @@ export function parse(): Article {
         timestamp: (() => {
             const times = $('.title_foot .date01');
             return {
-                created: new Date(times[0].textContent.replace('입력 ', '').replace(/-/g, '/')),
-                lastModified: new Date(times[1].textContent.replace('수정 ', '').replace(/-/g, '/'))
+                created: new Date(times[0].textContent!.replace('입력 ', '').replace(/-/g, '/')),
+                lastModified: new Date(times[1].textContent!.replace('수정 ', '').replace(/-/g, '/'))
             };
         })(),
         reporters: [{
