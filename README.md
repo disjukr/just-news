@@ -130,6 +130,7 @@ export const cleanup = () => $('#scrollDiv, iframe').remove();
 * [x] [데일리한국](http://daily.hankooki.com)
 * [x] [동아일보](http://www.donga.com)
 * [x] [디스패치](http://www.dispatch.co.kr)
+* [x] [디지털데일리](http://www.ddaily.co.kr)
 * [x] [디지털타임스](http://www.dt.co.kr)
 * [x] [로이터](http://www.reuters.com)
 * [x] [마이데일리](http://www.mydaily.co.kr)
