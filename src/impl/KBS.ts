@@ -9,12 +9,12 @@ export function parse(): Article {
         title: $('.landing-caption .tit-s').text(),
         content: (() => {
           const ret =
-            $("script").filter((_, scriptTag) => {
-              if(scriptTag.innerHTML.includes("displayVod")) { return scriptTag }
+            $('script').filter((_, scriptTag) => {
+              if(scriptTag.innerHTML.includes('displayVod')) { return scriptTag }
             }).map((_, element) => {
               return element.outerHTML
             }).get().join(' ') +
-            $(".detail-visual")[0].outerHTML + '<br>' +
+            $('.detail-visual')[0].outerHTML + '<br>' +
             clearStyles($('#cont_newstext')[0].cloneNode(true) as HTMLElement).innerHTML
           return ret;
         })(),
