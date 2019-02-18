@@ -149,6 +149,7 @@ export const cleanup = () => $('#scrollDiv, iframe').remove();
 * [x] [스포츠서울](http://www.sportsseoul.com)
 * [x] [스포츠조선](http://sports.chosun.com)
 * [x] [스포탈코리아](http://www.sportalkorea.com)
+* [x] [슬로우뉴스](http://slownews.kr)
 * [x] [시사IN Live](http://www.sisainlive.com)
 * [x] [아시아경제](http://www.asiae.co.kr)
 * [x] [아시아투데이](http://www.asiatoday.co.kr)

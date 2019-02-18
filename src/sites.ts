@@ -55,6 +55,7 @@ export default {
     '스포츠서울': ['www.sportsseoul.com/news/read/*'],
     '스포츠조선': ['sports.chosun.com/news/ntype.htm*', 'sports.chosun.com/news/ntype5.htm*', 'sports.chosun.com/news/utype.htm*'],
     '스포탈코리아': ['www.sportalkorea.com/news/view.php*', 'www.sportalkorea.com/newsplus/view_sub.php*'],
+    '슬로우뉴스': ['slownews.kr/*'],
     '시사IN Live': ['www.sisainlive.com/news/articleView.html?*'],
     // ㅇ
     '아시아경제': ['www.asiae.co.kr/news/view.htm*', 'car.asiae.co.kr/view.htm*', 'edu.asiae.co.kr/view.htm*', 'gold.asiae.co.kr/view.htm*', 'golf.asiae.co.kr/view.htm*', 'stock.asiae.co.kr/news/view.htm*', 'view.asiae.co.kr/news/view.htm*'],
