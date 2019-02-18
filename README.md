@@ -71,7 +71,7 @@ Tampermonkey 등의 유저스크립트 플러그인을 사용하면
 
 http 서버는 다음과 같이 띄울 수 있습니다:
 ```sh
-$ npx http-server -p <포트>
+$ npx http-server -c-1 -p <포트>
 ```
 
 ### 유의사항
