@@ -4,7 +4,7 @@
 
 뉴스 사이트 기사 페이지에 접속하면 뉴스 본문외의 정보를 전부 제거한 뒤 페이지를 재구성하는 스크립트입니다.
 
-모든 주요 웹브라우저(인터넷 익스플로러 제외)에 대해 최신 안정버전으로부터 한버전 전까지만 지원합니다.
+모든 주요 웹브라우저(인터넷 익스플로러 제외)에 대해 최신 안정버전으로부터 한 버전 전까지만 지원합니다.
 
 
 ## 설치하기
@@ -31,8 +31,8 @@ Tampermonkey 외에도
 
 ### 버그 제보하기
 
-just-news는 github issue tracker를 사용합니다.
-이슈는 https://github.com/disjukr/just-news/issues 로 제보해주시기 바랍니다.
+just-news는 GitHub issue tracker를 사용합니다.
+이슈는 <https://github.com/disjukr/just-news/issues>로 제보해주시기 바랍니다.
 
 ### 소스코드로 기여하기
 
@@ -50,13 +50,13 @@ just-news는 github issue tracker를 사용합니다.
 ### 소스코드 빌드하기
 
 이 프로젝트는 [webpack](https://webpack.js.org/)을 사용하여 `just-news.user.js` 파일을 빌드합니다.
-빌드를 하기 위해 다음의 절차를 따라야 합니다:
+빌드를 하기 위해 다음의 절차를 따라야 합니다.
 
 1. [nodejs](https://nodejs.org/)를 설치합니다.
 2. `npm install` 명령을 실행합니다.
 3. `npm run build` 명령을 실행합니다.
     - `npm run build` 명령은 minify된 결과물을 주기 때문에 처리가 너무 오래걸릴 수 있습니다.
-      빠르게 개발용 빌드를 얻고싶다면 `npm run build:dev` 명령을 사용하면 됩니다.
+      빠르게 개발용 빌드를 얻고 싶다면 `npm run build:dev` 명령을 사용하면 됩니다.
 4. 저장소의 `dist` 폴더로 가면 빌드된 `just-news.user.js` 파일을 확인할 수 있습니다.
 
 #### 쉽게 개발버전 userscript를 테스트하는 법
@@ -71,7 +71,7 @@ Tampermonkey 등의 유저스크립트 플러그인을 사용하면
 
 http 서버는 다음과 같이 띄울 수 있습니다:
 ```sh
-$ npx http-server -p <포트>
+$ npx http-server -c-1 -p <포트>
 ```
 
 ### 유의사항
@@ -85,7 +85,7 @@ $ npx http-server -p <포트>
 
 * `article` 객체는 `src/index.ts`에 정의된 `Article` 인터페이스를 따르도록 합니다.
     * 뉴스 페이지에서 해당하는 정보가 없을 경우 `null`값을 채워 넣습니다.
-* 릴리즈는 사람이 직접 할 필요가 없습니다. travis ci를 통해 [jews-bot 계정](https://github.com/jews-bot)이 자동으로 처리합니다.
+* 릴리즈는 사람이 직접 할 필요가 없습니다. Travis CI를 통해 [jews-bot 계정](https://github.com/jews-bot)이 자동으로 처리합니다.
 
 ### 털어내기
 
@@ -149,6 +149,7 @@ export const cleanup = () => $('#scrollDiv, iframe').remove();
 * [x] [스포츠서울](http://www.sportsseoul.com)
 * [x] [스포츠조선](http://sports.chosun.com)
 * [x] [스포탈코리아](http://www.sportalkorea.com)
+* [x] [슬로우뉴스](http://slownews.kr)
 * [x] [시사IN Live](http://www.sisainlive.com)
 * [x] [아시아경제](http://www.asiae.co.kr)
 * [x] [아시아투데이](http://www.asiatoday.co.kr)
