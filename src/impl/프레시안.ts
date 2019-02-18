@@ -3,7 +3,7 @@ import { clearStyles } from '../util';
 import { Article } from 'index';
 
 export const cleanup = () => {
-    $('#scrollDiv, body>img').remove();
+    $('#scrollDiv, body>img, body>div:not([id]), html>iframe, body>iframe, body>script, #fb-root, #sliderAdScript').remove();
 }
 
 export function parse(): Article {
