@@ -32,6 +32,7 @@ export default {
     '데일리한국': ['daily.hankooki.com/lpage/*'],
     '동아일보': ['news.donga.com/3/*', 'news.donga.com/*/3/*'],
     '디스패치': ['www.dispatch.co.kr/*'],
+    '디지털데일리': ['www.ddaily.co.kr/news/article.html?no=*'],
     '디지털타임스': ['www.dt.co.kr/contents.html*'],
     // ㄹ
     '로이터': ['www.reuters.com/article/*'],
