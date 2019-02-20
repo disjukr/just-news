@@ -3,6 +3,7 @@ import { clearStyles } from '../util';
 import { Article } from 'index';
 
 const toDate = (elem) => new Date(elem.text().trim().split(/\s/).slice(-2).join(' '));
+const once = [];
 
 export function parse(): Article {
     // reporter | created | lastModified
@@ -14,7 +15,26 @@ export function parse(): Article {
             const content = $('#news_content_1 .cont .body')[0].cloneNode(true);
             $('div.print_video_img', content).remove();
 
-            return clearStyles(content).innerHTML;
+            // load old video's css & javascripts
+            const styles = $('style').filter((_, tag) => {
+                return $(tag).attr('data-jwplayer-id');
+            }).map((_, elem) => elem.outerHTML).get().join(' ');
+
+            const scripts = $('script').filter((_, tag) => {
+                return (
+                    tag.src.includes('jwplayer') ||
+                    tag.innerHTML.includes('jwplayer')
+                );
+            }).map((_, elem) => elem.outerHTML).get().join(' ');
+
+            // HACK: forceful reload old video
+            once.push(() => {
+                if ($('.article_video .jwplayer')) {
+                    continusVideo(thisMovie);
+                }
+            });
+
+            return styles + scripts + clearStyles(content).innerHTML;
         })(),
         timestamp: {
             created: toDate($(timeSection.get(1))),
@@ -25,4 +45,11 @@ export function parse(): Article {
             mail: undefined
         }]
     };
+}
+
+export const cleanup = () => {
+    let func;
+    while ((func = once.shift())) {
+        func();
+    }
 }
