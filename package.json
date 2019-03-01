@@ -13,9 +13,9 @@
     }
   ],
   "scripts": {
-    "build:dev": "NODE_ENV=development TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" webpack --config ./dev/webpack.config.ts --require ts-node/register",
-    "build": "NODE_ENV=production TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" webpack --config ./dev/webpack.config.ts --require ts-node/register",
-    "test": "TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" ts-node ./src/test"
+    "build:dev": "cross-env NODE_ENV=development TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" webpack --config ./dev/webpack.config.ts --require ts-node/register",
+    "build": "cross-env NODE_ENV=production TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" webpack --config ./dev/webpack.config.ts --require ts-node/register",
+    "test": "cross-env TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" ts-node ./src/test"
   },
   "repository": {
     "type": "git",
@@ -45,6 +45,7 @@
     "@types/node": "^9.6.20",
     "@types/uglifyjs-webpack-plugin": "^1.1.0",
     "@types/webpack": "^4.4.0",
+    "cross-env": "^5.2.0",
     "sucrase": "^2.2.0",
     "ts-node": "^4.1.0",
     "typescript": "^2.9.1",
