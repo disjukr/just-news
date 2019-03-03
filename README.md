@@ -64,15 +64,15 @@ just-news는 GitHub issue tracker를 사용합니다.
 Tampermonkey 등의 유저스크립트 플러그인을 사용하면
 `*.user.js` 꼴의 주소로 들어갈 때 자동으로 재설치 화면을 띄워줍니다.
 
-따라서 저장소 디렉토리에 http 서버를 띄워놓고, 소스코드 빌드 후
-브라우저 탭을 열고 `http://localhost:<포트>/dist/just-news.user.js` 주소로 들어가면
+프로젝트를 빌드한 다음 `dist` 폴더의 번들 파일을 HTTP로 서빙해서
+브라우저 탭을 열고 `http://localhost:<포트>/just-news.user.js` 주소로 들어가면
 방금 빌드한 `just-news`를 재설치하는 화면이 뜹니다.
 `업그레이드` 또는 `재설치` 버튼을 눌러주면 됩니다.
 
 개발용 http 서버는 다음과 같이 띄울 수 있습니다:
 
 ```sh
-$ npm run watch
+$ npm run serve
 ```
 
 ### 유의사항

@@ -16,7 +16,7 @@
     "build:dev": "cross-env NODE_ENV=development TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" webpack --config ./dev/webpack.config.ts --require ts-node/register",
     "build": "cross-env NODE_ENV=production TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" webpack --config ./dev/webpack.config.ts --require ts-node/register",
     "test": "cross-env TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" ts-node ./src/test",
-    "watch": "serve ./dist"
+    "serve": "serve ./dist"
   },
   "repository": {
     "type": "git",
