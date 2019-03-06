@@ -11,7 +11,7 @@ export function parse(): Article {
             return clearStyles(content).innerHTML;
         })(),
         timestamp: (() => {
-            const timeStr = $('#date_text')[0].textContent!;
+            const timeStr = $('.news_date')[0].textContent!;
             let created;
             const cTime = timeStr.match(/입력 : ([^\|]+)/);
             if (cTime !== null) {
