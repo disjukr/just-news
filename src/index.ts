@@ -3,7 +3,10 @@ import {
     reconstruct,
     reconstructable,
 } from './reconstruct';
-import { waitDOMContentLoaded } from './util';
+import {
+    waitDOMContentLoaded,
+    endlessWaiting,
+} from './util';
 
 
 export interface Timestamp {
@@ -48,11 +51,10 @@ async function main() {
     try {
         const where = here();
         const impl = require('./impl/' + where);
-        if (impl.readyToParse) {
-            await impl.readyToParse();
-        } else {
-            await waitDOMContentLoaded();
-        }
+        await Promise.race([
+            impl.readyToParse ? impl.readyToParse() : endlessWaiting,
+            waitDOMContentLoaded(),
+        ]);
         const article =
             impl.parse ? await impl.parse() as Article :
             impl.default ? await impl.default() as Article :
