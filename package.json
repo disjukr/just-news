@@ -1,5 +1,5 @@
 {
-  "name": "jews",
+  "name": "just-news",
   "description": "just news",
   "version": "1.0.0",
   "author": {
@@ -20,15 +20,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/disjukr/jews.git"
+    "url": "https://github.com/disjukr/just-news.git"
   },
   "bugs": {
-    "url": "https://github.com/disjukr/jews/issues"
+    "url": "https://github.com/disjukr/just-news/issues"
   },
   "license": "MIT",
-  "main": "jews.user.js",
+  "main": "just-news.user.js",
   "keywords": [
-    "jews",
+    "just",
     "news",
     "userscript"
   ],
