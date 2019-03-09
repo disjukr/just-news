@@ -31,8 +31,8 @@ export interface Article {
 const escapeRegExp = require('lodash.escaperegexp');
 export function checkUrl(pattern: string, url=window.location.href) {
     return (new RegExp(
-        escapeRegExp(pattern).replace(/\\\*/g, '.*')
-    )).test(url.substr(url.indexOf(':') + 1));
+        `^${escapeRegExp(pattern).replace(/\\\*/g, '.*')}$`
+    )).test(url.substr(url.indexOf('://') + 3));
 };
 
 export function here() {
