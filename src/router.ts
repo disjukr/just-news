@@ -1,8 +1,13 @@
 export interface RouteTable { [name: string]: string[] }
 
 export function bake(routeTable: RouteTable): Node[] {
-    // TODO
-    return [];
+    const result: Node[] = [];
+    for (const routeName in routeTable) {
+        for (const pattern of routeTable[routeName]) {
+            insertNodeToChildren(new Node(pattern, routeName), result);
+        }
+    }
+    return result;
 }
 
 export function match(text: string, routeTree: Node[]): string | null {
@@ -13,6 +18,26 @@ export function match(text: string, routeTree: Node[]): string | null {
     return null;
 }
 
+// commonPattern('abc', 'abcd') => 'abc'
+function commonPattern(a: string, b: string): string {
+    const len = Math.min(a.length, b.length);
+    for (var i = 0; i < len; ++i) if (a[i] !== b[i]) break;
+    return a.substr(0, i);
+}
+
+function insertNodeToChildren(node: Node, children: Node[]) {
+    for (let i = 0; i < children.length; ++i) {
+        const child = children[i];
+        const insertResult = child.insertNode(node);
+        if (insertResult != null) {
+            children[i] = insertResult;
+            return;
+        }
+    }
+    children.push(node);
+    return;
+}
+
 // radix tree
 export class Node {
     constructor(
@@ -21,6 +46,32 @@ export class Node {
         public children: Node[] = [],
     ) {}
     get isLeaf() { return !this.children.length; }
+    insertNode(node: Node): Node | null {
+        const parentPattern = commonPattern(node.pattern, this.pattern);
+        if (!parentPattern) return null;
+        if (parentPattern === node.pattern) {
+            this.pattern = this.pattern.substr(parentPattern.length);
+            node.children = [this];
+            return node;
+        }
+        if (parentPattern === this.pattern) {
+            node.pattern = node.pattern.substr(parentPattern.length);
+            if (!this.isLeaf) {
+                insertNodeToChildren(node, this.children);
+            } else {
+                this.children = [
+                    new Node('', this.value),
+                    node,
+                ];
+                this.value = '';
+            }
+            return this;
+        }
+        this.pattern = this.pattern.substr(parentPattern.length);
+        node.pattern = node.pattern.substr(parentPattern.length);
+        return new Node(parentPattern, '', [this, node]);
+    }
+    insert(pattern: string, value: string) { return this.insertNode(new Node(pattern, value)); }
     consume(text: string, offset: number): number {
         if (text.startsWith(this.pattern, offset)) return offset + this.pattern.length;
         return offset;
