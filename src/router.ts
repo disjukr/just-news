@@ -4,7 +4,18 @@ export function bake(routeTable: RouteTable): Node[] {
     const result: Node[] = [];
     for (const routeName in routeTable) {
         for (const pattern of routeTable[routeName]) {
-            insertNodeToChildren(new Node(pattern, routeName), result);
+            if (!pattern) continue; // 빈문자열 패턴이 없음을 보장
+            const sanifiedPattern = pattern.replace(/\*+/g, '*'); // wildcard가 연달아오지 않음을 보장
+            let node: Node | null = null;
+            for (const subpattern of sanifiedPattern.split(/(?=\*)|(?<=\*)/).reverse()) {
+                const childNode = node;
+                node = (subpattern === '*') ? new Wildcard(routeName) : new Node(subpattern, routeName);
+                if (childNode) {
+                    node.value = '';
+                    node.children = [childNode];
+                }
+            }
+            insertNodeToChildren(node!, result);
         }
     }
     return result;
@@ -49,27 +60,23 @@ export class Node {
     insertNode(node: Node): Node | null {
         const parentPattern = commonPattern(node.pattern, this.pattern);
         if (!parentPattern) return null;
-        if (parentPattern === node.pattern) {
+        if (parentPattern !== this.pattern && parentPattern !== node.pattern) {
             this.pattern = this.pattern.substr(parentPattern.length);
-            node.children = [this];
-            return node;
-        }
-        if (parentPattern === this.pattern) {
             node.pattern = node.pattern.substr(parentPattern.length);
-            if (!this.isLeaf) {
-                insertNodeToChildren(node, this.children);
-            } else {
-                this.children = [
-                    new Node('', this.value),
-                    node,
-                ];
-                this.value = '';
-            }
-            return this;
+            return new Node(parentPattern, '', [this, node]);
         }
-        this.pattern = this.pattern.substr(parentPattern.length);
-        node.pattern = node.pattern.substr(parentPattern.length);
-        return new Node(parentPattern, '', [this, node]);
+        const [parentNode, childNode] = (parentPattern === this.pattern) ? [this, node] : [node, this];
+        childNode.pattern = childNode.pattern.substr(parentPattern.length);
+        if (!parentNode.isLeaf) {
+            insertNodeToChildren(childNode, parentNode.children);
+        } else {
+            parentNode.children = [
+                new Node('', parentNode.value),
+                childNode,
+            ];
+            parentNode.value = '';
+        }
+        return parentNode;
     }
     insert(pattern: string, value: string) { return this.insertNode(new Node(pattern, value)); }
     consume(text: string, offset: number): number {
