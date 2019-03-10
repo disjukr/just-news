@@ -8,12 +8,10 @@ export function bake(routeTable: RouteTable): Node[] {
             const sanifiedPattern = pattern.replace(/\*+/g, '*'); // wildcard가 연달아오지 않음을 보장
             let node: Node | null = null;
             for (const subpattern of sanifiedPattern.split(/(?=\*)|(?<=\*)/).reverse()) {
-                const childNode = node;
-                node = (subpattern === '*') ? new Wildcard(routeName) : new Node(subpattern, routeName);
-                if (childNode) {
-                    node.value = '';
-                    node.children = [childNode];
-                }
+                const value: string = node ? '' : routeName;
+                const children: Node[] = node ? [node] : [];
+                if (subpattern === '*') node = new Wildcard(value, children);
+                else node = new Node(subpattern, value, children);
             }
             insertNodeToChildren(node!, result);
         }
