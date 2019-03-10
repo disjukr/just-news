@@ -50,7 +50,7 @@
     "serve": "^10.1.2",
     "sucrase": "^2.2.0",
     "ts-node": "^4.1.0",
-    "typescript": "^2.9.1",
+    "typescript": "^3.3.3333",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.10.2",
     "webpack-command": "^0.2.0"
