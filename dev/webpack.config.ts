@@ -12,7 +12,7 @@ const config: webpack.Configuration = {
         path: path.resolve(__dirname, '..', 'dist'),
     },
     resolve: {
-        extensions: ['.js', '.ts'],
+        extensions: ['.ts'],
     },
     module: {
         rules: [
@@ -20,8 +20,11 @@ const config: webpack.Configuration = {
                 test: /\.ts$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: '@sucrase/webpack-loader',
-                    options: { transforms: ['typescript'] },
+                    loader: 'babel-loader',
+                    options: {
+                        plugins: ['babel-plugin-macros'],
+                        presets: ['@babel/preset-typescript', '@babel/preset-env'],
+                    },
                 },
             },
         ],
