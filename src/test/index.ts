@@ -24,5 +24,6 @@ const case2 = 'sports.donga.com/home/3/all/20190308/94450130/2'; // 스포츠동
 
 console.log(routeTree.match(case1));
 console.log(routeTree.match(case2));
+console.log(router.stringify(routeTree1));
 
 // console.log(JSON.stringify(routeTree));

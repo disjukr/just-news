@@ -38,7 +38,6 @@
   },
   "dependencies": {
     "jquery": "^3.3.1",
-    "lodash.escaperegexp": "^4.1.2",
     "moment": "^2.24.0"
   },
   "devDependencies": {
@@ -46,12 +45,12 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-typescript": "^7.3.3",
     "@types/jquery": "^3.3.29",
-    "@types/lodash.escaperegexp": "^4.1.6",
     "@types/node": "^9.6.46",
     "@types/terser-webpack-plugin": "^1.2.1",
     "@types/webpack": "^4.4.25",
     "babel-loader": "^8.0.5",
     "babel-plugin-macros": "^2.5.0",
+    "codegen.macro": "^3.0.0",
     "cross-env": "^5.2.0",
     "serve": "^10.1.2",
     "sucrase": "^3.10.0",

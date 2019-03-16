@@ -27,6 +27,29 @@ export function match(text: string, routeTree: Node[]): string | null {
     return null;
 }
 
+export function stringify(
+    routeTree: Node[],
+    nodeClassName = 'Node',
+    wildcardClassName = 'Wildcard',
+): string {
+    return `[${ routeTree.map(
+        node =>
+            node instanceof Wildcard ?
+            `new ${wildcardClassName}(${
+                JSON.stringify(node.value)
+            },${
+                stringify(node.children, nodeClassName, wildcardClassName)
+            })` :
+            `new ${nodeClassName}(${
+                JSON.stringify(node.pattern)
+            },${
+                JSON.stringify(node.value)
+            },${
+                stringify(node.children, nodeClassName, wildcardClassName)
+            })`,
+    ).join() }]`;
+}
+
 // commonPattern('abc', 'abcd') => 'abc'
 function commonPattern(a: string, b: string): string {
     const len = Math.min(a.length, b.length);
