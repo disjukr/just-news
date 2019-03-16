@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
-import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 import userscriptMetadataBlock from '../src/userscript-metadata-block';
 
@@ -16,14 +16,6 @@ const config: webpack.Configuration = {
     },
     module: {
         rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: '@sucrase/webpack-loader',
-                    options: { transforms: [] },
-                },
-            },
             {
                 test: /\.ts$/,
                 exclude: /node_modules/,
