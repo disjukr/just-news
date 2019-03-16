@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 
 import userscriptMetadataBlock from '../src/userscript-metadata-block';
 
@@ -12,7 +12,7 @@ const config: webpack.Configuration = {
         path: path.resolve(__dirname, '..', 'dist'),
     },
     resolve: {
-        extensions: ['.ts'],
+        extensions: ['.js', '.ts'],
     },
     module: {
         rules: [
@@ -31,12 +31,11 @@ const config: webpack.Configuration = {
     },
     optimization: {
         minimizer: [
-            new UglifyJsPlugin({
+            new TerserPlugin({
                 parallel: true,
-                uglifyOptions: {
+                terserOptions: {
                     output: {
                         comments: /^ (?:@|==U|==\/U)/,
-                        ecma: 6,
                     },
                 },
             }),
