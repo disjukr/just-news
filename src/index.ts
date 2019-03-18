@@ -1,4 +1,6 @@
-import sites from './sites';
+import codegen from 'codegen.macro';
+
+import * as router from './router';
 import {
     reconstruct,
     reconstructable,
@@ -28,22 +30,19 @@ export interface Article {
     cleanup?: Nullable<() => void>;
 }
 
-const escapeRegExp = require('lodash.escaperegexp');
-export function checkUrl(pattern: string, url=window.location.href) {
-    return (new RegExp(
-        escapeRegExp(pattern).replace(/\\\*/g, '.*')
-    )).test(url.substr(url.indexOf(':') + 1));
-};
-
-export function here() {
-    for (let site in sites) {
-        for (let pattern of sites[site as keyof typeof sites]) {
-            if (checkUrl(pattern)) {
-                return site;
-            }
-        }
-    }
-    throw new Error('이 사이트는 지원되지 않습니다.');
+const routeTree = codegen<router.Node[]>`
+    const sites = require('./sites').default;
+    const router = require('./router');
+    module.exports = router.stringify(
+        router.bake(sites),
+        'router.Node',
+        'router.Wildcard',
+    );
+`;
+export function here(url=location.href) {
+    const site = router.match(url.substr(url.indexOf('://') + 3), routeTree);
+    if (!site) throw new Error('이 사이트는 지원되지 않습니다.');
+    return site;
 };
 
 async function main() {

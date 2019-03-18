@@ -13,9 +13,10 @@
     }
   ],
   "scripts": {
-    "build:dev": "cross-env NODE_ENV=development TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" webpack --config ./dev/webpack.config.ts --require ts-node/register",
-    "build": "cross-env NODE_ENV=production TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" webpack --config ./dev/webpack.config.ts --require ts-node/register",
-    "test": "cross-env TS_NODE_PROJECT=\"./dev/tsconfig-for-ts-node.json\" ts-node ./src/test",
+    "build": "cross-env NODE_ENV=production npm run build:webpack",
+    "build:dev": "cross-env NODE_ENV=development npm run build:webpack",
+    "build:webpack": "webpack --config ./dev/webpack.config.ts --require sucrase/register/ts",
+    "test": "sucrase-node ./src/test/index.ts",
     "serve": "serve ./dist"
   },
   "repository": {
@@ -37,23 +38,26 @@
   },
   "dependencies": {
     "jquery": "^3.3.1",
-    "lodash.escaperegexp": "^4.1.2",
-    "moment": "^2.22.2"
+    "moment": "^2.24.0"
   },
   "devDependencies": {
-    "@sucrase/webpack-loader": "^1.0.2",
-    "@types/jquery": "^3.3.2",
-    "@types/node": "^9.6.20",
-    "@types/uglifyjs-webpack-plugin": "^1.1.0",
-    "@types/webpack": "^4.4.0",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jquery": "^3.3.29",
+    "@types/node": "^9.6.46",
+    "@types/terser-webpack-plugin": "^1.2.1",
+    "@types/webpack": "^4.4.25",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-macros": "^2.5.0",
+    "codegen.macro": "^3.0.0",
     "cross-env": "^5.2.0",
     "serve": "^10.1.2",
-    "sucrase": "^2.2.0",
-    "ts-node": "^4.1.0",
-    "typescript": "^2.9.1",
-    "uglifyjs-webpack-plugin": "^1.2.5",
-    "webpack": "^4.10.2",
-    "webpack-command": "^0.2.0"
+    "sucrase": "^3.10.0",
+    "terser-webpack-plugin": "^1.2.3",
+    "typescript": "^3.3.3333",
+    "webpack": "^4.29.6",
+    "webpack-command": "^0.2.1"
   },
   "private": true
 }
