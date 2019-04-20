@@ -19,7 +19,7 @@ export function parse(): Article {
             return clearStyles(content).innerHTML;
         })(),
         timestamp: {
-            created: new Date($('.date').text().replace('발행일 : ', '').replace(/\./g, '/')),
+            created: new Date($('time').text().replace('발행일 : ', '').replace(/\./g, '/')),
             lastModified: undefined
         },
         reporters: []
