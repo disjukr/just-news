@@ -11,6 +11,9 @@ export function parse(): Article {
         title: $('.article_title').text() || undefined,
         content: (() => {
             const content = $('.article_body')[0].cloneNode(true);
+            $('.article_ad', content).remove();
+            $('.ad_newsviewWrap', content).remove();
+            $('#BpromotionBanner', content).remove();
             $('.ad, .footer_btnwrap, img[src^="http://img.etnews.com/2017/banner/"], *[src^="http://adv"]', content).remove();
             $('.daum_ddn_area, [id^=beacon]', content).remove();
             $('.a_ict_word', content).each(function (i, el) {
