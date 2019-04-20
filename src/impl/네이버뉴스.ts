@@ -22,10 +22,16 @@ export function parse(): Article {
         })(),
         timestamp: {
             created: (() => {
-                let created = $('.article_info .sponsor .t11').text();
+                let created = $('.article_info .sponsor .t11').eq(0).text();
                 return new Date(created.replace(' ', 'T') + '+09:00'); // ISO 8601
             })(),
-            lastModified: undefined
+            lastModified: (() => {
+                let modified = $('.article_info .sponsor .t11').eq(1).text();
+                if(modified === '') {
+                    return undefined;
+                }
+                return new Date(modified.replace(' ', 'T') + '+09:00'); // ISO 8601
+            })(),
         },
     };
 }
