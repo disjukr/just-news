@@ -3,14 +3,14 @@ import * as moment from 'moment';
 
 import {
     Article,
+    ReadyToParse,
 } from '..';
 import {
     clearStyles,
-    waitElement,
 } from '../util';
 
 
-export const readyToParse = () => waitElement('#adtive');
+export const readyToParse: ReadyToParse = wait => wait('#articleBody');
 
 export const cleanup = () => $('#scrollDiv, iframe').remove();
 

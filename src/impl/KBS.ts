@@ -1,8 +1,8 @@
 import * as $ from 'jquery';
-import { Article } from '..';
-import { clearStyles, waitElement } from '../util';
+import { Article, ReadyToParse } from '..';
+import { clearStyles } from '../util';
 
-export const readyToParse = () => waitElement('.name span');
+export const readyToParse: ReadyToParse = wait => wait('.name span');
 
 export function parse(): Article {
     return {

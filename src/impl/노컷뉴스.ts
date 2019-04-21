@@ -1,11 +1,14 @@
 import * as $ from 'jquery';
+
 import {
     clearStyles,
-    waitElement
 } from '../util';
-import { Article } from '..';
+import {
+    Article,
+    ReadyToParse,
+} from '..';
 
-export const readyToParse = () => waitElement('.view_foot');
+export const readyToParse: ReadyToParse = wait => wait('.view_foot');
 
 export const cleanup = () => {
     $('#scrollDiv, body>img').remove();

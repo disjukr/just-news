@@ -1,11 +1,13 @@
 import * as $ from 'jquery';
 import {
     clearStyles,
-    waitElement,
 } from '../util';
-import { Article } from '..';
+import {
+    Article,
+    ReadyToParse,
+} from '..';
 
-export const readyToParse = () => waitElement('#body_bn');
+export const readyToParse: ReadyToParse = wait => wait('#body_bn');
 
 export const cleanup = () => {
     $('body>iframe, #fb-root').remove();

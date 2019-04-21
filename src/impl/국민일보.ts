@@ -3,13 +3,13 @@ import * as moment from 'moment';
 
 import {
     Article,
+    ReadyToParse,
 } from '..';
 import {
     clearStyles,
-    waitElement,
 } from '../util';
 
-export const readyToParse = () => waitElement('.best_nw');
+export const readyToParse: ReadyToParse = wait => wait('.best_nw');
 
 // 유투브 동영상(iframe)이 포함된 기사: http://news.kmib.co.kr/article/view.asp?arcid=0012123329&code=61161111&sid1=spo
 // 따라서 단순하게 iframe을 날려버리면 기사 내용이 날라가는 문제가 있을 수 있습니다.

@@ -1,11 +1,13 @@
 import * as $ from 'jquery';
 import {
     clearStyles,
-    waitElement,
 } from '../util';
-import { Article } from '..';
+import {
+    Article,
+    ReadyToParse,
+} from '..';
 
-export const readyToParse = () => waitElement('.article_pay');
+export const readyToParse: ReadyToParse = wait => wait('.article_pay');
 
 export const cleanup = () => {
     $('#scrollDiv, body>img, body>div:not([id]), html>iframe, body>iframe, body>script, #fb-root, #sliderAdScript').remove();

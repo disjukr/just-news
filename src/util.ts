@@ -13,7 +13,7 @@ export function waitDOMContentLoaded(): Promise<void> {
     });
 };
 
-export function waitElement(selector: string): Promise<void> {
+export function waitForSelector(selector: string): Promise<void> {
     return new Promise(resolve => {
         const i = setInterval(() => {
             if ($(selector).length > 0) {
@@ -22,6 +22,10 @@ export function waitElement(selector: string): Promise<void> {
             }
         }, 100);
     });
+}
+
+export function wait(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export function clearStyles(element: HTMLElement | Node) {

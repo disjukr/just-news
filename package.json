@@ -18,6 +18,7 @@
     "build": "cross-env NODE_ENV=production npm run webpack",
     "build:dev": "cross-env NODE_ENV=development npm run webpack",
     "test": "sucrase-node ./src/test/index.ts",
+    "test:health-check": "sucrase-node ./src/test/health-check/index.ts",
     "webpack": "webpack --config ./dev/webpack.config.ts --require sucrase/register/ts",
     "serve": "serve ./dist"
   },
@@ -48,6 +49,7 @@
     "@babel/preset-typescript": "^7.3.3",
     "@types/jquery": "^3.3.29",
     "@types/node": "^9.6.47",
+    "@types/puppeteer": "^1.12.3",
     "@types/terser-webpack-plugin": "^1.2.1",
     "@types/webpack": "^4.4.27",
     "babel-loader": "^8.0.5",
@@ -55,6 +57,7 @@
     "codegen.macro": "^3.0.0",
     "cross-env": "^5.2.0",
     "npm-run-all": "^4.1.5",
+    "puppeteer": "^1.14.0",
     "serve": "^10.1.2",
     "sucrase": "^3.10.1",
     "terser-webpack-plugin": "^1.2.3",
