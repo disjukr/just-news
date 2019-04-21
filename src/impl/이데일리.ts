@@ -1,7 +1,8 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
+import { Article } from '..';
 
-export default function () {
+export function parse(): Article {
     return {
         title: $('.newstitle').text(),
         subtitle: $('.subtitle').html() || undefined,

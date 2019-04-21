@@ -1,5 +1,6 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
+import { Article } from '..';
 
 export const cleanup = () => {
     const $share = $('a[href*="mailto"]');
@@ -9,9 +10,9 @@ export const cleanup = () => {
     $('.pinitshareimage').remove();
     $('.ad_wrapper').remove();
     $('.hp-slideshow-wrapper').remove();
-};
+}
 
-export default function () {
+export function parse(): Article {
     const mainImageContent = (() => {
         const $mainImage = $('.main-visual img[data-img-path]');
         if ($mainImage.length) {

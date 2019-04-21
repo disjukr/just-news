@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 
-export const endlessWaiting = new Promise(() => {});
+export const endlessWaiting = new Promise<void>(() => {});
 
 export function waitDOMContentLoaded(): Promise<void> {
     return new Promise(resolve => {

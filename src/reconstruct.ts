@@ -19,7 +19,7 @@ export function noReconstructUrl() {
     return window.location.origin + window.location.pathname + query;
 }
 
-export function reconstruct(article: Article, cleanup?: Function) {
+export function reconstruct(article: Article, cleanup?: Nullable<() => void>) {
     { // timeout, interval 청소
         let id = window.setTimeout('0', 0);
         while (id--) {

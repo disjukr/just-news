@@ -1,5 +1,5 @@
 import * as $ from 'jquery';
-import { Article } from 'index';
+import { Article } from '..';
 import { clearStyles, waitElement } from '../util';
 
 export const readyToParse = () => waitElement('.name span');

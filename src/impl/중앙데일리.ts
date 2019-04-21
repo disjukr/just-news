@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
-import { Article } from 'index';
+import { Article } from '..';
 
 export const cleanup = () => {
     $('iframe, #gnb_banner, .article_ad250').remove();

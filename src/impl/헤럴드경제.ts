@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
-import { Article } from 'index';
+import { Article } from '..';
 
 export const cleanup = () => {
     $('div[id^=soea], #wp_adbn_root, #mobon_toast_banner').remove();

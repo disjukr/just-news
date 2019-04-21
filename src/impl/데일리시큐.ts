@@ -1,5 +1,5 @@
 import { clearStyles } from '../util';
-import { Article } from 'index';
+import { Article } from '..';
 
 export function parse(): Article {
     const infos = $('.new_write').text().split(',');

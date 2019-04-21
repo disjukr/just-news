@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
-import { Article, Reporter } from 'index';
+import { Article, Reporter } from '..';
 
 export const cleanup = () => {
     $('body>iframe, #gnb_banner, #criteo_network').remove();

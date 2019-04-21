@@ -1,5 +1,5 @@
 import { clearStyles } from '../util';
-import { Article } from 'index';
+import { Article } from '..';
 
 export const cleanup = () => {
     $('#scrollDiv').remove();

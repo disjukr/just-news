@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
-import { Article } from 'index';
+import { Article } from '..';
 
 export const cleanup = () => {
     $('#bestnews_layer, #scrollDiv, #sub_ad01, #sub_ad02').remove();

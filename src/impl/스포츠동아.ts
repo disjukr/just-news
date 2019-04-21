@@ -1,5 +1,5 @@
 import { clearStyles } from '../util';
-import { Article } from 'index';
+import { Article } from '..';
 
 //???
 
@@ -13,14 +13,6 @@ export function parse(): Article {
     };
     jews.content = clearStyles(document.querySelector('#ct>div.article_word')).innerHTML;
     jews.reporters = [];
-    jews.cleanup = function () {
-        [].forEach.call(document.querySelectorAll('#scrollDiv'), function (v) {
-            v.parentNode.removeChild(v);
-        });
-        [].forEach.call(document.getElementById('content').querySelectorAll('script, iframe'), function (v) {
-            v.parentNode.removeChild(v);
-        });
-    };
     var slides = document.querySelector('iframe[id^="iPhotoSlide_"]');
     if (slides) {
         var xhr = new XMLHttpRequest();
@@ -57,3 +49,12 @@ export function parse(): Article {
     }
     return jews;
 }
+
+export const cleanup = () => {
+    [].forEach.call(document.querySelectorAll('#scrollDiv'), function (v) {
+        v.parentNode.removeChild(v);
+    });
+    [].forEach.call(document.getElementById('content').querySelectorAll('script, iframe'), function (v) {
+        v.parentNode.removeChild(v);
+    });
+};

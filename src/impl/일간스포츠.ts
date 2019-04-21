@@ -1,11 +1,12 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
+import { Article } from '..';
 
 export const cleanup = () => {
     $('#gnb_banner, .article_ad250, iframe, div#fb-root').remove();
 }
 
-export default function () {
+export function parse(): Article {
     return {
         title: $('#articletitle .title h3').text(),
         content: (() => {

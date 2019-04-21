@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
-import { Article, Timestamp } from 'index';
+import { Article, Timestamp } from '..';
 
 export const cleanup = () => {
     $('#scrollDiv').remove();

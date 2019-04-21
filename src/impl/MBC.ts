@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
-import { Article } from 'index';
+import { Article } from '..';
 
 const toDate = (elem) => new Date(elem.text().trim().split(/\s/).slice(-2).join(' '));
 const once = [];

@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
-import { Article } from 'index';
+import { Article } from '..';
 
 export function parse(): Article {
     return {
@@ -25,9 +25,7 @@ export function parse(): Article {
             name: $('#news_names p')[0].childNodes[0].textContent!.trim(),
             mail: $('#news_names p [href^=mailto]').text()
         }],
-        cleanup: () => {
-            $('#soeaLayerLoc_fi').remove();
-        }
     };
 }
 
+export const cleanup = () => $('#soeaLayerLoc_fi').remove();

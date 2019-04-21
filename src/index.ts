@@ -27,6 +27,11 @@ export interface Article {
     content?: Nullable<string>;
     timestamp?: Nullable<Timestamp>;
     reporters?: Nullable<Reporter[]>;
+}
+
+export interface Impl {
+    parse: () => Article;
+    readyToParse?: Nullable<() => Promise<void>>;
     cleanup?: Nullable<() => void>;
 }
 
@@ -49,17 +54,16 @@ async function main() {
     if (!reconstructable()) return;
     try {
         const where = here();
-        const impl = require('./impl/' + where);
+        const impl: Impl = require('./impl/' + where);
         await Promise.race([
             impl.readyToParse ? impl.readyToParse() : endlessWaiting,
             waitDOMContentLoaded(),
         ]);
         const article =
             impl.parse ? await impl.parse() as Article :
-            impl.default ? await impl.default() as Article :
             null;
         if (article == null) throw new Error('구현된 파싱 함수가 없습니다.');
-        reconstruct(article, impl.cleanup || article.cleanup);
+        reconstruct(article, impl.cleanup);
     } catch (e) {
         console.error(e ? (e.stack || e) : e);
     }

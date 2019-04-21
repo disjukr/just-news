@@ -3,7 +3,7 @@ import {
     clearStyles,
     waitElement,
 } from '../util';
-import { Article } from 'index';
+import { Article } from '..';
 
 export const readyToParse = () => waitElement('.social_follow');
 

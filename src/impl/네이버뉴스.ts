@@ -1,5 +1,5 @@
 import { clearStyles } from '../util';
-import { Article } from 'index';
+import { Article } from '..';
 
 export const cleanup = () => {
     document.querySelectorAll('#tooltipLayer_english, .u_cbox_layer_wrap').forEach((v) => {

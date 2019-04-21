@@ -1,5 +1,5 @@
 import * as $ from 'jquery';
-import { Article } from 'index';
+import { Article } from '..';
 
 //???
 export function parse(): Article {

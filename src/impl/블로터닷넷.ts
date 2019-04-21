@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
-import { Article } from 'index';
+import { Article } from '..';
 
 export const cleanup = () => {
     $('#move-to-top, #selectionSharerPopover, #selectionSharerPopunder, #fb-root').remove();
