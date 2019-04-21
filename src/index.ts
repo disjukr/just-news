@@ -2,10 +2,6 @@ import codegen from 'codegen.macro';
 
 import * as router from './router';
 import {
-    reconstruct,
-    reconstructable,
-} from './reconstruct';
-import {
     waitDOMContentLoaded,
     endlessWaiting,
 } from './util';
@@ -50,23 +46,12 @@ export function here(url=location.href) {
     return site;
 };
 
-async function main() {
-    if (!reconstructable()) return;
-    try {
-        const where = here();
-        const impl: Impl = require('./impl/' + where);
-        await Promise.race([
-            impl.readyToParse ? impl.readyToParse() : endlessWaiting,
-            waitDOMContentLoaded(),
-        ]);
-        const article =
-            impl.parse ? await impl.parse() as Article :
-            null;
-        if (article == null) throw new Error('구현된 파싱 함수가 없습니다.');
-        reconstruct(article, impl.cleanup);
-    } catch (e) {
-        console.error(e ? (e.stack || e) : e);
-    }
+export async function coreProcess(): Promise<[Article, Impl]> {
+    const where = here();
+    const impl: Impl = require('./impl/' + where);
+    await Promise.race([
+        impl.readyToParse ? impl.readyToParse() : endlessWaiting,
+        waitDOMContentLoaded(),
+    ]);
+    return [await impl.parse() as Article, impl];
 }
-
-main();

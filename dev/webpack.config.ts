@@ -6,7 +6,7 @@ import userscriptMetadataBlock from '../src/userscript-metadata-block';
 
 const config: webpack.Configuration = {
     mode: process.env.NODE_ENV as webpack.Configuration['mode'],
-    entry: './src/index.ts',
+    entry: './src/userscript-entry.ts',
     output: {
         filename: 'just-news.user.js',
         path: path.resolve(__dirname, '..', 'dist'),

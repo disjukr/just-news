@@ -3,18 +3,18 @@ import {
 } from '.';
 
 
-const noReconstructQueryKey = 'just_news';
+const optOutQueryKey = 'just_news';
 
-export function reconstructable() {
-    return window.location.search.indexOf(`${ noReconstructQueryKey }=false`) < 0;
+export function isOptOut() {
+    return window.location.search.indexOf(`${ optOutQueryKey }=false`) !== -1;
 }
 
-export function noReconstructUrl() {
-    var query = window.location.search;
-    if (query.length) {
-        query += `&${ noReconstructQueryKey }=false`;
+export function optOutUrl() {
+    let query = window.location.search;
+    if (query) {
+        query += `&${ optOutQueryKey }=false`;
     } else {
-        query = `?${ noReconstructQueryKey }=false`;
+        query = `?${ optOutQueryKey }=false`;
     }
     return window.location.origin + window.location.pathname + query;
 }
@@ -103,7 +103,7 @@ export function reconstruct(article: Article, cleanup?: Nullable<() => void>) {
     <div id="info">
         <small>
             <a href="https://github.com/disjukr/just-news">just-news</a>에 의해 변환된 페이지입니다.
-            <a href="${ noReconstructUrl() }">원본 페이지 보기</a>
+            <a href="${ optOutUrl() }">원본 페이지 보기</a>
         </small>
     </div>
     <h1 id="title">${ article.title || 'no title' }</h1>
