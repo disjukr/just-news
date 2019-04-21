@@ -37,26 +37,26 @@
     "node": ">= 9.5.0"
   },
   "dependencies": {
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.0",
     "moment": "^2.24.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "@babel/preset-typescript": "^7.3.3",
     "@types/jquery": "^3.3.29",
-    "@types/node": "^9.6.46",
+    "@types/node": "^9.6.47",
     "@types/terser-webpack-plugin": "^1.2.1",
-    "@types/webpack": "^4.4.25",
+    "@types/webpack": "^4.4.27",
     "babel-loader": "^8.0.5",
-    "babel-plugin-macros": "^2.5.0",
+    "babel-plugin-macros": "^2.5.1",
     "codegen.macro": "^3.0.0",
     "cross-env": "^5.2.0",
     "serve": "^10.1.2",
-    "sucrase": "^3.10.0",
+    "sucrase": "^3.10.1",
     "terser-webpack-plugin": "^1.2.3",
-    "typescript": "^3.3.3333",
-    "webpack": "^4.29.6",
+    "typescript": "^3.4.4",
+    "webpack": "^4.30.0",
     "webpack-command": "^0.2.1"
   },
   "private": true
