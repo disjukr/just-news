@@ -1,0 +1,29 @@
+{
+    "JustNews Article Parser": {
+        "prefix": "justnews",
+        "scope": "typescript",
+        "body": [
+            "import * as $ from 'jquery';",
+            "import { clearStyles } from '../util';",
+            "import { Article } from '..';",
+            "",
+            "export function parse(): Article {",
+            "    return {",
+            "        title: ${1:undefined},",
+            "        subtitle: ${2:undefined},",
+            "        content: ${3:undefined},",
+            "        timestamp: {",
+            "            'created': ${4:undefined},",
+            "            'lastModified': ${5:undefined},",
+            "        },",
+            "        reporters: [{",
+            "            'name': ${6:undefined},",
+            "            'mail': ${7:undefined},",
+            "        }],",
+            "    };",
+            "}",
+            ""
+        ],
+        "description": "JustNews Article Parser"
+    }
+}
