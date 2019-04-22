@@ -27,6 +27,7 @@ export default {
     '뉴스1': ['www.news1.kr/articles/*', 'news1.kr/articles/*'],
     '뉴시스': ['www.newsis.com/ar_detail/view.html*'],
     // ㄷ
+    '다음뉴스': ['news.v.daum.net/v/*'],
     '데일리시큐': ['dailysecu.com/news_view.php*'],
     '데일리안': ['www.dailian.co.kr/news/view/*'],
     '데일리한국': ['daily.hankooki.com/lpage/*'],

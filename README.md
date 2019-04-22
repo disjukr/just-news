@@ -142,7 +142,7 @@ export const readyToParse = () => waitElement('#comments');
 * [x] [뉴데일리경제](http://biz.newdaily.co.kr)
 * [x] [뉴스1](http://www.news1.kr)
 * [x] [뉴시스](http://www.newsis.com)
-* [ ] [다음뉴스](http://media.daum.net)
+* [x] [다음뉴스](http://media.daum.net)
 * [x] [데일리시큐](http://dailysecu.com)
 * [x] [데일리안](http://www.dailian.co.kr)
 * [x] [데일리한국](http://daily.hankooki.com)
