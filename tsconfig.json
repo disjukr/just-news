@@ -17,10 +17,7 @@
     "baseUrl": "./src/",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": false,
-    "emitDecoratorMetadata": false,
-    "types": [
-      "node"
-    ]
+    "emitDecoratorMetadata": false
   },
   "exclude": [
     "node_modules",
