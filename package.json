@@ -14,12 +14,14 @@
   ],
   "scripts": {
     "dev": "run-p dev:webpack serve",
-    "dev:webpack": "cross-env NODE_ENV=development npm run webpack -- --watch",
-    "build": "cross-env NODE_ENV=production npm run webpack",
-    "build:dev": "cross-env NODE_ENV=development npm run webpack",
+    "dev:webpack": "cross-env NODE_ENV=development npm run webpack:userscript -- --watch",
+    "build": "cross-env NODE_ENV=production npm run webpack:userscript",
+    "build:dev": "cross-env NODE_ENV=development npm run webpack:userscript",
     "test": "sucrase-node ./src/test/index.ts",
-    "test:health-check": "sucrase-node ./src/test/health-check/index.ts",
-    "webpack": "webpack --config ./dev/webpack.config.ts --require sucrase/register/ts",
+    "test:health-check": "run-s webpack:health-check test:health-check:node",
+    "test:health-check:node": "sucrase-node ./src/test/health-check/index.ts",
+    "webpack:userscript": "webpack --config ./dev/userscript.webpack.config.ts --require sucrase/register/ts",
+    "webpack:health-check": "webpack --config ./dev/health-check.webpack.config.ts --require sucrase/register/ts",
     "serve": "serve ./dist"
   },
   "repository": {

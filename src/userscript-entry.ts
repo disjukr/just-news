@@ -6,11 +6,7 @@ import {
 
 async function main() {
     if (isOptOut()) return;
-    try {
-        const [article, impl] = await coreProcess();
-        reconstruct(article, impl.cleanup);
-    } catch (e) {
-        console.error(e ? (e.stack || e) : e);
-    }
+    const [article, impl] = await coreProcess();
+    reconstruct(article, impl.cleanup);
 }
-main();
+main().catch(e => console.error(e ? (e.stack || e) : e));

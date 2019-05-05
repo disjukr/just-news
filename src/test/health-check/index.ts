@@ -1,3 +1,4 @@
+import fs from 'fs';
 import puppeteer from 'puppeteer';
 
 import {
@@ -5,6 +6,7 @@ import {
 } from '../../util';
 import {
     getImpl,
+    fromJSON,
 } from '../..';
 
 
@@ -60,10 +62,13 @@ async function run() {
                 ...(impl.readyToParse ? [impl.readyToParse(waitForSelector)] : [] as any),
                 wait(3000),
             ]);
-            // await page.evaluate((job: Case) => {
-            //     alert(job.impl);
-            // }, job as any);
-            // TODO
+            const article = fromJSON(await page.evaluate(`
+                new Promise(async resolve => {
+                    const article = ${ fs.readFileSync('./tmp/health-check.js', 'utf8') };
+                    resolve(await article.default);
+                })
+            `));
+            console.log(job.impl, article);
             await page.close();
         }
     }));

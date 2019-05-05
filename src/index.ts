@@ -35,6 +35,32 @@ export interface Impl {
     cleanup?: Nullable<() => void>;
 }
 
+export function toJSON(article: Article): object | null {
+    if (!article || typeof article !== 'object') return null;
+    const any2str = (date: any) => date instanceof Date ? date2str(date) : null;
+    const date2str = (date: Date) => isNaN(+date) ? 'Invalid Date' : date.toISOString();
+    return {
+        ...article,
+        timestamp: article.timestamp ? {
+            created: any2str(article.timestamp.created),
+            lastModified: any2str(article.timestamp.lastModified),
+        } : {},
+    };
+}
+
+export function fromJSON(article: any): Article | null {
+    if (!article || typeof article !== 'object') return null;
+    const any2date = (date: any) => typeof date === 'string' ? str2date(date) : null;
+    const str2date = (date: string) => (date === 'Invalid Date') ? new Date(NaN) : new Date(date);
+    return {
+        ...article,
+        timestamp: article.timestamp ? {
+            created: any2date(article.timestamp.created),
+            lastModified: any2date(article.timestamp.lastModified),
+        } : {},
+    };
+}
+
 export function here(url=location.href) {
     if (!here.routeTree) {
         here.routeTree = codegen<router.Node[]>`
