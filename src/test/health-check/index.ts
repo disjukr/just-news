@@ -41,7 +41,7 @@ const cases: Case[] = [
 async function run() {
     const jobs = [...cases];
     const jobResults: JobResult[] = [];
-    //*
+    /*
     const headless = false;
     const workers = [0, 1];
     /*/
@@ -60,6 +60,12 @@ async function run() {
     await Promise.all(workers.map(async () => {
         let job: Case;
         while (job = jobs.pop()!) {
+            console.log(
+                `${ jobs.length + 1 } / ${ cases.length } - ` +
+                `${ job.impl }${
+                    job.related.length ? `(${ job.related.join(', ') })` : ''
+                } 처리중...`
+            );
             const page = await browser.newPage();
             const startTime = Date.now();
             const jobResult = await doJob(job, page).then(
@@ -73,9 +79,15 @@ async function run() {
         }
     }));
     await browser.close();
-    console.log(jobResults);
+    fs.writeFileSync(
+        './tmp/health-check.json',
+        JSON.stringify(jobResults, null, 4),
+    );
 }
-run();
+run().catch(e => {
+    console.error(e ? (e.stack || e) : e);
+    process.exit(1);
+});
 
 async function doJob(job: Case, page: puppeteer.Page) {
     const impl = getImpl(job.impl);
@@ -88,22 +100,17 @@ async function doJob(job: Case, page: puppeteer.Page) {
         ...(impl.readyToParse ? [impl.readyToParse(waitForSelector)] : [] as any),
         wait(3000),
     ]);
-    const article = fromJSON(await page.evaluate(`
-        new Promise(async resolve => {
-            const article = ${ fs.readFileSync('./tmp/health-check.js', 'utf8') };
-            resolve(await article.default);
-        })
-    `));
+    const article = fromJSON(await page.evaluate(doJob.browserScript));
     type ProblemReason = 'missing' | 'invalid';
     type Problem = [string/* path */, ProblemReason];
     interface JobOkResult extends Case {
-        article: typeof article;
+        // article: typeof article;
         problems: Problem[];
     }
     if (!article) return { ...job, article, problems: [] } as JobOkResult;
     return {
         ...job,
-        article,
+        // article,
         problems: job.check.map(path => {
             const value = pincet(article, path);
             if (!value) return [path, 'missing'] as const;
@@ -114,6 +121,12 @@ async function doJob(job: Case, page: puppeteer.Page) {
         }).filter(x => x),
     } as JobOkResult;
 }
+doJob.browserScript = `
+    new Promise(async resolve => {
+        const article = ${ fs.readFileSync('./tmp/health-check.js', 'utf8') };
+        resolve(await article.default);
+    })
+`;
 
 function pincet(obj: any, path: string): any {
     let result = obj;
