@@ -2,7 +2,7 @@ set -e
 if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = false ] && [ "$GITHUB_TOKEN" != "" ]; then
     echo "machine github.com login reactjs-bot password $GITHUB_TOKEN" >~/.netrc
     git config --global user.name "just-news-bot"
-    git config --global user.email "jews@chan.moe"
+    git config --global user.email "jong+just.news@chan.moe"
     git config --bool core.bare true
 
     npm run build
