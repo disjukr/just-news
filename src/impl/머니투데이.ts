@@ -9,12 +9,13 @@ export const cleanup = () => {
 
 export function parse(): Article {
     return {
-        title: $('#article h1').text(),
-        subtitle: $('#article h2').text(),
+        title: $('h1.subject').text(),
+        subtitle: $('h2.sub_subject').text(),
         content: (() => {
             const content = $('#textBody')[0].cloneNode(true);
             $('#now-sence', content).remove();
             $('span.up, span.down', content).remove();
+            $('#articleRelnewsFrame').remove();
             //?
             $('a', content).each((v: any) => {
                 if ($('img', v)[0]) return;
