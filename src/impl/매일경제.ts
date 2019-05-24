@@ -4,7 +4,7 @@ import { Article } from '..';
 
 export function parse(): Article {
     let $a = $('.news_title_author');
-    let t = $('.lasttime', $a).text().replace(/\s+/g, ' ').replace('입력 :', '').split('수정 :');
+    let t = $('.lasttime, .lasttime1', $a).text().replace(/\s+/g, ' ').replace('입력 :', '').split('수정 :');
     return {
         title: $('.top_title').text(),
         subtitle: $('.sub_title1').text(),
@@ -21,7 +21,7 @@ export function parse(): Article {
         })(),
         timestamp: {
             created: new Date(t[0].replace(/\./g, '/')),
-            lastModified: new Date(t[1].replace(/\./g, '/'))
+            lastModified: t.length > 1 ? new Date(t[1].replace(/\./g, '/')) : null
         },
         reporters: [{ name: $('.author', $a).text() }]
     };
