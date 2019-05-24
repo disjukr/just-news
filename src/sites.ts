@@ -39,7 +39,7 @@ export default {
     '로이터': ['www.reuters.com/article/*'],
     // ㅁ
     '마이데일리': ['www.mydaily.co.kr/new_yk/html/read.php*'],
-    '매일경제': ['news.mk.co.kr/newsRead.php*', 'nnews.mk.co.kr/newsRead.php*'],
+    '매일경제': ['www.mk.co.kr/news/*/view/*'],
     '머니투데이': ['www.mt.co.kr/view/mtview.php*', 'news.mt.co.kr/mtview.php*', 'cnews.mt.co.kr/mtview.php*'],
     '문화일보': ['www.munhwa.com/news/view.html*'],
     '미디어스': ['www.mediaus.co.kr/news/articleView.html*'],
