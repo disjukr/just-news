@@ -18,22 +18,29 @@ export function parse(): Article {
             else return undefined;
         }
     };
+    const editor = $('.view-editors a strong').text().trim();
+    const emailPat = /^ @]+@[^\.]+\.[^ ]+/g;
     return {
-        title: $('#news_title').text().trim(),
-        subtitle: $('#news_title2').text().trim(),
+        title: $('.article-head-title').text().trim(),
+        subtitle: $('.article-head-sub').text().trim(),
         content: (() => {
-            const content = $('#news_content')[0].cloneNode(true);
+            const content = $('#article-view-content-div')[0].cloneNode(true);
+            $('.article-head-sub', content).remove();
+            $('.view-editors', content).remove();
             $('.adsbygoogle', content).remove();
             $('.slogan', content).remove();
             return clearStyles(content).innerHTML;
         })(),
         timestamp: {
-            created: parseDate($('.news_dates')[0].childNodes[0].textContent!.trim()),
-            lastModified: parseDate($('.news_dates')[0].childNodes[2].textContent!.trim())
+            created: parseDate($('.info-text > ul > li')[1].textContent!.trim()),
+            lastModified: parseDate($('.info-text > ul > li')[2].textContent!.trim())
         },
         reporters: [{
-            name: $('#news_sig strong').text(),
-            mail: $('#news_sig').text().replace(/[가-힣()]/g, '').trim()
+            name: editor.replace(emailPat, '').trim(),
+            mail: (() => { 
+                const matchs = editor.match(emailPat);
+                return matchs ? matchs.join(',') : '';
+            })()
         }]
     };
 }
