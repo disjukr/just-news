@@ -8,6 +8,19 @@ export const cleanup = () => {
 }
 
 export function parse(): Article {
+    const parseTime = (timeInfo: Nullable<string>) => {
+        if (timeInfo) {
+            const iso8601 = timeInfo.replace(/(\d{4}).(\d{2}).(\d{2}). (오전|오후) (\d{1,2}):(\d{2})/, function(_, year, month, day, ampm, hour, minuate) {
+                hour |= 0;
+                if (ampm === "오후") hour += 12;
+                if (hour === 24) hour = 0;
+                hour = hour < 10 ? "0" + hour : hour;
+                return `${year}-${month}-${day}T${hour}:${minuate}+09:00`;
+            })
+            return new Date(iso8601);
+        }
+        return undefined;
+    }
     return {
         title: $('#articleTitle').text(),
         content: (() => {
@@ -23,14 +36,11 @@ export function parse(): Article {
         timestamp: {
             created: (() => {
                 let created = $('.article_info .sponsor .t11').eq(0).text();
-                return new Date(created.replace(' ', 'T') + '+09:00'); // ISO 8601
+                return parseTime(created);
             })(),
             lastModified: (() => {
                 let modified = $('.article_info .sponsor .t11').eq(1).text();
-                if(modified === '') {
-                    return undefined;
-                }
-                return new Date(modified.replace(' ', 'T') + '+09:00'); // ISO 8601
+                return parseTime(modified);
             })(),
         },
     };
