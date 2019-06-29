@@ -75,7 +75,7 @@ export default {
     '조선일보': ['news.chosun.com/site/data/html_dir/*'],
     '중앙데일리': ['koreajoongangdaily.joins.com/news/article/article.aspx*'],
     '중앙일보': ['joongang.joins.com/article/*', 'article.joins.com/news/article/article.asp*', 'news.joins.com/article/*'],
-    '지디넷코리아': ['www.zdnet.co.kr/news/news_view.asp*', 'www.zdnet.co.kr/column/column_view.asp*'],
+    '지디넷코리아': ['www.zdnet.co.kr/view/?no=*'],
     '지지통신': ['www.jiji.com/jc/c?g=*'],
     // ㅋ
     '코리아타임스': ['www.koreatimes.co.kr/www/news/*'],
