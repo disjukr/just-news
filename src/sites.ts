@@ -73,6 +73,7 @@ export default {
     '전자신문': ['www.etnews.com/*'],
     '조선비즈': ['biz.chosun.com/site/data/html_dir/*'],
     '조선일보': ['news.chosun.com/site/data/html_dir/*'],
+    '주간경향': ['weekly.khan.co.kr/khnm.html?*'],
     '중앙데일리': ['koreajoongangdaily.joins.com/news/article/article.aspx*'],
     '중앙일보': ['joongang.joins.com/article/*', 'article.joins.com/news/article/article.asp*', 'news.joins.com/article/*'],
     '지디넷코리아': ['www.zdnet.co.kr/view/?no=*'],
