@@ -42,8 +42,10 @@
     "node": ">= 9.5.0"
   },
   "dependencies": {
+    "@types/showdown": "^1.9.3",
     "jquery": "^3.4.0",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "showdown": "^1.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
