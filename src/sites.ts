@@ -86,7 +86,7 @@ export default {
     '프레시안': ['www.pressian.com/news/article.html*'],
     // ㅎ
     '한겨레': ['hani.co.kr/arti/*', 'www.hani.co.kr/arti/*'],
-    '한국경제': ['www.hankyung.com/news/app/newsview.php*', 'ent.hankyung.com/news/app/newsview.php*', 'golf.hankyung.com/news/app/newsview.php*', 'land.hankyung.com/news/app/newsview.php*'],
+    '한국경제': ['www.hankyung.com/*/article/*'],
     '한국경제증권': ['stock.hankyung.com/news/app/newsview.php*'],
     '한국경제TV': ['www.wowtv.co.kr/newscenter/news/view.asp*'],
     '한국일보': ['www.hankookilbo.com/v/*', 'hankookilbo.com/v/*'],
