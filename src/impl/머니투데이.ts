@@ -24,7 +24,7 @@ export function parse(): Article {
             return clearStyles(content).innerHTML;
         })(),
         timestamp: {
-            created: new Date($('.infobox1 .num:first').text().replace(": ", "").replace(/\./g, '/')), // ": 2014.06.20 06:31"형태로 들어있음
+            created: new Date($('.info2 .date').text().replace(/\./g, '-')), // ": 2014.06.20 06:31"형태로 들어있음
             lastModified: undefined
         },
         reporters: (() => {
