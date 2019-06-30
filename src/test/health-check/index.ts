@@ -1,6 +1,5 @@
 import fs from 'fs';
 import puppeteer from 'puppeteer';
-import showdown from 'showdown'
 
 import {
     wait,
@@ -9,6 +8,7 @@ import {
     getImpl,
     fromJSON,
 } from '../..';
+import imageReporter from './reporter/image';
 
 
 interface Case {
@@ -26,17 +26,7 @@ interface JobError {
 interface JobOk extends UnwrapPromise<ReturnType<typeof doJob>> {
     type: 'ok';
 }
-type JobResult = (JobError | JobOk) & { duration: number };
-type CheckElements = 'title' | 'subtitle' | 'content' | 'timestamp.created' | 'timestamp.lastModified' | 'reporters.0.name' | 'reporters.0.mail';
-const CheckElementNames: { [key in CheckElements]: string } = {
-    'title': '제목',
-    'subtitle': '부제목',
-    'content': '본문',
-    'timestamp.created': '작성일',
-    'timestamp.lastModified': '수정일',
-    'reporters.0.name': '작성자 이름',
-    'reporters.0.mail': '작성자 이메일',
-}
+export type JobResult = (JobError | JobOk) & { duration: number };
 
 // `impl` 기준 사전순으로 정렬할 것
 const cases: Case[] = [
@@ -212,12 +202,7 @@ async function run() {
             await page.close();
         }
     }));
-
-    // Create image report
-    const markdownReport = makeMarkdownReport(jobResults);
-    const htmlReport = makeHtmlReport(markdownReport);
-    await screenshotReport(browser, htmlReport);
-
+    await imageReporter(jobResults, browser);
     await browser.close();
     fs.writeFileSync(
         './tmp/health-check.json',
@@ -228,89 +213,6 @@ run().catch(e => {
     console.error(e ? (e.stack || e) : e);
     process.exit(1);
 });
-
-function makeMarkdownReport(jobResults: JobResult[]): string {
-    let report = '| 사이트 | 상태 |\n|------|-------|';
-    for (const jobResult of jobResults) {
-        let message;
-        if (jobResult.type == 'error') {
-            message = '• ❓테스트 실패';
-        } else {
-            message = '• '
-            if (jobResult.problems && jobResult.problems.length == 0) {
-                message += `✅`;
-            } else {
-                message += `❌`;
-            }
-            const links = [`[url](${jobResult.url})`];
-            for(const issueNumber of jobResult.related) {
-                links.push(`[${issueNumber}](https://github.com/disjukr/just-news/issues/${issueNumber})`);
-            }
-            message += '(' + links.join(', ') + ')';
-
-            const problemMessages = [];
-            for (const [element, reason] of jobResult.problems) {
-                switch (reason) {
-                    case 'missing':
-                        problemMessages.push(`\`잘못된 ${CheckElementNames[element]}\``);
-                        break;
-                    case 'invalid':
-                        problemMessages.push(`\`${CheckElementNames[element]} 누락됨\``);
-                        break;
-                }
-            }
-            message += problemMessages.join(', ');
-
-        }
-        report += `\n| ${jobResult.impl} | ${message} |`;
-    }
-    return report;
-}
-
-function makeHtmlReport(markdownReport: string): string {
-    const showdownConverter = new showdown.Converter({tables: true});
-
-    return `
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link href="https://unpkg.com/primer/build/build.css" rel="stylesheet">
-<style>
-body {
-    display: inline-block;
-}
-</style>
-</head>
-<body class="markdown-body">
-${showdownConverter.makeHtml(markdownReport)}
-</body>
-</html>
-`
-}
-
-async function screenshotReport(browser: puppeteer.Browser, htmlReport: string) {
-    const page = await browser.newPage();
-    await page.setContent(htmlReport);
-
-    const rect = await page.evaluate(() => {
-        const element = document.querySelector('.markdown-body');
-        if (!element)
-            throw new Error("Markdown body is not found!")
-        const {left, top, width, height} = element.getBoundingClientRect();
-        return {left, top, width, height, id: element.id};
-    });
-
-    await page.screenshot({
-        path: './tmp/report.png',
-        clip: {
-            x: rect.left,
-            y: rect.top,
-            width: rect.width,
-            height: rect.height,
-        }
-    });
-}
 
 async function doJob(job: Case, page: puppeteer.Page) {
     const impl = getImpl(job.impl);
@@ -325,7 +227,7 @@ async function doJob(job: Case, page: puppeteer.Page) {
     ]);
     const article = fromJSON(await page.evaluate(doJob.browserScript));
     type ProblemReason = 'missing' | 'invalid';
-    type Problem = [CheckElements/* path */, ProblemReason];
+    type Problem = [string/* path */, ProblemReason];
     interface JobOkResult extends Case {
         article: typeof article;
         problems: Problem[];
