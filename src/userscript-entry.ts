@@ -7,7 +7,7 @@ import {
     optOutUrl,
 } from './reconstruct';
 import Article from './view/Article';
-import './view/index.css';
+// import './view/index.css';
 
 async function main() {
     if (isOptOut()) return;

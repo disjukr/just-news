@@ -28,11 +28,11 @@ const Article: FunctionComponent<ArticleProps> = ({
         </div>
         <h1 id="title">{ title || 'no title' }</h1>
         { subtitle && <h2 id="sub-title" dangerouslySetInnerHTML={{ __html: subtitle }}/> }
-        { timestamp && <Timestamp
-            created={timestamp.created}
-            lastModified={timestamp.lastModified}
-        /> }
         <div id="meta">
+            { timestamp && <Timestamp
+                created={timestamp.created}
+                lastModified={timestamp.lastModified}
+            /> }
             { reporters && <Reporters reporters={reporters}/>}
         </div><br/>
         { content ?
