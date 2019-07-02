@@ -15,20 +15,35 @@ export default function getSharedWebpackConfig(option: GetConfigOption): webpack
             path: path.resolve(__dirname, '..', option.outputDir || 'dist'),
         },
         resolve: {
-            extensions: ['.js', '.ts'],
+            extensions: ['.js', '.ts', '.tsx'],
         },
         module: {
             rules: [
                 {
-                    test: /\.ts$/,
+                    test: /\.tsx?$/,
                     exclude: /node_modules/,
                     use: {
                         loader: 'babel-loader',
                         options: {
-                            plugins: ['babel-plugin-macros'],
-                            presets: ['@babel/preset-typescript', '@babel/preset-env'],
+                            plugins: [
+                                ['@babel/plugin-transform-react-jsx', { pragma: 'h' }],
+                                'babel-plugin-macros',
+                            ],
+                            presets: [
+                                ['@babel/preset-typescript', { jsxPragma: 'h' }],
+                                '@babel/preset-env',
+                            ],
                         },
                     },
+                },
+                {
+                    test: /\.css$/,
+                    exclude: /node_modules/,
+                    sideEffects: true,
+                    use: [
+                        { loader: 'style-loader' },
+                        { loader: 'css-loader' },
+                    ],
                 },
             ],
         },
