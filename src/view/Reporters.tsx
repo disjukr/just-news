@@ -1,4 +1,5 @@
 import { h, FunctionComponent } from 'preact';
+import { css, cx } from 'linaria';
 
 export interface ReportersProps {
     reporters: ReporterProps[];
@@ -6,7 +7,12 @@ export interface ReportersProps {
 const Reporters: FunctionComponent<ReportersProps> = ({
     reporters,
 }) => {
-    return <ul id="reporters">
+    return <ul
+        id="reporters"
+        class={css`
+            list-style-type: none;
+            text-align: right;
+        `}>
         { reporters.map((reporter, index) => <Reporter
             key={index}
             name={reporter.name}
@@ -23,6 +29,8 @@ export interface ReporterProps {
 const Reporter: FunctionComponent<ReporterProps> = ({ name, mail }) => {
     return <li>
         <span class="name">{ name }</span>
-        <span class="mail">{ mail }</span>
+        <span class={cx(css`
+            margin-left: 8px;
+        `, 'mail')}>{ mail }</span>
     </li>;
 };

@@ -13,8 +13,7 @@ async function main() {
     if (isOptOut()) return;
     const [article, impl] = await coreProcess();
     reconstruct(article, impl.cleanup);
-    { // apply lazy styles
-        const cssText = window.lazyStyles.join('');
+    for (const cssText of window.lazyStyles) {
         const style = document.createElement('style');
         style.setAttribute('type', 'text/css');
         style.appendChild(document.createTextNode(cssText));
