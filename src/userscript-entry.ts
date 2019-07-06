@@ -7,12 +7,19 @@ import {
     optOutUrl,
 } from './reconstruct';
 import Article from './view/Article';
-// import './view/index.css';
+import './view/index.css';
 
 async function main() {
     if (isOptOut()) return;
     const [article, impl] = await coreProcess();
     reconstruct(article, impl.cleanup);
+    { // apply lazy styles
+        const cssText = window.lazyStyles.join('');
+        const style = document.createElement('style');
+        style.setAttribute('type', 'text/css');
+        style.appendChild(document.createTextNode(cssText));
+        document.head.appendChild(style);
+    }
     render(
         h(Article, {
             optOutUrl: optOutUrl(),

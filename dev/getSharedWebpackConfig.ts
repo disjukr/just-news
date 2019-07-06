@@ -41,8 +41,15 @@ export default function getSharedWebpackConfig(option: GetConfigOption): webpack
                     exclude: /node_modules/,
                     sideEffects: true,
                     use: [
-                        { loader: 'style-loader' },
-                        { loader: 'css-loader' },
+                        { loader: path.resolve('./dev/lazy-style-loader.ts') },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                config: {
+                                    path: './dev',
+                                },
+                            }
+                        },
                     ],
                 },
             ],
