@@ -9,7 +9,8 @@ export default `// ==UserScript==
 // @updateURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @downloadURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @copyright 2014 JongChan Choi
-// @grant none
+// @grant GM.setValue
+// @grant GM.getValue
 // @run-at document-start
 ${
     Object.keys(sites).map(
