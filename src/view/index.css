@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic|Nanum+Myeongjo&display=swap');
 body {
     display: flex;
     flex-direction: column;
@@ -6,4 +6,5 @@ body {
     margin-top: 10px;
     margin-bottom: 60vh;
     text-align: center;
+    font-family: 'Nanum Myeongjo', serif;
 }

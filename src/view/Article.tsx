@@ -3,6 +3,7 @@ import { css } from 'linaria';
 
 import Timestamp, { TimestampProps } from './Timestamp';
 import Reporters, { ReporterProps } from './Reporters';
+import Settings from './Settings';
 
 interface ArticleProps {
     optOutUrl?: string;
@@ -60,6 +61,7 @@ const Article: FunctionComponent<ArticleProps> = ({
             { reporters && <Reporters reporters={reporters}/>}
         </div><br/>
         <Content content={content}/>
+        <Settings />
     </Fragment>;
 };
 export default Article;
@@ -72,7 +74,6 @@ const Content: FunctionComponent<ContentProps> = ({ content }) => {
         display: inline-block;
         width: 640px;
         max-width: calc(100% - 40px);
-        font-family: 'Nanum Myeongjo', serif;
         font-size: 11pt;
         text-align: justify;
         line-height: 1.6;
