@@ -160,7 +160,6 @@ export const readyToParse = () => waitElement('#comments');
 * [x] [민중의소리](http://www.vop.co.kr)
 * [x] [뷰스앤뉴스](http://www.viewsnnews.com)
 * [x] [블로터닷넷](http://www.bloter.net)
-* [x] [서울경제](http://economy.hankooki.com)
 * [x] [서울신문](http://www.seoul.co.kr)
 * [x] [세계일보](http://www.segye.com)
 * [x] [스포츠경향](http://sports.khan.co.kr)

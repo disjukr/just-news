@@ -49,7 +49,6 @@ export default {
     '뷰스앤뉴스': ['www.viewsnnews.com/article/view.jsp*', 'viewsnnews.com/article/view.jsp*'],
     '블로터닷넷': ['www.bloter.net/archives/*'],
     // ㅅ
-    '서울경제': ['economy.hankooki.com/lpage/*'],
     '서울신문': ['seoul.co.kr/news/newsView.php*', 'www.seoul.co.kr/news/newsView.php*'],
     '세계일보': ['www.segye.com/content/html/*'],
     '스포츠경향': ['sports.khan.co.kr/news/sk_index.html?*'],
