@@ -50,7 +50,7 @@ export default {
     '블로터닷넷': ['www.bloter.net/archives/*'],
     // ㅅ
     '서울신문': ['seoul.co.kr/news/newsView.php*', 'www.seoul.co.kr/news/newsView.php*'],
-    '세계일보': ['www.segye.com/content/html/*'],
+    '세계일보': ['www.segye.com/newsView/*'],
     '스포츠경향': ['sports.khan.co.kr/news/sk_index.html?*'],
     '스포츠동아': ['sports.donga.com/3/*', 'sports.donga.com/*/3/*'],
     '스포츠서울': ['www.sportsseoul.com/news/read/*'],
