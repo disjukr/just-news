@@ -2,8 +2,13 @@ import * as $ from 'jquery';
 import { clearStyles } from '../util';
 import { Article } from '..';
 
-const toDate = (elem) => new Date(elem.text().trim().split(/\s/).slice(-2).join(' '));
-const once = [];
+const toDate = (elem: JQuery) => new Date(elem.text().trim().split(/\s/).slice(-2).join(' '));
+
+export const runAfterReconstruct = () => {
+    if (!$('.article_video .jwplayer')) return;
+    // @ts-ignore
+    continusVideo(thisMovie);
+};
 
 export function parse(): Article {
     // reporter | created | lastModified
@@ -17,22 +22,15 @@ export function parse(): Article {
 
             // load old video's css & javascripts
             const styles = $('style').filter((_, tag) => {
-                return $(tag).attr('data-jwplayer-id');
+                return !!$(tag).attr('data-jwplayer-id');
             }).map((_, elem) => elem.outerHTML).get().join(' ');
 
             const scripts = $('script').filter((_, tag) => {
                 return (
-                    tag.src.includes('jwplayer') ||
+                    (tag as HTMLScriptElement).src.includes('jwplayer') ||
                     tag.innerHTML.includes('jwplayer')
                 );
             }).map((_, elem) => elem.outerHTML).get().join(' ');
-
-            // HACK: forceful reload old video
-            once.push(() => {
-                if ($('.article_video .jwplayer')) {
-                    continusVideo(thisMovie);
-                }
-            });
 
             return styles + scripts + clearStyles(content).innerHTML;
         })(),
@@ -45,11 +43,4 @@ export function parse(): Article {
             mail: undefined
         }]
     };
-}
-
-export const cleanup = () => {
-    let func;
-    while ((func = once.shift())) {
-        func();
-    }
 }

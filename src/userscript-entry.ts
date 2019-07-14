@@ -12,7 +12,7 @@ import './view/index.css';
 async function main() {
     if (isOptOut()) return;
     const [article, impl] = await coreProcess();
-    reconstruct(article, impl.cleanup);
+    reconstruct(article.title || 'just-news');
     for (const cssText of window.lazyStyles) {
         const style = document.createElement('style');
         style.setAttribute('type', 'text/css');
@@ -22,20 +22,14 @@ async function main() {
     render(
         h(Article, {
             optOutUrl: optOutUrl(),
-            title: article.title || void 0,
-            subtitle: article.subtitle || void 0,
-            timestamp: article.timestamp ? {
-                created: article.timestamp.created || void 0,
-                lastModified: article.timestamp.lastModified || void 0,
-            } : void 0,
-            reporters: article.reporters ?
-                article.reporters.map(reporter => ({
-                    name: reporter.name || void 0,
-                    mail: reporter.mail || void 0,
-                })) : void 0,
-            content: article.content || void 0,
+            ...article,
         }),
         document.body,
     );
+    {
+        const { runAfterReconstruct, cleanup } = impl;
+        if (runAfterReconstruct) window.setTimeout(runAfterReconstruct, 100);
+        if (cleanup) window.setInterval(cleanup, 1000);
+    }
 }
 main().catch(e => console.error(e ? (e.stack || e) : e));

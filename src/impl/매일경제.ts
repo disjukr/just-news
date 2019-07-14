@@ -21,7 +21,7 @@ export function parse(): Article {
         })(),
         timestamp: {
             created: new Date(t[0].replace(/\./g, '/')),
-            lastModified: t.length > 1 ? new Date(t[1].replace(/\./g, '/')) : null
+            lastModified: t.length > 1 ? new Date(t[1].replace(/\./g, '/')) : undefined
         },
         reporters: [{ name: $('.author', $a).text() }]
     };

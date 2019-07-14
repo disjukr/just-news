@@ -3,7 +3,7 @@ import { Article } from '..';
 
 export function parse(): Article {
     return {
-        title: document.getElementById('content_area')!.getElementsByClassName('title')[0].getElementsByTagName('h2')[0].textContent,
+        title: document.getElementById('content_area')!.getElementsByClassName('title')[0].getElementsByTagName('h2')[0].textContent!,
         content: (() => {
             const photo = document.getElementById('container')!.getElementsByClassName('photo')[0];
             const content = document.getElementById('content')!.cloneNode(true);

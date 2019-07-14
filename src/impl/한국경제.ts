@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import { clearStyles } from '../util';
-import { Article } from '..';
+import { Article, ReadyToParse } from '..';
 
 export const cleanup = () => {
     $('#scrollDiv, iframe').remove();

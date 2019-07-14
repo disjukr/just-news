@@ -9,21 +9,21 @@ import {
 
 
 export interface Timestamp {
-    created?: Nullable<Date>;
-    lastModified?: Nullable<Date>;
+    created?: Date;
+    lastModified?: Date;
 }
 
 export interface Reporter {
-    name?: Nullable<string>;
-    mail?: Nullable<string>;
+    name?: string;
+    mail?: string;
 }
 
 export interface Article {
-    title?: Nullable<string>;
-    subtitle?: Nullable<string>;
-    content?: Nullable<string>;
-    timestamp?: Nullable<Timestamp>;
-    reporters?: Nullable<Reporter[]>;
+    title?: string;
+    subtitle?: string;
+    content?: string;
+    timestamp?: Timestamp;
+    reporters?: Reporter[];
 }
 
 export interface WaitForSelector { (selector: string): Promise<void>; }
@@ -31,8 +31,9 @@ export interface ReadyToParse { (waitForSelector: WaitForSelector): Promise<void
 
 export interface Impl {
     parse: () => Article;
-    readyToParse?: Nullable<ReadyToParse>;
-    cleanup?: Nullable<() => void>;
+    readyToParse?: ReadyToParse;
+    runAfterReconstruct?: () => void;
+    cleanup?: () => void;
 }
 
 export function toJSON(article: Article): object | null {
