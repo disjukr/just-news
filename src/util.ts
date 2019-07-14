@@ -1,4 +1,5 @@
 import * as $ from 'jquery';
+import { Timestamp } from 'index';
 
 export const endlessWaiting = new Promise<void>(() => {});
 
@@ -53,4 +54,34 @@ export function clearStyles(element: HTMLElement | Node) {
         console.error('에러:', e);
     }
     return ele;
+}
+
+/**
+ * 작성일, 수정일이 들어있는 문자열을 파싱해서 Timestamp 객체를 반환합니다.
+ * 이 함수는 입력 문자열에 작성일이 수정일보다 앞에 써있을거라고 가정합니다.
+ */
+export function parseTimestamp(text: string): Timestamp {
+    const timestamp: Timestamp = {};
+    const dateRegex = /(\d{4})[\.\s/\-]*(\d{1,2})[\.\s/\-]*(\d{1,2})\s*(?:(\d{1,2})[:\s]+(\d{1,2})(?:[:\s]+(\d{1,2}))?)/g;
+    const [createdText, lastModifiedText] = matchAll(text, dateRegex);
+    if (createdText) timestamp.created = parseTimestamp.getDate(createdText);
+    if (lastModifiedText) timestamp.lastModified = parseTimestamp.getDate(lastModifiedText);
+    return timestamp;
+}
+parseTimestamp.getDate = (fragments: string[]): Date => {
+    const [, year, month, date, hour, minute, second] = fragments;
+    const dateText = [year.padStart(4, '0'), month.padStart(2, '0'), date.padStart(2, '0')].join('-');
+    if (!hour) return new Date(dateText);
+    if (!second) return new Date(`${dateText}T${[hour, minute].map(t => t.padStart(2, '0')).join(':')}`);
+    return new Date(`${dateText}T${[hour, minute, second].map(t => t.padStart(2, '0')).join(':')}`);
+};
+
+export function matchAll(text: string, regex: RegExp) {
+    const result = [];
+    let match;
+    do {
+        match = regex.exec(text);
+        if (match) result.push(match);
+    } while (match);
+    return result;
 }
