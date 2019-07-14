@@ -1,37 +1,36 @@
 import * as $ from 'jquery';
-import { Article } from '..';
 
-//???
+import {
+    Article,
+    ReadyToParse,
+} from '..';
+import {
+    clearStyles,
+} from '../util';
+
+
+export const readyToParse: ReadyToParse = wait => wait('#articleBody');
+
 export function parse(): Article {
-    let jews = {};
-    ['Top', 'Left'].forEach(function (v) {
-        Object.defineProperty(document.body, 'scroll' + v, {writable: false, value: 0});
-    });
-    ['By', 'To'].forEach(function (v: string) {
-        window['scroll' + v] = function () {};
-    });
-    var _filter = function (a) {
-        return [].filter.apply(a, [].slice.call(arguments, 1));
+    const $info = $('#head-info .info');
+    return {
+        title: $('.headline-title').text(),
+        subtitle: $('.headline-sub').text(),
+        content: (() => {
+            const $articleBody = $('#articleBody')[0].cloneNode(true) as HTMLElement;
+            $('[id^=mobonDivBanner]', $articleBody).remove();
+            return clearStyles($articleBody).innerHTML;
+        })(),
+        timestamp: (() => {
+            const infoText = $info.text();
+            const parsedText = /(\d{4})\.(\d{2})\.(\d{2}) (\d{2}:\d{2})/.exec(infoText)!;
+            if (!parsedText) return {};
+            const [, yyyy, mm, dd, t] = parsedText;
+            const created = new Date(`${yyyy}-${mm}-${dd}T${t}:00`);
+            return { created };
+        })(),
+        reporters: [{
+            name: $('#head-info .info .info-txt').eq(0).text(),
+        }],
     };
-    var el_filter = function (el, obj, m) {
-        if (typeof el==="string") el = $(el)[0].childNodes;
-        else if (el instanceof Node) el = el.childNodes;
-        var f;
-        if (m === true || m === undefined) f = function(v) { return v instanceof obj; };
-        else f = function(v) { return !(v instanceof obj); };
-        return _filter(el, f);
-    };
-    jews.title = $('.View_Title>strong').text();
-    jews.subtitle = $('.View_Title>span').text();
-    jews.timestamp = {
-        created: new Date(el_filter('.View_Time', HTMLElement, false)[0].textContent.trim().replace(/(\d{4})\.(\d{2})\.(\d{2})\s*/, "$1-$2-$3T")+"+09:00"),
-        lastModified: undefined
-    };
-    var info = $('.View_Info')[0].childNodes;
-    jews.reporters = [{
-        name: el_filter(info, HTMLElement, false)[0].textContent.split(/\s*\|\s*/)[0],
-        mail: el_filter(info, HTMLAnchorElement)[0].textContent
-    }];
-    jews.content = document.getElementById('_article').innerHTML.trim();
-    return jews;
 }
