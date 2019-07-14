@@ -1,41 +1,33 @@
-import { clearStyles } from '../util';
-import { Article } from '..';
+import * as $ from 'jquery';
+
+import {
+    Article,
+    ReadyToParse,
+} from '..';
+import {
+    clearStyles,
+    parseTimestamp,
+} from '../util';
+
+
+export const readyToParse: ReadyToParse = wait => wait('.copyright');
 
 export function parse(): Article {
     return {
-        title: document.querySelector('.newsWrap > .viewHeader > .tit_subject')!.textContent,
+        title: $('#article_title').text(),
         content: (() => {
-            const content = document.getElementById('_article')!.cloneNode(true);
-            //?
-            [].forEach.call((<HTMLElement>content).querySelectorAll('#divBox, #article_bottom_ad, .khwidgetWrap, .social_widget'), (v: any) => {
-                v.parentNode.removeChild(v);
-            });
-            return clearStyles(content).innerHTML;
+            const articleBodyElement = $('#articleBody')[0].cloneNode(true) as HTMLElement;
+            $('.article_bottom_ad', articleBodyElement).remove();
+            return clearStyles(articleBodyElement).innerHTML;
         })(),
-        timestamp: (() => {
-            const parsedData = document.querySelector('.newsWrap > .viewHeader > .newsInfo > .time')!.textContent!;
-            const created = parsedData.replace('입력: ', '').replace(/(\d+)년\s*(\d+)월\s*(\d+)일\s*([\d:]+)/g, (_, year, month, day, time) => {
-                return year + '/' + month + '/' + day + ' ' + time;
-            });
-            return {
-                created: new Date(created),
-                lastModified: undefined
-            };
-        })(),
+        timestamp: parseTimestamp($('.byline').text()),
         reporters: (() => {
-            const parsedData = document.querySelector('.newsWrap > .viewHeader > .newsInfo > .info_part')!.textContent!;
-            const matches = parsedData.match(/[^\s]+@.+/);
-            if (matches) {
-                return [{
-                    name: parsedData.split(matches[0])[0].trim(),
-                    mail: matches[0]
-                }];
-            } else {
-                return [{
-                    name: parsedData,
-                    mail: undefined
-                }];
-            }
-        })()
+            const bylineText = $('.info_byline').text().trim();
+            const d = /(.*?) 기자 ?(.*)/.exec(bylineText);
+            return [{
+                name: d![1],
+                mail: d![2],
+            }];
+        })(),
     };
 }
