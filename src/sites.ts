@@ -21,6 +21,7 @@ export default {
     // ㄴ
     '나우뉴스': ['nownews.seoul.co.kr/news/newsView.php*'],
     '네이버뉴스': ['news.naver.com/main/*/read.nhn*', 'news.naver.com/main/read.nhn*'],
+    '네이트뉴스': ['news.nate.com/view/*'],
     '노컷뉴스': ['www.nocutnews.co.kr/news/*'],
     '뉴데일리': ['www.newdaily.co.kr/news/article.html?no=*', 'pk.newdaily.co.kr/news/article.html?no=*', 'tk.newdaily.co.kr/news/article.html?no=*'],
     '뉴데일리경제': ['biz.newdaily.co.kr/news/article.html?no=*'],
