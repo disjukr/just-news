@@ -23,19 +23,14 @@ export function parse(): Article {
                     $(content).prepend(articleMedia.cloneNode(true) as HTMLElement);
                 }
             }
-            const relatedReportsTextNode = Array.from(content.childNodes).find(node => node.textContent === '◆ 관련 리포트');
-            if (relatedReportsTextNode) {
-                for (const node of nextAll(relatedReportsTextNode)) $(node).remove();
-                $(relatedReportsTextNode).remove();
+            const footerStarter = Array.from(content.childNodes).find(node => {
+                const text = $(node).text();
+                return text.startsWith('▶') || text.startsWith('◆');
+            });
+            if (footerStarter) {
+                for (const node of nextAll(footerStarter)) $(node).remove();
+                $(footerStarter).remove();
             }
-            content.querySelectorAll('a[href]').forEach(node => {
-                const parentToRemove = node.parentNode;
-                if (parentToRemove && parentToRemove !== content) {
-                    parentToRemove.parentNode!.removeChild(parentToRemove);
-                } else {
-                    node.remove();
-                }
-            })
             return clearStyles(content).innerHTML;
         })(),
         timestamp: parseTimestamp($('.articleInfo').text()),
