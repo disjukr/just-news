@@ -136,7 +136,7 @@ export const readyToParse = () => waitElement('#comments');
 * [x] [국민일보](http://www.kmib.co.kr)
 * [x] [나우뉴스](http://nownews.seoul.co.kr)
 * [x] [네이버뉴스](http://news.naver.com)
-* [ ] [네이트뉴스](http://news.nate.com)
+* [x] [네이트뉴스](http://news.nate.com)
 * [x] [노컷뉴스](http://www.nocutnews.co.kr)
 * [x] [뉴데일리](http://www.newdaily.co.kr)
 * [x] [뉴데일리경제](http://biz.newdaily.co.kr)

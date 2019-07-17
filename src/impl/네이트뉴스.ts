@@ -1,42 +1,52 @@
-import { Article } from '../index';
-import { clearStyles } from '../util';
+import * as $ from 'jquery';
+
+import {
+    Article,
+    ReadyToParse,
+} from '..';
+import {
+    clearStyles,
+    parseTimestamp,
+} from '../util';
+
+export const readyToParse: ReadyToParse = wait => wait('.articleUpDownArea');
 
 export function parse(): Article {
-  const TITLE_SELECTOR = '.articleSubecjt'
-  const CONTENT_SELECTOR = '#realArtcContents'
-  const CREATED_SELECTOR = 'span.firstDate>em'
-  const LAST_MOD_SELECTOR = 'span.lastDate>em'
+    return {
+        title: $('.articleSubecjt').text(),
+        content: (() => {
+            const content = $('#realArtcContents')[0].cloneNode(true) as HTMLElement;
+            $('script', content).remove();
+            const $articleMedia = $('.articleMedia');
+            if ($articleMedia.length) {
+                for (const articleMedia of $articleMedia) {
+                    $(content).prepend(articleMedia.cloneNode(true) as HTMLElement);
+                }
+            }
+            const relatedReportsTextNode = Array.from(content.childNodes).find(node => node.textContent === '◆ 관련 리포트');
+            if (relatedReportsTextNode) {
+                for (const node of nextAll(relatedReportsTextNode)) $(node).remove();
+                $(relatedReportsTextNode).remove();
+            }
+            content.querySelectorAll('a[href]').forEach(node => {
+                const parentToRemove = node.parentNode;
+                if (parentToRemove && parentToRemove !== content) {
+                    parentToRemove.parentNode!.removeChild(parentToRemove);
+                } else {
+                    node.remove();
+                }
+            })
+            return clearStyles(content).innerHTML;
+        })(),
+        timestamp: parseTimestamp($('.articleInfo').text()),
+    }
+}
 
-  const parseDateString = (selector: string) => {
-      const dateString = document.querySelector(selector)!.textContent;
-      if (dateString) {
-          return new Date(dateString);
-      }
-      return undefined;
-  }
-
-  return {
-      title: document.querySelector(TITLE_SELECTOR)!.innerHTML,
-      content: (() => {
-          const content = document.querySelector(CONTENT_SELECTOR)!;
-
-          content.querySelectorAll('script').forEach(node => {
-              node.remove();
-          })
-          content.querySelectorAll('a[href]').forEach(node => {
-              const parentToRemove = node.parentNode;
-              if (parentToRemove && parentToRemove !== content) {
-                  parentToRemove.parentNode!.removeChild(parentToRemove);
-              } else {
-                  node.remove();
-              }
-          })
-
-          return clearStyles(content).innerHTML;
-      })(),
-      timestamp: {
-          created: parseDateString(CREATED_SELECTOR),
-          lastModified: parseDateString(LAST_MOD_SELECTOR),
-      },
-  }
+function nextAll(node: Node): Node[] {
+    const result: Node[] = [];
+    while (node.nextSibling) {
+        node = node.nextSibling;
+        result.push(node);
+    }
+    return result;
 }
