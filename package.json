@@ -43,7 +43,6 @@
   },
   "dependencies": {
     "jquery": "^3.4.1",
-    "moment": "^2.24.0",
     "preact": "^10.0.0-rc.0"
   },
   "devDependencies": {
