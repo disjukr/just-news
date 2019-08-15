@@ -2,7 +2,8 @@ export default {
     // i
     'ITWORLD': ['www.itworld.co.kr/news/*'],
     // j
-    'JTBC': ['news.jtbc.joins.com/article/*', 'news.jtbc.joins.com/html/*'],
+	'JTBC': ['news.jtbc.joins.com/article/*', 'news.jtbc.joins.com/html/*'],
+	'JTBC-모바일': ['mnews.jtbc.joins.com/News/Article.aspx?*'],
     // k
     'KBS': ['news.kbs.co.kr/news/view.do?*'],
     'KBS World': ['world.kbs.co.kr/*/news/news_*_detail.htm*'],
