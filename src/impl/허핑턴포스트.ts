@@ -15,19 +15,13 @@ export const cleanup = () => {
 export function parse(): Article {
     const mainImageContent = (() => {
         const $mainImage = $('.main-visual img[data-img-path]');
-        if ($mainImage.length) {
-            return '<img alt="' + $mainImage.attr('alt') + '" src="' + $mainImage.attr('data-img-path') + '" /><br />';
-        } else {
-            return '';
-        }
+		if (!$mainImage.length) return '';
+        return '<img alt="' + $mainImage.attr('alt') + '" src="' + $mainImage.attr('data-img-path') + '" /><br />';
     })();
     const mainVideoContent = (() => {
         const $mainVideo = $('.main-visual iframe');
-        if ($mainVideo.length) {
-            return $mainVideo[0].outerHTML + '<br />';
-        } else {
-            return '';
-        }
+		if (!$mainVideo.length) return '';
+		return $mainVideo[0].outerHTML + '<br />';
     })();
     return {
         title: $('h1.title').text(),
@@ -55,9 +49,8 @@ export function parse(): Article {
                     name: parsedName.trim().split(/\s+/).join(' '),
                     mail: undefined
                 }];
-            } else {
-                return [];
             }
+            return [];
         })()
     };
 }

@@ -12,11 +12,9 @@ export function parse(): Article {
             const h3 = $('h3', headline).text();
             const p_toptitle = $('p.toptitle', headline).text();
 
-            if (p_toptitle) {
+            if (p_toptitle)
                 return h3 + '<br>' + p_toptitle;
-            } else {
-                return h3;
-            }
+            return h3;
         })(),
         reporters: [{
             'name': $('.cnt_view.news_body_area > div:eq(-2) ul a li').text(),

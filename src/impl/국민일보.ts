@@ -27,19 +27,17 @@ export function parse(): Article {
             $('a[href^="http://www.kmib.co.kr/vod/index.asp"]', article).remove();
             const nodes = article.childNodes;
             const blankRegexp = /^\s*$/;
-            for (var i = nodes.length - 1; i >= 0; i--) {
+            for (let i = nodes.length - 1; i >= 0; i--) {
                 if (nodes[i].nodeType === 3) {
                     const text = nodes[i].nodeValue as string;
-                    if (blankRegexp.test(text)) {
-                        article.removeChild(nodes[i]);
-                    } else {
-                        break;
-                    }
-                } else if (nodes[i].nodeType === 1 && (nodes[i].nodeName === 'BR' || nodes[i].nodeName === 'FONT')) {
-                    article.removeChild(nodes[i]);
-                } else {
-                    break;
-                }
+					if (!blankRegexp.test(text)) break;
+					article.removeChild(nodes[i]);
+					continue
+				}
+				if (nodes[i].nodeType === 1 && (nodes[i].nodeName === 'BR' || nodes[i].nodeName === 'FONT'))
+					article.removeChild(nodes[i]);
+					continue
+				break
             }
             return clearStyles(article).innerHTML;
         })(),

@@ -11,13 +11,11 @@ export function parse(): Article {
     return {
         title: $('h1', titleData).text(),
         subtitle: (() => {
-            var h3 = $('h3', titleData).text();
-            var h2 = $('h2', titleData).text();
-            if (h3) {
+            const h3 = $('h3', titleData).text();
+            const h2 = $('h2', titleData).text();
+            if (h3)
                 return h3 + '<br>' + h2;
-            } else {
-                return h3;
-            }
+            return h3;
         })(),
         content: clearStyles(content).innerHTML,
         timestamp: {
