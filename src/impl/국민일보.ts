@@ -1,12 +1,12 @@
 import * as $ from 'jquery';
-import * as moment from 'moment';
 
 import {
     Article,
     ReadyToParse,
 } from '..';
 import {
-    clearStyles,
+	clearStyles,
+	parseTimestamp,
 } from '../util';
 
 export const readyToParse: ReadyToParse = wait => wait('.best_nw');
@@ -16,8 +16,6 @@ export const readyToParse: ReadyToParse = wait => wait('.best_nw');
 export const cleanup = () => $('#scrollDiv, body>script, body>iframe, #NeoInteractiveScreenViewLayer, body>div:not([id])').remove();
 
 export function parse(): Article {
-    const t = $('.nwsti_btm .date .t11');
-    const format = 'YYYY-MM-DD HH:mm';
     return {
         title: $('.nwsti h3').text(),
         content: (() => {
@@ -43,10 +41,7 @@ export function parse(): Article {
             }
             return clearStyles(article).innerHTML;
         })(),
-        // 입력, 수정 둘 다 있는 기사: http://news.kmib.co.kr/article/view.asp?arcid=0012123329&code=61161111&sid1=spo
-        timestamp: {
-            created: moment(t.eq(0).text(), format).toDate(),
-            lastModified: t[1] && moment(t.eq(1).text(), format).toDate(),
-        },
+		// 입력, 수정 둘 다 있는 기사: http://news.kmib.co.kr/article/view.asp?arcid=0012123329&code=61161111&sid1=spo
+		timestamp: parseTimestamp($('.nwsti_btm .date .t11').text()),
     };
 }

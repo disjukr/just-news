@@ -64,8 +64,6 @@ export default function getSharedWebpackConfig(option: GetConfigOption): webpack
                 },
             ],
         },
-        plugins: [
-            new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        ],
+        plugins: [],
     };
 }
