@@ -16,7 +16,6 @@ export const readyToParse: ReadyToParse = wait => wait('.best_nw');
 export const cleanup = () => $('#scrollDiv, body>script, body>iframe, #NeoInteractiveScreenViewLayer, body>div:not([id])').remove();
 
 export function parse(): Article {
-    const format = 'YYYY-MM-DD HH:mm';
     return {
         title: $('.nwsti h3').text(),
         content: (() => {
