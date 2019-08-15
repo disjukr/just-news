@@ -16,7 +16,8 @@ export default {
     // y
     'YTN': ['www.ytn.co.kr/_ln/*'],
     // ㄱ
-    '경향신문': ['biz.khan.co.kr/khan_art_view.html*', 'news.khan.co.kr/kh_news/khan_art_view.html*'],
+	'경향신문': ['biz.khan.co.kr/khan_art_view.html*', 'news.khan.co.kr/kh_news/khan_art_view.html*'],
+	'경향신문-모바일': ['m.biz.khan.co.kr/view.html*'],
     '국민일보': ['news.kmib.co.kr/article/view.asp*'],
     // ㄴ
     '나우뉴스': ['nownews.seoul.co.kr/news/newsView.php*'],
