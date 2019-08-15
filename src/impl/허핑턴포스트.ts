@@ -10,6 +10,7 @@ export const cleanup = () => {
     $('.pinitshareimage').remove();
     $('.ad_wrapper').remove();
     $('.hp-slideshow-wrapper').remove();
+    $('.thumbBlock_holder').remove();
 }
 
 export function parseHuffDatetime(rawText: string): Timestamp {

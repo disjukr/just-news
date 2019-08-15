@@ -1,5 +1,7 @@
 import { h, FunctionComponent, Fragment } from 'preact';
+import { useEffect } from 'preact/hooks';
 import { css } from 'linaria';
+import Clipboard from 'clipboard'
 
 import Timestamp, { TimestampProps } from './Timestamp';
 import Reporters, { ReporterProps } from './Reporters';
@@ -9,6 +11,7 @@ interface ArticleProps {
     optOutUrl?: string;
     title?: string;
     subtitle?: string;
+    canonicalUrl?: string;
     timestamp?: TimestampProps;
     reporters?: ReporterProps[];
     content?: string;
@@ -20,7 +23,18 @@ const Article: FunctionComponent<ArticleProps> = ({
     timestamp,
     reporters,
     content,
+    canonicalUrl,
 }) => {
+    useEffect(() => {
+        const cb = new Clipboard('.canonical-url-copy', {
+            text: (trigger) => {
+                return trigger.getAttribute('data-url');
+            },
+        });
+
+        return () => cb.destroy();
+    }, []);
+
     return <Fragment>
         <div id="info" class={css`
             margin-bottom: 20px;
@@ -29,6 +43,7 @@ const Article: FunctionComponent<ArticleProps> = ({
             <small>
                 <a href="https://github.com/disjukr/just-news">just-news</a>에 의해 변환된 페이지입니다.
                 {optOutUrl && <a href={optOutUrl}>원본 페이지 보기</a>}
+                {canonicalUrl && <button className='canonical-url-copy' data-url={canonicalUrl}>원본 링크 복사</button>}
             </small>
         </div>
         <h1
