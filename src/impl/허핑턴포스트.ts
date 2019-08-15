@@ -1,6 +1,8 @@
 import * as $ from 'jquery';
 import { clearStyles, matchAll, parseTimestamp } from '../util';
-import { Article } from '..';
+import { Article, ReadyToParse } from '..';
+
+export const readyToParse: ReadyToParse = wait => wait('.tag-cloud');
 
 export const cleanup = () => {
     const $share = $('a[href*="mailto"]');
