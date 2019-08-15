@@ -1,5 +1,5 @@
 import * as $ from 'jquery';
-import { clearStyles } from '../util';
+import { clearStyles, matchAll, parseTimestamp } from '../util';
 import { Article } from '..';
 
 export const cleanup = () => {
@@ -12,48 +12,39 @@ export const cleanup = () => {
     $('.hp-slideshow-wrapper').remove();
 }
 
+export function parseHuffDatetime(rawText: string): Timestamp {
+    const timestamp: Timestamp = {};
+    const regex = /(\d{4})년 (\d{1,2})월 (\d{1,2})일 (\d{1,2})시 (\d{1,2})분 KST/g;
+    const [createdText, lastModifiedText] = matchAll(rawText, regex);
+
+    if (createdText) timestamp.created = parseTimestamp.getDate(createdText);
+    if (lastModifiedText) timestamp.lastModified = parseTimestamp.getDate(lastModifiedText);
+
+    return timestamp;
+}
+
 export function parse(): Article {
-    const mainImageContent = (() => {
-        const $mainImage = $('.main-visual img[data-img-path]');
-        if ($mainImage.length) {
-            return '<img alt="' + $mainImage.attr('alt') + '" src="' + $mainImage.attr('data-img-path') + '" /><br />';
-        } else {
-            return '';
-        }
-    })();
-    const mainVideoContent = (() => {
-        const $mainVideo = $('.main-visual iframe');
-        if ($mainVideo.length) {
-            return $mainVideo[0].outerHTML + '<br />';
-        } else {
-            return '';
-        }
-    })();
     return {
-        title: $('h1.title').text(),
-        subtitle: undefined,
+        title: $('h1.headline__title').text(),
+        subtitle: $('h2.headline__subtitle').text(),
         content: (() => {
-            const content = $($('#mainentrycontent')[0].cloneNode(true));
-            $('.float_left', content).remove();
-            return mainImageContent + mainVideoContent + clearStyles(content[0]).innerHTML;
+            const content = $($('div.entry__body')[0].cloneNode(true));
+            $('.ad_spot', content).remove();
+
+            return clearStyles(content[0]).innerHTML;
         })(),
-        timestamp: {
-            created: new Date($('.posted time[datetime]').attr('datetime')!),
-            lastModified: new Date($('.updated time[datetime]').attr('datetime')!)
-        },
+        timestamp: parseHuffDatetime($('div.timestamp').text()),
         reporters: (() => {
-            const namefn = document.querySelector('.name.fn');
-            if (namefn) {
-                const splitted = namefn.textContent!.split('작성자');
-                let parsedName;
-                if (splitted.length === 1) {
-                    parsedName = splitted[0];
-                } else {
-                    parsedName = splitted[1];
-                }
+            const nameElements = $('span.author-card__details__name');
+            if (nameElements) {
+                const name = nameElements[1].innerText;
+                const mailText = $('span.author-card__microbio').text();
+                const mailRegex = /([^\s]+@[^\s]+)/;
+                const mail = mailRegex.exec(mailText);
+
                 return [{
-                    name: parsedName.trim().split(/\s+/).join(' '),
-                    mail: undefined
+                    name,
+                    mail: mail && mail[0],
                 }];
             } else {
                 return [];
