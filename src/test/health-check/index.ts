@@ -127,7 +127,14 @@ const cases: Case[] = [
     {
         impl: '코리아헤럴드',
         url: 'http://khnews.kheraldm.com/view.php?ud=20141111001137&md=20141111180830_BK&kr=1',
-        check: ['title', 'content', 'timestamp.created', 'timestamp.lastModified'],
+        check: [
+            'title',
+            'content',
+            'timestamp.created',
+            'timestamp.lastModified',
+            'reporters.0.name',
+            'reporters.0.mail',
+        ],
         related: ['#71'],
     },
     // TODO: 파이낸셜뉴스
@@ -137,7 +144,12 @@ const cases: Case[] = [
     // TODO: 한국경제증권
     // TODO: 한국경제TV
     // TODO: 한국일보
-    // TODO: 허핑턴포스트
+    {
+        impl: '허핑턴포스트',
+        url: 'https://www.huffingtonpost.kr/entry/story_kr_5d36a558e4b004b6adb5029c?9e4',
+        check: ['title', 'subtitle', 'content', 'timestamp.created', 'timestamp.lastModified', ],
+        related: ['#358'],
+    },
     {
         impl: '헤럴드경제',
         url: 'http://news.heraldcorp.com/view.php?ud=20141023000202&md=20141023091209_BK',

@@ -1,12 +1,12 @@
 import * as $ from 'jquery';
-import * as moment from 'moment';
 
 import {
     Article,
     ReadyToParse,
 } from '..';
 import {
-    clearStyles,
+	clearStyles,
+	parseTimestamp,
 } from '../util';
 
 
@@ -34,15 +34,7 @@ export function parse(): Article {
             }
             return clearStyles(articleBodyElement).innerHTML;
         })(),
-        timestamp: (() => {
-            const times = $('.byline em');
-            const format = 'YYYY.MM.DD HH:mm:ss';
-            const parse = (text: string) => moment(text.replace(/.*?:\s*/, ''), format);
-            return {
-                created: parse(times.eq(0).text()).toDate(),
-                lastModified: times[1] && parse(times.eq(1).text()).toDate(),
-            };
-        })(),
+        timestamp: parseTimestamp($('.byline em').text()),
         reporters: (() => {
             const d = /(.*?) 기자 ?(.*)/.exec(
                 // `biz.khan.co.kr`일 경우 `.view_header`

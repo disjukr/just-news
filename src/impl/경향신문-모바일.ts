@@ -1,5 +1,4 @@
 import * as $ from 'jquery';
-import * as moment from 'moment';
 
 import {
     Article,
@@ -11,7 +10,7 @@ import {
 } from '../util';
 
 
-export const readyToParse: ReadyToParse = wait => wait('#articleBody');
+export const readyToParse: ReadyToParse = wait => wait('.grid_c');
 
 export const cleanup = () => $('.pushADMiddle').remove();
 

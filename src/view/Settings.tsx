@@ -65,6 +65,8 @@ const popup = css`
 
 
 class Settings extends Component {
+    clickListener?: (e: Event) => void;
+
     constructor() {
         super();
         this.state = {
@@ -78,6 +80,17 @@ class Settings extends Component {
         Object.keys(this.state).forEach(key => {
             this.loadPref(key, this.state[key]);
         });
+    }
+
+    componentDidMount() {
+        this.clickListener = (e) => {
+            this.setState({ visible: false });
+        };
+        window.addEventListener('click', this.clickListener);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('click', this.clickListener!);
     }
 
     togglePopup() {
@@ -140,7 +153,7 @@ class Settings extends Component {
     }
 
     render(props, state) {
-        return <div>
+        return <div onClick={ e => e.stopPropagation() }>
             <div class={settings} onClick={ e => this.togglePopup() }>Aa</div>
             {
                 this.state.visible ?
