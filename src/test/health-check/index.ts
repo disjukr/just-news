@@ -164,6 +164,12 @@ const cases: Case[] = [
         check: ['title', 'content', 'timestamp.created', 'timestamp.lastModified'],
         related: ['#70'],
     },
+    {
+        impl: 'JTBC-모바일',
+        url: 'http://mnews.jtbc.joins.com/News/Article.aspx?news_id=NB11866214',
+        check: ['title', 'content'],
+        related: [],
+    },
     // TODO: KBS World
     // TODO: KBS
     // TODO: MBC

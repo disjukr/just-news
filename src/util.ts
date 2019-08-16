@@ -56,6 +56,11 @@ export function clearStyles(element: HTMLElement | Node) {
     return ele;
 }
 
+export function getQueryParam(param: string, search: string = location.search): string {
+    const searchParams = new URLSearchParams(search);
+    return searchParams.get(param) || '';
+}
+
 /**
  * 작성일, 수정일이 들어있는 문자열을 파싱해서 Timestamp 객체를 반환합니다.
  * 이 함수는 입력 문자열에 작성일이 수정일보다 앞에 써있을거라고 가정합니다.

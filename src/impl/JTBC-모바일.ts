@@ -5,8 +5,9 @@ import {
     ReadyToParse,
 } from '..';
 import {
-	clearStyles,
-	parseTimestamp,
+    clearStyles,
+    parseTimestamp,
+    getQueryParam,
 } from '../util';
 
 
@@ -21,10 +22,11 @@ export function parse(): Article {
         title: $('.artical_hd > h3').text(),
         content: (() => {
             { // 광고
-				$('[id^=mobonDivBanner_]', articleBodyElement).remove();
+                $('[id^=mobonDivBanner_]', articleBodyElement).remove();
             }
             return clearStyles(articleBodyElement).innerHTML;
         })(),
-        timestamp: parseTimestamp($('.author').text())
+        timestamp: parseTimestamp($('.author').text()),
+        canonicalUrl: `https://news.jtbc.joins.com/html/214/${getQueryParam('news_id')}.html`,
     };
 }

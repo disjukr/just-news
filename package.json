@@ -51,6 +51,7 @@
     "@babel/plugin-transform-react-jsx": "^7.3.0",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.3.3",
+    "@types/clipboard": "^2.0.1",
     "@types/jquery": "^3.3.31",
     "@types/node": "^9.6.50",
     "@types/puppeteer": "^1.19.1",
