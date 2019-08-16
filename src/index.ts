@@ -22,6 +22,7 @@ export interface Article {
     title?: string;
     subtitle?: string;
     content?: string;
+    canonicalUrl?: string;
     timestamp?: Timestamp;
     reporters?: Reporter[];
 }
