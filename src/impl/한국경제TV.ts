@@ -24,17 +24,17 @@ export function parse(): Article {
             const parsedData = $('.journalist_mail').contents();
             if (parsedData.length < 1 || parsedData.text().trim().length === 0) {
                 return [];
-            } else if (parsedData.length < 2) {
+			}
+			if (parsedData.length < 2) {
                 return [{
                     name: parsedData.eq(0).text().trim(),
                     mail: undefined
                 }];
-            } else {
-                return [{
+			}
+			return [{
                     name: parsedData.eq(0).text().trim(),
                     mail: parsedData.eq(1).text().trim()
-                }];
-            }
+            }];
         })()
     };
 }

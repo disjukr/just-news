@@ -34,12 +34,11 @@ export function parse(): Article {
                     name: name,
                     mail: mail.attr('href')!.replace('mailto:', '')
                 }];
-            } else {
-                return [{
+			}
+			return [{
                     name: name,
                     mail: undefined
-                }];
-            }
+            }];
         })()
     };
 }

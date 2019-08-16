@@ -48,9 +48,8 @@ export function parse(): Article {
                     name,
                     mail: mail && mail[0],
                 }];
-            } else {
-                return [];
             }
+            return [];
         })()
     };
 }

@@ -26,9 +26,8 @@ export function parse(): Article {
                     name: undefined,
                     mail: mail.replace('mailto:', '')
                 }];
-            } else {
-                return [];
             }
+            return [];
         })()
     };
 }

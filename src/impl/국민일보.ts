@@ -5,8 +5,8 @@ import {
     ReadyToParse,
 } from '..';
 import {
-	clearStyles,
-	parseTimestamp,
+    clearStyles,
+    parseTimestamp,
 } from '../util';
 
 export const readyToParse: ReadyToParse = wait => wait('.best_nw');
@@ -25,23 +25,18 @@ export function parse(): Article {
             $('a[href^="http://www.kmib.co.kr/vod/index.asp"]', article).remove();
             const nodes = article.childNodes;
             const blankRegexp = /^\s*$/;
-            for (var i = nodes.length - 1; i >= 0; i--) {
-                if (nodes[i].nodeType === 3) {
-                    const text = nodes[i].nodeValue as string;
-                    if (blankRegexp.test(text)) {
-                        article.removeChild(nodes[i]);
-                    } else {
-                        break;
-                    }
-                } else if (nodes[i].nodeType === 1 && (nodes[i].nodeName === 'BR' || nodes[i].nodeName === 'FONT')) {
-                    article.removeChild(nodes[i]);
-                } else {
+            for (let i = nodes.length - 1; i >= 0; i--) {
+                if (!(nodes[i].nodeType === 3
+                    && !blankRegexp.test(nodes[i].nodeValue))
+                || !(nodes[i].nodeType === 1 
+                    && (nodes[i].nodeName === 'BR' || nodes[i].nodeName === 'FONT'))) {
                     break;
                 }
+                article.removeChild(nodes[i]);
             }
             return clearStyles(article).innerHTML;
         })(),
-		// 입력, 수정 둘 다 있는 기사: http://news.kmib.co.kr/article/view.asp?arcid=0012123329&code=61161111&sid1=spo
-		timestamp: parseTimestamp($('.nwsti_btm .date .t11').text()),
+        // 입력, 수정 둘 다 있는 기사: http://news.kmib.co.kr/article/view.asp?arcid=0012123329&code=61161111&sid1=spo
+        timestamp: parseTimestamp($('.nwsti_btm .date .t11').text()),
     };
 }
