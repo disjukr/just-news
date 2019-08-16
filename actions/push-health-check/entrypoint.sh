@@ -1,10 +1,9 @@
 #!/bin/bash
-RELEASE_DIR=../just-news-release
+RELEASE_DIR=../just-news-push-health-check
 BUILD_DIR=$(pwd)
 
-echo "npm run build"
-npm run build
-ls -al
+echo "npm run test:health-check"
+npm run test:health-check
 
 echo "machine github.com login reactjs-bot password $GITHUB_TOKEN" >~/.netrc
 git config --global user.name "just-news-bot"
@@ -17,14 +16,11 @@ echo "pushd to RELEASE_DIR"
 pushd $RELEASE_DIR
 
 echo "git checkout release"
-git checkout release
+git checkout health-check
 
-echo "git merge master"
-git merge --no-edit master
-echo "rm -rf dist"
-[ -d dist ] && rm -rf dist
-echo "cp -R dist"
-cp -R $BUILD_DIR/dist dist
+echo "copy files"
+cp $BUILD_DIR/tmp/health-check.md health-check.md
+cp $BUILD_DIR/tmp/health-check.png health-check.png
 echo "git add -f ."
 git add -f .
 
@@ -35,8 +31,8 @@ if git status | grep 'no changes added to commit'; then
 fi
 
 echo "git commit"
-git commit -m "release new version"
-echo "git push origin release"
-git push origin release
+git commit -m "$(date)"
+echo "git push origin health-check"
+git push origin health-check
 echo "popd"
 popd

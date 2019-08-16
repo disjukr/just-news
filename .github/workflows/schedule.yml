@@ -1,18 +1,26 @@
+name: Run health check
 on:
   schedule:
   - cron: 0 0 * * *
-name: Run daily test
 jobs:
   install:
     name: Install
     runs-on: ubuntu-latest
     steps:
+    - name: Only master
+      uses: actions/bin/filter@25b7b846d5027eac3315b50a8055ea675e2abd89
+      with:
+        args: branch master
     - uses: actions/checkout@master
     - name: Install
       uses: actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680
       with:
         args: install
-    - name: Run testcases
+    - name: Run health check
       uses: actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680
       with:
         args: test:health-check
+    - name: Push health check
+      uses: ./actions/push-health-check
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

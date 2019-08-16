@@ -9,6 +9,7 @@ import {
     fromJSON,
 } from '../..';
 import imageReporter from './reporter/image';
+import markdownReporter from './reporter/markdown';
 
 
 interface Case {
@@ -185,7 +186,7 @@ const cases: Case[] = [
 async function run() {
     const jobs = [...cases];
     const jobResults: JobResult[] = [];
-    //*
+    /*
     const headless = false;
     const workers = [0, 1];
     /*/
@@ -215,11 +216,13 @@ async function run() {
         }
     }));
     await imageReporter(jobResults, browser);
+    const markdownReport = await markdownReporter(jobResults, browser);
     await browser.close();
     fs.writeFileSync(
         './tmp/health-check.json',
         JSON.stringify(jobResults, null, 4),
     );
+    fs.writeFileSync('./tmp/health-check.md', markdownReport);
 }
 run().catch(e => {
     console.error(e ? (e.stack || e) : e);

@@ -1,5 +1,5 @@
-on: push
 name: Test and deploy
+on: push
 jobs:
   install:
     name: Install
