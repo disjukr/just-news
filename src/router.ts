@@ -1,24 +1,5 @@
 export interface RouteTable { [name: string]: string[] }
 
-export function bake(routeTable: RouteTable): Node[] {
-    const result: Node[] = [];
-    for (const routeName in routeTable) {
-        for (const pattern of routeTable[routeName]) {
-            if (!pattern) continue; // 빈문자열 패턴이 없음을 보장
-            const sanifiedPattern = pattern.replace(/\*+/g, '*'); // wildcard가 연달아오지 않음을 보장
-            let node: Node | null = null;
-            for (const subpattern of sanifiedPattern.split(/(?=\*)|(?<=\*)/).reverse()) {
-                const value: string = node ? '' : routeName;
-                const children: Node[] = node ? [node] : [];
-                if (subpattern === '*') node = new Wildcard(value, children);
-                else node = new Node(subpattern, value, children);
-            }
-            insertNodeToChildren(node!, result);
-        }
-    }
-    return result;
-}
-
 export function match(text: string, routeTree: Node[]): string | null {
     for (const node of routeTree) {
         const result = node.match(text);
@@ -57,7 +38,7 @@ function commonPattern(a: string, b: string): string {
     return a.substr(0, i);
 }
 
-function insertNodeToChildren(node: Node, children: Node[]) {
+export function insertNodeToChildren(node: Node, children: Node[]) {
     for (let i = 0; i < children.length; ++i) {
         const child = children[i];
         const insertResult = child.insertNode(node);

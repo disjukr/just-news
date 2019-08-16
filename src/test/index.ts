@@ -1,11 +1,12 @@
 import * as router from '../router';
+import { bake } from '../bake-router-trie';
 
 const routeTable = {
     '스포츠경향': ['sports.khan.co.kr/news/sk_index.html?*'],
     '스포츠동아': ['sports.donga.com/3/*', 'sports.donga.com/*/3/*'],
 };
 
-const routeTree1 = router.bake(routeTable);
+const routeTree1 = bake(routeTable);
 
 const routeTree2 = new router.Node('sports.', '', [
     new router.Node('khan.co.kr/news/sk_index.html?', '', [new router.Wildcard('스포츠경향')]),

@@ -67,8 +67,9 @@ export function here(url=location.href) {
         here.routeTree = codegen<router.Node[]>`
             const sites = require('./sites').default;
             const router = require('./router');
+            const bake = require('./bake-router-trie').bake;
             module.exports = router.stringify(
-                router.bake(sites),
+                bake(sites),
                 'router.Node',
                 'router.Wildcard',
             );
