@@ -15,7 +15,7 @@ export default `// ==UserScript==
 ${
     Object.keys(sites).map(
         site => sites[site as keyof typeof sites].map(
-            pattern => `// @include http://${ pattern } \n // @include https://${ pattern }`
+            pattern => `// @include http://${ pattern } \n// @include https://${ pattern }`
         ).join('\n')
     ).join('\n')
 }
