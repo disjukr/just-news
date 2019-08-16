@@ -36,6 +36,7 @@ const Article: FunctionComponent<ArticleProps> = ({
             class={css`
                 margin-top: 20px;
                 margin-bottom: 40px;
+                word-break: keep-all;
             `}>
             { title || 'no title' }
         </h1>
