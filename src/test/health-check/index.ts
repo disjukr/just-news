@@ -199,7 +199,11 @@ async function run() {
     const headless = true;
     const workers = [0, 1, 2, 3, 4, 5, 6, 7];
     //*/
-    const browser = await puppeteer.launch({ executablePath: 'google-chrome-unstable', headless });
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        executablePath: 'google-chrome-unstable',
+        headless,
+    });
     await Promise.all(workers.map(async () => {
         let job: Case;
         while (job = jobs.pop()!) {
