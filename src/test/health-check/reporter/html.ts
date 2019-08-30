@@ -15,8 +15,10 @@ const htmlReporter: Reporter<string> = async (jobResults, browser) => {
                     href="https://unpkg.com/primer/build/build.css"
                     rel="stylesheet">
                 <style>
+                    @import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css?font-display=swap');
                     body {
                         display: inline-block;
+                        font-family: 'Noto Sans KR', sans-serif;
                     }
                 </style>
             </head>
