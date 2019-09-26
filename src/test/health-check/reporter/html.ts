@@ -22,8 +22,10 @@ const htmlReporter: Reporter<string> = async (jobResults, browser) => {
                     }
                 </style>
             </head>
-            <body class="markdown-body">
-                ${showdownConverter.makeHtml(markdownReport)}
+            <body>
+                <main class="markdown-body">
+                    ${showdownConverter.makeHtml(markdownReport)}
+                </main>
             </body>
         </html>
     `;
