@@ -18,8 +18,7 @@ const htmlReporter: Reporter<string> = async (jobResults, browser) => {
                     href="https://fonts.googleapis.com/earlyaccess/notosanskr.css?font-display=swap"
                     rel="stylesheet">
                 <style>
-                    main {
-                        display: inline-block;
+                    * {
                         font-family: 'Noto Sans KR', sans-serif;
                     }
                 </style>
