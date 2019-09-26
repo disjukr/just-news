@@ -18,8 +18,8 @@ const htmlReporter: Reporter<string> = async (jobResults, browser) => {
                     href="https://fonts.googleapis.com/earlyaccess/notosanskr.css?font-display=swap"
                     rel="stylesheet">
                 <style>
-                    .markdown-body, tt, code, .input-monospace, .text-mono, .h00-mktg,.h0-mktg,.h1-mktg,.h2-mktg,.h3-mktg,.h4-mktg,.h5-mktg,.h6-mktg,.lead-mktg, .pullquote {
-                        font-family: 'Noto Sans KR', sans-serif "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
+                    body, .markdown-body, code, kbd, pre, samp, .input-monospace, .text-mono, .h00-mktg,.h0-mktg,.h1-mktg,.h2-mktg,.h3-mktg,.h4-mktg,.h5-mktg,.h6-mktg,.lead-mktg, .pullquote, .tooltipped::after, .branch-name {
+                        font-family: 'Noto Sans KR', sans-serif !important;
                     }
                 </style>
             </head>
@@ -27,6 +27,10 @@ const htmlReporter: Reporter<string> = async (jobResults, browser) => {
                 <main class="markdown-body">
                     ${showdownConverter.makeHtml(markdownReport)}
                 </main>
+                <script src="https://twemoji.maxcdn.com/v/12.1.3/twemoji.min.js" integrity="sha384-PEQg4NJbyXT+TJJVKYN9zmD5ehVaV3TiBdzovT7WkshNClGNg8+bk4hKQ+lGrgaw" crossorigin="anonymous"></script>
+                <script>
+                    twemoji.parse(document.body);
+                </script>
             </body>
         </html>
     `;
