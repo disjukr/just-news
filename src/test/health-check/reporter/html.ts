@@ -21,6 +21,12 @@ const htmlReporter: Reporter<string> = async (jobResults, browser) => {
                     body, .markdown-body, code, kbd, pre, samp, .input-monospace, .text-mono, .h00-mktg,.h0-mktg,.h1-mktg,.h2-mktg,.h3-mktg,.h4-mktg,.h5-mktg,.h6-mktg,.lead-mktg, .pullquote, .tooltipped::after, .branch-name {
                         font-family: 'Noto Sans KR', sans-serif !important;
                     }
+                    img.emoji {
+                        height: 1em;
+                        width: 1em;
+                        margin: 0 .05em 0 .1em;
+                        vertical-align: -0.1em;
+                     }
                 </style>
             </head>
             <body>
