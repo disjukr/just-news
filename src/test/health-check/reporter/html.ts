@@ -19,7 +19,7 @@ const htmlReporter: Reporter<string> = async (jobResults, browser) => {
                     rel="stylesheet">
                 <style>
                     .markdown-body, tt, code, .input-monospace, .text-mono, .h00-mktg,.h0-mktg,.h1-mktg,.h2-mktg,.h3-mktg,.h4-mktg,.h5-mktg,.h6-mktg,.lead-mktg, .pullquote {
-                        font-family: 'Noto Sans KR', sans-serif !important;
+                        font-family: 'Noto Sans KR', sans-serif "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
                     }
                 </style>
             </head>
