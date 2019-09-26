@@ -13,11 +13,13 @@ jobs:
         args: branch master
     - uses: actions/checkout@master
     - name: Install
-      uses: actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680
+      uses: docker://ianwalter/puppeteer:2.0.0
       with:
-        args: install
+        args: npm install
     - name: Run health check
-      uses: ./actions/health-check
+      uses: docker://ianwalter/puppeteer:2.0.0
+      with:
+        args: npm run test:health-check
     - name: Push health check
       uses: ./actions/push-health-check
       env:
