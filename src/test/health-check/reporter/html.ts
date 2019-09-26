@@ -8,7 +8,7 @@ const htmlReporter: Reporter<string> = async (jobResults, browser) => {
     const showdownConverter = new showdown.Converter({tables: true});
     return `
         <!DOCTYPE html>
-        <html>
+        <html lang="ko">
             <head>
                 <meta charset="UTF-8">
                 <link
