@@ -7,10 +7,6 @@ jobs:
     name: Install
     runs-on: ubuntu-latest
     steps:
-    - name: Only master
-      uses: actions/bin/filter@25b7b846d5027eac3315b50a8055ea675e2abd89
-      with:
-        args: branch master
     - uses: actions/checkout@master
     - name: Install
       uses: docker://ianwalter/puppeteer:2.0.0
