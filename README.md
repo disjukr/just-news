@@ -1,7 +1,5 @@
 # just-news
 
-[![travis](https://travis-ci.org/disjukr/just-news.svg)](https://travis-ci.org/disjukr/just-news)
-
 뉴스 사이트 기사 페이지에 접속하면 뉴스 본문외의 정보를 전부 제거한 뒤 페이지를 재구성하는 스크립트입니다.
 
 모든 주요 웹브라우저(인터넷 익스플로러 제외)에 대해 최신 안정버전으로부터 한 버전 전까지만 지원합니다.
