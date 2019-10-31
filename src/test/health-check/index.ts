@@ -112,7 +112,12 @@ const cases: Case[] = [
     },
     // TODO: 이데일리
     // TODO: 일간스포츠
-    // TODO: 전자신문
+    {
+        impl: '전자신문',
+        url: 'http://www.etnews.com/20191031000370?mc=ns_003_00006',
+        check: ['title', 'content', 'timestamp.created', 'reporters.0.name', 'reporters.0.mail'],
+        related: [],
+    },
     // TODO: 조선비즈
     // TODO: 조선일보
     // TODO: 중앙데일리
