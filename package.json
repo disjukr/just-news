@@ -44,7 +44,7 @@
   "dependencies": {
     "clipboard": "^2.0.4",
     "jquery": "^3.4.1",
-    "preact": "^10.0.0-rc.1"
+    "preact": "^10.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
