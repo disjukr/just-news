@@ -10,13 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Install
-      uses: actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680
-      with:
-        args: install
+      run: npm install
     - name: Run testcases
-      uses: actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680
-      with:
-        args: test
+      run: npm test
     - name: Build and deploy
       uses: ./actions/deploy
       env:
