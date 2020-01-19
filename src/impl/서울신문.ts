@@ -8,7 +8,7 @@ export function parse(): Article {
         subtitle: $('.title_sub').text() || undefined,
         content: (() => {
             const content = $('#atic_txt1')[0].cloneNode(true);
-            $('#hnsIframe, #ifrm_photolink, #googleAdTable', content).remove();
+            $('#hnsIframe, #ifrm_photolink, #googleAdTable, #seoulAdTable', content).remove();
             $('.dklink', content).each(function (i, v) {
                 $(v).replaceWith(v.innerHTML);
             });
