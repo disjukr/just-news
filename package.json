@@ -70,10 +70,10 @@
     "puppeteer": "^1.19.0",
     "serve": "^11.1.0",
     "showdown": "^1.9.0",
-    "sucrase": "^3.10.1",
-    "terser-webpack-plugin": "^1.4.1",
+    "sucrase": "^3.15.0",
+    "terser-webpack-plugin": "^1.4.4",
     "typescript": "^3.9.7",
-    "webpack": "^4.39.2",
+    "webpack": "^4.44.0",
     "webpack-command": "^0.2.1"
   },
   "private": true

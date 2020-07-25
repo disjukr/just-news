@@ -1,39 +1,32 @@
-import * as $ from 'jquery';
+import { $, $$, remove, text } from '../dom';
 
 import {
     Article,
     ReadyToParse,
 } from '..';
 import {
-	clearStyles,
-	parseTimestamp,
+    clearStyles,
+    parseTimestamp,
 } from '../util';
 
 
-export const readyToParse: ReadyToParse = wait => wait('.grid_c');
+export const readyToParse: ReadyToParse = wait => wait('.group_cont_etc');
 
-export const cleanup = () => $('.pushADMiddle').remove();
+// export const cleanup = () => remove($$('.pushADMiddle'));
 
 export function parse(): Article {
-    const articleBodyElement = $('.txt_news')[0].cloneNode(true) as HTMLElement;
+    const articleBodyElement = $('#artCont')!.cloneNode(true) as HTMLElement;
+    const infoView = remove($('.info_view', articleBodyElement))!;
     return {
-        title: $('.subject').text(),
+        title: text($('.tit_view')),
         content: (() => {
             { // 광고
-                $('a[title="advertise"]', articleBodyElement).remove();
-                $('.article_bottom_ad', articleBodyElement).remove();
+                remove($$('a[title="advertise"]', articleBodyElement));
+                remove($$('.article_bottom_ad', articleBodyElement));
             }
             return clearStyles(articleBodyElement).innerHTML;
         })(),
-        timestamp: parseTimestamp($('.author').text()),
-        reporters: (() => {
-            const d = /([^<]*?) 기자 ?([^>]*)/.exec(
-                $('.reporter').text()
-            );
-            return [{
-                name: d![1],
-                mail: d![2],
-            }];
-        })(),
+        timestamp: parseTimestamp(text($('.txt_info', infoView))),
+        reporters: [{ name: text($('.author', infoView)) }],
     };
 }

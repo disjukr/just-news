@@ -19,6 +19,10 @@ export default function getSharedWebpackConfig(option: GetConfigOption): webpack
             '@babel/preset-env',
         ],
     };
+    const postcssOptions = {
+        config: { path: './dev' },
+        sourceMap: isDev ? 'inline' : false,
+    };
     return {
         mode,
         entry: option.entry,
@@ -43,11 +47,6 @@ export default function getSharedWebpackConfig(option: GetConfigOption): webpack
                     exclude: /node_modules/,
                     use: [
                         { loader: 'babel-loader', options: babelOptions },
-                        { loader: 'linaria/loader', options: {
-                            sourceMap: isDev,
-                            displayName: isDev,
-                            babelOptions,
-                        } },
                     ],
                 },
                 {
@@ -56,10 +55,19 @@ export default function getSharedWebpackConfig(option: GetConfigOption): webpack
                     sideEffects: true,
                     use: [
                         { loader: path.resolve('./dev/lazy-style-loader.ts') },
-                        { loader: 'postcss-loader', options: {
-                            config: { path: './dev' },
-                            sourceMap: isDev ? 'inline' : false,
-                        } },
+                        // { loader: 'css-loader', options: { importLoaders: 1 } },
+                        { loader: 'postcss-loader', options: postcssOptions },
+                    ],
+                },
+                {
+                    test: /\.module\.scss$/,
+                    exclude: /node_modules/,
+                    sideEffects: true,
+                    use: [
+                        { loader: path.resolve('./dev/lazy-style-loader.ts') },
+                        // { loader: 'css-loader', options: { importLoaders: 2, modules: true } },
+                        { loader: 'postcss-loader', options: postcssOptions },
+                        { loader: 'sass-loader', options: { implementation: require('sass') } },
                     ],
                 },
             ],
