@@ -10,10 +10,10 @@
 | 아이뉴스24 | • ✅([url](http://www.inews24.com/view/860573), [#61](https://github.com/disjukr/just-news/issues/#61)) |
 | 코리아헤럴드 | • ❌([url](http://khnews.kheraldm.com/view.php?ud=20141111001137&md=20141111180830_BK&kr=1), [#71](https://github.com/disjukr/just-news/issues/#71))`잘못된 제목`, `작성일 누락됨`, `수정일 누락됨`, `잘못된 작성자 이름`, `잘못된 작성자 이메일` |
 | 중앙일보 | • ❌([url](https://news.joins.com/article/23621286))`잘못된 작성자 이름` |
+| 헤럴드경제 | • ❌([url](http://news.heraldcorp.com/view.php?ud=20141023000202&md=20141023091209_BK), [#56](https://github.com/disjukr/just-news/issues/#56))`잘못된 제목`, `작성일 누락됨` |
 | 동아일보 | • ✅([url](http://news.donga.com/3/03/20141107/67723014/1), [#65](https://github.com/disjukr/just-news/issues/#65)) |
 | 전자신문 | • ❌([url](http://www.etnews.com/20191031000370?mc=ns_003_00006))`잘못된 작성자 이름`, `잘못된 작성자 이메일` |
-| 헤럴드경제 | • ❌([url](http://news.heraldcorp.com/view.php?ud=20141023000202&md=20141023091209_BK), [#56](https://github.com/disjukr/just-news/issues/#56))`잘못된 제목`, `작성일 누락됨` |
+| 데일리한국 | • ❌([url](http://daily.hankooki.com/lpage/politics/201412/dh20141219103740137430.htm), [#91](https://github.com/disjukr/just-news/issues/#91))`작성일 누락됨`, `잘못된 작성자 이름`, `잘못된 작성자 이메일` |
 | 국민일보 | • ✅([url](http://news.kmib.co.kr/article/view.asp?arcid=0008864720&code=61121111), [#77](https://github.com/disjukr/just-news/issues/#77)) |
 | 서울신문 | • ❌([url](http://seoul.co.kr/news/newsView.php?id=20141204500025), [#83](https://github.com/disjukr/just-news/issues/#83))`잘못된 부제목`, `잘못된 수정일` |
-| 데일리한국 | • ❌([url](http://daily.hankooki.com/lpage/politics/201412/dh20141219103740137430.htm), [#91](https://github.com/disjukr/just-news/issues/#91))`작성일 누락됨`, `잘못된 작성자 이름`, `잘못된 작성자 이메일` |
 | 경향신문 | • ❌([url](http://biz.khan.co.kr/khan_art_view.html?artid=201410311921301&code=920100&med=khan), [#58](https://github.com/disjukr/just-news/issues/#58))`잘못된 부제목` |
