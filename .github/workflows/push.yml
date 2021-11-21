@@ -2,13 +2,13 @@ name: Test and deploy
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   install:
     name: Install
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@main
     - name: Install
       run: npm install
     - name: Run testcases

@@ -19,8 +19,8 @@ pushd $RELEASE_DIR
 echo "git checkout release"
 git checkout release
 
-echo "git merge master"
-git merge --no-edit master
+echo "git merge main"
+git merge --no-edit main
 echo "rm -rf dist"
 [ -d dist ] && rm -rf dist
 echo "cp -R dist"
