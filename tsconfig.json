@@ -16,7 +16,7 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "baseUrl": "./src/",
-    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "experimentalDecorators": false,
     "emitDecoratorMetadata": false,
     "types": [
