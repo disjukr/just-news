@@ -36,14 +36,14 @@ just-news는 GitHub issue tracker를 사용합니다.
 
 1. 구현하고 싶은 뉴스 사이트를 정합니다.
     1. 뉴스 사이트가 하단의 지원 사이트 목록에 체크되어있지 않은지 확인합니다.
-    2. 목록에 사이트가 없으면 추가합니다.
-2. 구현합니다.
+    1. 목록에 사이트가 없으면 추가합니다.
+1. 구현합니다.
     1. `src/sites.ts`에 뉴스사 이름을 키로 갖는, 주소 패턴 목록을 추가합니다.
-    2. `src/impl` 경로에 `article` 객체를 반환하는 `parse` 함수를 담은 모듈을 작성합니다.
+    1. `src/impl` 경로에 `article` 객체를 반환하는 `parse` 함수를 담은 모듈을 작성합니다.
         1. 모듈 이름은 뉴스사 이름으로 합니다.
-        2. 비동기로 작동해야할 경우 `Promise` 객체를 반환하면 됩니다.
-        3. 특정 뉴스기사에서만 작동하는 코드의 경우 해당 뉴스기사 url을 주석으로 적어주세요.
-3. 지원 사이트 목록에 구현한 항목을 체크하고 Pull Request를 보냅니다.
+        1. 비동기로 작동해야할 경우 `Promise` 객체를 반환하면 됩니다.
+        1. 특정 뉴스기사에서만 작동하는 코드의 경우 해당 뉴스기사 url을 주석으로 적어주세요.
+1. 지원 사이트 목록에 구현한 항목을 체크하고 Pull Request를 보냅니다.
 
 ### 소스코드 빌드하기
 
@@ -51,11 +51,12 @@ just-news는 GitHub issue tracker를 사용합니다.
 빌드를 하기 위해 다음의 절차를 따라야 합니다.
 
 1. [nodejs](https://nodejs.org/)를 설치합니다.
-2. `npm install` 명령을 실행합니다.
-3. `npm run build` 명령을 실행합니다.
-    - `npm run build` 명령은 minify된 결과물을 주기 때문에 처리가 너무 오래걸릴 수 있습니다.
-      빠르게 개발용 빌드를 얻고 싶다면 `npm run build:dev` 명령을 사용하면 됩니다.
-4. 저장소의 `dist` 폴더로 가면 빌드된 `just-news.user.js` 파일을 확인할 수 있습니다.
+1. [pnpm](https://pnpm.io/installation)을 설치합니다.
+1. `pnpm install` 명령을 실행합니다.
+1. `pnpm build` 명령을 실행합니다.
+    - `pnpm build` 명령은 minify된 결과물을 주기 때문에 처리가 너무 오래걸릴 수 있습니다.
+      빠르게 개발용 빌드를 얻고 싶다면 `pnpm build:dev` 명령을 사용하면 됩니다.
+1. 저장소의 `dist` 폴더로 가면 빌드된 `just-news.user.js` 파일을 확인할 수 있습니다.
 
 #### 쉽게 개발버전 userscript를 테스트하는 법
 
@@ -84,7 +85,7 @@ $ npm run dev
 
 * `article` 객체는 `src/index.ts`에 정의된 `Article` 인터페이스를 따르도록 합니다.
     * 뉴스 페이지에서 해당하는 정보가 없을 경우 `null`값을 채워 넣습니다.
-* 릴리즈는 사람이 직접 할 필요가 없습니다. Travis CI를 통해 [jews-bot 계정](https://github.com/jews-bot)이 자동으로 처리합니다.
+* 릴리즈는 사람이 직접 할 필요가 없습니다. GitHub Actions를 통해 `just-news-bot`이 자동으로 처리합니다.
 
 ### 털어내기
 

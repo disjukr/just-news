@@ -14,9 +14,9 @@
   ],
   "scripts": {
     "dev": "run-p dev:webpack serve",
-    "dev:webpack": "cross-env NODE_ENV=development npm run webpack:userscript -- --watch",
-    "build": "cross-env NODE_ENV=production npm run webpack:userscript",
-    "build:dev": "cross-env NODE_ENV=development npm run webpack:userscript",
+    "dev:webpack": "cross-env NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider pnpm webpack:userscript -- --watch",
+    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider pnpm webpack:userscript",
+    "build:dev": "cross-env NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider pnpm webpack:userscript",
     "test": "sucrase-node ./src/test/index.ts",
     "test:health-check": "run-s webpack:health-check test:health-check:node",
     "test:health-check:node": "sucrase-node ./src/test/health-check/index.ts",
@@ -74,7 +74,7 @@
     "terser-webpack-plugin": "^1.4.1",
     "typescript": "^3.5.3",
     "webpack": "^4.39.2",
-    "webpack-command": "^0.2.1"
+    "webpack-command": "^0.5.1"
   },
   "private": true
 }
