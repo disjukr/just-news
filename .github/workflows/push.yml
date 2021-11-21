@@ -9,10 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
+    - uses: pnpm/action-setup@v2.0.1
+      with:
+        version: 6.22.2
     - name: Install
-      run: npm install
+      run: pnpm install
     - name: Run testcases
-      run: npm test
+      run: pnpm test
     - name: Build and deploy
       uses: ./actions/deploy
       env:

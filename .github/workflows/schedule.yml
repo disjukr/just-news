@@ -8,14 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
+    - uses: pnpm/action-setup@v2.0.1
+      with:
+        version: 6.22.2
     - name: Install
       uses: docker://ianwalter/puppeteer:2.0.0
       with:
-        args: npm install
+        args: pnpm install
     - name: Run health check
       uses: docker://ianwalter/puppeteer:2.0.0
       with:
-        args: npm run test:health-check
+        args: pnpm test:health-check
     - name: Push health check
       uses: ./actions/push-health-check
       env:
