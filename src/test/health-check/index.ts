@@ -52,7 +52,7 @@ const cases: Case[] = [
     {
         impl: '네이버뉴스',
         url: 'https://news.naver.com/main/read.naver?mode=LSD&mid=shm&sid1=101&oid=018&aid=0005090507',
-        check: ['title', 'content', 'timestamp.created', 'timestamp.lastModified'],
+        check: ['title', 'content', 'timestamp.created', 'reporters.0.name'],
         related: [],
     },
     // TODO: 노컷뉴스
