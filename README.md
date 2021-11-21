@@ -121,4 +121,4 @@ export const readyToParse = () => waitElement('#comments');
 
 ## 지원 현황
 
-[![지원 현황표](https://raw.githubusercontent.com/disjukr/just-news/health-check/health-check.png)](https://github.com/disjukr/just-news/blob/health-check/health-check.md)
+[![health-check](https://user-images.githubusercontent.com/84654372/142752717-111ccd65-7d62-4247-8189-9167b058fad8.JPG)](https://github.com/disjukr/just-news/blob/health-check/health-check.md)
