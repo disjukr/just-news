@@ -43,8 +43,18 @@ const cases: Case[] = [
         check: ['title', 'content', 'timestamp.created'],
         related: ['#77'],
     },
-    // TODO: 나우뉴스
-    // TODO: 네이버뉴스
+    {
+        impl: '나우뉴스',
+        url: 'https://nownews.seoul.co.kr/news/newsView.php?id=20211117601017',
+        check: ['title', 'content', 'timestamp.created', 'timestamp.lastModified'],
+        related: [],
+    },
+    {
+        impl: '네이버뉴스',
+        url: 'https://news.naver.com/main/read.naver?mode=LSD&mid=shm&sid1=101&oid=018&aid=0005090507',
+        check: ['title', 'content', 'timestamp.created', 'reporters.0.name'],
+        related: [],
+    },
     // TODO: 노컷뉴스
     // TODO: 뉴데일리
     // TODO: 뉴데일리경제
