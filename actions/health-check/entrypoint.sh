@@ -6,12 +6,12 @@ pnpm install
 echo "pnpm test:health-check"
 pnpm test:health-check
 
-RELEASE_DIR=../just-news-push-health-check
 BUILD_DIR=$(pwd)
+RELEASE_DIR=$(mktemp -d)
 
-echo "machine github.com login reactjs-bot password $GITHUB_TOKEN" >~/.netrc
 git config --global user.name "just-news-bot"
 git config --global user.email "jong+just.news@chan.moe"
+echo "machine github.com login reactjs-bot password $GITHUB_TOKEN" >~/.netrc
 
 echo "pushd to RELEASE_DIR"
 pushd $RELEASE_DIR
