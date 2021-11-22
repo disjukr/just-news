@@ -21,13 +21,13 @@ git init
 git remote add origin https://github.com/disjukr/just-news.git
 
 echo "git checkout health-check"
-git checkout health-check
+git checkout -B health-check
 
 echo "copy files"
 cp $BUILD_DIR/tmp/health-check.md health-check.md
 cp $BUILD_DIR/tmp/health-check.png health-check.png
-echo "git add -f ."
-git add -f .
+echo "git add health-check.md health-check.png"
+git add health-check.md health-check.png
 
 echo "git commit"
 git commit -m "$(date)"
