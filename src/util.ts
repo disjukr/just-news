@@ -29,6 +29,13 @@ export function wait(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+export function timeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+    return Promise.race([
+        promise,
+        wait(ms).then(() => { throw new Error('timeout'); }),
+    ]);
+}
+
 export function clearStyles(element: HTMLElement | Node) {
     if ('jquery' in element) {
         throw new Error('`clearStyles` 함수는 인자로 DOM element만 받습니다.');
