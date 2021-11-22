@@ -1,7 +1,8 @@
 name: Run health check
 on:
   schedule:
-  - cron: 0 0 * * *
+    - cron: 0 0 * * *
+  workflow_dispatch:
 jobs:
   install:
     name: Install
@@ -11,9 +12,9 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: 17
-    - uses: pnpm/action-setup@v2.0.1
+    - uses: docker://ianwalter/puppeteer:2.0.0
       with:
-        version: 6.22.2
+        args: curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
     - name: Install
       uses: docker://ianwalter/puppeteer:2.0.0
       with:
