@@ -1,4 +1,11 @@
 #!/bin/bash
+
+npm install -g pnpm
+pnpm install
+
+echo "pnpm test:health-check"
+pnpm test:health-check
+
 RELEASE_DIR=../just-news-push-health-check
 BUILD_DIR=$(pwd)
 

@@ -9,17 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 17
-    - uses: docker://ianwalter/puppeteer:2.0.0
-      with:
-        args: npx pnpm install
-    - name: Run health check
-      uses: docker://ianwalter/puppeteer:2.0.0
-      with:
-        args: npx pnpm test:health-check
-    - name: Push health check
-      uses: ./actions/push-health-check
+    - uses: ./actions/health-check
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
