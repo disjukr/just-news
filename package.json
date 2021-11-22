@@ -40,7 +40,7 @@
     "userscript"
   ],
   "engines": {
-    "node": ">= 9.5.0"
+    "node": ">= 17"
   },
   "dependencies": {
     "clipboard": "^2.0.4",
