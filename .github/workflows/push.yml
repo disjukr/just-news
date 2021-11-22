@@ -25,7 +25,6 @@ jobs:
         RELEASE_DIR=$(mktemp -d)
         git config --global user.name "just-news-bot"
         git config --global user.email "jong+just.news@chan.moe"
-        git config --bool core.bare true
         echo "machine github.com login reactjs-bot password $GITHUB_TOKEN" >~/.netrc
         git clone --single-branch --branch release --depth 1 https://github.com/disjukr/just-news.git $RELEASE_DIR
         cd $TARGET_DIR
