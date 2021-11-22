@@ -14,15 +14,11 @@ jobs:
         node-version: 17
     - uses: docker://ianwalter/puppeteer:2.0.0
       with:
-        args: npm install -g pnpm
-    - name: Install
-      uses: docker://ianwalter/puppeteer:2.0.0
-      with:
-        args: pnpm install
+        args: npx pnpm install
     - name: Run health check
       uses: docker://ianwalter/puppeteer:2.0.0
       with:
-        args: pnpm test:health-check
+        args: npx pnpm test:health-check
     - name: Push health check
       uses: ./actions/push-health-check
       env:
