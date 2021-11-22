@@ -4,8 +4,8 @@ on:
     - cron: 0 0 * * *
   workflow_dispatch:
 jobs:
-  install:
-    name: Install
+  run-health-check:
+    name: Run health check
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
@@ -14,7 +14,7 @@ jobs:
         node-version: 17
     - uses: docker://ianwalter/puppeteer:2.0.0
       with:
-        args: curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
+        args: npm install -g pnpm
     - name: Install
       uses: docker://ianwalter/puppeteer:2.0.0
       with:
