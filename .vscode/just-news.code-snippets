@@ -3,7 +3,7 @@
         "prefix": "justnews",
         "scope": "typescript",
         "body": [
-            "import * as $ from 'jquery';",
+            "import $ from 'jquery';",
             "import { clearStyles } from '../util';",
             "import { Article } from '..';",
             "",

@@ -2,6 +2,7 @@ import fs from 'fs';
 import puppeteer from 'puppeteer';
 
 import {
+    timeout,
     wait,
 } from '../../util';
 import {
@@ -496,7 +497,6 @@ async function run() {
     //*/
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        executablePath: 'google-chrome-unstable',
         headless,
     });
     await Promise.all(workers.map(async () => {
@@ -510,7 +510,7 @@ async function run() {
             );
             const page = await browser.newPage();
             const startTime = Date.now();
-            const jobResult = await doJob(job, page).then(
+            const jobResult = await timeout(doJob(job, page), 10000).then(
                 result => ({ type: 'ok' as const, ...result }),
             ).catch(
                 error => ({ type: 'error' as const, impl: job.impl, error }),

@@ -1,4 +1,4 @@
-import * as $ from 'jquery';
+import $ from 'jquery';
 import { clearStyles, matchAll, parseTimestamp } from '../util';
 import { Article, ReadyToParse } from '..';
 

@@ -1,4 +1,4 @@
-import * as $ from 'jquery';
+import $ from 'jquery';
 import { Timestamp } from 'index';
 
 export const endlessWaiting = new Promise<void>(() => {});
@@ -27,6 +27,13 @@ export function waitForSelector(selector: string): Promise<void> {
 
 export function wait(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function timeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+    return Promise.race([
+        promise,
+        wait(ms).then(() => { throw new Error('timeout'); }),
+    ]);
 }
 
 export function clearStyles(element: HTMLElement | Node) {

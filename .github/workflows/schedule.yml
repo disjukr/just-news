@@ -1,28 +1,14 @@
 name: Run health check
 on:
   schedule:
-  - cron: 0 0 * * *
+    - cron: 0 0 * * *
+  workflow_dispatch:
 jobs:
-  install:
-    name: Install
+  run-health-check:
+    name: Run health check
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 17
-    - uses: pnpm/action-setup@v2.0.1
-      with:
-        version: 6.22.2
-    - name: Install
-      uses: docker://ianwalter/puppeteer:2.0.0
-      with:
-        args: pnpm install
-    - name: Run health check
-      uses: docker://ianwalter/puppeteer:2.0.0
-      with:
-        args: pnpm test:health-check
-    - name: Push health check
-      uses: ./actions/push-health-check
+    - uses: ./actions/health-check
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
