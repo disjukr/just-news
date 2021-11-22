@@ -26,8 +26,9 @@ jobs:
         git config --global user.name "just-news-bot"
         git config --global user.email "jong+just.news@chan.moe"
         echo "machine github.com login reactjs-bot password $GITHUB_TOKEN" >~/.netrc
-        git clone --single-branch --branch release --depth 1 https://github.com/disjukr/just-news.git $RELEASE_DIR
-        cd $TARGET_DIR
+        git clone https://github.com/disjukr/just-news.git $RELEASE_DIR
+        cd $RELEASE_DIR
+          git checkout release
           git merge --no-edit main
           [ -d dist ] && rm -rf dist
           cp -R $BUILD_DIR/dist dist
