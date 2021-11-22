@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:17
 LABEL "version"="0.0.0"
 LABEL "com.github.actions.name"="Push health check"
 LABEL "com.github.actions.description"="Push health check"
