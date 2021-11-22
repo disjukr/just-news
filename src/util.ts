@@ -1,4 +1,4 @@
-import * as $ from 'jquery';
+import $ from 'jquery';
 import { Timestamp } from 'index';
 
 export const endlessWaiting = new Promise<void>(() => {});
