@@ -1,22 +1,43 @@
-name: Test and deploy
+name: Test and release
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 jobs:
-  install:
-    name: Install
+  test-and-deploy:
+    name: Test and release
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
     - uses: pnpm/action-setup@v2.0.1
       with:
         version: 6.22.2
-    - name: Install
-      run: pnpm install
-    - name: Run testcases
-      run: pnpm test
-    - name: Build and deploy
-      uses: ./actions/deploy
+    - run: pnpm install
+    - run: pnpm test
+    - run: pnpm build
+    - name: Release
+      run: |-
+        BUILD_DIR=$(pwd)
+        RELEASE_DIR=$(mktemp -d)
+        git config --global user.name "just-news-bot"
+        git config --global user.email "jong+just.news@chan.moe"
+        git config --bool core.bare true
+        echo "machine github.com login reactjs-bot password $GITHUB_TOKEN" >~/.netrc
+        git clone --single-branch --branch release --depth 1 https://github.com/disjukr/just-news.git $RELEASE_DIR
+        cd $TARGET_DIR
+          git merge --no-edit main
+          [ -d dist ] && rm -rf dist
+          cp -R $BUILD_DIR/dist dist
+          git add -f .
+          if [ -z "$(git status --porcelain)" ]
+          then
+            cd -
+            echo "no changes to commit"
+            exit 0
+          fi
+          git commit -m "release new version"
+          git push origin release
+        cd -
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
