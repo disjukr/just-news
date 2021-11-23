@@ -2,38 +2,28 @@ import $ from 'jquery';
 import { clearStyles } from '../util';
 import { Article } from '..';
 
-export const cleanup = () => {
-    $('#scrollDiv, #content style').remove();
-    $('.dklink').each((_, link) => {
-        $(link).replaceWith($(link).text());
-    });
-    $('.imgArea > img').each((_, item) => {
-        var src = $(item).data('src');
-        if (typeof src !== 'undefined') {
-            $(item).attr('src', src);
-        }
-    });
-    $('.extra_info').remove();
-}
-
 export function parse(): Article {
+    const created = (() => {
+        try {
+            const createdText = $('#zone1 > .top .li_1 > .time').text();
+            const arr = /(\d{4}).+?(\d{2}).+?(\d{2}).+?(\d{2}).+?(\d{2}).+/.exec(createdText)!;
+            const [, yyyy, MM, dd, HH, mm] = arr.map(Number);
+            return new Date(yyyy, MM - 1, dd, HH, mm);
+        } catch {
+            return;
+        }
+    })();
     return {
-        title: $('.article_tit').text(),
+        title: $('#zone1 > .top h3').text(),
         content: (() => {
-            let content = $('.article_wrap')[0].cloneNode(true);
-            $('.news_slide, .articleAd_new, .hns_mask_div', content).remove();
-            $('.playbt', content).remove();
-            $('.bt_vodinfo', content).remove();
-            $('.share_btns', content).remove();
-            $('.copyright', content).remove();
-            $('div:last-child', content).remove();
-            $('div[id^=float]', content).remove();
-            $('#iwm_float', content).remove();
-
-            return clearStyles(content).innerHTML;
+            const ytnPlayerHtml = $('#YTN_Player').html() || '';
+            const content = $('#zone1 .content .article')[0].cloneNode(true);
+            $('.ad_box, .txtad', content).remove();
+            $('.hns_mask_div', content).remove();
+            return ytnPlayerHtml + clearStyles(content).innerHTML;
         })(),
         timestamp: {
-            created: $('.extra_info').length ? new Date($('.extra_info').text().trim().replace('Posted : ', '').replace(/-/g, '/')) : undefined,
+            created,
             lastModified: undefined
         },
         reporters: [],
