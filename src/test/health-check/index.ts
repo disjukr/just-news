@@ -567,10 +567,10 @@ async function doJob(job: Case, page: puppeteer.Page) {
     } as JobOkResult;
 }
 doJob.browserScript = `
-    new Promise(async resolve => {
+    (() => {
         const article = ${ fs.readFileSync('./tmp/health-check.js', 'utf8') };
-        resolve(await article.default);
-    })
+        return article.default;
+    })()
 `;
 
 function pincet(obj: any, path: string): any {
