@@ -35,7 +35,7 @@ const cases: Case[] = [
     {
         impl: '경향신문',
         url: 'http://biz.khan.co.kr/khan_art_view.html?artid=201410311921301&code=920100&med=khan',
-        check: ['title', 'subtitle', 'content', 'timestamp.created', 'timestamp.lastModified', 'reporters.0.name', 'reporters.0.mail'],
+        check: ['title', 'content', 'timestamp.created', 'timestamp.lastModified', 'reporters.0.name'],
         related: ['#58'],
     },
     {
@@ -53,7 +53,7 @@ const cases: Case[] = [
     {
         impl: '네이버뉴스',
         url: 'https://news.naver.com/main/read.naver?mode=LSD&mid=shm&sid1=101&oid=018&aid=0005090507',
-        check: ['title', 'subtitle', 'content', 'timestamp.created', 'reporters.0.name'],
+        check: ['title', 'subtitle', 'content', 'timestamp.created'],
         related: [],
     },
     {
@@ -130,7 +130,7 @@ const cases: Case[] = [
     },
     {
         impl: '디지털타임스',
-        url: 'https://www.ddaily.co.kr/news/article/?no=225942',
+        url: 'http://www.dt.co.kr/contents.html?article_no=2021112802109932036002',
         check: ['title', 'content', 'timestamp.created', 'reporters.0.name'],
         related: [],
     },
@@ -166,8 +166,8 @@ const cases: Case[] = [
     },
     {
         impl: '미디어스',
-        url: 'http://www.munhwa.com/news/view.html?no=2021112201031512069001',
-        check: ['title', 'subtitle', 'content', 'timestamp.created', 'reporters.0.name'],
+        url: 'http://www.mediaus.co.kr/news/articleView.html?idxno=231756&just_news=false',
+        check: ['title', 'content', 'timestamp.created', 'reporters.0.name'],
         related: [],
     },
     {
@@ -184,7 +184,7 @@ const cases: Case[] = [
     },
     {
         impl: '뷰스앤뉴스',
-        url: 'https://www.vop.co.kr/A00001603217.html',
+        url: 'http://www.viewsnnews.com/article?q=197070',
         check: ['title', 'subtitle', 'content', 'timestamp.created'],
         related: [],
     },
@@ -269,7 +269,7 @@ const cases: Case[] = [
     {
         impl: '아이뉴스24',
         url: 'http://www.inews24.com/view/860573',
-        check: ['title', 'subtitle', 'content', 'timestamp.created', 'timestamp.lastModified'],
+        check: ['title', 'subtitle', 'content', 'timestamp.created', 'timestamp.lastModified', 'reporters.0.name'],
         related: ['#61'],
     },
     {
@@ -311,7 +311,7 @@ const cases: Case[] = [
     {
         impl: '전자신문',
         url: 'http://www.etnews.com/20191031000370?mc=ns_003_00006',
-        check: ['title', 'content', 'timestamp.created', 'reporters.0.name', 'reporters.0.mail'],
+        check: ['title', 'content', 'timestamp.created', 'reporters.0.name'],
         related: [],
     },
     {
@@ -389,7 +389,7 @@ const cases: Case[] = [
     },
     {
         impl: '한국경제',
-        url: 'https://www.hankyung.com/finance/article/2021112244686?just_news=false',
+        url: 'https://www.hankyung.com/economy/article/2021112898621?just_news=false',
         check: ['title', 'subtitle', 'content', 'timestamp.created', 'timestamp.lastModified', 'reporters.0.name'],
         related: [],
     },
@@ -402,12 +402,12 @@ const cases: Case[] = [
     {
         impl: '한국경제TV',
         url: 'https://www.wowtv.co.kr/NewsCenter/News/Read?menuSeq=459&subMenu=latest&wowcode=&Class=&articleId=AKR20211121059651003',
-        check: ['title', 'content', 'timestamp.created'],
+        check: ['title', 'content', 'timestamp.created', 'timestamp.lastModified'],
         related: [],
     },
     {
         impl: '한국일보',
-        url: 'https://www.wowtv.co.kr/NewsCenter/News/Read?menuSeq=459&subMenu=latest&wowcode=&Class=&articleId=AKR20211121059651003',
+        url: 'https://www.hankookilbo.com/News/Read/A2021112814000005880',
         check: ['title', 'content', 'timestamp.created', 'timestamp.lastModified'],
         related: [],
     },
@@ -431,19 +431,19 @@ const cases: Case[] = [
     },
     {
         impl: 'JTBC',
-        url: 'http://news.jtbc.joins.com/article/article.aspx?news_id=NB10639468',
+        url: 'https://news.jtbc.joins.com/html/322/NB12035322.html?jtbc|news|enternews&just_news=false',
         check: ['title', 'content', 'timestamp.created', 'timestamp.lastModified'],
         related: ['#70'],
     },
     {
         impl: 'JTBC-모바일',
         url: 'http://mnews.jtbc.joins.com/News/Article.aspx?news_id=NB11866214',
-        check: ['title', 'content'],
+        check: ['title', 'content','timestamp.created', 'timestamp.lastModified'],
         related: [],
     },
     {
         impl: 'KBS World',
-        url: 'http://mnews.jtbc.joins.com/News/Article.aspx?news_id=NB11866214',
+        url: 'https://news.kbs.co.kr/news/view.do?ncd=5335678&just_news=false',
         check: ['title', 'content', 'timestamp.created', 'timestamp.lastModified'],
         related: [],
     },
@@ -474,7 +474,7 @@ const cases: Case[] = [
     {
         impl: 'SBS',
         url: 'https://news.sbs.co.kr/news/endPage.do?news_id=N1002697236',
-        check: ['title', 'content', 'timestamp.created', 'reporters.0.name'],
+        check: ['title', 'content', 'timestamp.created'],
         related: ['#80'],
     },
     {
