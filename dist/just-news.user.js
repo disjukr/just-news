@@ -2,7 +2,7 @@
 // @name just-news
 // @namespace http://0xABCDEF.com/just-news
 // @description just news
-// @version 20211123
+// @version 20211128
 // @updateURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @downloadURL https://github.com/disjukr/just-news/raw/release/dist/just-news.user.js
 // @copyright 2014 JongChan Choi
